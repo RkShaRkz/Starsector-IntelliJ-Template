@@ -1,0 +1,18 @@
+{
+	"id":"vayra_boltonmissiletubes",
+	"type":"STAT_MOD",
+    "aiType":"CUSTOM",
+    "aiScript":"data.shipsystems.scripts.ai.VayraBoltOnMissileTubesAI",
+	
+	"statsScript":"data.shipsystems.scripts.VayraBoltOnMissileTubes",
+	
+	"useSound":"system_fast_missile_racks",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"aiHints":{
+	}
+}
+
+
+
+

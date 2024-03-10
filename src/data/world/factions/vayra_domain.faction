@@ -1,0 +1,217 @@
+{
+	id:"vayra_domain",
+	"displayName":"Domain",
+	"displayNameWithArticle":"the Domain",
+	"displayNameLong":"Domain of Man",
+	"displayNameLongWithArticle":"the Domain of Man",
+	"entityNamePrefix":"",
+	"personNamePrefix":"",
+	"personNamePrefixAOrAn":"a",
+	"displayNameIsOrAre":"are",
+	
+	"logo":"graphics/factions/domain.png",
+	"crest":"graphics/factions/crest_domain.png",
+	"shipNamePrefix":"DSS",
+	
+	"color":[100,100,100,255],
+	"baseUIColor":[155,155,155,255],
+	#"darkUIColor":[31,94,112,175],
+	#"gridUIColor":[70,200,255,75],
+	
+	"showInIntelTab":false,
+	
+	"shipNameSources":{
+		"HEGEMONY":1,
+		"BRITISH_NAVY":1,
+		"ROMAN":2,
+		"GREEK":1,
+		"SPACE":1,
+		"GENERAL":1,
+	},
+	"names":{
+		"old english":1,
+		"modern":1,
+		"world":1,
+		"future":1,
+		"myth":1,
+	},
+	"variantOverrides":{
+	},
+	# multiplier for how often hulls show up in the faction's fleets
+	"hullFrequency":{
+		"tags":{
+		},
+		"hulls":{
+			"buffalo2":0, # just say no
+			"gremlin":0, # just say no
+		},
+	},
+	# ships the faction gets access to when importing S&W out-of-faction
+	"shipsWhenImporting":{
+		"tags":["lowtech_bp", "midline_bp", "hightech_bp", "domain"],
+		"hulls":[
+		],
+	},
+	"knownShips":{
+		"tags":["lowtech_bp", "midline_bp", "hightech_bp", "domain"],
+		"hulls":[
+		],
+	},
+	# listing ships here will make the faction mostly use them even if other hulls become available
+	"priorityShips":{
+		"tags":[],
+		"hulls":[
+		],
+	},
+	"knownFighters":{
+		"tags":["lowtech_bp", "midline_bp", "hightech_bp", "domain"],
+		"fighters":[
+		],
+	},
+	"priorityFighters":{
+		"tags":[],
+		"fighters":[
+		],
+	},
+	"knownWeapons":{
+		"tags":["lowtech_bp", "midline_bp", "hightech_bp", "missile_bp", "domain"],
+		"weapons":[
+			"lightmg",
+			"lightdualmg",
+			"lightmortar",
+			"vulcan",
+			"lightac",
+			"lightdualac",
+			"lightag",
+			"railgun",
+			"shredder",
+			"heavymg",
+			"heavymortar",
+			"flak",
+			"arbalest",
+			"dualflak",
+			"chaingun",
+			"heavymauler",
+			"heavyac",
+			"hveldriver",
+			"gauss",
+			"hephag",
+			"mark9",
+			"devastator",
+			"hellbore",
+			"multineedler",
+			"reaper",
+			"atropos",
+			"atropos_single",
+			"swarmer",
+			"annihilator",
+			"heatseeker",
+			"harpoon",
+			"harpoon_single",
+			"sabot",
+			"sabot_single",
+			"harpoonpod",
+			"sabotpod",
+			"salamanderpod",
+			"annihilatorpod",
+			"pilum",
+			"typhoon",
+			"cyclone",
+			"hurricane",
+			"squall",
+			"locust",
+			"pdlaser",
+			"irpulse",
+			"lrpdlaser",
+			"plasma",
+		],
+	},
+	"priorityWeapons":{
+		"tags":[],
+		"weapons":[
+		],
+	},
+	"knownHullMods":{
+		"tags":["lowtech_bp", "midline_bp", "hightech_bp", "base_bp", "domain"],
+		"hullMods":[
+			"advancedshieldemitter", # accelerated
+			"advancedoptics",
+			"turretgyros",
+			"armoredweapons",
+			"augmentedengines",
+			"autorepair",
+			#"converted_hangar",
+			"eccm",
+			"ecm",
+			"magazines",
+			"missleracks",
+			"extendedshieldemitter",
+			"frontemitter",
+			"frontshield",  # makeshift
+			"heavyarmor",
+			"insulatedengine",
+			"pointdefenseai",
+			"nav_relay",
+			"fluxbreakers",
+			"solar_shielding",
+			"stabilizedshieldemitter",
+			"surveying_equipment",
+		],
+	},
+	"factionDoctrine":{
+		"warships":3,
+		"carriers":2,
+		"phaseShips":2,
+		
+		"officerQuality":5,
+		"shipQuality":5,
+		"numShips":5,
+		
+		"shipSize":3,
+		
+		"aggression":3,
+		
+		"combatFreighterProbability":0,     				# instead of some portion of the freighters in a fleet
+		"combatFreighterCombatUseFraction":0,				# as part of the normal combat lineup
+		"combatFreighterCombatUseFractionWhenPriority":0,   # as part of normal combat lineup, when marked as priority ship
+		"autofitRandomizeProbability":0,
+
+		"commanderSkillsShuffleProbability":0,
+		"commanderSkills":[
+		],
+	},
+	"illegalCommodities":[
+	],
+	"music":{
+		#"encounter_hostile":"music_default_encounter_hostile",
+		"theme":"music_none",
+		"market_neutral":"music_none",
+		"market_hostile":"music_none",
+		"market_friendly":"music_none",
+		"encounter_neutral":"music_none",
+		"encounter_hostile":"music_none",
+		"encounter_friendly":"music_none",
+	},
+	"portraits":{
+		"standard_male":[
+			"graphics/portraits/portrait_diktat05.png",
+			"graphics/portraits/portrait_hegemony02.png",
+			"graphics/portraits/portrait_hegemony06.png",
+		],
+		"standard_female":[
+			"graphics/portraits/portrait_diktat05.png",
+			"graphics/portraits/portrait_hegemony02.png",
+			"graphics/portraits/portrait_hegemony06.png",
+		],
+	},
+	"ranks":{
+		"ranks":{
+		},
+		"posts":{
+		},
+	},
+	"custom":{
+		"allowsTransponderOffTrade":false, # to prevent cargoscan dialog from "patrols"
+		"postsNoBounties":true,
+	},		
+},

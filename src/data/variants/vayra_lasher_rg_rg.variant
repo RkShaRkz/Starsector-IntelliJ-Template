@@ -1,0 +1,39 @@
+{
+  "displayName": "Red Guard",
+  "fluxCapacitors": 2,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_lasher_rg",
+  "hullMods": [],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "vayra_lasher_rg_rg",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "sabot",
+        "WS 004": "sabot"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "lightag",
+        "WS 003": "lightag"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "lightdualmg",
+        "WS 006": "lightdualmg",
+        "WS 007": "lightdualmg"
+      }
+    }
+  ],
+  "wings": []
+}

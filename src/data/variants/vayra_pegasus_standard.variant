@@ -1,0 +1,30 @@
+{
+  "displayName": "Heavy Escort",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_pegasus",
+  "hullMods": [
+    "advancedoptics",
+    "pointdefenseai",
+    "no_weapon_flux",
+    "turretgyros"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_pegasus_standard",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "taclaser",
+        "WS0002": "taclaser",
+        "WS0003": "heatseeker",
+        "WS0004": "swarmer_fighter"
+      }
+    }
+  ],
+  "wings": []
+}

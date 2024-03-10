@@ -1,0 +1,23 @@
+{
+  "variantId": "vayra_molotov_fighter",
+  "hullId": "vayra_molotov",
+  "displayName": "Light Bomber",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_incendiarysrm_fighter",
+        "WS0003": "vayra_incendiarysrm_fighter"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

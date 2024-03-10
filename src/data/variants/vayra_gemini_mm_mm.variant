@@ -1,0 +1,31 @@
+{
+  "displayName": "Merchant",
+  "fluxCapacitors": 10,
+  "fluxVents": 2,
+  "goalVariant": true,
+  "hullId": "vayra_gemini_mm",
+  "hullMods": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_gemini_mm_mm",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "flak",
+        "WS 002": "flak"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "pilum"
+      }
+    }
+  ],
+  "wings": [
+    "vayra_pegasus_wing"
+  ]
+}

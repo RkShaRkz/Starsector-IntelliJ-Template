@@ -1,0 +1,61 @@
+{
+  "variantId": "vayra_eagle_warhawk_std",
+  "hullId": "vayra_eagle_warhawk",
+  "displayName": "Stormhawk",
+  "goalVariant": false,
+  "fluxCapacitors": 2,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "arbalest",
+        "WS 008": "arbalest",
+        "WS 009": "sabotpod"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 013": "typhoon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "harpoon",
+        "WS 002": "harpoon",
+        "WS 011": "harpoon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "heavyblaster",
+        "WS 006": "heavyblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "pdlaser",
+        "WS 004": "pdlaser",
+        "WS 010": "pdlaser",
+        "WS 012": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

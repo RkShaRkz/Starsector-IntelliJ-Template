@@ -1,0 +1,41 @@
+{
+  "displayName": "Elite",
+  "fluxCapacitors": 8,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "lasher",
+  "hullMods": [
+    "targetingunit"
+  ],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "lasher_vayra_optimal",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "sabot",
+        "WS 004": "sabot"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "lightag",
+        "WS 003": "lightag"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "lightdualmg",
+        "WS 006": "lightdualmg",
+        "WS 007": "lightdualmg"
+      }
+    }
+  ],
+  "wings": []
+}

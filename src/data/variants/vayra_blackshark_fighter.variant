@@ -1,0 +1,30 @@
+{
+  "variantId": "vayra_blackshark_fighter",
+  "hullId": "vayra_blackshark",
+  "displayName": "Gunship",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightdualmg"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_lightrocket_fighter",
+        "WS0003": "vayra_lightrocket_fighter"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

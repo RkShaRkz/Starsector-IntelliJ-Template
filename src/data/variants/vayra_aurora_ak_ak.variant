@@ -1,0 +1,55 @@
+{
+  "displayName": "Ashen",
+  "fluxCapacitors": 30,
+  "fluxVents": 16,
+  "goalVariant": true,
+  "hullId": "vayra_aurora_ak",
+  "hullMods": [
+    "missleracks",
+    "magazines",
+    "fluxbreakers"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_aurora_ak_ak",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 009": "harpoonpod",
+        "WS 010": "harpoon",
+        "WS 011": "harpoon",
+        "WS 012": "harpoon",
+        "WS 013": "harpoon"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "sabotpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "irpulse",
+        "WS 007": "heavyblaster",
+        "WS 008": "ionpulser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "pdburst",
+        "WS 002": "pdlaser",
+        "WS 003": "pdlaser",
+        "WS 005": "pdlaser"
+      }
+    }
+  ],
+  "wings": []
+}

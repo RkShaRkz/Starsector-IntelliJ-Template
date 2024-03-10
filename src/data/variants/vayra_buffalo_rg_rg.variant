@@ -1,0 +1,50 @@
+{
+  "displayName": "Red Guard",
+  "fluxCapacitors": 0,
+  "fluxVents": 2,
+  "goalVariant": true,
+  "hullId": "vayra_buffalo_rg",
+  "hullMods": [
+    "converted_hangar",
+    "eccm",
+    "missleracks"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_buffalo_rg_rg",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 008": "harpoonpod"}
+        },
+        {
+            "autofire": true,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS 004": "harpoon",
+                "WS 005": "heatseeker",
+                "WS 006": "heatseeker"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 007": "taclaser"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 002": "vayra_kashtan",
+                "WS 003": "vayra_kashtan"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 001": "pdlaser"}
+        }
+  ],
+  "wings": ["vayra_yak_wing"]
+}

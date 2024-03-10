@@ -1,0 +1,31 @@
+{
+	"vayra_listening_post":{
+		"defaultName":"Listening Post", # used if name=null in addCustomEntity()
+		"nameInText":"listening post",
+		"shortName":"listening post",
+		"aOrAn":"a",
+		"isOrAre":"is",
+		"defaultRadius":25, # used if radius<0 in addCustomEntity()
+		"customDescriptionId":"vayra_listening_post",
+		"interactionImage":"graphics/illustrations/freighters.jpg",
+		"icon":"graphics/icons/entity_hollow.png",
+		"iconWidth":18,
+		"iconHeight":18,
+		"sprite":"graphics/stations/vayra_listening_post.png",
+		"spriteWidth":40,
+		"spriteHeight":40,
+		"renderShadow":true,
+		"useLightColor":true,
+		"showInCampaign":true,
+		"showIconOnMap":true,
+		"showNameOnMap":false,
+		"scaleNameWithZoom":false,
+		"scaleIconWithZoom":true,
+		"tags":["has_interaction_dialog", "salvageable", "neutrino"],
+		"layers":[STATIONS], # what layer(s) to render in. See CampaignEngineLayers.java for possible values
+		"renderCircleIndicator":true,
+		"renderCircleIndicatorSelectionFlash":true,
+	},
+}
+
+

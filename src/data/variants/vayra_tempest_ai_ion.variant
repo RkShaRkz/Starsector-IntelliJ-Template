@@ -1,0 +1,39 @@
+{
+  "variantId": "vayra_tempest_ai_ion",
+  "hullId": "vayra_tempest_ai",
+  "displayName": "Ion",
+  "goalVariant": true,
+  "fluxCapacitors": 5,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "fluxdistributor",
+    "hardened_subsystems"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "sabot"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "ionbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "pulselaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

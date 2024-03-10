@@ -1,0 +1,24 @@
+{
+	"id":"vayra_rotor_shrapnel",
+	"specClass":"missile",
+	"missileType":"BOMB",
+	"sprite":"graphics/weapons/vayra_beam_rotor_base.png",
+	"glowSprite":"graphics/weapons/vayra_beam_rotor_glow_01.png",
+	"glowColor":[255,150,0,255],
+	"size":[46,46],	
+	"center":[23,23],
+	"collisionRadius":23,
+	"collisionClass":"MISSILE_FF",
+	"explosionColor":[255,150,0,255],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":50, # purely visual
+	"armingTime":0.1,	
+	"explosionSpec":{"duration":0.1f, # not visual
+					 "radius":21,
+					 "coreRadius":21, # full damage within core radius
+					 "collisionClass":HITS_SHIPS_AND_ASTEROIDS,
+					 "collisionClassByFighter":HITS_SHIPS_AND_ASTEROIDS},				  
+	"engineSpec":{"turnAcc":0,
+				  "turnRate":0,
+				  "acc":20,
+				  "dec":20}
+}

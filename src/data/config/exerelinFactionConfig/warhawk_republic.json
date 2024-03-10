@@ -1,0 +1,70 @@
+{
+    "playableFaction":true,
+    "corvusCompatible":true,
+    "noHomeworld":true,
+	"enabledByDefault":false,
+    
+    "rebelFleetSuffix":"Cowards",
+    
+    "startRelationships":{ "hegemony":-0.6, "luddic_church":-0.6, "luddic_path":-0.6, "persean_league":0.4 },
+    "maxRelationships":{ "hegemony":-0.6, "luddic_church":-0.2, "luddic_path":-0.6 },
+    "diplomacyPositiveChance":{ "hegemony":0.5, "luddic_church":0.75, "luddic_path":0.5, "persean_league":1.1 },
+    "diplomacyNegativeChance":{ "hegemony":2, "luddic_church":1.5, "luddic_path":2 },
+
+    "alignments":{
+        "corporate":-0.5,
+        "technocratic":-0.5,
+        "militarist":1,
+        "diplomatic":-1,
+        "ideological":-1,
+    },
+	
+	"diplomacyTraits":["paranoid", "stalwart", "temperamental", "law_and_order", "irredentist"],
+    
+    "startShipsSolo":[
+	  ["brawler_Elite"],
+	  ["vayra_centurion_warhawk_escort"],	
+	  ["MSS_Mako_Standard"],
+	  ["MSS_Nailer_Standard"],
+	  ["vayra_hammerhead_warhawk_escort"]
+	],
+    "startShipsCombatSmall":[
+	  ["MSS_Hammerhead_Elite", "MSS_Nailer_Elite", "MSS_vigilance_m_elite"],
+      ["ssp_archon_bul", "brawler_Assault", "vayra_centurion_warhawk_escort"],
+      ["vayra_hammerhead_warhawk_escort", "vayra_sunder_warhawk_cs", "vayra_centurion_warhawk_escort"]
+    ],
+    "startShipsCombatLarge":[
+	  ["MSS_Moa_Stormhawk", "MSS_Sunder_TLH", "MSS_Nailer_Standard"],
+      ["vayra_eagle_warhawk_std", "vayra_sunder_warhawk_cs", "vayra_centurion_warhawk_escort"],
+      ["vayra_falcon_warhawk_std", "vayra_hammerhead_warhawk_escort", "vayra_centurion_warhawk_escort"]
+    ],
+    "startShipsCarrierSmall":[
+	  ["MSS_Stingray_Escort", "MSS_vigilance_carrier_standard", "vayra_centurion_warhawk_escort"],
+	  ["vayra_drover_warhawk_thunder", "vigilance_Standard", "vayra_centurion_warhawk_escort"]
+	],
+    "startShipsCarrierLarge":[
+	  ["MSS_Sarissa_Standard", "MSS_Stingray_Escort", "MSS_vigilance_carrier_standard"],
+	  ["vayra_heron_warhawk_strike", "vayra_drover_warhawk_thunder", "vayra_centurion_warhawk_escort"]
+	],
+    "startShipsGrandFleet":[
+		["MSS_Javanicus_B_Stormhawk", "MSS_Nebulosa_Stormhawk", "MSS_Moa_Stormhawk", "vayra_heron_warhawk_strike", "vayra_drover_warhawk_thunder", "phaeton_Standard", "buffalo_Standard"],
+		["vayra_eagle_warhawk_std", "vayra_heron_warhawk_strike", "vayra_falcon_warhawk_std", "vayra_hammerhead_warhawk_escort", "vayra_sunder_warhawk_cs", "vayra_drover_warhawk_thunder", "phaeton_Standard", "buffalo_Standard"]
+	],
+    
+    "defenceStations":[
+        {"ids":["orbitalstation", "battlestation", "starfortress"], "weight":0.5},
+        {"ids":["orbitalstation_mid", "battlestation_mid", "starfortress_mid"]}
+    ],
+    
+    "startSpecialItems":[
+        [["kadur_warhawk_package", ""]],
+    ],
+    
+    "industrySeeds":[
+        {"id":"orbitalworks", "mult":0.1},
+    ],
+    
+    "bonusSeeds":[
+        {"id":"nanoforge_pristine", "count":1},
+    ],
+}
