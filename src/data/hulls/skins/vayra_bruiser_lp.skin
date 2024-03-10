@@ -1,0 +1,36 @@
+{
+	"baseHullId":"vayra_bruiser",
+	"skinHullId":"vayra_bruiser_lp",
+	"hullName":"Bruiser (LP)",
+	"descriptionId":"vayra_bruiser",  # optional
+	"descriptionPrefix":"Fanatics of the Luddic Path have made this ship their own, stripping out all unnecessary furnishing and transforming it into a haphazard vehicle of holy war.",
+	"tags":["LP_bp"],
+	"tech":"Luddic Path",
+	"ordnancePoints":30,
+	"spriteName":"graphics/ships/vayra_bruiser_lp.png",
+	"baseValueMult":0.8,
+	"systemId":"fastmissileracks",
+	"addHints":[],
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["safetyoverrides","vayra_very_ill_advised"],
+    "weaponSlotChanges":{
+		"WS0001":{
+            "type": "BUILT_IN"
+		},
+		"WS0002":{
+            "type": "BUILT_IN"
+		},
+		"WS0003":{
+			"angle": 0,
+            "type": "BALLISTIC",
+            "size": "SMALL"
+		},
+	},
+    "builtInWeapons":{
+        "WS0001": "vayra_hammer_pod",
+        "WS0002": "vayra_hammer_pod"
+    },
+}

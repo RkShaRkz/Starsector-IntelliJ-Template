@@ -1,0 +1,26 @@
+{
+	"id":"vayra_burstjets",
+	"type":"ENGINE_MOD",
+	"aiType":"MANEUVERING_JETS",
+	
+	"statsScript":"data.shipsystems.scripts.vayra_BurstJetsStats",
+	
+	"engineGlowLengthMult":1.5,
+	"engineGlowWidthMult":1.5,
+	"engineGlowGlowMult":2,
+	
+	"flameoutOnImpactChance":0,
+
+	"clampTurnRateAfter":true,
+	"clampMaxSpeedAfter":false,
+
+	"useSound":"system_maneuvering_jets",
+	"loopSound":"system_maneuvering_jets_loop",
+	"outOfUsesSound":"engine_disabled",
+	
+	"aiHints":{
+		"activeSpeedIncrease":50,
+		"burstMovementPotential":25,
+		"averageSpeedIncrease":25,
+	}
+}

@@ -1,0 +1,52 @@
+{
+  "variantId": "vayra_swordsman_cs",
+  "hullId": "vayra_swordsman",
+  "displayName": "Close Support",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 10,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "advancedoptics"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "harpoon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "ionbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "heatseeker"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "lrpdlaser",
+        "WS0005": "lrpdlaser",
+        "WS0006": "vulcan"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

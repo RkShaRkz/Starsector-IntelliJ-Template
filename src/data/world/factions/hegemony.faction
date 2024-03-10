@@ -1,0 +1,16 @@
+{
+	"hullFrequency":{
+		"hulls":{	
+			"vayra_tyrant":0.5,	# doesn't fit hegemony doctrine that well
+		},
+	},
+	"priorityShips":{
+		"hulls":[
+			"vayra_tyrant",
+		],
+	},
+}
+
+
+
+

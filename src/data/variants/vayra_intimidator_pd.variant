@@ -1,0 +1,46 @@
+{
+  "displayName": "Point Defense",
+  "fluxCapacitors": 0,
+  "fluxVents": 16,
+  "goalVariant": true,
+  "hullId": "vayra_intimidator",
+  "hullMods": [
+    "pointdefenseai",
+    "turretgyros",
+    "targetingunit"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_intimidator_pd",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "lightneedler",
+        "WS0004": "lightneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "dualflak"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightmg",
+        "WS0002": "lightmg",
+        "WS0005": "lightmg",
+        "WS0006": "lightmg"
+      }
+    }
+  ],
+  "wings": [
+    "talon_wing"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "displayName": "Beam",
+  "fluxCapacitors": 0,
+  "fluxVents": 13,
+  "goalVariant": true,
+  "hullId": "vayra_heavy_drone_tender",
+  "hullMods": [
+    "advancedoptics"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_heavy_drone_tender_beam",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_combat_laser",
+        "WS0002": "ionbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "salamanderpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "lrpdlaser"
+      }
+    }
+  ],
+  "wings": []
+}

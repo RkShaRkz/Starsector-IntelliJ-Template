@@ -1,0 +1,50 @@
+{
+  "displayName": "Standard",
+  "fluxCapacitors": 1,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_tower",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_tower_standard",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "hammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "lightneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "lightdualac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "chaingun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "lightmg"
+      }
+    }
+  ],
+  "wings": []
+}

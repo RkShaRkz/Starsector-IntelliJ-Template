@@ -1,0 +1,34 @@
+{
+  "displayName": "Luddic",
+  "fluxCapacitors": 10,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_bruiser_lc",
+  "hullMods": [
+    "auxiliarythrusters",
+    "fluxcoil"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_bruiser_lc_l",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "lightmortar",
+        "WS0001": "arbalest",
+        "WS0002": "arbalest"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "flak"
+      }
+    }
+  ],
+  "wings": []
+}

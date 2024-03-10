@@ -1,0 +1,355 @@
+{
+  "bounds": [
+    80.5,
+    50,
+    110.5,
+    48.5,
+    102.5,
+    -38.5,
+    69,
+    -114,
+    -29.5,
+    -99.5,
+    -29,
+    -76.5,
+    -85.5,
+    -68,
+    -70,
+    -52.5,
+    -91,
+    -41,
+    -91.5,
+    42,
+    -72.5,
+    51,
+    -86.5,
+    71.5,
+    -58.5,
+    71,
+    -59,
+    92.5,
+    -40.5,
+    99,
+    76.5,
+    101.5
+  ],
+  "builtInMods": [
+    "automated",
+    "advancedcore"
+  ],
+  "center": [
+    120,
+    99
+  ],
+  "collisionRadius": 171,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 32,
+      "length": 40,
+      "location": [
+        -90,
+        66
+      ],
+      "style": "LOW_TECH",
+      "width": 14
+    },
+    {
+      "angle": 180,
+      "contrailSize": 30,
+      "length": 69,
+      "location": [
+        -99,
+        35
+      ],
+      "style": "LOW_TECH",
+      "width": 30
+    },
+    {
+      "angle": 180,
+      "contrailSize": 38,
+      "length": 50,
+      "location": [
+        -97,
+        11
+      ],
+      "style": "LOW_TECH",
+      "width": 16
+    },
+    {
+      "angle": 180,
+      "contrailSize": 38,
+      "length": 50,
+      "location": [
+        -97,
+        -10
+      ],
+      "style": "LOW_TECH",
+      "width": 16
+    },
+    {
+      "angle": 180,
+      "contrailSize": 30,
+      "length": 69,
+      "location": [
+        -99,
+        -35
+      ],
+      "style": "LOW_TECH",
+      "width": 30
+    },
+    {
+      "angle": 180,
+      "contrailSize": 32,
+      "length": 40,
+      "location": [
+        -90,
+        -66
+      ],
+      "style": "LOW_TECH",
+      "width": 14
+    },
+    {
+      "angle": 180,
+      "contrailSize": 32,
+      "length": 40,
+      "location": [
+        -63,
+        87
+      ],
+      "style": "LOW_TECH",
+      "width": 14
+    }
+  ],
+  "height": 222,
+  "hullId": "vayra_fortress",
+  "hullName": "Fortress",
+  "hullSize": "CRUISER",
+  "shieldCenter": [
+    10,
+    -0
+  ],
+  "shieldRadius": 159.5,
+  "spriteName": "graphics/ships/vayra_fortress.png",
+  "style": "LOW_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 45,
+      "arc": 100,
+      "id": "WS0003",
+      "locations": [
+        19,
+        54
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    },
+    {
+      "angle": -45,
+      "arc": 170,
+      "id": "WS0004",
+      "locations": [
+        40,
+        -100
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 115,
+      "id": "WS0005",
+      "locations": [
+        50,
+        34
+      ],
+      "mount": "TURRET",
+      "size": "LARGE",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0006",
+      "locations": [
+        96,
+        -17
+      ],
+      "mount": "HARDPOINT",
+      "size": "LARGE",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0009",
+      "locations": [
+        78,
+        80
+      ],
+      "mount": "HARDPOINT",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0010",
+      "locations": [
+        113,
+        26
+      ],
+      "mount": "HARDPOINT",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0011",
+      "locations": [
+        99,
+        -56
+      ],
+      "mount": "HARDPOINT",
+      "size": "MEDIUM",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0012",
+      "locations": [
+        87,
+        -79
+      ],
+      "mount": "HARDPOINT",
+      "size": "MEDIUM",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0013",
+      "locations": [
+        79,
+        -96
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0014",
+      "locations": [
+        79,
+        -110
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0015",
+      "locations": [
+        119,
+        42
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0016",
+      "locations": [
+        119,
+        8
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0017",
+      "locations": [
+        84,
+        62
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0018",
+      "locations": [
+        84,
+        96
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 155,
+      "arc": 200,
+      "id": "WS0007",
+      "locations": [
+        -63,
+        23
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": -155,
+      "arc": 200,
+      "id": "WS0019",
+      "locations": [
+        -63,
+        -23
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 90,
+      "arc": 115,
+      "id": "WS0001",
+      "locations": [
+        -18,
+        75
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    },
+    {
+      "angle": -90,
+      "arc": 115,
+      "id": "WS0002",
+      "locations": [
+        -18,
+        -75
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    }
+  ],
+  "width": 240
+}

@@ -1,0 +1,26 @@
+{
+	"altMouseMoveToMassTransfer":true,
+	"plugins":{
+		"VayraProjHandlerPlugin":"data.scripts.plugins.VayraProjHandlerPlugin",
+	},
+	"designTypeColors":{
+		"Recovered Tech":[255,240,0,255],
+		"Degraded Tech":[196,104,55,255],
+		"Antediluvian":[50,155,100,200],
+    },
+    "graphics":{
+		"blueprint_packages":{
+            "kadur_mining_package":"graphics/icons/cargo/vayra_package_mining.png",
+            "antediluvian_package":"graphics/icons/cargo/antediluvian_package.png",
+		},
+		"fx":{
+			"trail_clean":"graphics/trails/fx/trails_clean.png",
+			"trail_fuzzy":"graphics/trails/fx/trails_fuzzy.png",
+			"trail_smooth":"graphics/trails/fx/trails_smooth.png",
+			"trail_zappy":"graphics/trails/fx/trails_zappy.png",
+			"trail_contrail":"graphics/trails/fx/trails_contrail.png",
+			"trail_doublehelix":"graphics/trails/fx/trails_doublehelix.png",
+			"trail_rings":"graphics/trails/fx/trails_rings.png",
+		}
+	}
+}

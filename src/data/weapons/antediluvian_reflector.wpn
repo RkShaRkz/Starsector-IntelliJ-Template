@@ -1,0 +1,55 @@
+{
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "coreColor": [
+    200,
+    255,
+    225,
+    255
+  ],
+  "fireSoundOne": "antediluvian_beam_01",
+  "fringeColor": [
+    150,
+    255,
+    200,
+    200
+  ],
+  "glowColor": [
+    150,
+    255,
+    200,
+    200
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGlowSprite": "graphics/weapons/antediluvian_reflector_hardpoint_glow.png",
+  "hardpointOffsets": [
+    18,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/antediluvian_reflector_hardpoint_base.png",
+  "hitGlowRadius": 0,
+  "id": "antediluvian_reflector",
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "pixelsPerTexel": 5,
+  "size": "SMALL",
+  "specClass": "beam",
+  "textureScrollSpeed": 260,
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGlowSprite": "graphics/weapons/antediluvian_reflector_turret_glow.png",
+  "turretOffsets": [
+    16,
+    0
+  ],
+  "turretSprite": "graphics/weapons/antediluvian_reflector_turret_base.png",
+  "type": "ENERGY",
+  "width": 10
+}

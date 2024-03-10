@@ -1,0 +1,184 @@
+{
+  "bounds": [
+    -66,
+    -3.5,
+    -64,
+    8,
+    -39,
+    9.5,
+    -45.5,
+    25,
+    83,
+    16.5,
+    61.5,
+    6.5,
+    63,
+    -20,
+    39,
+    -23.5,
+    13,
+    -14,
+    18.5,
+    -25,
+    -32.5,
+    -29
+  ],
+  "builtInMods": [
+    "antediluvian"
+  ],
+  "builtInWings": [],
+  "center": [
+    30,
+    70
+  ],
+  "collisionRadius": 106,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 19,
+      "length": 50.5,
+      "location": [
+        -69,
+        -0
+      ],
+      "style": "CUSTOM",
+      "styleId": "ALGAE",
+      "width": 19
+    },
+    {
+      "angle": 180,
+      "contrailSize": 8,
+      "length": 22,
+      "location": [
+        -60,
+        -13
+      ],
+      "style": "CUSTOM",
+      "styleId": "ALGAE",
+      "width": 8
+    },
+    {
+      "angle": 180,
+      "contrailSize": 8,
+      "length": 22,
+      "location": [
+        -56,
+        -21
+      ],
+      "style": "CUSTOM",
+      "styleId": "ALGAE",
+      "width": 8
+    },
+    {
+      "angle": 180,
+      "contrailSize": 8,
+      "length": 22,
+      "location": [
+        -52,
+        24
+      ],
+      "style": "CUSTOM",
+      "styleId": "ALGAE",
+      "width": 8
+    }
+  ],
+  "height": 166,
+  "hullId": "antediluvian_forlorn",
+  "hullName": "Forlorn",
+  "hullSize": "FRIGATE",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 102,
+  "spriteName": "graphics/ships/antediluvian_forlorn.png",
+  "style": "HIGH_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": -45,
+      "arc": 250,
+      "id": "WS0001",
+      "locations": [
+        45,
+        -17
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 90,
+      "arc": 145,
+      "id": "WS0002",
+      "locations": [
+        7,
+        11
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -90,
+      "arc": 145,
+      "id": "WS0003",
+      "locations": [
+        7,
+        -7
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 90,
+      "arc": 145,
+      "id": "WS0004",
+      "locations": [
+        -8,
+        11
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -90,
+      "arc": 145,
+      "id": "WS0005",
+      "locations": [
+        -8,
+        -7
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -90,
+      "arc": 185,
+      "id": "WS0006",
+      "locations": [
+        -20,
+        -24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0007",
+      "locations": [
+        60.5,
+        1
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    }
+  ],
+  "width": 64
+}

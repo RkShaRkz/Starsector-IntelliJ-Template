@@ -1,0 +1,42 @@
+{
+  "baseHullId": "vayra_spade",
+  "baseValueMult":1.2,
+  "tags":["LP_bp"],
+  "tech":"Luddic Path",
+  "builtInMods": [
+	"safetyoverrides",
+	"ill_advised",
+	"missleracks"
+  ],
+  "descriptionId": "vayra_spade",
+  "descriptionPrefix":"Fanatics of the Luddic Path have made this ship their own, turning it from an unassuming short-haul cargo shuttle into a haphazardly up-gunned 'technical' for combat deployment. While fragile compared to a proper warship, it can pose a serious threat if ignored.",
+  "engineSlotChanges": {
+    "0": {
+      "style": "LOW_TECH",
+    },
+    "1": {
+      "style": "LOW_TECH",
+    },
+    "2": {
+      "style": "LOW_TECH",
+    },
+    "3": {
+      "style": "LOW_TECH",
+    }
+  },
+  "hullName": "Spade Mk.II (LP)",
+  "removeBuiltInMods": [
+  ],
+  "restoreToBaseHull": false,
+  "skinHullId": "vayra_spade_lp",
+  "spriteName": "graphics/ships/vayra_spade_lp.png",
+  "systemId":"fastmissileracks",
+    "weaponSlotChanges":{
+		"WS0001":{
+            "type": "DECORATIVE"
+		},
+		"WS0003":{
+            "type": "BALLISTIC"
+		}
+	},
+}

@@ -1,0 +1,21 @@
+{
+  "displayName": "Light Support Pod",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_tac_drone",
+  "hullMods": ["advancedoptics"],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_tac_drone_beam",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_lighttac"
+      }
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,38 @@
+{
+  "displayName": "Attack",
+  "fluxCapacitors": 5,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_greyhound",
+  "hullMods": [
+    "frontshield"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_greyhound_at2",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "heavymortar"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightdualac",
+        "WS0002": "lightdualac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "lightdualmg"
+      }
+    }
+  ],
+  "wings": []
+}

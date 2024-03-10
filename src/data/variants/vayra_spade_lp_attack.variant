@@ -1,0 +1,31 @@
+{
+  "displayName": "Attack",
+  "fluxCapacitors": 0,
+  "fluxVents": 2,
+  "goalVariant": true,
+  "hullId": "vayra_spade_lp",
+  "hullMods": [
+    "missleracks"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_spade_lp_attack",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "reaper"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "heavymg"
+      }
+    }
+  ],
+  "wings": []
+}

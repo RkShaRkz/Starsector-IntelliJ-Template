@@ -1,0 +1,43 @@
+{
+  "displayName": "Strongpoint",
+  "fluxCapacitors": 15,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "venture",
+  "hullMods": [
+    "advancedoptics",
+    "heavyarmor",
+    "vayra_collapsedcargo_free"
+  ],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "venture_vayra_strong",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "ionbeam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "heatseeker",
+        "WS 005": "pilum",
+        "WS 006": "pilum",
+        "WS 007": "heatseeker"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "dualflak",
+        "WS 003": "dualflak"
+      }
+    }
+  ],
+  "wings": []
+}

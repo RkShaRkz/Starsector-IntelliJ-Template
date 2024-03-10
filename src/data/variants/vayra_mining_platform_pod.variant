@@ -1,0 +1,29 @@
+{
+  "displayName": "Auxiliary",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_mining_platform",
+  "hullMods": [
+    "turretgyros"
+  ],
+  "permaMods": [],
+  "variantId": "vayra_mining_platform_pod",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "vayra_lr_mining_laser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_lr_mining_laser"
+      }
+    }
+  ],
+  "wings": []
+}

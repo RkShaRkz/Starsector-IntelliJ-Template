@@ -1,0 +1,40 @@
+{
+  "displayName": "Torpedo",
+  "fluxCapacitors": 6,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_kingfisher",
+  "hullMods": [
+    "missleracks"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "vayra_kingfisher_torpedo",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 001": "hammer",
+        "WS 002": "hammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "lightneedler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "pdlaser",
+        "WS0002": "pdlaser"
+      }
+    }
+  ],
+  "wings": []
+}

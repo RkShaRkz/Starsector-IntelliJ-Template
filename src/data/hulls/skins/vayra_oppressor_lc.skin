@@ -1,0 +1,17 @@
+{
+	"baseHullId":"vayra_oppressor",
+	"skinHullId":"vayra_oppressor_lc",
+	"hullName":"Oppressor (LC)",
+	"descriptionId":"vayra_oppressor",  # optional
+	"descriptionPrefix":"This ship has been given Luddic Church markings. Systems modifications are otherwise superficial.",
+	"tags":["LC_bp"],
+	"tech":"Luddic Church",
+	"spriteName":"graphics/ships/vayra_oppressor_lc.png",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":[],
+	"builtInWeapons":{
+    },
+}

@@ -1,0 +1,4 @@
+name,id,tags,rarity,base price,stack size,cargo space,icon,sound id,sound id drop,plugin,plugin params,desc,order
+Deep Space Mining Blueprint Package,kadur_mining_package,package_bp,0.22,100000,1000,1,graphics/icons/cargo/blueprint_lowtech.png,ui_chip_pickup,ui_bp_package_drop,com.fs.starfarer.api.campaign.impl.items.MultiBlueprintItemPlugin,kadur_mining_bp,"Enables heavy industry to construct a set of ship hulls, weapons, and fighter LPCs modified or repurposed from Domain-era deep space mining tools, including some long thought lost to the sector.
+
+Recovered tech such as this is as rare in the sector as it is powerful, and the scavengers who risk their lives to bring it back from the far-flung fringe systems where it can be found often prefer to keep it for themselves.",187

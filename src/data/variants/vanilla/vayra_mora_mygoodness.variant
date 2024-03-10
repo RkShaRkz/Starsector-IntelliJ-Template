@@ -1,0 +1,50 @@
+{
+    "displayName": "My Goodness",
+    "fluxCapacitors": 0,
+    "fluxVents": 6,
+    "goalVariant": true,
+    "hullId": "mora",
+    "hullMods": ["safetyoverrides"],
+    "permaMods": [],
+    "variantId": "vayra_mora_mygoodness",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 003": "typhoon"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 004": "sabotpod"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 002": "lightmortar"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 005": "lightmortar",
+                "WS 008": "lightmortar",
+                "WS 011": "lightmortar",
+                "WS 012": "lightmortar"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 007": "lightdualac",
+                "WS 013": "lightdualac"
+            }
+        }
+    ],
+    "wings": [
+        "thunder_wing",
+        "thunder_wing",
+        "thunder_wing"
+    ]
+}
