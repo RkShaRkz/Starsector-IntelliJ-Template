@@ -1,0 +1,55 @@
+{
+  "animationType": "MUZZLE_FLASH",
+  "autocharge": true,
+  "barrelMode": "ALTERNATING",
+  "fireSoundOne": "vulcan_cannon_fire",
+  "fireSoundTwo": "needler_fire",
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointGunSprite": "graphics/weapons/antediluvian_pressure_hardpoint_barrel.png",
+  "hardpointOffsets": [
+    14,
+    -2,
+    14,
+    2
+  ],
+  "hardpointSprite": "graphics/weapons/antediluvian_pressure_hardpoint_base.png",
+  "id": "antediluvian_pressure_gun",
+  "muzzleFlashSpec": {
+    "length": 10,
+    "particleColor": [
+      150,
+      255,
+      200,
+      200
+    ],
+    "particleCount": 10,
+    "particleDuration": 0.2,
+    "particleSizeMin": 5,
+    "particleSizeRange": 10,
+    "spread": 5
+  },
+  "projectileSpecId": "antediluvian_pressure_slug",
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "size": "SMALL",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "turretGunSprite": "graphics/weapons/antediluvian_pressure_turret_barrel.png",
+  "turretOffsets": [
+    11,
+    -2,
+    11,
+    2
+  ],
+  "turretSprite": "graphics/weapons/antediluvian_pressure_turret_base.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 3
+}

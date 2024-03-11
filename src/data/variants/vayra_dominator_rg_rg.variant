@@ -1,0 +1,60 @@
+{
+  "displayName": "Red Guard",
+  "fluxCapacitors": 10,
+  "fluxVents": 22,
+  "goalVariant": true,
+  "hullId": "vayra_dominator_rg",
+  "hullMods": [
+    "targetingunit"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_dominator_rg_rg",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 014": "harpoonpod",
+        "WS 015": "harpoonpod",
+        "WS 016": "harpoonpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 010": "hveldriver",
+        "WS 011": "hveldriver",
+        "WS 012": "mark9",
+        "WS 013": "mark9"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "lightmg",
+        "WS 002": "vulcan",
+        "WS 003": "lightmg",
+        "WS 004": "lightmg",
+        "WS 005": "lightmg",
+        "WS 006": "vulcan",
+        "WS 007": "lightmg",
+        "WS 008": "vulcan",
+        "WS 009": "vulcan"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,66 @@
+{
+  "displayName": "World Eater",
+  "fluxCapacitors": 4,
+  "fluxVents": 30,
+  "goalVariant": true,
+  "hullId": "vayra_fortress",
+  "hullMods": [
+    "armoredweapons",
+    "fluxbreakers"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_fortress_we",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "miningblaster",
+        "WS0011": "vayra_hammer_pod",
+        "WS0012": "vayra_hammer_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "hammerrack",
+        "WS0010": "vayra_heavy_cutter",
+        "WS0013": "hammer",
+        "WS0014": "hammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_particle_beam",
+        "WS0002": "vayra_particle_beam",
+        "WS0005": "hil"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_biorifle",
+        "WS0004": "vayra_biorifle"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "mininglaser",
+        "WS0015": "mininglaser",
+        "WS0016": "mininglaser",
+        "WS0017": "mininglaser",
+        "WS0018": "mininglaser",
+        "WS0019": "mininglaser"
+      }
+    }
+  ],
+  "wings": []
+}

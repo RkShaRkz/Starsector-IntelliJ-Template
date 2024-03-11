@@ -1,0 +1,43 @@
+{
+	# IMPORTANT: This file's name must match a "unique_id" value in entities.csv
+	
+	"factionId":"luddic_church", # REQUIRED String, self-explanatory. overridden to neutral if isWreck == true
+	
+	#"isWreck":false, # OPTIONAL Boolean, default false. if true and entityId is a ship variant, will spawn a wreck instead of a fleet
+	"entityId":"station_side02", # REQUIRED String, can be a ship (or station) variant OR entry from custom_entities.json
+	# the former will spawn a fleet like a Remnant Battlestation (or a wreck if isWreck == true), the latter will spawn a SectorEntityToken which can be turned into a market (or not)
+	
+	"additionalDefensesLevel":"BASTION", # OPTIONAL String, 'OUTPOST' or 'BASTION' or 'CITADEL', default null
+	
+	# the following only take effect if isWreck == true and entityId is a ship variant
+	#"wreckCondition":"AVERAGE", # OPTIONAL String, default AVERAGE, must match a ShipCondition enum value
+	#"wreckRecoverable":true, # OPTIONAL Boolean, default true
+	
+	# the following only take effect if isWreck == false
+	"showInIntelTabAfterFound":false, # OPTIONAL Boolean, default false. sets faction to showInIntelTab = true when the entity is discovered
+	"entityName":"Blessed Reach", # OPTIONAL String, defaults to 'Unidentified Sensor Contact'
+	#"entityDescriptionId":"vayra_blessed_reach", # OPTIONAL String, pointing to a 'CUSTOM' entry in descriptions.csv
+	#"entityIllustrationId":"vayra_blessed_reach", # OPTIONAL String, pointing to an 'Illustrations' entry in settings.json
+	#"entityOrbitDistance":420.0, # OPTIONAL Float, default 150-350
+	
+	# the following only take effect if entityId does NOT point to a ship or station variant
+	"marketSize":4, # OPTIONAL Integer, default 0, if null/absent/0, will be a non-market entity
+	#"freePort":false, # OPTIONAL Boolean, default false. self-explanatory
+	# "hiddenMarket":false, # OPTIONAL Boolean, default true. self-explanatory
+	# NOTE: this WILL add the NO_DECIV_KEY memory key, however the framework specifically will listen for saturation bombing and remove the key from the market in that case
+	
+	# CONDITIONAL (required if marketSize > 0) String (comma-seperated list matching market_conditions.csv and/or industries.csv), default null
+	"marketStuff":"no_atmosphere, luddic_majority, population, spaceport, patrolhq, heavyindustry, fuelprod, waystation", 
+	
+	# CONDITIONAL (required if marketSize > 0) String (comma-seperated list matching values from Submarkets.java), default null
+	"submarkets":"generic_military, storage, open_market, black_market", 
+	
+	#"fuckOffWhenKilledAndDieForever":false, # OPTIONAL Boolean, default false. 
+	# if true and market has an orbital station industry, market is removed like a Pirate/Pather base when it is killed -- otherwise you have to sat-bomb it into oblivion like a normal market
+	
+	"spawnInSystem":"Fearsome Engine", # OPTIONAL String, if null/absent or system not found, will use following options instead - if 'hyperspace', will use following settings in hyperspace
+	#"minSpawnDistanceFromCore":10000, # OPTIONAL Float, default 10000, will ignore if no suitable systems are found within range
+	#"maxSpawnDistanceFromCore":15000, # OPTIONAL Float, default 15000, will ignore if no suitable systems are found within range
+	
+	"hostile":false, # OPTIONAL String, default true. Sets faction to hostile to all other factions.
+}

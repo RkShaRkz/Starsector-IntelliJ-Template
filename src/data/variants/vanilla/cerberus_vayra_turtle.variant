@@ -1,0 +1,41 @@
+{
+  "displayName": "Hardened",
+  "fluxCapacitors": 0,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "cerberus",
+  "hullMods": [
+    "armoredweapons",
+    "fluxbreakers",
+    "heavyarmor",
+    "vayra_collapsedcargo"
+  ],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "cerberus_vayra_turtle",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "heavyac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "lightmortar"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "lightmg",
+        "WS 002": "lightmg"
+      }
+    }
+  ],
+  "wings": []
+}

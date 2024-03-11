@@ -1,0 +1,22 @@
+{
+	"hullFrequency":{
+		"tags":{
+			"hegemony":2,
+		},
+		"hulls":{
+			"enforcer":2,
+			"dominator":2,
+			"onslaught":2,
+			"vayra_tyrant":0.5,	# doesn't fit hegemony doctrine that well
+		},
+	},
+	"priorityShips":{
+		"hulls":[
+			"vayra_tyrant",
+		],
+	},
+	"standard_male":[
+		"graphics/portraits/vayra_oldheg03.png",
+		"graphics/portraits/vayra_oldheg06.png",
+	],
+},

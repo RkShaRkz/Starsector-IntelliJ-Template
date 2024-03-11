@@ -1,0 +1,17 @@
+name,id,flux/second,f/s (base rate),f/s (base cap),flux/use,f/u (base rate),f/u (base cap),cr/u,max uses,regen,charge up,active,down,cooldown,toggle,noDissipation,noHardDissipation,hardFlux,noFiring,noTurning,noStrafing,noAccel,noShield,noVent,icon
+Timestate Beacon,vayra_time_beacon_rewind,,,,,,0.1,,1,0.015,0.5,0,0,1,,,,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,TRUE,graphics/icons/hullsys/displacer.png
+Overclocked Weapons,vayra_strikefeed,1,,,,,,,,,2,2,2,10,,,,,,,,,,,graphics/icons/tactical/overloaded.png
+Burst Maneuvering Jets,vayra_burstjets,,,,,,,,3,0.2,0.25,2,0.25,0,,,,,,,,,,,graphics/icons/tactical/engine_boost2.png
+Flare Launcher,vayra_foreverflares,,,,,,,,2,0.0666,,,,0.5,,,,,,,,,,,graphics/icons/hullsys/flare_launcher.png
+Flare Launcher,vayra_sometimesflares,,,,,,,,1,0.0666,,,,0.5,,,,,,,,,,,graphics/icons/hullsys/flare_launcher.png
+Ready Magazines,vayra_reloadeverything,,,,,,0.25,,3,0.1,1,0,0,0,,,,,,,,,,,graphics/icons/hullsys/ammo_feeder.png
+Tac Drones,vayra_tacdrones,,,,,,,,4,0.1,0,,0,0,,,,,,,,,,,graphics/icons/hullsys/drone_borer.png
+Glory Charge,vayra_gloryburn,,,,,,,,,,0,4,1,10,,,,,,,,,,,graphics/icons/hullsys/displacer.png
+Micro Burn,vayra_microburn,1,,,,,,,2,0.0666,0.5,0.5,0.5,,,,,,,,TRUE,TRUE,,,graphics/icons/hullsys/burn_drive.png
+Shieldwall Drones,vayra_exemplardrones,,,,,,,,12,0.05,0,,0,0,,,,,,,,,,,graphics/icons/hullsys/drone_sensor.png
+Screening Protocols,vayra_screeningformation,,,,,,,,,,1,,1,6,TRUE,,,,,,,,,,graphics/icons/hullsys/drone_sensor.png
+Stinger Mine,vayra_fragmine,,,,,,0.05,,12,0.25,0.1,,0.1,0,,,,,,,,,,,graphics/icons/hullsys/interdictor_array.png
+,,,,,,,,,,,,,,,,,,,,,,,,,
+Damper Shield,vayra_dampershield,,,0.1,,,0.1,,,,0.666,,0.666,2,TRUE,,TRUE,TRUE,TRUE,,,,TRUE,,graphics/icons/hullsys/damper_field.png
+,,,,,,,,,,,,,,,,,,,,,,,,,
+Phase Submersion,antediluvian_submerge,,,,,,,,,,0.25,,0.25,1.5,TRUE,,TRUE,TRUE,TRUE,,,,TRUE,,graphics/icons/hullsys/phase_cloak.png

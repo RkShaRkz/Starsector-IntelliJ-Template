@@ -7,6 +7,63 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="starfarer.api" level="project" />
+    <orderEntry type="library" exported="" name="starfarer.api" level="project" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/Nexerelin/jars/ExerelinCore.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/Nexerelin/jars/ExerelinCore.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/Nexerelin/jars/ExerelinCore.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/LazyLib/jars/LazyLib.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/LazyLib/jars/LazyLib.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/LazyLib/jars/LazyLib.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/LunaLib/jars/LunaLib.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/MagicLib/jars/MagicLib.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/MagicLib/jars/MagicLib.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/MagicLib/jars/MagicLib.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/Console Commands/jars/lw_Console.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/Console Commands/jars/lw_Console.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/Console Commands/jars/lw_Console.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

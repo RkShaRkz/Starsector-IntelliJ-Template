@@ -1,0 +1,46 @@
+{
+  "animationType": "SMOKE",
+  "barrelMode": "ALTERNATING",
+  "displayArcRadius": 500,
+  "fireSoundOne": "antediluvian_torpedo_01",
+  "fireSoundTwo": "harpoon_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    15,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/antediluvian_torpedo_hardpoint.png",
+  "id": "antediluvian_torpedo_launcher",
+  "projectileSpecId": "antediluvian_torpedo",
+  "size": "SMALL",
+  "smokeSpec": {
+    "blowbackDuration": 2,
+    "blowbackLength": 22,
+    "blowbackParticleCount": 4,
+    "blowbackSpread": 15,
+    "cloudDuration": 1.5,
+    "cloudParticleCount": 6,
+    "cloudRadius": 10,
+    "particleColor": [
+      150,
+      255,
+      200,
+      200
+    ],
+    "particleSizeMin": 12,
+    "particleSizeRange": 12
+  },
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretOffsets": [
+    12,
+    0
+  ],
+  "turretSprite": "graphics/weapons/antediluvian_torpedo_turret.png",
+  "type": "MISSILE"
+}

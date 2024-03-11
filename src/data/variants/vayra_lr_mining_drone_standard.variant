@@ -1,0 +1,22 @@
+{
+  "displayName": "Auxiliary",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_lr_mining_drone",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_lr_mining_drone_standard",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "vayra_mining_lance"
+      }
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,51 @@
+{
+  "animationType": "MUZZLE_FLASH",
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "light_assault_gun_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGunSprite": "graphics/weapons/vayra_precision_mortar_hardpoint_barrel.png",
+  "hardpointOffsets": [
+    23,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_precision_mortar_hardpoint_base.png",
+  "id": "vayra_precision_mortar",
+  "muzzleFlashSpec": {
+    "length": 25,
+    "particleColor": [
+      255,
+      125,
+      105,
+      255
+    ],
+    "particleCount": 12,
+    "particleDuration": 0.4,
+    "particleSizeMin": 12,
+    "particleSizeRange": 15,
+    "spread": 16
+  },
+  "noImpactSounds": false,
+  "noNonShieldImpactSounds": false,
+  "noShieldImpactSounds": false,
+  "projectileSpecId": "hephag_shot",
+  "renderAboveAllWeapons": 0,
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "size": "SMALL",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGunSprite": "graphics/weapons/vayra_precision_mortar_turret_barrel.png",
+  "turretOffsets": [
+    16,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_precision_mortar_turret_base.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 6
+}

@@ -1,0 +1,84 @@
+{
+	"raiderFactionId":"warhawk_republic", # String, faction id
+	
+	"onlySpawnWhenVisibleInIntelTab":true, # OPTIONAL Boolean, default false. CAN be modified by scripts in-game
+	# if true, will only spawn when the parent controls at least 1 (one) non-hidden market and is visible in intel tab, if false will NOT be reaped by reaper script (i.e. will always spawn bases like vanilla)
+	#"startEnabled":true, # OPTIONAL Boolean, default true. CAN be modified by scripts in-game
+	
+	"isFirebase":true, # OPTIONAL Boolean, default false
+	# Firebases spawn in the same system as their target
+	
+	"createBounty":false, # OPTIONAL Boolean, default false - creates bounty for killing the base
+	
+	#"freePort":true, # OPTIONAL Boolean, default true
+	
+	"spawnNonEventFleets":false, # DEPRECATED, DOES NOTHING NOW
+	
+	"raiderActivityString":"Stormhawk Vengeance", # OPTIONAL String, default "<personOrEntityPrefix> Raider Activity"
+	
+	"raidTargetWeights":{ # OPTIONAL String -> Float map, factionId -> pick weight, default no special weights
+		"hegemony":99999999, # example, "hegemony":10, = 10x more likely to pick Hegemony targets
+		},
+		
+	"raiderBaseTypes":{ # OPTIONAL String -> Float map, orbital station industry ID -> pick weight, default always low-tech
+		"orbitalstation":1,
+		"orbitalstation_mid":4,
+		"orbitalstation_high":1,
+		},
+	"raiderBaseConditionsAndIndustries":[ # OPTIONAL List<String>, default “Frontier”, “No Atmosphere”, “Population”, “Spaceport”, “Military Base”, “Orbital Works”
+		"vayra_hardened_populace", 
+		"grounddefenses", 
+		"no_atmosphere",
+		"population",
+		"spaceport",
+		"patrolhq",
+		"orbitalworks"
+		],
+
+	# Fleet names are set in the .faction file, under the "merc" fleet types
+
+	# Base names will be combined with a random other word. idk where they come from
+    "raiderBaseTypeNames":[
+		"Alcazar",
+		"Assault Point",
+		"Assault Post",
+		"Barricade",
+		"Base",
+		"Bastion",
+		"Battlement",
+		"Blockhouse",
+		"Bulwark",
+		"Buttress",
+		"Camp",
+		"Depot",
+		"Firebase",
+		"Fort",
+		"Fortalice",
+		"Fortification",
+		"Fortress",
+		"Forward Operating Base",
+		"Garrison",
+		"Hall",
+		"Haven",
+		"Headquarters",
+		"Hideout",
+		"Hold",
+		"Nest",
+		"Oblast",
+		"Outpost",
+		"Orbital",
+		"Platform",
+		"Post",
+		"Rampart",
+		"Roost",
+		"Staging Base",
+		"Staging Point",
+		"Staging Post",
+		"Station",
+		"Stockade",
+		"Warsat",
+		"Watchpost",
+		"Watchpoint",
+		"Watchtower"
+	],
+}

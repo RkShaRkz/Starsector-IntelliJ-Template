@@ -1,0 +1,79 @@
+{
+  "hullName": "Yak",
+  "hullId": "vayra_yak",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/vayra_yak.png",
+  "style": "LOW_TECH",
+  "height": 32,
+  "width": 30,
+  "center": [15, 13],
+  "collisionRadius": 24,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 23,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_red_army"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": 0,
+      "locations": [15, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": 0,
+      "locations": [3, 9]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": -0,
+      "locations": [3, -9]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": 180,
+      "locations": [-10, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-13, 3.5],
+      "length": 17.5,
+      "width": 5,
+      "angle": 180,
+      "contrailSize": 5,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-13, -3.5],
+      "length": 17.5,
+      "width": 5,
+      "angle": -180,
+      "contrailSize": 5,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    0, -13,
+    -11, -0,
+    0, 13,
+    12, -0
+  ]
+}

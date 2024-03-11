@@ -1,0 +1,8 @@
+unique_id,faction,title,text,tags
+vayra_test_lore,vayra_domain,Domain Prisoner Manifest,"This databank appears to be a prisoner transfer manifest dated to approximately the cycle of the Collapse. While much of the memory core is corrupted beyond repair, some fragments can still be extracted - you idly peruse the lists of names and identifying features, lingering on one profile - rendered largely unreadable by age and exposure to hard radiation - that purports to detail the life and crimes of a ""cult leader"", accused of formenting anti-scientific, anti-technological, and anti-Domain sentiment. Their name has unfortunately been lost to time, and with so much data missing it is impossible to tell who they might have been beyond the charges against them.",
+,,,,
+# unique_id: obviously this has to be unique. I recommend using a prefix,,,,
+# faction: this will be used for UI colors and apply as a tag on the intel entry. If the faction does not exist the object WILL NOT SPAWN - useful if you want things to only spawn conditionally on other mods being enabled. If you want a neutral/nonfaction use 'neutral',,,,
+# title: the intel will be titled this,,,,
+# text: this will be the full text of the intel entry,,,,
+"# tags: comma separated list. Intel will also receive ""Listening Post"" and faction tags",,,,

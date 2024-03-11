@@ -1,0 +1,55 @@
+{
+  "variantId": "vayra_mora_rg_rg",
+  "hullId": "vayra_mora_rg",
+  "displayName": "Commune",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 7,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "harpoon",
+        "WS 005": "harpoon",
+        "WS 013": "harpoon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 012": "ioncannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "heavymg",
+        "WS 004": "heavymg"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 007": "lightmg",
+        "WS 008": "lightmg",
+        "WS 011": "lightmg",
+        "WS 014": "lightmg"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "vayra_yak_wing",
+    "vayra_yak_wing",
+    "vayra_yak_wing"
+  ]
+}

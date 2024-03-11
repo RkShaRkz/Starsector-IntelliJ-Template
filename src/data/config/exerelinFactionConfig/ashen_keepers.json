@@ -1,0 +1,57 @@
+{
+    "playableFaction":true,
+    "corvusCompatible":true,
+    "noHomeworld":true,
+	"enabledByDefault":false,
+    
+    "rebelFleetSuffix":"Recalcitrants",
+
+    "startRelationships":{ "tritachyon":-0.6, "luddic_path":-1.0, "luddic_church":-0.6 },
+    "maxRelationships":{ "tritachyon":-0.1, "luddic_path":-0.6, "luddic_church":-0.1 },
+    "diplomacyPositiveChance":{ "tritachyon":0.75, "luddic_path":0.5, "luddic_church":0.75 },
+    "diplomacyNegativeChance":{ "tritachyon":1.5, "luddic_path":2.0 },
+    "morality":"good",
+    
+    "alignments":{
+        "corporate":-0.5,
+        "technocratic":-1,
+        "ideological":1,
+    },
+    
+	"diplomacyTraits":["selfrighteous", "dislikes_ai", "law_and_order", "irredentist"],
+	
+    "vengeanceLevelNames":["Excommunication", "Interdiction", "Jihad"],
+    "vengeanceFleetNames":["Evangelists", "Inquisition", "Crusade"],
+    "vengeanceFleetNamesSingle":["Evangelists", "an Inquisition", "a Crusade Fleet"],
+    
+    "startShipsSolo":[["vayra_medusa_ak_ak"]],
+    "startShipsCombatSmall":[
+      ["swp_striker_luddic_church_sup", "lasher_luddic_church_Standard", "ssp_hecate_sta"],
+      ["vayra_medusa_ak_ak", "lasher_luddic_church_Standard", "centurion_Assault"]
+    ],
+    "startShipsTradeSmall":[["tarsus_Standard", "cerberus_Standard", "hound_luddic_church_Standard"]],
+    "startShipsCombatLarge":[
+      ["ssp_vulture_sta", "ssp_albatross_art", "kite_Standard"],
+      ["vayra_aurora_ak_ak", "enforcer_Outdated", "hound_luddic_church_Standard"]
+    ],
+    "startShipsTradeLarge":[["venture_Balanced", "buffalo_luddic_church_Standard", "hound_luddic_church_Standard"]],
+    "startShipsCarrierSmall":[["condor_Attack", "lasher_luddic_church_Standard", "hound_luddic_church_Standard"]],
+    "startShipsSuper":[["vayra_aurora_ak_ak"]],
+    
+    "startSpecialItems":[
+        [["LC_package", ""]],
+        [["kadur_ashen_package", ""]],
+    ],
+
+    "defenceStations":[
+        {"ids":["orbitalstation_mid", "battlestation_mid", "starfortress_mid"]},
+    ],
+    
+    "industrySeeds":[
+        {"id":"lightindustry", "mult":0.2},
+    ],
+    
+    "industrySpawnMults":{
+        "fuelproduction":0,
+    },
+}

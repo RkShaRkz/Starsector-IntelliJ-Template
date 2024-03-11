@@ -1,0 +1,21 @@
+{
+    "baseHullId":"buffalo2",
+    "skinHullId":"vayra_buffalo_lc",
+    "hullName":"Buffalo Mk.II (LC)",
+	"systemId":"fastmissileracks",
+    "descriptionId":"buffalo2",
+	"descriptionPrefix":"This Buffalo Mk.II has been produced on a standardized assembly line by the Luddic Church, resulting in a converted freighter much closer to the lines of an actual warship than is typical for its class of vessel.",
+	"tags":["luddic_church", "LC_bp"],
+	"tech":"Luddic Church",
+    "spriteName":"graphics/ships/vayra_buffalo_lc.png",
+    "baseValueMult":1.2,
+	"addHints":[ALWAYS_PANIC],
+    "removeWeaponSlots":[],         # ids
+    "removeEngineSlots":[],         # indices, as engine slots have no id in the .ship file
+    "removeBuiltInMods":[],         # hullmod ids
+    "removeBuiltInWeapons":[],      # weapon slot ids
+    "builtInMods":["converted_hangar", "expanded_deck_crew"],
+    "builtInWings": ["perdition_wing"],
+    "builtInWeapons":{
+    }, 
+}

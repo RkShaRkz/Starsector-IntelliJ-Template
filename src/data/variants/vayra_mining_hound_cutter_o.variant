@@ -1,0 +1,32 @@
+{
+  "displayName": "Desperado",
+  "fluxCapacitors": 4,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_mining_hound",
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_mining_hound_cutter_o",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "vayra_heavy_cutter"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "mininglaser",
+        "WS0001": "mininglaser"
+      }
+    }
+  ],
+  "wings": []
+}

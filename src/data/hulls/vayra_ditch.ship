@@ -1,0 +1,70 @@
+{
+  "hullName": "Ditch",
+  "hullId": "vayra_ditch",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/connortron_ditch.png",
+  "style": "LOW_TECH",
+  "height": 18,
+  "width": 22,
+  "center": [11, 9],
+  "collisionRadius": 30,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 21,
+  "viewOffset": 0,
+  "builtInMods": [
+    "automated"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [7, 7.5]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -0,
+      "locations": [7, -7.5]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 28,
+      "angle": 0,
+      "locations": [4, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-8, 2.5],
+      "length": 18.5,
+      "width": 7,
+      "angle": 180,
+      "contrailSize": 7,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-8, -2.5],
+      "length": 18.5,
+      "width": 7,
+      "angle": -180,
+      "contrailSize": 7,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    -5.5, -4,
+    6, -8,
+    6, 8,
+    -5.5, 4
+  ]
+}

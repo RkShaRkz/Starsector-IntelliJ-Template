@@ -1,0 +1,39 @@
+{
+  "variantId": "vayra_seer_strike",
+  "hullId": "vayra_seer",
+  "displayName": "Strike",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 7,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "hil"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "pdburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "heatseeker"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "dagger_wing",
+    "dagger_wing"
+  ]
+}

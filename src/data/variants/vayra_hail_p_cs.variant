@@ -1,0 +1,35 @@
+{
+  "displayName": "Support",
+  "fluxCapacitors": 10,
+  "fluxVents": 9,
+  "goalVariant": true,
+  "hullId": "vayra_hail_p",
+  "hullMods": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_hail_p_cs",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "taclaser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "heatseeker"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "pdburst"
+      }
+    }
+  ],
+  "wings": []
+}

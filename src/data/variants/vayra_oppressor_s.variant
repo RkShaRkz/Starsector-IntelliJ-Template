@@ -1,0 +1,74 @@
+{
+  "displayName": "Support",
+  "fluxCapacitors": 0,
+  "fluxVents": 20,
+  "goalVariant": true,
+  "hullId": "vayra_oppressor",
+  "hullMods": [
+    "targetingunit"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_oppressor_s",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightmortar",
+        "WS0002": "lightmortar",
+        "WS0016": "heavymauler",
+        "WS0017": "heavymauler",
+        "WS0020": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "lightmg",
+        "WS0005": "lightmortar",
+        "WS0007": "lightmg",
+        "WS0011": "lightmortar",
+        "WS0018": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "lightmg",
+        "WS0006": "lightmortar",
+        "WS0008": "lightmg",
+        "WS0012": "lightmortar",
+        "WS0019": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "lightmg",
+        "WS0014": "lightmg",
+        "WS0015": "lightmortar"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "heatseeker",
+        "WS0010": "heatseeker",
+        "WS0021": "heatseeker",
+        "WS0022": "heatseeker",
+        "WS0023": "heatseeker",
+        "WS0024": "heatseeker"
+      }
+    }
+  ],
+  "wings": [
+    "thunder_wing",
+    "thunder_wing"
+  ]
+}

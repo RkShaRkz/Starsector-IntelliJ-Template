@@ -1,0 +1,160 @@
+{
+  "hullName": "Hammerhead (SR)",
+  "hullId": "vayra_hammerhead_warhawk",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/vayra_hammerhead_warhawk.png",
+  "style": "MIDLINE",
+  "coversColor": "255,255,255,255",
+  "height": 168,
+  "width": 108,
+  "center": [54, 71],
+  "collisionRadius": 130,
+  "shieldCenter": [11, 1],
+  "shieldRadius": 120,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_warhawk_modular"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [85, 31]
+    },
+    {
+      "id": "WS 002",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [85, -31]
+    },
+    {
+      "id": "WS 003",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [87, 11]
+    },
+    {
+      "id": "WS 004",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 0,
+      "locations": [87, -11]
+    },
+    {
+      "id": "WS 005",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 215,
+      "angle": 45,
+      "locations": [57, 16]
+    },
+    {
+      "id": "WS 006",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 215,
+      "angle": -45,
+      "locations": [57, -16]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        7.5, 23.5,
+        7.5, -23.5
+      ]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-70, 38],
+      "length": 75,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 80,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-69, 27],
+      "length": 65,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 60,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-68, 15],
+      "length": 55,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 80,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-68, -15],
+      "length": 55,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 80,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-69, -26],
+      "length": 65,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 80,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-70, -38],
+      "length": 75,
+      "width": 16,
+      "angle": 180,
+      "contrailSize": 80,
+      "style": "MIDLINE"
+    }
+  ],
+  "bounds": [
+    46, 17.5,
+    56.5, 49.5,
+    71.5, 49.5,
+    85.5, 36.5,
+    83, 0,
+    85.5, -36.5,
+    71.5, -49.5,
+    56.5, -49.5,
+    46, -17.5,
+    12, -11,
+    14, -31,
+    -18.5, -46.5,
+    -45, -39,
+    -63.5, -43.5,
+    -62.5, -10.5,
+    -29, -0,
+    -62.5, 10.5,
+    -63.5, 43.5,
+    -45, 39,
+    -18.5, 46.5,
+    8, 38,
+    12, 11
+  ]
+}

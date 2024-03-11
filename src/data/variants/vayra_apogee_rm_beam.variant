@@ -1,0 +1,51 @@
+{
+  "variantId": "vayra_apogee_rm_beam",
+  "hullId": "vayra_apogee_rm",
+  "displayName": "Beam",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 29,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "advancedoptics"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "sabot"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 009": "hurricane"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "taclaser",
+        "WS 007": "taclaser",
+        "WS 008": "hil"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "pdburst",
+        "WS 002": "pdburst",
+        "WS 003": "lrpdlaser",
+        "WS 004": "lrpdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

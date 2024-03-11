@@ -1,0 +1,38 @@
+{
+  "displayName": "REAL DOMAIN",
+  "fluxCapacitors": 8,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_colossus_xiv",
+  "hullMods": ["converted_hangar"],
+  "permaMods": [],
+  "variantId": "vayra_colossus_xiv_rd",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "vulcan",
+        "WS 002": "vulcan",
+        "WS 003": "vulcan",
+        "WS 004": "vulcan"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 009": "heatseeker",
+        "WS 010": "heatseeker",
+        "WS 013": "heatseeker",
+        "WS 014": "heatseeker"
+	  }
+    }
+  ],
+  "wings": [
+    "vayra_mining_platform_wing",
+    "vayra_mining_platform_wing",
+    "vayra_mining_platform_wing",
+    "vayra_mining_platform_wing"
+  ]
+}

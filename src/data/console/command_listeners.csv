@@ -1,0 +1,2 @@
+listenerId,listenerClass,priority
+VayraListHVBListener,data.scripts.console.listeners.VayraListHVBListener,1312

@@ -1,0 +1,19 @@
+{
+    "baseHullId":"shrike",
+    "skinHullId":"vayra_shrike_rm",
+    "hullName":"Shrike (RM)",
+    "descriptionId":"shrike",  # optional
+	"descriptionPrefix":"This ship has undergone cutting-edged alterations by the Research Mandate. Utilising advanced (and some might say, A.I. influenced) engineering, this vessel is able to produce localised regions of phased space in their hulls, mitigating some incoming damage.",
+	"hints":[],
+	"tags":["science"],
+	"tech":"Research Mandate",
+    "spriteName":"graphics/ships/vayra_shrike_rm.png",
+    "baseValueMult":1.2,
+    "removeWeaponSlots":[], 		# ids
+    "removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+    "removeBuiltInMods":[], 		# hullmod ids
+    "removeBuiltInWeapons":[], 		# weapon slot ids
+    "builtInMods":["vayra_science_hull"],
+    "builtInWeapons":{},
+    "weaponSlotChanges":{},
+}

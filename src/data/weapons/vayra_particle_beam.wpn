@@ -1,0 +1,61 @@
+{
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "coreColor": [
+    255,
+    255,
+    255,
+    255
+  ],
+  "fireSoundTwo": "phase_beam_loop",
+  "fringeColor": [
+    244,
+    255,
+    155,
+    255
+  ],
+  "glowColor": [
+    150,
+    255,
+    0,
+    255
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGlowSprite": "graphics/weapons/vayra_particle_beam_hardpoint_glow.png",
+  "hardpointOffsets": [
+    28,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_particle_beam_hardpoint.png",
+  "hitGlowRadius": 0,
+  "id": "vayra_particle_beam",
+  "noImpactSounds": false,
+  "noNonShieldImpactSounds": false,
+  "noShieldImpactSounds": false,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER,
+    MISSILE_FF,
+    MISSILE_NO_FF
+  ],
+  "pixelsPerTexel": 5,
+  "renderAboveAllWeapons": 0,
+  "size": "MEDIUM",
+  "specClass": "beam",
+  "textureScrollSpeed": 64,
+  "textureType": LASER,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGlowSprite": "graphics/weapons/vayra_particle_beam_turret_glow.png",
+  "turretOffsets": [
+    20,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_particle_beam_turret.png",
+  "type": "ENERGY",
+  "width": 20
+}

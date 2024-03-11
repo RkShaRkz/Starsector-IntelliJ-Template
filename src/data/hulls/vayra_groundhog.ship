@@ -1,0 +1,271 @@
+{
+  "bounds": [
+    25.5,
+    -12,
+    55,
+    -14,
+    64,
+    -19.5,
+    15.5,
+    -36.5,
+    -20.5,
+    -36.5,
+    -39,
+    -25,
+    -27.5,
+    -18,
+    -34,
+    -14,
+    -34,
+    14,
+    -27.5,
+    18,
+    -39,
+    25,
+    -20.5,
+    36.5,
+    15.5,
+    36.5,
+    64,
+    19.5,
+    55,
+    14,
+    25.5,
+    12,
+    40.5,
+    -0.5
+  ],
+  "builtInMods": [
+    "civgrade",
+    "repair_gantry",
+    "vayra_mining_tools",
+    "armoredweapons"
+  ],
+  "center": [
+    44,
+    41
+  ],
+  "collisionRadius": 98.5,
+  "coversColor": "255,255,255,255",
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 12,
+      "length": 48.5,
+      "location": [
+        -41.5,
+        24.5
+      ],
+      "style": "MIDLINE",
+      "width": 12
+    },
+    {
+      "angle": -180,
+      "contrailSize": 12,
+      "length": 48.5,
+      "location": [
+        -41.5,
+        -24.5
+      ],
+      "style": "MIDLINE",
+      "width": 12
+    },
+    {
+      "angle": 180,
+      "contrailSize": 7,
+      "length": 33,
+      "location": [
+        -38.5,
+        31.5
+      ],
+      "style": "MIDLINE",
+      "width": 7
+    },
+    {
+      "angle": -180,
+      "contrailSize": 7,
+      "length": 33,
+      "location": [
+        -38.5,
+        -31.5
+      ],
+      "style": "MIDLINE",
+      "width": 7
+    },
+    {
+      "angle": 135,
+      "contrailSize": 128,
+      "length": 28.284271,
+      "location": [
+        -28,
+        40
+      ],
+      "style": "MIDLINE",
+      "width": 8.485281
+    },
+    {
+      "angle": -135,
+      "contrailSize": 128,
+      "length": 28.284271,
+      "location": [
+        -28,
+        -40
+      ],
+      "style": "MIDLINE",
+      "width": 8.485281
+    },
+    {
+      "angle": 135,
+      "contrailSize": 128,
+      "length": 20.506096,
+      "location": [
+        -21,
+        42
+      ],
+      "style": "MIDLINE",
+      "width": 5.656854
+    },
+    {
+      "angle": -135,
+      "contrailSize": 128,
+      "length": 20.506096,
+      "location": [
+        -21,
+        -42
+      ],
+      "style": "MIDLINE",
+      "width": 5.656854
+    },
+    {
+      "angle": 45,
+      "contrailSize": 128,
+      "length": 20.506096,
+      "location": [
+        24,
+        43
+      ],
+      "style": "MIDLINE",
+      "width": 5.656854
+    },
+    {
+      "angle": -45,
+      "contrailSize": 128,
+      "length": 20.506096,
+      "location": [
+        24,
+        -43
+      ],
+      "style": "MIDLINE",
+      "width": 5.656854
+    },
+    {
+      "angle": 45,
+      "contrailSize": 128,
+      "length": 28.284271,
+      "location": [
+        32,
+        42
+      ],
+      "style": "MIDLINE",
+      "width": 8.485281
+    },
+    {
+      "angle": -45,
+      "contrailSize": 128,
+      "length": 28.284271,
+      "location": [
+        32,
+        -42
+      ],
+      "style": "MIDLINE",
+      "width": 8.485281
+    }
+  ],
+  "height": 106,
+  "hullId": "vayra_groundhog",
+  "hullName": "Groundhog",
+  "hullSize": "FRIGATE",
+  "shieldCenter": [
+    9,
+    -0
+  ],
+  "shieldRadius": 86.5,
+  "spriteName": "graphics/ships/vayra_groundhog.png",
+  "style": "MIDLINE",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 60,
+      "arc": 210,
+      "id": "WS0001",
+      "locations": [
+        15,
+        24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": -60,
+      "arc": 210,
+      "id": "WS0002",
+      "locations": [
+        15,
+        -24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 125,
+      "arc": 220,
+      "id": "WS0003",
+      "locations": [
+        -12,
+        24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": -125,
+      "arc": 220,
+      "id": "WS0004",
+      "locations": [
+        -12,
+        -24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 360,
+      "id": "LB 1",
+      "locations": [
+        -31.5,
+        -0
+      ],
+      "mount": "HIDDEN",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY"
+    },
+    {
+      "angle": 0,
+      "arc": 245,
+      "id": "WS0005",
+      "locations": [
+        3,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    }
+  ],
+  "width": 88
+}

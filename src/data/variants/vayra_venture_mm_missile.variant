@@ -1,0 +1,45 @@
+{
+  "variantId": "vayra_venture_mm_missile",
+  "hullId": "vayra_venture_mm",
+  "displayName": "Missile",
+  "goalVariant": false,
+  "fluxCapacitors": 12,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks",
+    "eccm"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "gravitonbeam"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "harpoon",
+        "WS 005": "harpoonpod",
+        "WS 006": "harpoonpod",
+        "WS 007": "harpoon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "flak",
+        "WS 003": "flak"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "gladius_wing"
+  ]
+}

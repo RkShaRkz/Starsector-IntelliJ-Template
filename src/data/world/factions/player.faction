@@ -1,0 +1,25 @@
+{
+	"portraits":{
+		"standard_male":[
+			"graphics/portraits/vayra_portrait_01.png",
+			"graphics/portraits/vayra_portrait_02.png",
+			"graphics/portraits/vayra_portrait_07.png",
+			"graphics/portraits/vayra_portrait_13.png",
+			"graphics/portraits/vayra_portrait_14.png",
+			"graphics/portraits/vayra_oldmerc03.png",
+		],
+		"standard_female":[
+			"graphics/portraits/vayra_portrait_00.png",
+			"graphics/portraits/vayra_portrait_04.png",
+			"graphics/portraits/vayra_portrait_05.png",
+			"graphics/portraits/vayra_portrait_06.png",
+			"graphics/portraits/vayra_portrait_08.png",
+			"graphics/portraits/vayra_portrait_09.png",
+			"graphics/portraits/vayra_portrait_10.png",
+			"graphics/portraits/vayra_portrait_11.png",
+			"graphics/portraits/vayra_portrait_12.png",
+		],
+	},
+}
+
+

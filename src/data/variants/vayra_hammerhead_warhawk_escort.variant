@@ -1,0 +1,44 @@
+{
+  "variantId": "vayra_hammerhead_warhawk_escort",
+  "hullId": "vayra_hammerhead_warhawk",
+  "displayName": "Escort",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 19,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks",
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "harpoon",
+        "WS 004": "harpoon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "hveldriver",
+        "WS 002": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "vulcan",
+        "WS 006": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "vayra_thunder_warhawk_wing"
+  ]
+}
