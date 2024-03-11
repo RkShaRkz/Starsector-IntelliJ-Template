@@ -1,0 +1,51 @@
+id,trigger,conditions,script,text,options,notes
+# Market descriptions,,,,,,
+flavorTextMarketKadurReqiuem,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == kadur_remnant
+$market.id == vayra_refugestationmarket","AddText ""The massive, vaulted hangar bays of this Domain-era space fortress have long since been repurposed as living spaces for Kaduran refugees, but even amidst the proliferation of colorful tents and prayer fabrics there remains ample room for shuttlecraft to land."" marketFlavorTextColor
+AddText ""The station's corridors are packed with people; some brightly garbed and laughing, singing, talking amongst themselves with a carnival-like exuberance and others covered from head to toe in flowing ash-black or bone-white robes of mourning. Ivory- and bronze-masked guards stand at the occasional gate or airlock with CP-rifles ready, forbidding passage further into the fortress."" marketFlavorTextColor",,,
+flavorTextMarketKadurBurkaan,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == independent
+$market.id == mirageImarket","AddText ""Docking with one of the larger low-orbit mining facilities, you are struck immediately by the precarious and somewhat jury-rigged nature of the whole operation. Dirty, grinning miners usher you into the facility, one of them pressing a filthy mug of something into your hand that smells more like a flux reactor byproduct than it does like anything safely consumable."" marketFlavorTextColor
+AddText ""Passing through a riotous portside bar and a series of makeshift hab-blocks and witnessing more than a few fights in the process, you eventually reach the trading floor. Goods on display are available in various shades of damaged and worn, but perhaps there's some treasure to be found amidst all this trash."" marketFlavorTextColor",,,
+flavorTextMarketKadurOasis,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == hegemony
+$market.id == mirageIImarket","AddText ""The port concourse in Oasis's capital is sparsely populated, most of the shipping being rigidly controlled by the Hegemony's occupying government. The harried populace rushes from place to place with their heads down, careful to avoid the patrols of power-armored garrison troops and security drones which issue forth regularly from the hastily-built guard towers dotting the city."" marketFlavorTextColor
+AddText ""Out of the corner of your eye you notice an ivory-masked face watching you from the mouth of a shadowed alleyway before vanishing once more into the darkness. In the distance: the sound of scattered gunshots."" marketFlavorTextColor",,,
+flavorTextMarketKadurYakchal,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == tritachyon
+$market.id == mirageIVmarket","AddText ""The recently-constructed complex on Yakchal's surface is nestled amidst a ring of artificial mountains, providing some protection against the whirling ice-storms overhead. A massive rocket ascends to orbit atop a column of flame in the distance, no doubt consuming nearly as much fuel to reach escape velocity as it contains within the modular shipping pods attached to its surface."" marketFlavorTextColor
+AddText ""Corporate soldiers in gravity-minimizing exoskeletons and power armor stand at the ready, preventing you from leaving the spartan landing facilities open to the public."" marketFlavorTextColor",,,
+flavorTextMarketKadurToxx,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == pirates
+$market.id == vayra_kadur_toxxmarket score:100","AddText ""You navigate your shuttle into a cavernous hole in one of the larger station fragments orbiting Kadur, threading your way through clouds of floating debris and long-frozen corpses. Mag-clamps secure your craft to the bulkhead with a metallic clunk as you land next to a motley collection of vessels in bright-striped pirate livery."" marketFlavorTextColor
+AddText ""Modulating your voice low through your suit vocoder and waving an unholstered sixbeam, you manage to harangue and intimidate one of the dock gangs into trade negotiations. They lead you inside a pressurized section of orbital overlooking the spore-choked former splendour of Kadur, where their ill-gotten spoils lay spread on oil- and blood-soaked blankets."" marketFlavorTextColor",,,
+flavorTextMarketKadurRevenant,TradePanelFlavorText,"$global.tradePanelMode == MARKET
+$faction.id == kadur_remnant
+$market.id == vayra_kadur_revenantmarket","AddText ""Stumbling through poorly-lit corridors packed full of refugees clad without exception in the black of mourning, you finally emerge into the camp bazaar. Peddlers and merchants hawk their wares halfheartedly from booths hastily erected in one of the derelict dreadnought's cargo holds."" marketFlavorTextColor
+AddText ""Most of the populace seems poor, hard-bitten, and hungry. A few among them wander the passageways as a sort of order-keeping militia, identifiable as easily by the long CP-rifles slung at their backs as they are by the ivory or brass masks that they wear."" marketFlavorTextColor",,,
+,,,,,,
+# Game starts,,,,,,
+ngcKadurCamelStart,NewGameKadurOptions,,"SetTooltip ngcKadurCamel ""Your flagship is the Camel, a well-armed heavy frigate best suited to escorting larger craft or strongpointing frigate formations. Poor PD coverage and below-average mobility for a frigate means it struggles when caught out alone.\n\nFortunately, you are accompanied by a wolfpack of lighter frigates to watch your flanks, including some independent mercenaries.\n\nNote that selecting this option will make most factions suspicious of you at best, which can make for a more difficult game.""",,"0:ngcKadurCamel:A recent convert to the Kadur faith, leading a strike force against a largely hostile galaxy",
+,,,,,,
+# Kadur fleet greeting lines,,,,,,
+greetingKadurFriendly,OpenCommLink,"$faction.id == kadur_remnant
+$faction.friendlyToPlayer","$menuState = fleetConvMain 0
+FireAll PopulateOptions","The binary star and world-crescent of the Kadur Remnant flashes on your screen for a moment while a recorded hymn plays over the comm, before being replaced by the masked face of the Kadur $personRank: ""Well met, pilgrim. Do you require assistance?""",,
+greetingKadurHostileWeaker,OpenCommLink,"$faction.id == kadur_remnant
+$entity.isHostile
+$entity.relativeStrength < 0",$entity.ignorePlayerCommRequests = true 1,"The binary star and world-crescent of the Kadur Remnant flashes on your screen for a moment while a recorded hymn plays over the comm, before being replaced by the masked face of the Kadur $personRank. $HeOrShe regards you cooly for a long minute before reaching forward and terminating the communication.",cutCommLink:Cut the comm link,
+greetingKadurHostileWeakerDefiant,OpenCommLink,"$faction.id == kadur_remnant
+$entity.isHostile
+$entity.relativeStrength < 0
+$entity.weakerThanPlayerButHolding",$entity.ignorePlayerCommRequests = true 1,"The binary star and world-crescent of the Kadur Remnant flashes on your screen for a moment while a recorded hymn plays over the comm, before being replaced by the masked face of the Kadur $personRank. Suddenly $heOrShe springs violently into motion: ""LISTEN HERE YOU MOTHERFU--""
+
+The communication terminates abruptly.",cutCommLink:Cut the comm link,
+greetingKadurHostileStronger,OpenCommLink,"$faction.id == kadur_remnant
+$entity.isHostile
+$entity.relativeStrength >= 0",$entity.ignorePlayerCommRequests = true 1,"The binary star and world-crescent of the Kadur Remnant flashes on your screen for a moment while a recorded hymn plays over the comm, before being replaced by the masked face of the Kadur $personRank: ""Greetings, heretic. Give my love to the dead.""
+
+The communication terminates abruptly.",cutCommLink:Cut the comm link,
+greetingKadurNeutral,OpenCommLink,"$faction.id == kadur_remnant
+$faction.neutralToPlayer","$menuState = fleetConvMain 0
+FireAll PopulateOptions","The binary star and world-crescent of the Kadur Remnant flashes on your screen for a moment while a recorded hymn plays over the comm, before being replaced by the masked face of the Kadur $personRank: ""Fair travels, pilgrim. May the Watchers look well upon you.""",,

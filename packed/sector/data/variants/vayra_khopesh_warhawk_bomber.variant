@@ -1,0 +1,23 @@
+{
+  "variantId": "vayra_khopesh_warhawk_bomber",
+  "hullId": "vayra_khopesh_warhawk",
+  "displayName": "Rocket Bomber",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "annihilator_fighter",
+        "WS 004": "annihilator_fighter"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

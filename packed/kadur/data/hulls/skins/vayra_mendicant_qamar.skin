@@ -1,0 +1,25 @@
+{
+  "baseHullId": "vayra_mendicant",
+  "baseValueMult":1.5,
+  "tags":["kadur_qamar"],
+  "tech":"Qamar Insurgency",
+  "descriptionId": "vayra_mendicant",
+  "descriptionPrefix":"This ship is one of the original vessels brought with the Qamar Insurgency in their long exile from Kadur, heavily modified over the cycles to fit their fleet doctrine of aggressive hit-and-run tactics.",
+  "hullName": "Mendicant (Q)",
+  "restoreToBaseHull": false,
+  "skinHullId": "vayra_mendicant_qamar",
+  "spriteName": "graphics/ships/vayra_mendicant_qamar.png",
+  "removeBuiltInMods":["civgrade"], 		# hullmod ids
+  "builtInMods":["safetyoverrides"],
+  "weaponSlotChanges":{
+	"WS0001":{
+		"type": "UNIVERSAL"
+	},
+	"WS0002":{
+		"type": "UNIVERSAL"
+	},
+	"WS0003":{
+		"type": "UNIVERSAL"
+	}
+  },  
+}

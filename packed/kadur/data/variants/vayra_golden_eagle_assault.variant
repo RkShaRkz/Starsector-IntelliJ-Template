@@ -1,0 +1,65 @@
+{
+  "displayName": "Assault",
+  "fluxCapacitors": 10,
+  "fluxVents": 27,
+  "goalVariant": true,
+  "hullId": "vayra_golden_eagle",
+  "hullMods": [
+    "autorepair",
+    "targetingunit"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_golden_eagle_assault",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0011": "vayra_lightspike_pod",
+        "WS0012": "vayra_lightspike_pod"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_jamadhar_rack",
+        "WS0004": "vayra_jamadhar_rack"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "vayra_canister_gun",
+        "WS0014": "vayra_strikecannon",
+        "WS0016": "vayra_light_ciws_beam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_med_chemrail",
+        "WS0006": "vayra_med_chemrail",
+        "WS0015": "vayra_multirail",
+        "WS0017": "vayra_sabot_battery"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_frag_scatter",
+        "WS0002": "vayra_frag_scatter",
+        "WS0007": "vayra_hauberk_ciws",
+        "WS0008": "vayra_hauberk_ciws",
+        "WS0009": "vayra_burst_ciws",
+        "WS0010": "vayra_burst_ciws"
+      }
+    }
+  ],
+  "wings": []
+}

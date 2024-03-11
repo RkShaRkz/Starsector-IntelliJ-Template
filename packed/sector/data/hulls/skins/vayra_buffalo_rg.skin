@@ -1,0 +1,19 @@
+{
+    "baseHullId":"buffalo2",
+    "skinHullId":"vayra_buffalo_rg",
+    "hullName":"Buffalo Mk.II (RG)",
+    "descriptionId":"buffalo2",
+    "descriptionPrefix":"This Buffalo Mk.II has been expertly rebuilt to standards much closer to those of an actual warship than is the norm for these vessels. Beneath the bright coat of Red Guards livery, it has been stripped down and rebuilt for maximum durability at minimal cost. Elaborate sensor arrays and failure-prone high-tech communication consoles have been pared away, leaving only those systems absolutely necessary to the vessel's function as a mercilessly efficient weapon of war.",
+    "tags":["revolutionary"],
+    "tech":"Red Guards",
+    "spriteName":"graphics/ships/vayra_buffalo_rg.png",
+    "baseValueMult":1.3,
+	"addHints":[ALWAYS_PANIC],
+    "removeWeaponSlots":[],         # ids
+    "removeEngineSlots":[],         # indices, as engine slots have no id in the .ship file
+    "removeBuiltInMods":["civgrade"],         # hullmod ids
+    "removeBuiltInWeapons":[],      # weapon slot ids
+    "builtInMods":["vayra_red_army"],
+    "builtInWeapons":{
+    },
+}

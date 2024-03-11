@@ -1,0 +1,16 @@
+{
+	"portraits":{
+		"standard_male":[
+			"graphics/portraits/vayra_doom_ai.png",
+			"graphics/portraits/vayra_hell_ai.png",
+			"graphics/portraits/vayra_necro_ai.png",
+		],
+		"standard_female":[
+			"graphics/portraits/vayra_doom_ai.png",
+			"graphics/portraits/vayra_hell_ai.png",
+			"graphics/portraits/vayra_necro_ai.png",
+		],
+	},
+}
+
+

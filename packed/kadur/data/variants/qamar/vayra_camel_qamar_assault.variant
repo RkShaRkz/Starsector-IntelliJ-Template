@@ -1,0 +1,47 @@
+{
+  "variantId": "vayra_camel_qamar_assault",
+  "hullId": "vayra_camel_qamar",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 2,
+  "fluxVents": 10,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_spike_torpedo_small",
+        "WS0004": "vayra_spike_torpedo_small"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "sabotpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_antimatterpulse"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_microimpulsor",
+        "WS0002": "vayra_microimpulsor"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

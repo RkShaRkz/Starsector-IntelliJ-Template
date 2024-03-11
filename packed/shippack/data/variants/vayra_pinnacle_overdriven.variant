@@ -1,0 +1,40 @@
+{
+  "variantId": "vayra_pinnacle_overdriven",
+  "hullId": "vayra_pinnacle",
+  "displayName": "Overdriven",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 2,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "sabot"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "ionpulser",
+        "WS0004": "ionpulser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_grav_blaster",
+        "WS0006": "vayra_grav_blaster"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

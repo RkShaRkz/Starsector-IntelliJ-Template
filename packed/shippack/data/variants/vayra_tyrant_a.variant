@@ -1,0 +1,72 @@
+{
+  "displayName": "Assault",
+  "fluxCapacitors": 0,
+  "fluxVents": 40,
+  "goalVariant": true,
+  "hullId": "vayra_tyrant",
+  "hullMods": [
+    "unstable_injector",
+    "auxiliarythrusters"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_tyrant_a",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0013": "sabot",
+        "WS0014": "sabot"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0012": "typhoon",
+        "WS0017": "typhoon",
+        "WS0019": "hammerrack"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "railgun",
+        "WS0003": "railgun",
+        "WS0015": "heavyac",
+        "WS0016": "heavyac",
+        "WS0018": "heavymortar"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0020": "devastator",
+        "WS0021": "devastator"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightdualmg",
+        "WS0004": "lightdualmg",
+        "WS0005": "lightdualmg",
+        "WS0006": "vulcan",
+        "WS0007": "vulcan",
+        "WS0008": "vulcan",
+        "WS0009": "vulcan",
+        "WS0010": "lightdualmg",
+        "WS0011": "lightdualmg"
+      }
+    }
+  ],
+  "wings": [
+    "perdition_wing",
+    "perdition_wing"
+  ]
+}

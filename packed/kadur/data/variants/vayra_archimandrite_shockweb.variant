@@ -1,0 +1,49 @@
+{
+  "variantId": "vayra_archimandrite_shockweb",
+  "hullId": "vayra_archimandrite",
+  "displayName": "Shockweb",
+  "goalVariant": true,
+  "fluxCapacitors": 1,
+  "fluxVents": 20,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0008": "vayra_jamadhar_rack",
+        "WS0009": "vayra_jamadhar_rack"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_shockweb"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_light_chemrail",
+        "WS0004": "vayra_light_chemrail"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_burst_ciws",
+        "WS0005": "vayra_burst_ciws",
+        "WS0006": "vayra_burst_ciws"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

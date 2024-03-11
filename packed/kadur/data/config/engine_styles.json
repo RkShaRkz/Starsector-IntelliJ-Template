@@ -1,0 +1,71 @@
+{
+	"KADUR_MIDLINE":{
+		"engineColor":[255,145,75,255],
+		"contrailParticleSizeMult":0.1,
+		"contrailParticleDuration":0.5,
+		"contrailParticleFinalSizeMult":1,
+		"contrailMaxSpeedMult":0.5,
+		"contrailAngularVelocityMult":0.5,
+		"contrailColor":[75,75,75,25],
+		"contrailCampaignColor":[150,120,100,75],
+		"type":"SMOKE" # GLOW or SMOKE
+	},
+	"KADUR_BOMBER":{
+		"engineColor":[60,190,195,255],
+		"contrailParticleSizeMult":1,
+		"contrailParticleDuration":0.5,
+		"contrailParticleFinalSizeMult":1,
+		"contrailMaxSpeedMult":0.5f,
+		"contrailAngularVelocityMult":0.5f,
+		"contrailColor":[33,106,109,50],
+		"glowSizeMult":3.5,
+		"glowAlternateColor":[255,100,155,255],
+		"type":"SMOKE" # GLOW or SMOKE
+	},
+	"KADUR_CHAFF":{
+		"engineColor":[33,106,109,255],
+		"contrailParticleSizeMult":1,
+		"contrailParticleDuration":0.2,
+		"contrailParticleFinalSizeMult":10,
+		"contrailMaxSpeedMult":0.2,
+		"contrailAngularVelocityMult":0,
+		"contrailColor":[33,106,109,255],
+		"type":"GLOW" # GLOW or SMOKE
+	},
+	"KADUR_MAYASURAN_FLARE":{
+		"engineColor":[76,87,115,255],
+		"contrailParticleSizeMult":4,
+		"contrailParticleDuration":2,
+		"contrailParticleFinalSizeMult":2.5,
+		"contrailMaxSpeedMult":0.5,
+		"contrailAngularVelocityMult":0,
+		"contrailColor":[100,100,100,25],
+		"contrailCampaignColor":[150,120,100,25],
+		"type":"GLOW" # GLOW or SMOKE
+	},	
+	
+	"VAYRA_TAHLAN_PIRATE_ENGINE_B":{
+		"engineColor":[100,165,255,240],
+		"contrailParticleSizeMult":2,
+		"contrailParticleDuration":3,
+		"contrailParticleFinalSizeMult":2.5,
+		"contrailMaxSpeedMult":0.6,
+		"contrailAngularVelocityMult":0.6,
+		"contrailColor":[50,50,50,50],
+		"contrailCampaignColor":[255,60,40,240],
+		"type":"SMOKE"
+	},
+	
+	"VAYRA_TAHLAN_PIRATE_ENGINE":{
+		"engineColor":[255,60,40,240],
+		"contrailParticleSizeMult":2,
+		"contrailParticleDuration":3,
+		"contrailParticleFinalSizeMult":2.5,
+		"contrailMaxSpeedMult":0.6,
+		"contrailAngularVelocityMult":0.6,
+		"contrailColor":[50,50,50,50],
+		"contrailCampaignColor":[255,60,40,240],
+		"type":"SMOKE"
+	},
+}
+

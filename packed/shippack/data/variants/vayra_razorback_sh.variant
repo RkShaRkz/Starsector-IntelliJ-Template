@@ -1,0 +1,33 @@
+{
+  "displayName": "Missile",
+  "fluxCapacitors": 9,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_razorback",
+  "hullMods": [
+    "frontshield",
+    "eccm"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_razorback_sh",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "pdburst",
+        "WS0004": "pdburst"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "pilum",
+        "WS0002": "salamanderpod"
+      }
+    }
+  ],
+  "wings": []
+}

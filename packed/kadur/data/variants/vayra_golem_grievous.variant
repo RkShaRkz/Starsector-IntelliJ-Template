@@ -1,0 +1,56 @@
+{
+  "variantId": "vayra_golem_grievous",
+  "hullId": "vayra_golem",
+  "displayName": "Grievous",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 28,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "frontemitter",
+    "fluxbreakers"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "vayra_spike_torpedo_small",
+        "WS0014": "vayra_spike_torpedo_small",
+        "WS0020": "vayra_spike_torpedo_small",
+        "WS0021": "vayra_spike_torpedo_small"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_rod_launcher",
+        "WS0002": "vayra_rod_launcher",
+        "WS0012": "vayra_rod_launcher",
+        "WS0019": "vayra_rod_launcher"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "vayra_dual_ciws_beam",
+        "WS0009": "vayra_dual_ciws_beam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_hauberk_ciws",
+        "WS0004": "vayra_frag_scatter",
+        "WS0007": "vayra_hauberk_ciws",
+        "WS0008": "vayra_hauberk_ciws"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

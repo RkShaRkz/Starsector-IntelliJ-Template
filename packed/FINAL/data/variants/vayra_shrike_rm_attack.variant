@@ -1,0 +1,48 @@
+{
+  "variantId": "vayra_shrike_rm_attack",
+  "hullId": "vayra_shrike_rm",
+  "displayName": "Attack",
+  "goalVariant": true,
+  "fluxCapacitors": 4,
+  "fluxVents": 20,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "sabotpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "heavyblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "ioncannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 000": "pdlaser",
+        "WS 002": "pdlaser",
+        "WS 006": "pdlaser",
+        "WS 007": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

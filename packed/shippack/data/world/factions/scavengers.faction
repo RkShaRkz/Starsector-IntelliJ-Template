@@ -1,0 +1,28 @@
+{
+	"shipNameSources":{
+		"REVOLUTIONARY":1,
+		"PIRATES":1,
+		"MERCANTILE":1,
+	},
+	"names":{
+		"fringe":1,
+		"pirate":1,
+		"modern":1,
+	},
+	# multiplier for how often hulls show up in the faction's fleets
+	"hullFrequency":{
+		"tags":{
+			"kadur_mining_bp":1.5,
+		},
+	},
+	# ships the faction gets access to when importing S&W out-of-faction
+	"shipsWhenImporting":{
+		"tags":["scavengers", "kadur_mining_bp"],
+	},
+	"knownShips":{
+		"tags":["kadur_mining_bp"],
+	},
+	"knownWeapons":{
+		"tags":["kadur_mining_bp"],
+	},
+},	

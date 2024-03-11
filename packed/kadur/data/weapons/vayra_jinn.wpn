@@ -1,0 +1,48 @@
+{
+  "animationType": "SMOKE",
+  "barrelMode": "ALTERNATING",
+  "displayArcRadius": 1000,
+  "fireSoundTwo": "reaper_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    35,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_jinn_hardpoint.png",
+  "id": "vayra_jinn",
+  "projectileSpecId": "vayra_jinn",
+  "renderHints": [
+    RENDER_LOADED_MISSILES
+  ],
+  "size": "LARGE",
+  "smokeSpec": {
+    "blowbackDuration": 2,
+    "blowbackLength": 30,
+    "blowbackParticleCount": 8,
+    "blowbackSpread": 10,
+    "cloudDuration": 3,
+    "cloudParticleCount": 30,
+    "cloudRadius": 12,
+    "particleColor": [
+      100,
+      100,
+      100,
+      200
+    ],
+    "particleSizeMin": 10,
+    "particleSizeRange": 30
+  },
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretOffsets": [
+    26,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_jinn_turret.png",
+  "type": "MISSILE"
+}

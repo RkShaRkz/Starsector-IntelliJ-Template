@@ -1,0 +1,24 @@
+{
+	"parent":"persean", # String, parent faction id
+	#"homeworld":"kazeron", # OPTIONAL String, market id, default null
+	
+	"freePort":false, # OPTIONAL Boolean, default false
+	"specialTrack":"nanoforge", # OPTIONAL String, 'nanoforge' or 'synchrotron' or 'alphacore', default null
+	
+	"orbitalStation":"orbitalstation_mid", # OPTIONAL String, base-level orbital station industry id, default low-tech
+	"battleStation":"battlestation_mid", # OPTIONAL String, battlestation industry id, default low-tech
+	"starFortress":"starfortress_mid", # OPTIONAL String, star fortress industry id, default low-tech
+	
+	# The following items affect PLANET SCORE, a float weight normally 2.0 minus hazard (e.g. 150% hazard = 0.5 score)
+		"planetAffinities":{
+			"barren_castiron":3, # String, market condition OR planet type id : Float, flat modifier to planet score
+			"decivilized":2,
+			"decivilized_subpop":2,
+			"ore_ultrarich":1,
+			"rare_ore_ultrarich":1,
+		},
+	# These mininums/maximums will be ignored if no planets meet the criteria
+		"minScore":1, # OPTIONAL Float, minimum planet score, default 0.5f
+		"minDist":10, # OPTIONAL Float, minimum distance in LY, default 0f
+		"maxDist":30, # OPTIONAL Float, maximum distance in LY, default very far
+}

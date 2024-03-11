@@ -1,0 +1,28 @@
+{
+	"baseHullId":"falcon",
+	"skinHullId":"vayra_falcon_warhawk",
+	"hullName":"Falcon (SR)",
+	"descriptionId":"falcon",
+	"spriteName":"graphics/ships/vayra_falcon_warhawk.png",
+    "baseValueMult":1.5,
+	"descriptionPrefix":"A product of the Stormhawk Republic, this ship has been engineered with highly modular parts and universal weapon mounts to increase its tactical flexibility.",
+	"hints":["HIDE_IN_CODEX"],
+	"tags":["warhawk"],
+	"tech":"Stormhawk Republic",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	
+	"weaponSlotChanges":{
+		"WS 009":{
+            "type": "UNIVERSAL"
+		},	
+		"WS 010":{
+            "type": "UNIVERSAL"
+		}	
+	},
+	"builtInMods":["vayra_warhawk_modular"],
+	"builtInWeapons":{
+    },
+}

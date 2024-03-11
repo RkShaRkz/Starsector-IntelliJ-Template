@@ -1,0 +1,145 @@
+{
+  "bounds": [
+    -49,
+    -2.5,
+    -8,
+    -1,
+    -50,
+    8.5,
+    -39.5,
+    22,
+    14,
+    16.5,
+    20,
+    26.5,
+    30,
+    26.5,
+    27,
+    13.5,
+    38.5,
+    -0.5,
+    26.5,
+    -13.5,
+    31,
+    -28.5,
+    21,
+    -30,
+    13,
+    -13.5,
+    2,
+    -31.5,
+    -4.5,
+    -14.5,
+    -48.5,
+    -13
+  ],
+  "builtInMods": [
+    "antediluvian"
+  ],
+  "center": [
+    30.5,
+    52.5
+  ],
+  "collisionRadius": 70.5,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 19,
+      "length": 50.5,
+      "location": [
+        -51,
+        -7.5
+      ],
+      "style": "CUSTOM",
+      "styleId": "ALGAE",
+      "width": 19
+    },
+    {
+      "angle": 180,
+      "contrailSize": 8,
+      "length": 22,
+      "location": [
+        -53,
+        10.5
+      ],
+      "style": "CUSTOM",
+      "styleId": "ALGAE",
+      "width": 8
+    },
+    {
+      "angle": 180,
+      "contrailSize": 8,
+      "length": 22,
+      "location": [
+        -50,
+        20.5
+      ],
+      "style": "CUSTOM",
+      "styleId": "ALGAE",
+      "width": 8
+    }
+  ],
+  "height": 111,
+  "hullId": "antediluvian_azores",
+  "hullName": "Azores",
+  "hullSize": "FRIGATE",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 67.5,
+  "spriteName": "graphics/ships/antediluvian_azores.png",
+  "style": "HIGH_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 280,
+      "id": "WS0001",
+      "locations": [
+        20,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0002",
+      "locations": [
+        27.5,
+        22.5
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": -0,
+      "arc": 5,
+      "id": "WS0003",
+      "locations": [
+        30.5,
+        -24.5
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": -135,
+      "arc": 300,
+      "id": "WS0004",
+      "locations": [
+        2.5,
+        -25.5
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "HYBRID"
+    }
+  ],
+  "width": 65
+}

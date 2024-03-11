@@ -1,0 +1,51 @@
+{
+    "baseHullId":"mora",
+    "skinHullId":"vayra_mora_rg",
+    "hullName":"Mora (RG)",
+    "descriptionId":"mora",
+    "descriptionPrefix":"Beyond the obvious weapon mount rebuilds and beneath the bright coat of Red Guards livery, this ship has been stripped down and rebuilt for maximum durability at minimal cost. Elaborate sensor arrays and failure-prone high-tech communication consoles have been pared away, leaving only those systems absolutely necessary to the vessel's function as a mercilessly efficient weapon of war.",
+    "tags":["revolutionary"],
+    "tech":"Red Guards",
+	"ordnancePoints":105,
+    "spriteName":"graphics/ships/vayra_mora_rg.png",
+    "baseValueMult":0.8,
+    "removeWeaponSlots":[],         # ids
+    "removeEngineSlots":[],         # indices, as engine slots have no id in the .ship file
+    "removeBuiltInMods":[],         # hullmod ids
+    "removeBuiltInWeapons":[],      # weapon slot ids
+    "builtInMods":["vayra_red_army"],
+    "builtInWeapons":{
+    },
+	"weaponSlotChanges":{
+		"WS 003":{
+			"type": "BALLISTIC"
+		},
+		"WS 004":{
+			"type": "BALLISTIC"
+		},
+		"WS 002":{
+			"angle": 0,
+			"arc": 12,
+			"mount": "HARDPOINT",
+			"type": "COMPOSITE"
+		},
+		"WS 005":{
+			"angle": 0,
+			"arc": 12,
+			"mount": "HARDPOINT",
+			"type": "COMPOSITE"
+		},
+		"WS 012":{
+			"angle": 0,
+			"arc": 12,
+			"mount": "HARDPOINT",
+			"type": "UNIVERSAL"
+		},
+		"WS 013":{
+			"angle": 0,
+			"arc": 12,
+			"mount": "HARDPOINT",
+			"type": "COMPOSITE"
+		},
+	}, 
+}

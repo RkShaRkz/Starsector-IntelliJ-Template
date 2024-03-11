@@ -1,0 +1,48 @@
+{
+	"baseHullId":"eagle",
+	"skinHullId":"vayra_eagle_westernesse",
+	"hullName":"Eagle (W)",
+	"descriptionId":"eagle",
+	"spriteName":"graphics/ships/vayra_eagle_westernesse.png",
+    "baseValueMult":1.5,
+	"descriptionPrefix":"Personal flagship of one of the esteemed Knights of Westernesse, this ship has been painstakingly upgraded with a series of exquisitely handcrafted components and systems tweaks by the expert shiptechs of Filkenhild designed to increase its deadliness in combat, as well as slightly reconfigure its weapon groups for better tactical versatility.",
+	"tags":["westernesse"],
+	"tech":"Order of Westernesse",
+    "systemId":"plasmajets",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["vayra_westernesse_knight"],
+	"builtInWeapons":{
+    },
+	"weaponSlotChanges":{
+		"WS 003":{
+            "type": "HYBRID",
+		},	
+		"WS 004":{
+            "type": "HYBRID"
+		},
+		"WS 005":{
+            "type": "BALLISTIC",
+		},	
+		"WS 006":{
+            "type": "BALLISTIC"
+		},
+		"WS 009":{
+            "type": "BALLISTIC",
+		},	
+		"WS 011":{
+            "type": "HYBRID"
+		},
+		"WS 007":{
+            "type": "ENERGY",
+		},	
+		"WS 008":{
+            "type": "ENERGY"
+		},
+		"WS 013":{
+            "type": "ENERGY",
+		}				
+	},
+}

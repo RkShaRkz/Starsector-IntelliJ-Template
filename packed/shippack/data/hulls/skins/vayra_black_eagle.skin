@@ -1,0 +1,35 @@
+{
+  "baseHullId": "eagle",
+  "baseValueMult":2,
+  "tech":"Unique Midline",
+  "addHints":[HIDE_IN_CODEX],
+  "builtInMods": [
+    "targetingunit",
+    "hardenedshieldemitter",
+    "auxiliarythrusters"
+  ],
+  "descriptionId": "eagle",
+  "descriptionPrefix":"This ship has been heavily modified over the cycles by its elite naval deserter crew, gaining capabilities far beyond those of a normal Eagle-class cruiser - with a reputation to match.",
+  "hullName": "Black Talon",
+  "restoreToBaseHull": false,
+  "systemId":"plasmajets",
+  "skinHullId": "vayra_black_eagle",
+  "spriteName": "graphics/ships/vayra_black_eagle.png",
+  "weaponSlotChanges":{
+    "WS 009":{
+    "type": "HYBRID"
+	},
+    "WS 010":{
+    "type": "SYNERGY"
+	},
+    "WS 011":{
+    "type": "HYBRID"
+	},
+    "WS 012":{
+    "type": "SYNERGY"
+	},
+    "WS 013":{
+    "type": "HYBRID"
+	}
+  },   
+}

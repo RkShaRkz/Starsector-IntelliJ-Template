@@ -1,0 +1,48 @@
+{
+  "animationType": "SMOKE",
+  "barrelMode": "ALTERNATING",
+  "displayArcRadius": 1000,
+  "fireSoundTwo": "reaper_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    10,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_splintermirv_hardpoint.png",
+  "id": "vayra_splintermirv",
+  "projectileSpecId": "vayra_splinter_mirv",
+  "renderHints": [
+    RENDER_LOADED_MISSILES
+  ],
+  "size": "SMALL",
+  "smokeSpec": {
+    "blowbackDuration": 2,
+    "blowbackLength": 22,
+    "blowbackParticleCount": 7,
+    "blowbackSpread": 15,
+    "cloudDuration": 0.69,
+    "cloudParticleCount": 11,
+    "cloudRadius": 18,
+    "particleColor": [
+      77,
+      241,
+      255,
+      185
+    ],
+    "particleSizeMin": 9,
+    "particleSizeRange": 11
+  },
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretOffsets": [
+    7,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_splintermirv_turret.png",
+  "type": "MISSILE"
+}

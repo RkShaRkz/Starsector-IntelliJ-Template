@@ -1,0 +1,43 @@
+{
+  "displayName": "Overdriven",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_targe",
+  "hullMods": [
+    "safetyoverrides",
+    "magazines"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_targe_overdriven",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_canister_gun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_strikecannon",
+        "WS0003": "vayra_strikecannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "vayra_sling",
+        "WS0005": "vayra_sling",
+        "WS0006": "vayra_volley_gun",
+        "WS0007": "vayra_volley_gun"
+      }
+    }
+  ],
+  "wings": []
+}

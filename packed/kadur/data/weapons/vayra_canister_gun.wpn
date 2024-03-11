@@ -1,0 +1,47 @@
+{
+  "animationType": "MUZZLE_FLASH",
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "flak_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGunSprite": "graphics/weapons/vayra_canister_gun_hardpoint_barrel.png",
+  "hardpointOffsets": [
+    26,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_canister_gun_hardpoint_base.png",
+  "id": "vayra_canister_gun",
+  "muzzleFlashSpec": {
+    "length": 9,
+    "particleColor": [
+      75,
+      155,
+      255,
+      225
+    ],
+    "particleCount": 30,
+    "particleDuration": 0.15,
+    "particleSizeMin": 3,
+    "particleSizeRange": 18,
+    "spread": 150
+  },
+  "projectileSpecId": "vayra_canister_shot",
+  "renderHints": [
+    "RENDER_BARREL_BELOW"
+  ],
+  "size": "MEDIUM",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGunSprite": "graphics/weapons/vayra_canister_gun_turret_barrel.png",
+  "turretOffsets": [
+    21,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_canister_gun_turret_base.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 7
+}

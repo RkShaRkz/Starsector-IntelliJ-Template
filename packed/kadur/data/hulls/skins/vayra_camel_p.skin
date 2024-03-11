@@ -1,0 +1,31 @@
+{
+  "baseHullId": "vayra_camel",
+  "baseValueMult":.8,
+  "tags":["pirate_bp", "revolutionary"],
+  "tech":"Pirate",
+  "ordnancePoints":50,
+  "builtInMods": [
+    "shielded_holds"
+  ],
+  "descriptionId": "vayra_camel",
+  "fleetPoints":6,
+  "descriptionPrefix":"Tough, fast, and heavily armed, salvaged Camel-class frigates are a favorite among up-and-coming pirate captains whenever they turn up on the black market. This particular example sports - along with a number of other questionable modifications - an aggressive paintjob, custom shielded cargo holds, shag carpeting in the officer's quarters, and a pair of gigantic fuzzy dice suspended from the main nav console.",
+  "engineSlotChanges": {
+    "0": {
+      "style": "LOW_TECH",
+    },
+    "1": {
+      "style": "LOW_TECH",
+    },
+    "2": {
+      "style": "LOW_TECH",
+    },
+    "3": {
+      "style": "LOW_TECH",
+    }
+  },
+  "hullName": "Camel (P)",
+  "restoreToBaseHull": false,
+  "skinHullId": "vayra_camel_p",
+  "spriteName": "graphics/ships/vayra_camel_p.png",
+}

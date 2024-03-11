@@ -1,0 +1,48 @@
+{
+  "animationType": "MUZZLE_FLASH",
+  "barrelMode": "ALTERNATING",
+  "displayArcRadius": 1000,
+  "fireSoundTwo": "vayra_jahannam_noise",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGunSprite": "graphics/weapons/vayra_jahannam_hardpoint_barrel.png",
+  "hardpointOffsets": [
+    53,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_jahannam_hardpoint_base.png",
+  "id": "vayra_jahannam",
+  "muzzleFlashSpec": {
+    "length": 85,
+    "particleColor": [
+      255,
+      110,
+      25,
+      188
+    ],
+    "particleCount": 40,
+    "particleDuration": 0.69,
+    "particleSizeMin": 10,
+    "particleSizeRange": 35,
+    "spread": 25
+  },
+  "projectileSpecId": "vayra_jahannam_shot",
+  "renderHints": [
+    "RENDER_BARREL_BELOW"
+  ],
+  "size": "LARGE",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGunSprite": "graphics/weapons/vayra_jahannam_turret_barrel.png",
+  "turretOffsets": [
+    45.5,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_jahannam_turret_base.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 15
+}

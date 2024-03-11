@@ -1,0 +1,84 @@
+{
+  "variantId": "vayra_prophet_lp_rubin",
+  "hullId": "vayra_prophet_lp",
+  "displayName": "Guns Blazing",
+  "goalVariant": false,
+  "fluxCapacitors": 50,
+  "fluxVents": 50,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "magazines",
+    "fluxdistributor",
+    "stabilizedshieldemitter",
+    "pointdefenseai",
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_hammer_barrage_forever",
+        "WS0028": "sabot",
+        "WS0029": "sabot",
+        "WS0030": "sabot",
+        "WS0031": "sabot",
+        "WS0032": "sabot",
+        "WS0033": "sabot"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "autopulse",
+        "WS0007": "autopulse"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0012": "chaingun",
+        "WS0014": "chaingun",
+        "WS0025": "chaingun",
+        "WS0026": "chaingun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "devastator",
+        "WS0003": "devastator",
+        "WS0010": "dualflak",
+        "WS0011": "dualflak",
+        "WS0024": "dualflak",
+        "WS0027": "dualflak"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "lightdualmg",
+        "WS0006": "lightdualmg",
+        "WS0008": "lightdualmg",
+        "WS0009": "lightdualmg",
+        "WS0013": "lightdualmg",
+        "WS0015": "lightdualmg",
+        "WS0016": "vulcan",
+        "WS0017": "vulcan",
+        "WS0018": "lightdualmg",
+        "WS0019": "lightdualmg",
+        "WS0020": "vulcan",
+        "WS0021": "vulcan",
+        "WS0022": "vulcan",
+        "WS0023": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

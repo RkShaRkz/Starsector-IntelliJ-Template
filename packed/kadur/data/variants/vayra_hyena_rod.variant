@@ -1,0 +1,38 @@
+{
+  "displayName": "Rod",
+  "fluxCapacitors": 3,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_hyena",
+  "hullMods": [
+    "missleracks"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_hyena_rod",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_rod_launcher"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "vayra_jamadhar_rack"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_burst_ciws"
+      }
+    }
+  ],
+  "wings": []
+}

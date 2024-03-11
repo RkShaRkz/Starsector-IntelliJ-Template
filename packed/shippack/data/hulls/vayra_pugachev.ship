@@ -1,0 +1,77 @@
+{
+  "hullName": "Pugachev",
+  "hullId": "vayra_pugachev",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/vayra_pugachev.png",
+  "style": "LOW_TECH",
+  "height": 50,
+  "width": 38,
+  "center": [19, 23],
+  "collisionRadius": 32,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 30.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_red_army"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "ENERGY",
+      "mount": "HIDDEN",
+      "arc": 90,
+      "angle": 0,
+      "locations": [20, -0]
+    },
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 20,
+      "angle": 0,
+      "locations": [23, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-14, 5.5],
+      "length": 35,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-14, -5.5],
+      "length": 35,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-14, 5.5],
+      "length": 29,
+      "width": 6,
+      "angle": 180,
+      "contrailSize": 128,
+      "style": "HIGH_TECH"
+    },
+    {
+      "location": [-14, -5.5],
+      "length": 29,
+      "width": 6,
+      "angle": -180,
+      "contrailSize": 128,
+      "style": "HIGH_TECH"
+    }
+  ],
+  "bounds": [
+    -10, -15,
+    -17, 0,
+    -10, 15,
+    23, -0
+  ]
+}

@@ -1,0 +1,27 @@
+{
+    "displayName": "Warplock",
+    "fluxCapacitors": 8,
+    "fluxVents": 4,
+    "hullId": "vayra_buzzard",
+	"goalVariant": true,
+    "hullMods": ["vayra_secret_buff_hullmod"],
+    "permaMods": ["vayra_secret_buff_hullmod"],
+    "variantId": "rc_vayra_buzzard_Warplock",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0004": "vayra_sabot_battery"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0002": "vayra_light_flechette"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0001": "vayra_aam_med"}
+        }
+    ]
+}

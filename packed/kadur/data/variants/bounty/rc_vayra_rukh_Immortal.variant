@@ -1,0 +1,43 @@
+{
+    "displayName": "Immortal",
+    "fluxCapacitors": 2,
+    "fluxVents": 0,
+    "hullId": "vayra_rukh",
+	"goalVariant": true,
+    "hullMods": [
+        "vayra_secret_buff_hullmod",
+        "expanded_deck_crew"
+    ],
+    "permaMods": ["vayra_secret_buff_hullmod"],
+    "variantId": "rc_vayra_rukh_Immortal",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0001": "vulcan",
+                "WS0002": "vulcan",
+                "WS0009": "vulcan"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0003": "vayra_hauberk_ciws",
+                "WS0004": "vayra_hauberk_ciws",
+                "WS0005": "vayra_hauberk_ciws",
+                "WS0006": "vayra_hauberk_ciws",
+                "WS0007": "vayra_hauberk_ciws",
+                "WS0008": "vayra_hauberk_ciws",
+                "WS0014": "vayra_hauberk_ciws",
+                "WS0015": "vayra_hauberk_ciws"
+            }
+        }
+    ],
+    "wings": [
+        "vayra_immortal_wing",
+        "vayra_immortal_wing",
+        "vayra_immortal_wing"
+    ]
+}

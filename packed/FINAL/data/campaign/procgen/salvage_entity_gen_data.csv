@@ -1,0 +1,2 @@
+id,rating,detection_range,type,autoXP,xpDiscover,xpSalvage,tags,drop_value,drop_random,defFaction,defQuality,probDefenders,minStr,maxStr,maxSize,probStation,stationRole
+vayra_listening_post,0.25,1700,DISCOVERABLE,700,500,1500,,basic:5000,,,,,,,,,

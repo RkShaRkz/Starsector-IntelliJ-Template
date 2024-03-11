@@ -1,0 +1,61 @@
+{
+  "hullName": "Molotov",
+  "hullId": "vayra_molotov",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/vayra_molotov.png",
+  "style": "LOW_TECH",
+  "height": 44,
+  "width": 32,
+  "center": [16, 17],
+  "collisionRadius": 30.5,
+  "shieldCenter": [2, -0],
+  "shieldRadius": 28,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_red_army"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": 0,
+      "locations": [3, 10.5]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": -0,
+      "locations": [3, -10.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-17, 4],
+      "length": 35,
+      "width": 9,
+      "angle": 180,
+      "contrailSize": 9,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-17, -4],
+      "length": 35,
+      "width": 9,
+      "angle": -180,
+      "contrailSize": 9,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    -5, -14,
+    -13, -0,
+    -5, 14,
+    24, -0
+  ]
+}

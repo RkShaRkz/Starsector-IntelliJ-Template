@@ -1,0 +1,56 @@
+{
+  "baseHullId": "vayra_sunbird",
+  "baseValueMult":3.0,
+  "tags":[],
+  "tech":"Pirate",
+  "hullDesignation":"Destroyer",
+  "addHints":[HIDE_IN_CODEX],
+  "builtInMods": [
+    "shielded_holds",
+	"safetyoverrides",
+	"auxiliarythrusters"
+  ],
+  "removeBuiltInMods":["eccm"], 		# hullmod ids
+  "removeBuiltInWings": [
+    "vayra_termite_wing"
+  ],
+  "builtInWings": [
+    "vayra_pirate_harpoondrone_wing"
+  ],
+  "descriptionId": "vayra_sunbird",
+  "fleetPoints":11,
+  "descriptionPrefix":"Personal vessel of an infamous dread pirate lord, this Sunbird-class destroyer has undergone significant conversions; transforming it from a missile ship into an aggressive hunter-killer.",
+  "engineSlotChanges": {
+    "0": {
+      "style": "LOW_TECH",
+    },
+    "1": {
+      "style": "LOW_TECH",
+    },
+    "2": {
+      "style": "LOW_TECH",
+    },
+    "3": {
+      "style": "LOW_TECH",
+    }
+  },
+  "hullName": "Bedlam",
+  "systemId":"ammofeed",
+  "restoreToBaseHull": false,
+  "skinHullId": "vayra_sunbird_sozzer",
+  "spriteName": "graphics/ships/vayra_sunbird_sozzer.png",
+    "weaponSlotChanges":{
+		"WS0001":{
+            "type": "BALLISTIC"
+		},
+		"WS0002":{
+            "type": "COMPOSITE"
+		},
+		"WS0003":{
+            "type": "COMPOSITE"
+		},
+		"WS0004":{
+            "type": "BALLISTIC"
+		}
+	},   
+}

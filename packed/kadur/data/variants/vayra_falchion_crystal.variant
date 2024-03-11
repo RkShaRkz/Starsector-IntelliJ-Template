@@ -1,0 +1,51 @@
+{
+  "displayName": "Crystalline",
+  "fluxCapacitors": 0,
+  "fluxVents": 13,
+  "goalVariant": true,
+  "hullId": "vayra_falchion",
+  "hullMods": [
+    "magazines",
+    "missleracks"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_falchion_crystal",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_splintergun",
+        "WS0002": "vayra_splintergun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "vayra_splintermirv"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_volley_gun",
+        "WS0004": "vayra_volley_gun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_burst_ciws",
+        "WS0006": "vayra_burst_ciws",
+        "WS0007": "vayra_hauberk_ciws",
+        "WS0008": "vayra_hauberk_ciws"
+      }
+    }
+  ],
+  "wings": []
+}

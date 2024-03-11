@@ -1,0 +1,2 @@
+command,class,tags,syntax,help
+ForceHVB,data.scripts.console.commands.VayraForceHVB,"campaign,vayra",ForceHVB <bounty id>,Force-spawns a High Value Bounty

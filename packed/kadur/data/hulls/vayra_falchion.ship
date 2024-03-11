@@ -1,0 +1,301 @@
+{
+  "bounds": [
+    -101.5,
+    -5,
+    -104,
+    -31.5,
+    -94,
+    -39,
+    -61.5,
+    -39.5,
+    -47.5,
+    -52.5,
+    -13,
+    -52.5,
+    -12.5,
+    -47,
+    105.5,
+    -11,
+    105.5,
+    11,
+    -12.5,
+    47,
+    -13,
+    52.5,
+    -47.5,
+    52.5,
+    -61.5,
+    39.5,
+    -94,
+    39,
+    -104,
+    31.5,
+    -101.5,
+    5
+  ],
+  "builtInMods": [
+    "vayra_forever_war"
+  ],
+  "builtInWeapons": {
+    "WS0011": "vayra_runninglightblue",
+    "WS0012": "vayra_runninglightyellow",
+    "WS0013": "vayra_runninglightyellow",
+    "WS0014": "vayra_runninglightblue"
+  },
+  "builtInWings": [],
+  "center": [
+    54,
+    105
+  ],
+  "collisionRadius": 143.5,
+  "engineSlots": [
+    {
+      "angle": -180,
+      "contrailSize": 15,
+      "length": 57,
+      "location": [
+        -105.5,
+        -28
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 14
+    },
+    {
+      "angle": 180,
+      "contrailSize": 15,
+      "length": 57,
+      "location": [
+        -105.5,
+        28
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 14
+    },
+    {
+      "angle": 180,
+      "contrailSize": 10,
+      "length": 43,
+      "location": [
+        -104,
+        19
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 13
+    },
+    {
+      "angle": -180,
+      "contrailSize": 10,
+      "length": 43,
+      "location": [
+        -104,
+        -19
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 13
+    },
+    {
+      "angle": -180,
+      "contrailSize": 5,
+      "length": 34,
+      "location": [
+        -102.5,
+        10.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 12
+    },
+    {
+      "angle": 180,
+      "contrailSize": 5,
+      "length": 34,
+      "location": [
+        -102.5,
+        -10.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 12
+    },
+    {
+      "angle": 180,
+      "contrailSize": 3,
+      "length": 79.5,
+      "location": [
+        -103,
+        0
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 18
+    }
+  ],
+  "height": 214,
+  "hullId": "vayra_falchion",
+  "hullName": "Falchion",
+  "hullSize": "DESTROYER",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 141.5,
+  "spriteName": "graphics/ships/vayra_falchion.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0011",
+      "locations": [
+        -10.5,
+        50.5
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": -0,
+      "arc": 5,
+      "id": "WS0012",
+      "locations": [
+        -10.5,
+        -50.5
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0013",
+      "locations": [
+        51.5,
+        19.5
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": -0,
+      "arc": 5,
+      "id": "WS0014",
+      "locations": [
+        51.5,
+        -19.5
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": 69,
+      "arc": 180,
+      "id": "WS0001",
+      "locations": [
+        -7,
+        23
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -69,
+      "arc": 180,
+      "id": "WS0002",
+      "locations": [
+        -7,
+        -23
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 69,
+      "arc": 180,
+      "id": "WS0003",
+      "locations": [
+        33,
+        14
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -69,
+      "arc": 180,
+      "id": "WS0004",
+      "locations": [
+        33,
+        -14
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 69,
+      "arc": 180,
+      "id": "WS0005",
+      "locations": [
+        62,
+        9
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -69,
+      "arc": 180,
+      "id": "WS0006",
+      "locations": [
+        62,
+        -9
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 168,
+      "arc": 140,
+      "id": "WS0007",
+      "locations": [
+        -84,
+        24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -168,
+      "arc": 140,
+      "id": "WS0008",
+      "locations": [
+        -84,
+        -24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0009",
+      "locations": [
+        95.5,
+        -0.5
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "COMPOSITE"
+    }
+  ],
+  "width": 108
+}

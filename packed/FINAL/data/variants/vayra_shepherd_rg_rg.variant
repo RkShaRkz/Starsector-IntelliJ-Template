@@ -1,0 +1,24 @@
+{
+    "displayName": "Proletarian",
+    "fluxCapacitors": 9,
+    "fluxVents": 0,
+    "goalVariant": true,
+    "hullId": "vayra_shepherd_rg",
+    "hullMods": ["reinforcedhull"],
+    "permaMods": [],
+    "quality": 0.5,
+    "variantId": "vayra_shepherd_rg_rg",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS 008": "heatseeker"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS 007": "vulcan"}
+        }
+    ],
+    "wings": []
+}

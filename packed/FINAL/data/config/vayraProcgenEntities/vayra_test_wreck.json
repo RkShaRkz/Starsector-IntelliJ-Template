@@ -1,0 +1,19 @@
+{
+	# IMPORTANT: This file's name must match a "unique_id" value in entities.csv
+	
+	"factionId":"neutral", # REQUIRED String, self-explanatory. overridden to neutral if isWreck == true
+	
+	"isWreck":true, # OPTIONAL Boolean, default false. if true and entityId is a ship variant, will spawn a wreck instead of a fleet
+	"entityId":"odyssey_Balanced", # REQUIRED String, can be a ship (or station) variant OR entry from custom_entities.json
+	# the former will spawn a fleet like a Remnant Battlestation (or a wreck if isWreck == true), the latter will spawn a SectorEntityToken which can be turned into a market (or not)
+	
+	#"additionalDefensesLevel":"BASTION", # OPTIONAL String, 'OUTPOST' or 'BASTION' or 'CITADEL', default null
+	
+	# the following only take effect if isWreck == true and entityId is a ship variant
+	"wreckCondition":"WRECKED", # OPTIONAL String, default AVERAGE, must match a ShipCondition enum value
+	"wreckRecoverable":true, # OPTIONAL Boolean, default true
+	
+	#"spawnInSystem":"Fearsome Engine", # OPTIONAL String, if null/absent or system not found, will use following options instead - if 'hyperspace', will use following settings in hyperspace
+	"minSpawnDistanceFromCore":10000, # OPTIONAL Float, default 10000, will ignore if no suitable systems are found within range
+	"maxSpawnDistanceFromCore":15000, # OPTIONAL Float, default 15000, will ignore if no suitable systems are found within range
+}

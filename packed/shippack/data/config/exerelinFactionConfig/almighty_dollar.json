@@ -1,0 +1,53 @@
+{
+    "playableFaction":true,
+    "corvusCompatible":true,
+    "noHomeworld":true,
+	"enabledByDefault":false,
+    
+    "rebelFleetSuffix":"Hostile Takeover",
+
+    "startRelationships":{ "hegemony":0.6, "tritachyon":-0.6, "persean":-0.6 },
+    "maxRelationships":{ "tritachyon":-0.2, "persean":-0.2 },
+    "diplomacyPositiveChance":{ "hegemony":1.5, "tritachyon":0.75, "persean":0.5 },
+    "diplomacyNegativeChance":{ "hegemony":0.5, "tritachyon":1.5, "persean":2 },
+    
+    "alignments":{
+        "corporate":0.5,
+        "technocratic":0,
+        "militarist":0.5,
+        "diplomatic":0.5,
+        "ideological":-1,
+    },
+    
+	"diplomacyTraits":["helps_allies", "weak-willed", "dislikes_ai", "submissive", "monopolist"],
+	
+    "freeMarket":true,
+    
+    "startShipsSolo":[["vayra_cerberus_mm_hard"],["vayra_hound_mm_mm"]],
+    "startShipsTradeSmall":[["vayra_mule_mm_pd", "vayra_cerberus_mm_hard", "vayra_hound_mm_mm"]],
+    "startShipsCarrierSmall":[["vayra_gemini_mm_mm", "shepherd_Frontier"]],
+    "startShipsCombatLarge":[["vayra_venture_mm_missile", "vayra_mule_mm_pd", "vayra_cerberus_mm_hard"]],
+    "startShipsTradeLarge":[["vayra_venture_mm_missile", "vayra_gemini_mm_mm", "vayra_cerberus_mm_hard"]],
+    "startShipsCarrierLarge":[["vayra_gemini_mm_mm", "vayra_gemini_mm_mm", "shepherd_Frontier"]],
+    "startShipsSuper":[["vayra_galleon_rimward"]],
+    
+    "startSpecialItems":[
+        [["low_tech_package", ""]],
+        [["kadur_rimward_package", ""]],
+    ],
+    
+    "defenceStations":[
+        {"ids":["orbitalstation", "battlestation", "starfortress"]},
+        {"ids":["orbitalstation_mid", "battlestation_mid", "starfortress_mid"], "weight":0.5},
+    ],
+    
+    "industrySeeds":[
+        {"id":"commerce", "mult":0.1},
+        {"id":"fuelprod", "mult":0.1},
+        {"id":"lightindustry", "mult":0.1},
+    ],
+    
+    "bonusSeeds":[
+        {"id":"population_upsize", "count":1},
+    ],
+}

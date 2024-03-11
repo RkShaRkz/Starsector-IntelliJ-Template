@@ -1,0 +1,142 @@
+{
+  "bounds": [
+    -8.5,
+    -16,
+    -15,
+    -0,
+    -8.5,
+    16,
+    35.5,
+    -0
+  ],
+  "builtInMods": [
+  ],
+  "center": [
+    20,
+    18
+  ],
+  "collisionRadius": 47,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 10,
+      "length": 44.5,
+      "location": [
+        -16,
+        8.5
+      ],
+      "style": "KADUR_MAYASURAN_FLARE",
+      "width": 10
+    },
+    {
+      "angle": -180,
+      "contrailSize": 10,
+      "length": 44.5,
+      "location": [
+        -16,
+        -8.5
+      ],
+      "style": "KADUR_MAYASURAN_FLARE",
+      "width": 10
+    }
+  ],
+  "height": 56,
+  "hullId": "vayra_hoplite_m",
+  "hullName": "Hoplite",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    7,
+    -0
+  ],
+  "shieldRadius": 38.5,
+  "spriteName": "graphics/ships/vayra_hoplite_m.png",
+  "style": "MIDLINE",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": -0,
+      "arc": 5,
+      "id": "WS0003",
+      "locations": [
+        4,
+        10.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0005",
+      "locations": [
+        4,
+        -10.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": -0,
+      "arc": 5,
+      "id": "WS0001",
+      "locations": [
+        0.5,
+        17.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0002",
+      "locations": [
+        0.5,
+        -17.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 145,
+      "arc": 10,
+      "id": "WS0004",
+      "locations": [
+        -10,
+        13
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "SYSTEM"
+    },
+    {
+      "angle": -145,
+      "arc": 10,
+      "id": "WS0006",
+      "locations": [
+        -10,
+        -13
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "SYSTEM"
+    },
+    {
+      "angle": -45,
+      "arc": 5,
+      "id": "WS0007",
+      "locations": [
+        -7,
+        1
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    }
+  ],
+  "width": 40
+}

@@ -1,0 +1,42 @@
+{
+  "displayName": "Bomber",
+  "fluxCapacitors": 8,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_shirdal",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_shirdal_bomber",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_ercannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_hauberk_ciws",
+        "WS0002": "vayra_hauberk_ciws",
+        "WS0004": "vayra_dual_ciws_beam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_jericho_sml",
+        "WS0006": "vayra_jericho_sml"
+      }
+    }
+  ],
+  "wings": [
+    "vayra_abid_wing",
+    "vayra_mamluk_wing"
+  ]
+}

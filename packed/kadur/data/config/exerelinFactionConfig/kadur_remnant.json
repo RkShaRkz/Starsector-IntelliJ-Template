@@ -1,0 +1,125 @@
+{
+    "playableFaction":true,
+    "corvusCompatible":true,
+    "morality":"good",
+    "alignments":{
+        "corporate":-1,
+        "technocratic":-1,
+        "militarist":-0.1,
+        "diplomatic":0.5,
+        "ideological":0.8,
+    },
+	
+	"diplomacyTraits":["pacifist", "stalwart", "selfrighteous", "hates_ai", "envious", "irredentist"],
+	
+    "maxRelationships":{ "hegemony":-0.6 },
+    "diplomacyPositiveChance":{ "hegemony":0.75 },
+    "diplomacyNegativeChance":{ "hegemony":1.5 },
+	
+    "startRelationships":{
+		"shadow_industry":0.45,	# longtime kadur trade partner and maybe the only good guys in the sector
+		"blackrock_driveyards":0.45,	# longtime kadur trade partner, they are kinda bad ppl tho
+		"dassault_mikoyan":0.2,	# kadur would be willing to trade with the russian french vector people
+		"6eme_bureau":0.2,	# subfaction
+		"junk_pirates":0.2,	# we are not so different, you and i
+		"pack":0.2,	# we are not so different, you and i
+		"nomads":0.2,	# we are not so different, you and i
+		"mayasura":0.2,	# we are not so different, you and i
+		"player":-0.2,	# who are you? we don't trust you
+		"independent":-0.2,	# who are you? we don't trust you
+		"scavengers":-0.2,	# who are you? we don't trust you
+		"asp_syndicate":-0.2,	# the theocracy's tradepartners, but they broke contact after the regime change...
+		# assume if your mod faction isn't listed they should be suspicious too	
+		# i just didn't want to clutter too much... heh	
+		# Tyrador	
+		# Tiandong	
+		# Metelson	
+		# Crystanite	
+		# Corvus Scavengers	
+		"persean_league":-0.45,	# unsure if this is a league of independent worlds or a new tyranny
+		"ORA":-0.45,	# something seems off about these people. unsettling
+		"SCY":-0.45,	# they did what they had to but they did some bad stuff
+		"sylphon":-0.45,	# AI ships? why would you do that. come on. you know what happens.
+		"exlane":-0.45,	# 
+		"fob":-0.45,	# do you really expect me to believe you come in peace
+		"the_deserter":-0.65,	# you don't get to get off that easy
+		"luddic_church":-0.65,	# the idolatry of Ludd is partially to blame for the state of the sector
+		"knights_of_ludd":-0.65,	# subfaction
+		"al_ars":-0.65,	# they're pirates... maybe?
+		"sad":-0.65,	# they're pirates... maybe?
+		"neutrinocorp":-0.65,	# bad bad corporation
+		"pirates":-0.65,	# they're pirates
+		"HMI":-0.65,	# they're pirates
+		"thulelegacy":-0.65,	# all who pretend to the throne of the Domain are tyrants as they were
+		"interstellarimperium":-0.65,	# all who pretend to the throne of the Domain are tyrants as they were
+		"sindrian_diktat":-0.65,	# all who pretend to the throne of the Domain are tyrants as they were
+		"lions_guard":-0.65,	# subfaction
+		"tritachyon":-0.65,	# a phase cruiser was seen at the battle of kadur. who makes those?
+		"approlight":-0.65,	# AI ships and fucky aliens
+		"immortallight":-1,	# AI ships and fucky aliens and evil
+		"tahlan_legioinfernalis":-1,	# not just pirates, space fascist ex-domain pirates that use AI	
+		"cabal":-1,	# special case subfaction
+		"hegemony":-1,	# we will fight you to the bitter end. oasis will be free once more
+		"luddic_path":-1,	# bloodthirsty heretics
+		"nullorder":-1,	# wait... are these the good guys? oh well. colorcoded evil right?
+		"draco":-1,	# literal monsters
+		"fang":-1,	# literal monsters
+		"infected":-1,	# literal monsters
+		"derelict":-1,	# there is something profoundly unholy about the thinking machine
+		"remnant":-1,	# there is something profoundly unholy about the thinking machine
+		"mess":-1,	# there is something profoundly unholy about the thinking machine
+		"diableavionics":-1,	# garden worlds are too rare to defile:and we cannot abide slavery
+		"blade_breakers":-1,	# not sure if these are AI or pirates or what but we don't like 'em
+		"templars":-1,	# if there is a hell, they are born of it
+		"gmda":-1,	# ACAB
+		"COPS":-1,	# ACAB
+		"new_galactic_order":-1,	# NAZI NERDS FUCK OFF
+    },
+    "miningVariantsOrWings":["vayra_sirocco_a", "vayra_sirocco_cs", "vayra_sirocco_f", "vayra_sirocco_m"],
+	
+    "baseFleetCostMultiplier":1.0,
+    "spawnMarketShare":0.2,
+
+    "customRebelFaction":"",
+    "customRebelFleetId":"",
+    "rebelFleetSuffix":"Apostates",
+	
+    "asteroidMiningFleetName":"Pilgrims",
+    "gasMiningFleetName":"Mendicants",
+    "logisticsFleetName":"Proselytizers",
+    "invasionFleetName":"Judgement Fleet",
+    "invasionSupportFleetName":"Crusaders",
+    "responseFleetName":"Retribution Fleet",
+    "defenceFleetName":"Cathedral Fleet",
+    "suppressionFleetName":"Purifiers", 
+    "stationName":"Temple",
+	
+    "defenceStations":[
+        {"ids":["orbitalstation", "battlestation", "starfortress"]},
+        {"ids":["orbitalstation_mid", "battlestation_mid", "starfortress_mid"], "weight":3},
+    ],
+	
+    "startSpecialItems":[
+        [["kadur_rail_package", ""]],
+        [["kadur_warship_package", ""]],
+    ],
+	
+    "industrySeeds":[
+        {"id":"orbitalworks", "mult":0.1},
+    ],
+	
+    "bonusSeeds":[
+        {"id":"nanoforge_pristine", "count":1},
+    ],
+	
+	"ngcTooltip":"Broken but not defeated, the Kadur people arm the tattered remainders of their once-great fleet in a desperate battle against the extinction of their culture and their faith.",
+
+    "startShipsSolo":[["vayra_camel_assault"], ["vayra_mendicant_refugee"]],
+    "startShipsCombatSmall":[["vayra_targe_line", "vayra_buzzard_cs", "vayra_hyena_rod"],["vayra_falchion_standard", "vayra_camel_assault", "vayra_hyena_rod"],["vayra_archimandrite_shockweb", "vayra_buzzard_cs", "vayra_mendicant_cs"]],
+    "startShipsTradeSmall":[["vayra_sirocco_logistics", "vayra_buzzard_pd", "vayra_mendicant_cs"]],
+    "startShipsCombatLarge":[["vayra_sphinx_artillery", "vayra_falchion_microfission", "vayra_camel_shotgun"],["vayra_golem_artillery", "vayra_targe_cs", "vayra_buzzard_howitzer"]],
+    "startShipsTradeLarge":[["vayra_sirocco_logistics", "vayra_sirocco_logistics", "vayra_mendicant_cs", "vayra_mendicant_fs"]],
+    "startShipsCarrierSmall":[["vayra_shirdal_bomber", "vayra_buzzard_fs"]],
+    "startShipsCarrierLarge":[["vayra_rukh_standard", "vayra_shirdal_interceptor", "vayra_buzzard_fs"]],
+    "startShipsGrandFleet":[["vayra_prophet_line", "vayra_seraph_standard", "vayra_ziz_strike", "vayra_sphinx_artillery", "vayra_golden_eagle_assault", "vayra_golem_artillery", "vayra_rukh_standard", "vayra_eagle_k_line", "vayra_falcon_k_torpedo", "vayra_sirocco_logistics", "vayra_sirocco_logistics", "vayra_targe_cs", "vayra_shirdal_interceptor", "vayra_archimandrite_artillery", "vayra_sunbird_fs", "vayra_falchion_standard", "vayra_dolphin_ramming", "vayra_camel_assault", "vayra_buzzard_fs", "vayra_hyena_rod", "vayra_mendicant_fs"]],
+}

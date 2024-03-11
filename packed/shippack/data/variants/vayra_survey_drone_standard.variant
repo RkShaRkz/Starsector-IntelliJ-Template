@@ -1,0 +1,22 @@
+{
+  "displayName": "Auxiliary",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_survey_drone",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_survey_drone_standard",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "ioncannon_fighter"
+      }
+    }
+  ],
+  "wings": []
+}

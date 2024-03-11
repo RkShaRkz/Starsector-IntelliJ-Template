@@ -1,0 +1,62 @@
+{
+  "variantId": "vayra_dominator_kazeron_overdriven",
+  "hullId": "vayra_dominator_kazeron",
+  "displayName": "Overdriven",
+  "goalVariant": false,
+  "fluxCapacitors": 0,
+  "fluxVents": 19,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 014": "sabotpod",
+        "WS 015": "sabotpod",
+        "WS 016": "sabotpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 012": "autopulse",
+        "WS 013": "autopulse"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "ioncannon",
+        "WS 010": "chaingun",
+        "WS 011": "chaingun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "pdlaser",
+        "WS 002": "lightmg",
+        "WS 003": "pdlaser",
+        "WS 005": "pdlaser",
+        "WS 006": "lightmg",
+        "WS 007": "pdlaser",
+        "WS 008": "vulcan",
+        "WS 009": "vulcan"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

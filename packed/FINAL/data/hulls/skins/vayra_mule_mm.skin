@@ -1,0 +1,29 @@
+{
+	"baseHullId":"mule",
+	"skinHullId":"vayra_mule_mm",
+	"hullName":"Mule (MM)",
+	"descriptionId":"mule",  # optional
+	"descriptionPrefix":"This ship has been overhauled for fleet use by the Rimward Venture Trading Company, replacing the waist hardpoints with larger ballistic turrets for additional defensive firepower.",
+	"hints":[],
+	"tags":["mercantile"],
+	"tech":"Merchant Marine",
+	"baseValueMult":1.2,
+	"spriteName":"graphics/ships/vayra_mule_mm.png",
+	"removeWeaponSlots":["WS 001", "WS 002"], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"weaponSlotChanges":{
+		"WS 004":{
+		"size": "MEDIUM",
+        "type": "BALLISTIC",
+		},
+		"WS 006":{
+		"size": "MEDIUM",
+        "type": "BALLISTIC",
+		},
+	},
+	"builtInMods":["shielded_holds", "vayra_merchant_marine"],
+	"builtInWeapons":{
+    },
+}

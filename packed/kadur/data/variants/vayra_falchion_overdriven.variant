@@ -1,0 +1,50 @@
+{
+  "displayName": "Overdriven",
+  "fluxCapacitors": 0,
+  "fluxVents": 4,
+  "goalVariant": true,
+  "hullId": "vayra_falchion",
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_falchion_overdriven",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "vayra_lightspike_pod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_strikecannon",
+        "WS0002": "vayra_strikecannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_volley_gun",
+        "WS0004": "vayra_volley_gun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_burst_ciws",
+        "WS0006": "vayra_burst_ciws",
+        "WS0007": "vayra_hauberk_ciws",
+        "WS0008": "vayra_hauberk_ciws"
+      }
+    }
+  ],
+  "wings": []
+}

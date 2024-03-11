@@ -1,0 +1,88 @@
+{
+  "hullName": "Broadsword (SR)",
+  "hullId": "vayra_broadsword_warhawk",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/vayra_broadsword_warhawk.png",
+  "style": "MIDLINE",
+  "height": 33,
+  "width": 30,
+  "center": [15, 13],
+  "collisionRadius": 30,
+  "shieldCenter": [1, 0],
+  "shieldRadius": 22,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_warhawk_modular"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS 001",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "HIDDEN",
+      "arc": 5,
+      "angle": 0,
+      "locations": [8.5, 9.5]
+    },
+    {
+      "id": "WS 002",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "HIDDEN",
+      "arc": 5,
+      "angle": 0,
+      "locations": [8.5, -9.5]
+    },
+    {
+      "id": "WS 003",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "HIDDEN",
+      "arc": 5,
+      "angle": 0,
+      "locations": [1.5, 12.5]
+    },
+    {
+      "id": "WS 004",
+      "size": "SMALL",
+      "type": "UNIVERSAL",
+      "mount": "HIDDEN",
+      "arc": 5,
+      "angle": 0,
+      "locations": [1.5, -12.5]
+    },
+    {
+      "id": "WS 005",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 5,
+      "angle": 180,
+      "locations": [-6, 0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-12, 5.5],
+      "length": 32,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 64,
+      "style": "MIDLINE"
+    },
+    {
+      "location": [-12, -5.5],
+      "length": 32,
+      "width": 12,
+      "angle": 180,
+      "contrailSize": 64,
+      "style": "MIDLINE"
+    }
+  ],
+  "bounds": [
+    -5, 12,
+    20, 0,
+    -5, -12,
+    -10, 0
+  ]
+}

@@ -1,0 +1,455 @@
+{
+	id:"warhawk_republic",
+	"showInIntelTab":false,
+	"color":[45,110,190,255],
+    "secondaryUIColor":[0,20,20,255],
+    "secondarySegments":2,
+	"brightUIColor":[220,185,55,255],
+	"baseUIColor":[0,41,120,255],
+	"darkUIColor":[0,20,20,255],
+	
+	"entityNamePrefix":"Stormhawk",
+	"personNamePrefix":"Stormhawk",
+	"displayName":"Stormhawk Republic",
+	"logo":"graphics/factions/vayra_warhawk_republic_flag.png",
+	"crest":"graphics/factions/vayra_warhawk_republic_crest.png",
+	"displayNameWithArticle":"the Stormhawk Republic",
+	"shipNamePrefix":"SRS", # Stormhawk Republic Starship
+	"shipNameSources":{
+		"BRITISH_NAVY":6, 
+		"BEASTS":3,
+		"GREEK":1,
+	},
+	"names":{
+		"old english":1,
+		"world":1,
+		"future":1,
+		"myth":1,
+	},
+	# variantOverrides restricts hulls to listed variants and adjusts their probability
+	"variantOverrides":{
+	},
+	# multiplier for how often hulls show up in the faction's fleets
+	"hullFrequency":{
+		"tags":{
+			"mayasura_bp":2,
+			"mayasura_w_bp":2,
+			"mayasura_c_bp":1.5,
+			"mayasura_e_bp":1.5,
+			"warhawk":4,
+		},
+		"hulls":{
+			"buffalo2":0, # just say no
+			"apogee":0, # too civilian
+			"shrike":0, # too light
+			"prometheus":0, # BAD MEMORIES
+			"centurion":0, # you have your own
+			"hammerhead":0, # you have your own
+			"sunder":0, # you have your own
+			"drover":0, # you have your own
+			"heron":0, # you have your own
+		},
+	},
+	# ships the faction gets access to when importing S&W out-of-faction
+	"shipsWhenImporting":{
+		"tags":["base_bp", "midline_bp", "mayasura_bp", "warhawk"],
+		"hulls":[
+			"atlas",
+			"monitor",
+			"vigilance",
+			"brawler",
+			"prometheus",
+			"conquest",
+			"astral",
+			"gryphon",
+			"eagle",
+			"valkyrie",
+		],
+	},
+	"knownShips":{
+		"tags":["base_bp", "midline_bp", "mayasura_bp", "mayasura_w_bp", "mayasura_c_bp", "mayasura_e_bp", "warhawk"],
+		"hulls":[
+			"atlas",
+			"monitor",
+			"vigilance",
+			"brawler",
+			"prometheus",
+			"conquest",
+			"astral",
+			"gryphon",
+			"eagle",
+			"valkyrie",
+		],
+	},
+	# listing ships here will make the faction mostly use them even if other hulls become available
+	"priorityShips":{
+		"tags":[],
+		"hulls":[
+		],
+	},
+	"knownFighters":{
+		"tags":["base_bp", "lowtech_bp", "midline_bp", "hightech_bp", "mayasura_bp", "mayasura_w_bp", "mayasura_c_bp", "mayasura_e_bp", "warhawk"],
+		"fighters":[
+			"xyphos_wing",
+			"claw_wing",
+			"longbow_wing",
+		],
+	},
+	"priorityFighters":{
+		"tags":["mayasura_bp", "mayasura_w_bp", "mayasura_c_bp", "mayasura_e_bp", "warhawk"],
+		"fighters":[
+			"hoplon_wing",
+		],
+	},
+	"knownWeapons":{
+		"tags":["base_bp", "lowtech_bp", "midline_bp", "hightech_bp", "missile_bp", "mayasura_bp", "mayasura_w_bp", "mayasura_c_bp", "mayasura_e_bp", "warhawk"],
+		"weapons":[
+			"lightneedler",
+			"railgun",
+			"dualflak",
+			"heavymauler",
+			"hveldriver",
+			"heavyneedler",
+			"gauss",
+			"mjolnir",
+			"multineedler",
+			"sabotpod",
+			"phasecl",
+			"cyclone",
+			"hurricane",
+			"squall",
+			"locust",
+			"pdburst",
+			"amblaster",
+			"phasebeam",
+			"heavyblaster",
+			"heavyburst",
+			"ionpulser",
+			"ionbeam",
+			"plasma",
+			"guardian",
+			"tachyonlance",
+		],
+	},
+	"priorityWeapons":{
+		"tags":["warhawk"],
+		"weapons":[
+			"railgun",
+			"dualflak",
+			"heavymauler",
+			"hveldriver",
+		],
+	},
+	"knownHullMods":{
+		"tags":["base_bp", "warhawk"],
+		"hullMods":[
+			"advancedshieldemitter", # accelerated
+			"advancedoptics",
+			"turretgyros",
+			"armoredweapons",
+			"augmentedengines",
+			"autorepair",
+			"converted_hangar",
+			"eccm",
+			"ecm",
+			"expanded_deck_crew",
+			"magazines",
+			"missleracks",
+			"extendedshieldemitter",
+			"frontemitter",
+			"frontshield",  # makeshift
+			"hardenedshieldemitter",
+			"heavyarmor",
+			"insulatedengine",
+			"pointdefenseai",
+			"targetingunit",
+			"nav_relay",
+			"adaptiveshields", # omni
+			"operations_center",
+			"recovery_shuttles",
+			"fluxbreakers",
+			"solar_shielding",
+			"stabilizedshieldemitter",
+			"surveying_equipment",
+			"hiressensors",
+			"efficiency_overhaul",
+		],
+	},
+	"factionDoctrine":{
+		"warships":2,
+		"carriers":4,
+		"phaseShips":1,
+		
+		"officerQuality":3,
+		"shipQuality":3,
+		"numShips":1,
+		
+		"shipSize":4,
+		
+		"aggression":4,
+		
+		"combatFreighterProbability":0.75,      				# instead of some portion of the freighters in a fleet
+		"combatFreighterCombatUseFraction":0,  				# as part of the normal combat lineup
+		"combatFreighterCombatUseFractionWhenPriority":0,   # as part of normal combat lineup, when marked as priority ship
+		"autofitRandomizeProbability":0.1,
+		
+		"commanderSkillsShuffleProbability":0,
+		"commanderSkills":[
+			"officer_management",
+			"coordinated_maneuvers",
+			"fighter_doctrine",
+			"electronic_warfare",
+		],
+	},
+	"illegalCommodities":[
+		"drugs",
+		"organs",
+		"hand_weapons",
+		"ai_cores",	
+	],
+	"music":{
+		"theme":"music_diktat_market_neutral",
+		"market_neutral":"music_diktat_market_neutral",
+		"market_hostile":"music_diktat_market_hostile",
+		"market_friendly":"music_diktat_market_friendly",
+		"encounter_neutral":"music_diktat_encounter_neutral",
+		"encounter_hostile":"music_diktat_encounter_hostile",
+		"encounter_friendly":"music_diktat_encounter_friendly",
+	},
+	"portraits":{
+		"standard_male":[
+			"graphics/portraits/portrait_hegemony01.png",
+			"graphics/portraits/portrait_hegemony02.png",
+			"graphics/portraits/portrait_hegemony05.png",
+			"graphics/portraits/portrait_hegemony07.png",
+			"graphics/portraits/portrait_hegemony09.png",
+			"graphics/portraits/portrait_hegemony12.png",
+			"graphics/portraits/portrait_hegemony13.png",
+			"graphics/portraits/portrait_mercenary01.png",
+			"graphics/portraits/portrait_mercenary03.png",
+			"graphics/portraits/portrait13.png",
+			"graphics/portraits/portrait15.png",
+			#"graphics/portraits/portrait26.png",
+			"graphics/portraits/portrait33.png",
+		],
+		"standard_female":[
+			"graphics/portraits/portrait_hegemony03.png",
+			"graphics/portraits/portrait_hegemony04.png",
+			"graphics/portraits/portrait_hegemony08.png",
+			"graphics/portraits/portrait_hegemony10.png",
+			"graphics/portraits/portrait_hegemony11.png",
+			"graphics/portraits/portrait_hegemony14.png",
+			"graphics/portraits/portrait_mercenary02.png",
+			"graphics/portraits/portrait16.png",
+			"graphics/portraits/portrait34.png",
+			"graphics/portraits/portrait37.png",
+		],
+	},
+	"fleetTypeNames":{
+		"trade":"Supply Fleet",
+		"tradeLiner":"Liner Convoy",
+		"smallTrader":"Trader",
+		
+		"patrolSmall":"Irregulars",
+		"patrolMedium":"Militia",
+		"patrolLarge":"Phoenix Hunters",
+		
+		"inspectionFleet":"Battlegroup",
+		"taskForce":"Task Force",
+		
+		"foodReliefFleet":"Relief Convoy",
+		"mercArmada":"Colony Engineers",
+	},
+	"custom":{
+		"engageWhenEvenStrength":true,
+		"offersCommissions":true,
+		"engagesInHostilities":true,
+		#"postsNoBounties":true,
+		"buysAICores":true,
+		"AICoreValueMult":1,
+		"AICoreRepMult":1,
+		"buysSurveyData":true,
+		"hostilityImpactOnGrowth":false,
+		"punitiveExpeditionData":{
+			"vsCompetitors":true,
+			"vsFreePort":true,
+			"canBombard":true,
+			"territorial":true,
+		},
+		"starshipLegendsConfig":{
+	# Prevents references to crew in the faction's fleets, sometimes substituting
+	#	"crew" with "AI persona"
+	"useCrewlessTraitNames":false,
+	
+	# Changes the short description prior to listing traits. Enter %s where the
+	#	commander's name should be, if you want it to apear at all
+	"descriptionOverride":"The ships in %s's fleet are known for having the following traits:",
+	
+	# Allows the fleets of this faction to have famous flagships, which the
+	# 	player may find out about from a bar event
+	"allowFamousFlagshipsInFleets":true,
+	
+	# If true, the bars at markets owned by your faction will sometimes have
+	#	patrons that offer information about the whereabouts of famous
+	#	flagships or derelicts
+	"allowFamousFlagshipBarEvent":true,
+	"allowFamousDerelictBarEvent":true,
+	
+	# Ships in this list may be chosen as a derelict for the derelict bar event
+	# Generally, only ships defined by your faction mod should be listed here
+	"derelictFrequency":{
+	},
+	
+	# Ships in this list may be chosen as a derelict for the derelict bar event,
+	#	but only at markets owned by your faction
+	"exclusiveDerelictFrequency":{
+	
+		# Since this ship id is also in derelictFrequency, it will override it,
+		#	but only at owned markets
+	},
+	
+	# Edit the values in the lists below to change the probability of fleets from
+	#	this faction getting traits. Higher numbers make traits more likely.
+	#	To disable a trait, set its value to 0. Removing a trait from the list will
+	#	only revert it to the default value.
+	"goodTraitFrequency":{
+		"peak_cr_time":1,
+		"repair":1,
+		"malfunction":1,
+		"mount_durability":0.5,
+		"engine_durability":0.5,
+		"hull_integrity":0.5,
+		"armor_strength":0.5,
+		"emp_resistance":0.5,
+		"engine_power":1,
+		"maneuverability":1,
+		"damage":1,
+		"weapon_stability":1,
+		"turret_rotation":1,
+		"range":1,
+		"fighter_damage":1,
+		"fighter_speed":1,
+		"fighter_durability":1,
+		"refit_time":1,
+		"overload_time":1,
+		"flux_capacity":1,
+		"flux_dissipation":1,
+		"vent_rate":1,
+		"shield_raise_rate":1,
+		"shield_stability":1,
+		"shield_strength":1,
+		"phase_cost":0,
+		"phase_cooldown":0,
+		"blockade_runner":0,
+	},
+	
+	"badTraitFrequency":{
+		"peak_cr_time":1,
+		"repair":1,
+		"malfunction":1,
+		"mount_durability":1,
+		"engine_durability":1,
+		"hull_integrity":1,
+		"armor_strength":1,
+		"emp_resistance":1,
+		"engine_power":1,
+		"maneuverability":1,
+		"damage":1,
+		"weapon_stability":1,
+		"turret_rotation":1,
+		"range":1,
+		"fighter_damage":0,
+		"fighter_speed":0,
+		"fighter_durability":0,
+		"refit_time":0,
+		"overload_time":1,
+		"flux_capacity":1,
+		"flux_dissipation":1,
+		"vent_rate":1,
+		"shield_raise_rate":1,
+		"shield_stability":1,
+		"shield_strength":1,
+		"phase_cost":0,
+		"phase_cooldown":0,
+		"cursed":1,
+		"phase_mad":0,
+	},
+	
+	# By defining a "forcedPreset", all fleets in the faction will have the traits you
+	#	specify, in the specified order. This list will override the frequency lists
+	#	above, until they run out of traits
+	"forcedPreset":{
+	
+		# The number of traits each fleet in the faction will have, unless the player
+		#	modifies the max traits possible, in which case it will be scaled proportionally
+		#	The default max number of traits is 8
+		"defaultNumberOfTraits":6,
+		
+		"goodTraits":[
+			# Put good traits here. The first traits listed will be chosen first. At
+			#	least defaultNumberOfTraits must be chosen if you want to prevent other
+			#	good traits from being chosen
+			"fighter_damage",
+			"fighter_speed",
+			"fighter_durability",
+		],
+		
+		"badTraits":[
+			# Put bad traits here. The first traits listed will be chosen first. At
+			#	least half of defaultNumberOfTraits should be chosen if you want to prevent
+			#	other bad traits from being chosen
+		],
+		
+		# Move traits from below to the lists above. Feel free to delete the unused traits list later
+		"unusedTraitsThatAreOnlyHereForYourConvenience":[
+			"peak_cr_time",
+			"repair",
+			"malfunction",
+			"mount_durability",
+			"engine_durability",
+			"hull_integrity",
+			"armor_strength",
+			"emp_resistance",
+			"engine_power",
+			"maneuverability",
+			"damage",
+			"weapon_stability",
+			"turret_rotation",
+			"range",
+			"fighter_damage",
+			"fighter_speed",
+			"fighter_durability",
+			"refit_time",
+			"overload_time",
+			"flux_capacity",
+			"flux_dissipation",
+			"vent_rate",
+			"shield_raise_rate",
+			"shield_stability",
+			"shield_strength",
+			"cursed",
+		]
+	},
+	
+	# This section allows you to define forced presets as above, but only for
+	#	commanders with specific names (like IBB commanders, for example)
+	"forcedCommanderPresets":{
+	
+		# By defining "Commander Name" below, all fleets with commanders named 
+		#	"Commander Name" will have the specified traits
+		"Commander Name":{
+		
+			# Everything in this section may be defined in the same way as the
+			#	contents of the "forcedPreset" section
+			"defaultNumberOfTraits":6,
+			"goodTraits":[
+			],
+			"badTraits":[
+			],
+		}
+	}
+	},	
+},
+}
+
+

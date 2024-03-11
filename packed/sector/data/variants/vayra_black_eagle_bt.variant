@@ -1,0 +1,56 @@
+{
+  "displayName": "Deserter",
+  "fluxCapacitors": 30,
+  "fluxVents": 30,
+  "goalVariant": false,
+  "hullId": "vayra_black_eagle",
+  "hullMods": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_black_eagle_bt",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "hammer",
+        "WS 002": "hammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "heavyblaster",
+        "WS 006": "heavyblaster",
+        "WS 007": "heavyac",
+        "WS 008": "heavyac"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 009": "ionbeam",
+        "WS 013": "heavymauler"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "pdlaser",
+        "WS 004": "pdlaser",
+        "WS 010": "sabot",
+        "WS 011": "lightneedler",
+        "WS 012": "sabot"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,108 @@
+{
+  "bounds": [
+    -6,
+    -15,
+    -6,
+    15,
+    21.5,
+    11.5,
+    9.5,
+    -0,
+    21.5,
+    -11.5
+  ],
+  "builtInMods": [
+    "no_weapon_flux"
+  ],
+  "center": [
+    18,
+    11
+  ],
+  "collisionRadius": 36,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 6,
+      "length": 25,
+      "location": [
+        -11,
+        11.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 6
+    },
+    {
+      "angle": -180,
+      "contrailSize": 6,
+      "length": 25,
+      "location": [
+        -11,
+        -11.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 6
+    },
+    {
+      "angle": 180,
+      "contrailSize": 7,
+      "length": 13.5,
+      "location": [
+        -10,
+        -0
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 7
+    }
+  ],
+  "height": 36,
+  "hullId": "vayra_ghulam",
+  "hullName": "Ghulam",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    6,
+    -0
+  ],
+  "shieldRadius": 29.5,
+  "spriteName": "graphics/ships/vayra_ghulam.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0003",
+      "locations": [
+        19.5,
+        10.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0004",
+      "locations": [
+        19.5,
+        -10.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0001",
+      "locations": [
+        12,
+        -0
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "SYSTEM"
+    }
+  ],
+  "width": 36
+}

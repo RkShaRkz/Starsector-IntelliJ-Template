@@ -1,0 +1,60 @@
+{
+	"baseHullId":"vayra_galleon",
+	"skinHullId":"vayra_galleon_p",
+	"hullName":"Flying Dutchman",
+	"hullDesignation":"Ghost Ship",
+	"descriptionId":"vayra_galleon",
+	"descriptionPrefix":"This Galleon is worn and battlescarred, but beneath the deep gouges on its armor belts and the plasma burns on its hull it bears the personal colors of a dread pirate lord. Extensively refit for battle, this pirate dreadnought carries enough firepower to reduce an orbital station singlehandedly - and has cargo holds enough to carry away the spoils of such a raid on its own. Truly a fearsome vessel, the Flying Dutchman stands as a monument to the endless ingenuity of mankind when it comes to committing violence against one another.",
+	"tags":[],
+	"tech":"Pirate",
+	"baseValueMult":2,
+	"spriteName":"graphics/ships/nia_galleon_p.png",
+	"builtInMods":[
+		"hbi",
+		"vayra_ghost_ship_unique_hyperlost"
+	],
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[
+		"vayra_merchant_marine"
+	],
+	"removeBuiltInWeapons":[
+		"WS0001",
+		"WS0002"
+	],
+	"removeBuiltInWings":[
+		"vayra_pegasus_wing",
+		"vayra_workhorse_wing"
+	],
+	"weaponSlotChanges":{
+    	"WS0001":{
+            "type": "BALLISTIC"
+		},
+    	"WS0002":{
+            "type": "BALLISTIC"
+		},
+    	"WS0007":{
+            "type": "BALLISTIC"
+		},
+    	"WS0048":{
+            "type": "BALLISTIC"
+		},
+    	"WS0049":{
+            "type": "BALLISTIC"
+		},
+    	"WS0050":{
+            "type": "BALLISTIC"
+		},
+    	"WS0051":{
+            "type": "BALLISTIC"
+		},
+    	"WS0052":{
+            "type": "BALLISTIC"
+		},
+    	"WS0053":{
+            "type": "BALLISTIC"
+		},	
+	},
+    "builtInWeapons":{
+        "WS0045": "vayra_galleon_p_case"
+    },
+}

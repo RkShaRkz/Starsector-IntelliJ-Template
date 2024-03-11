@@ -1,0 +1,71 @@
+{
+  "bounds": [
+    12.5,
+    -28.5,
+    17,
+    -7,
+    12.5,
+    28.5,
+    -15.5,
+    1.5
+  ],
+  "builtInMods": [
+    "no_weapon_flux"
+  ],
+  "center": [
+    29.5,
+    17.5
+  ],
+  "collisionRadius": 41.5,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 9,
+      "length": 24.5,
+      "location": [
+        -9.5,
+        14
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 9
+    },
+    {
+      "angle": -180,
+      "contrailSize": 9,
+      "length": 24.5,
+      "location": [
+        -9.5,
+        -14
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 9
+    }
+  ],
+  "height": 42,
+  "hullId": "vayra_arquebusier",
+  "hullName": "Arquebusier",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    3,
+    -0
+  ],
+  "shieldRadius": 36.5,
+  "spriteName": "graphics/ships/vayra_arquebusier.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0001",
+      "locations": [
+        2.5,
+        1.5
+      ],
+      "mount": "HARDPOINT",
+      "size": "MEDIUM",
+      "type": "UNIVERSAL"
+    }
+  ],
+  "width": 59
+}

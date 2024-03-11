@@ -1,0 +1,22 @@
+{
+  "variantId": "vayra_yak_fighter",
+  "hullId": "vayra_yak",
+  "displayName": "Interceptor",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_kashtan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

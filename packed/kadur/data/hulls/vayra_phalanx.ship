@@ -1,0 +1,141 @@
+{
+  "bounds": [
+    -3,
+    -16.5,
+    -10,
+    -0,
+    -3,
+    16.5,
+    22.5,
+    -0
+  ],
+  "builtInMods": [
+  ],
+  "center": [
+    20,
+    14
+  ],
+  "collisionRadius": 30,
+  "engineSlots": [
+    {
+      "angle": 154.5,
+      "contrailSize": 3.535534,
+      "length": 9.545941,
+      "location": [
+        -12,
+        3
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 3.535534
+    },
+    {
+      "angle": -154.5,
+      "contrailSize": 3.535534,
+      "length": 9.545941,
+      "location": [
+        -12,
+        -3
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 3.535534
+    },
+    {
+      "angle": 180,
+      "contrailSize": 11,
+      "length": 21.5,
+      "location": [
+        -12,
+        -0
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 11
+    }
+  ],
+  "height": 38,
+  "hullId": "vayra_phalanx",
+  "hullName": "Phalanx",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 29.5,
+  "spriteName": "graphics/ships/vayra_phalanx.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0005",
+      "locations": [
+        3.5,
+        17.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0006",
+      "locations": [
+        3.5,
+        -17.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0003",
+      "locations": [
+        11.5,
+        7.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0004",
+      "locations": [
+        11.5,
+        -7.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0001",
+      "locations": [
+        17,
+        5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "SYSTEM"
+    },
+    {
+      "angle": -0,
+      "arc": 0,
+      "id": "WS0002",
+      "locations": [
+        17,
+        -5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "SYSTEM"
+    }
+  ],
+  "width": 40
+}

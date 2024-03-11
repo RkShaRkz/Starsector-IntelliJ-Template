@@ -1,0 +1,17 @@
+{
+	"id":"vayra_canister_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"onHitEffect":"data.scripts.weapons.VayraSpikeMissileOnHitEffect",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"length":32.0,
+	"hitGlowRadius":60,
+	"width":9.0,
+	"fadeTime":0.2,
+	"fringeColor":[175,225,255,150],
+	"coreColor":[255,255,255,255],
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/vayra_canister.png"
+}

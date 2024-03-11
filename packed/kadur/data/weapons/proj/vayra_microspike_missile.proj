@@ -1,0 +1,22 @@
+{
+	"id":"vayra_microspike_missile",
+	"specClass":"missile",	
+	"missileType":"ROCKET",
+	"onHitEffect":"data.scripts.weapons.VayraSpikeMissileOnHitEffect",
+	"sprite":"graphics/missiles/missile_sabot_warhead.png",
+	"glowColor":[175,200,255,90],
+	"glowRadius":25,
+	"size":[7,14],	
+	"center":[3.5,7],
+	"collisionRadius":12,
+	"collisionClass":"PROJECTILE_FIGHTER",
+	"collisionClassAfterFlameout":"PROJECTILE_FIGHTER",
+	"explosionColor":[235,255,215,195],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":35, # purely visual
+	"maxFlightTime":2,
+	"engineSpec":{"turnAcc":0,
+				  "turnRate":0,
+				  "maxSpeed":600,
+				  "acc":400,
+				  "dec":100},			
+}

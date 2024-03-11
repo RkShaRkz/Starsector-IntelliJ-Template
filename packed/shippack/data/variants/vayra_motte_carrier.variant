@@ -1,0 +1,56 @@
+{
+  "variantId": "vayra_motte_carrier",
+  "hullId": "vayra_motte",
+  "displayName": "Carrier",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 6,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit",
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "harpoon",
+        "WS0005": "harpoon",
+        "WS0006": "harpoon",
+        "WS0007": "harpoon",
+        "WS0015": "harpoon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "pilum"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0019": "hveldriver"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "flak",
+        "WS0003": "vulcan",
+        "WS0025": "vulcan"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": [
+    "vayra_bailey_wing",
+    "vayra_castellum_wing",
+    "vayra_ditch_wing"
+  ]
+}

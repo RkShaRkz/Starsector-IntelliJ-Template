@@ -1,0 +1,24 @@
+{
+  "displayName": "Support Fighter",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_dirk",
+  "hullMods": [
+    "armoredweapons"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_dirk_fighter",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_light_flechette"
+      }
+    }
+  ],
+  "wings": []
+}

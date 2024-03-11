@@ -1,0 +1,17 @@
+{
+	"baseHullId":"hound",
+	"skinHullId":"vayra_hound_mm",
+	"hullName":"Hound (MM)",
+	"descriptionId":"hound",
+	"spriteName":"graphics/ships/vayra_hound_mm.png",
+	"descriptionPrefix":"This ship has been overhauled for fleet use by the Rimward Venture Trading Company, with a focus on bulk efficiency and little regard for optional features such as 'crew comfort'.",
+	"tags":["mercantile"],
+	"tech":"Merchant Marine",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["vayra_merchant_marine"],
+	"builtInWeapons":{
+    },
+}

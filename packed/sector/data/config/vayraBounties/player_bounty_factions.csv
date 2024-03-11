@@ -1,0 +1,19 @@
+faction,whitelist,
+communist_clouds,TRUE,
+science_fuckers,TRUE,
+warhawk_republic,TRUE,
+almighty_dollar,TRUE,
+ashen_keepers,TRUE,
+hegemony,TRUE,
+persean,TRUE,
+independent,TRUE,
+tritachyon,TRUE,
+sindrian_diktat,TRUE,
+luddic_church,TRUE,
+pirates,FALSE,# pirates don't care enough about each other to post bounties on you for killing them
+luddic_path,FALSE,# pathers fight for god - not money
+derelict,FALSE,# robots don't post bounties
+remnants,FALSE,# robots don't post bounties
+scavengers,FALSE,# subfactions don't post bounties
+lions_guard,FALSE,# subfactions don't post bounties
+knights_of_ludd,FALSE,# subfactions don't post bounties

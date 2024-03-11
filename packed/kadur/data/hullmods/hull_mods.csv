@@ -1,0 +1,50 @@
+name,id,tier,rarity,tech/manufacturer,tags,uiTags,base value,unlocked,hidden,hiddenEverywhere,cost_frigate,cost_dest,cost_cruiser,cost_capital,script,desc,short,sprite
+# KADUR BUILTINS,,,,,,,,,,,,,,,,,,
+Guardian Targeting Auxiliaries,vayra_targeting_core,,,Kadur Theocracy,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_targeting_core,"This ship has been fitted with built-in advanced targeting systems, extending the range of ballistic and energy weapons by %s.
+
+Precludes the installation of a Dedicated Targeting Core or an Integrated Targeting Unit.",,graphics/hullmods/vayra_targeting_core.png
+Guardian Engineering,vayra_sometimes_war,,,Kadur Theocracy,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_sometimes_war,"This ship is a relatively recent design by Kadur shiptechs, conforming to their defensive Eternal Guardian fleet doctrine.
+
+Reinforced structural beams and multiple-redundant bulkheads have increased hull integrity by %s, and mass-augmented plating has been applied to improve the ship's armor by %s points.
+
+Standard drive units feature rear-focused thrust vectoring, reducing turn speed by %s and increasing fuel consumption by %s per lightyear travelled in hyperspace. Thankfully, additional fuel tanks have been fitted to maintain the vessel's range.
+
+The ship has been fitted with a omnidirectional shield generator somewhat improved from the typical Kadur fare, with a %s degree shield arc, %s flux per damage efficiency, and an upkeep cost equal to %s of the ship's base passive flux dissipation.",,graphics/hullmods/vayra_sometimes_war.png
+Forever War Engineering,vayra_forever_war,,,Kadur Theocracy,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_forever_war,"This ship is a legacy design stemming from the corrupted Eagle and Falcon MPCs originally captured by the Kadur Theocracy, built to conform to their aggressive Forever War fleet doctrine. 
+
+Reinforced structural beams and multiple-redundant bulkheads have increased hull integrity by %s, and mass-augmented plating has been applied to improve the ship's armor by %s points. 
+
+The ship's standard drive units feature heavily rear-focused thrust vectoring, increasing speed by %s at the cost of %s maneuverability and %s fuel per lightyear travelled in hyperspace. Thankfully, additional fuel tanks have been fitted to maintain the vessel's range.
+
+The net result is a highly specialized craft, able - in the hands of a skilled helmsman - to maintain its distance from others until an opening appears, then charge in to inflict as much damage as possible before their target recovers and can turn their poor shielding and maneuverability against them. A wise captain will minimize the impact of their shields' high upkeep and poor flux efficiency by only raising them when absolutely necessary, and will only engage in fights where their victory is assured as they lack the maneuverability or long-term durability to escape should they miscalculate. 
+",,graphics/hullmods/vayra_forever_war.png
+Substandard Shield Generator,vayra_garbage_shields,,,Kadur Theocracy,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.VayraGarbageShields,"The ship has been retrofitted with a shield generator produced from the corrupted MPC held at Star Fortress Reqiuem. As a result, shield arc has been reduced by %s, shields produce %s more flux per point of damage received, and upkeep costs are increased by %s. Due to the extensive retrofitting necessary for it to function at all, the shield generator is incompatible with modifications such as Extended Shields or Omni Shield Emitter Conversion.",,graphics/hullmods/vayra_caliph_shield.png
+Priority Flux Redirects,vayra_priority_flux,,,Kadur Holy Fleet,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_priority_flux,"This ship has been extensively modified to boost the power of any currently active systems at the expense of all others, gaining the following benefits:
+
++%s speed and %s maneuverability when at zero flux.
++%s shield performance and shield upkeep flux cost.
++%s fire rate when shields lowered, but -%s fire rate when shields raised.
+
+Due to the fact that all systems are already operating at maximum capacity, modifications such as Safety Overrides cannot be installed.",,graphics/hullmods/shared_flux_sink.png
+Heavy Weapons Integration,vayra_heavy_integration,,,Kadur Theocracy,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_heavy_integration,Reduces the ordnance point cost of large weapons by %s.,,graphics/icons/skills/ordnance_expert.png
+Martyr's Blessing,vayra_secret_buff_hullmod,,,Kadur Theocracy,,,,,TRUE,TRUE,0,0,0,0,data.scripts.hullmods.VayraSecretMartyrBuff,YOU NEVER SHOULDA COME HERE AND NOW YOU'RE GONNA PAY,,graphics/hullmods/vayra_forever_war.png
+,,,,,,,,,,,,,,,,,,
+# NO LONGER BUILT-IN ONLY,,,,,,,,,,,,,,,,,,
+Guardian IFF Comm Array,vayra_kadur_iff,,,Kadur Theocracy,,,,,TRUE,,8,16,24,40,data.scripts.hullmods.VayraGuardianIFF,"Marks strike craft launched from this ship with a Kadur IFF code beacon, preventing them from being targeted by Kadur antifighter systems.",,graphics/hullmods/vayra_kadur_iff.png
+,,,,,,,,,,,,,,,,,,
+# CALIPH BUILTINS,,,,,,,,,,,,,,,,,,
+Theocracy Targeting Core,vayra_caliph_core,,,Kadur Holy Fleet,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_caliph_core,"Increases damage dealt to fighters by %s, extends %s weapon range by %s, and %s reduces autofire accuracy.
+
+Precludes the installation of a Dedicated Targeting Core or an Integrated Targeting Unit.",,graphics/hullmods/vayra_caliph_core.png
+Advanced Point-Defense Subroutines,vayra_caliph_pdai,,,Kadur Holy Fleet,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.VayraCaliphPDAI,"Wary of the danger posed to their flagship by hostile strike craft, the Kadur shiptechs who constructed the Caliph integrated advanced point defense subroutines into its gunnery control systems. All nonlarge nonmissile weapons installed on this component have the ability to automatically target incoming enemy missiles and to identify - and ignore - decoy flares. Targeting missiles takes priority over targeting enemy ships or fighters.
+
+In addition, all point defense weapons have significantly reduced recoil as well as the best possible target leading, regardless of combat readiness.",,graphics/hullmods/vayra_caliph_pdai.png
+Missile Autoforge,vayra_slow_autoforge,,,Kadur Holy Fleet,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.VayraSlowAutoforge,"The vaulted halls of the Caliph-class superdreadnought contain a %s, which slowly %s of all missile weapons mounted to the central hull at a rate of %s of each weapon's magazine every %s seconds.",,graphics/hullmods/missile_autofactory.png
+Modular Shields,vayra_modular_shields,,,Kadur Holy Fleet,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_modular_shields,"The Caliph is fitted with a pair of centrally placed %s as well as an integral %s, powered by the colossal %s mounted to the dreadnought's aft section. If the generator is %s, the emitters and force-transfer skinshield will likewise stop functioning.",,graphics/hullmods/vayra_caliph_shield.png
+Modular Engines,vayra_modular_engines,,,Kadur Holy Fleet,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_modular_engines,"The Caliph's gargantuan bulk is propelled by a pair of massive %s. If destroyed, the dreadnought's speed will be reduced by an amount %s.",,graphics/hullmods/augmented_engines.png
+,,,,,,,,,,,,,,,,,,
+# COMMISSIONED CREW HULLMOD,,,,,,,,,,,,,,,,,,
+Devoted Martyrs,CHM_kadur,,,Kadur Theocracy,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.CHM_kadur,"The devoted crew of this ship know what it means to lose everything, and have steeled themselves to fight for their lives and Never. Let. Go. Reduces hull damage taken by %s when below %s Hull Integrity.",Remember Kadur. Remember... And FIGHT FOR YOUR LIFE.,graphics/hullmods/chm_kadur.png
+,,,,,,,,,,,,,,,,,,
+# HVB STUFF,,,,,,,,,,,,,,,,,,
+Less Ill-Advised Modifications,vayra_less_ill_advised,,,,dmod,,,,TRUE,,0,0,0,0,data.scripts.hullmods.VayraLessIllAdvised,"This hull's systems have been drastically modified from spec, likely without certified engineering oversight. Its systems appear to work correctly under routine conditions, but have a significant chance of malfunction when stressed. Despite the overall quality of the work, they appear to have been hardened against permanently disabling malfunctions.",,graphics/hullmods/illadvised.png

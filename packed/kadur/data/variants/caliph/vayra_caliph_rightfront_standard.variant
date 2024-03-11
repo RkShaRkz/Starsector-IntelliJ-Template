@@ -1,0 +1,53 @@
+{
+  "displayName": "Standard",
+  "fluxCapacitors": 16,
+  "fluxVents": 18,
+  "goalVariant": true,
+  "hullId": "vayra_caliph_rightfront",
+  "hullMods": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_caliph_rightfront_standard",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_joachim"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_rocket_gun",
+        "WS0004": "vayra_jahannam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0011": "vayra_microflak",
+        "WS0012": "vayra_microflak",
+        "WS0013": "vayra_microflak",
+        "WS0014": "vayra_microflak"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_jinn"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0010": "vayra_slowlrm_right"
+      }
+    }
+  ],
+  "wings": []
+}

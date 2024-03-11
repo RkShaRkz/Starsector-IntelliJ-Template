@@ -1,0 +1,26 @@
+{
+  "variantId": "vayra_caliph_leftengine_standard",
+  "hullId": "vayra_caliph_leftengine",
+  "displayName": "Standard",
+  "goalVariant": true,
+  "fluxCapacitors": 5,
+  "fluxVents": 0,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "insulatedengine",
+    "magazines",
+    "turretgyros"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_splintergun"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

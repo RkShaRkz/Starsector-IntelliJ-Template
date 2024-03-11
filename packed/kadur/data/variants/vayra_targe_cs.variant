@@ -1,0 +1,42 @@
+{
+  "displayName": "Close Support",
+  "fluxCapacitors": 8,
+  "fluxVents": 20,
+  "goalVariant": true,
+  "hullId": "vayra_targe",
+  "hullMods": [
+    "targetingunit"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_targe_cs",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_sabot_battery",
+        "WS0003": "vayra_sabot_battery"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_ercannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "vayra_jericho_sml",
+        "WS0005": "vayra_jericho_sml",
+        "WS0006": "vayra_jericho_sml",
+        "WS0007": "vayra_jericho_sml"
+      }
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,19 @@
+{
+    "baseHullId":"hammerhead",
+    "skinHullId":"vayra_hammerhead_rg",
+    "hullName":"Hammerhead (RG)",
+    "descriptionId":"hammerhead",
+    "descriptionPrefix":"Beneath the bright coat of Red Guards livery, this ship has been stripped down and rebuilt for maximum durability at minimal cost. Elaborate sensor arrays and failure-prone high-tech communication consoles have been pared away, leaving only those systems absolutely necessary to the vessel's function as a mercilessly efficient weapon of war.",
+    "tags":["revolutionary"],
+    "tech":"Red Guards",
+	"ordnancePoints":75,
+    "spriteName":"graphics/ships/vayra_hammerhead_rg.png",
+    "baseValueMult":0.8,
+    "removeWeaponSlots":[],         # ids
+    "removeEngineSlots":[],         # indices, as engine slots have no id in the .ship file
+    "removeBuiltInMods":[],         # hullmod ids
+    "removeBuiltInWeapons":[],      # weapon slot ids
+    "builtInMods":["vayra_red_army"],
+    "builtInWeapons":{
+    },
+}

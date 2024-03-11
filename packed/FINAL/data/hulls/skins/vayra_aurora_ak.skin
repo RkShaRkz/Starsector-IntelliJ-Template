@@ -1,0 +1,17 @@
+{
+	"baseHullId":"aurora",
+	"skinHullId":"vayra_aurora_ak",
+	"hullName":"Aurora (AK)",
+	"descriptionId":"aurora",
+	"spriteName":"graphics/ships/vayra_aurora_ak.png",
+	"descriptionPrefix":"This ship has been refit by the fringe Luddic tech-heretic cult known as the Ashen Keepers. Along with a flashy paintjob, it has received extensive defensive upgrades designed to benefit them in their eternal crusade against the more mainstream Luddic sects of the Path and Church of Galactic Redemption. Unfortunately, these refits - performed with readily available equipment by enthusiastic but undertrained enginseers - require frequent maintenance and have significantly increased the running costs of the vessel.",
+	"tags":["ashen_rare"],
+	"tech":"Ashen Keepers",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["vayra_ashen_bulwark"],
+	"builtInWeapons":{
+    },
+}

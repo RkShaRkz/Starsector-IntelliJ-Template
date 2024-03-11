@@ -1,0 +1,39 @@
+{
+  "displayName": "Lancer",
+  "fluxCapacitors": 9,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "wolf_d_pirates",
+  "hullMods": [
+    "fluxdistributor",
+    "fluxcoil",
+    "advancedoptics"
+  ],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "wolf_d_pirates_vayra_lancer",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 005": "vayra_harvester_rack",
+        "WS 006": "vayra_harvester_rack"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "mininglaser",
+        "WS 004": "vayra_degraded_particle_beam"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "wings": []
+}

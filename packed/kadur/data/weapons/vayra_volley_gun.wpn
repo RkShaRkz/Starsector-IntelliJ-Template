@@ -1,0 +1,42 @@
+{
+  "animationType": "GLOW",
+  "autocharge": true,
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "railgun_fire",
+  "glowColor": [
+    200,
+    200,
+    255,
+    225
+  ],
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointGlowSprite": "graphics/weapons/vayra_volley_hardpoint_glow.png",
+  "hardpointOffsets": [
+    19,
+    3.5,
+    19,
+    -3.5
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_volley_hardpoint_base.png",
+  "id": "vayra_volley_gun",
+  "projectileSpecId": "vayra_volley_shot",
+  "size": "SMALL",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "turretGlowSprite": "graphics/weapons/vayra_volley_turret_glow.png",
+  "turretOffsets": [
+    12.5,
+    3.5,
+    12.5,
+    -3.5
+  ],
+  "turretSprite": "graphics/weapons/vayra_volley_turret_base.png",
+  "type": "BALLISTIC"
+}

@@ -1,0 +1,42 @@
+{
+  "displayName": "Mining",
+  "fluxCapacitors": 9,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_groundhog",
+  "hullMods": [
+    "fluxbreakers",
+    "turretgyros",
+    "autorepair"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_groundhog_m",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "miningblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_mining_lance",
+        "WS0002": "vayra_mining_lance"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_mining_lance",
+        "WS0004": "vayra_mining_lance"
+      }
+    }
+  ],
+  "wings": []
+}

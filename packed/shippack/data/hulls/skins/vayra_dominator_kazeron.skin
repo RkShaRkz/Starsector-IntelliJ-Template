@@ -1,0 +1,48 @@
+{
+    "baseHullId":"dominator",
+    "skinHullId":"vayra_dominator_kazeron",
+    "hullName":"Dominator (KZ)",
+    "descriptionId":"dominator",
+    "descriptionPrefix":"A member of the elite Iron Armada of Kazeron, this ship has undergone a series of basic - but expertly performed - upgrades designed to harden it against hostile fire and improve its longevity on the battlefield, as well as slightly expand the breadth of ordnance available to it through the conversion of many of its weapon emplacements to accept energy weapons.",
+    "tags":["kazeron"],
+    "tech":"Iron Armada",
+    "systemId":"microburn",
+    "spriteName":"graphics/ships/vayra_dominator_kazeron.png",
+    "baseValueMult":1.5,
+    "removeWeaponSlots":[],         # ids
+    "removeEngineSlots":[],         # indices, as engine slots have no id in the .ship file
+    "removeBuiltInMods":[],         # hullmod ids
+    "removeBuiltInWeapons":[],      # weapon slot ids
+    "builtInMods":["vayra_kazeron_iron"],
+    "builtInWeapons":{
+    },
+	"weaponSlotChanges":{
+		"WS 001":{
+            "type": "ENERGY",
+		},	
+		"WS 003":{
+            "type": "ENERGY"
+		},
+		"WS 005":{
+            "type": "ENERGY",
+		},	
+		"WS 007":{
+            "type": "ENERGY"
+		},
+		"WS 004":{
+            "type": "HYBRID",
+		},	
+		"WS 010":{
+            "type": "HYBRID"
+		},	
+		"WS 011":{
+            "type": "HYBRID"
+		},	
+		"WS 012":{
+            "type": "HYBRID"
+		},
+		"WS 013":{
+            "type": "HYBRID",
+		}				
+	},
+}

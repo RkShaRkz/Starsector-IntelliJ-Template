@@ -1,0 +1,136 @@
+{
+  "bounds": [
+    -23,
+    -11.5,
+    -11,
+    -11,
+    7.5,
+    -27,
+    6,
+    -5.5,
+    26,
+    0,
+    6,
+    5.5,
+    7.5,
+    27,
+    -11,
+    11,
+    -23,
+    11.5
+  ],
+  "center": [
+    26,
+    26.5
+  ],
+  "collisionRadius": 43,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 13,
+      "length": 23,
+      "location": [
+        -26.5,
+        9
+      ],
+      "style": "MIDLINE",
+      "width": 13
+    },
+    {
+      "angle": -180,
+      "contrailSize": 13,
+      "length": 23,
+      "location": [
+        -26.5,
+        -9
+      ],
+      "style": "MIDLINE",
+      "width": 13
+    },
+    {
+      "angle": 180,
+      "contrailSize": 6,
+      "length": 11.5,
+      "location": [
+        -14.5,
+        17.5
+      ],
+      "style": "MIDLINE",
+      "width": 6
+    },
+    {
+      "angle": -180,
+      "contrailSize": 6,
+      "length": 11.5,
+      "location": [
+        -14.5,
+        -17.5
+      ],
+      "style": "MIDLINE",
+      "width": 6
+    }
+  ],
+  "height": 53,
+  "hullId": "vayra_pegasus",
+  "hullName": "Pegasus",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    0,
+    0
+  ],
+  "shieldRadius": 39.5,
+  "spriteName": "graphics/ships/vayra_pegasus.png",
+  "style": "MIDLINE",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0001",
+      "locations": [
+        10,
+        -13.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0002",
+      "locations": [
+        8,
+        -18.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0003",
+      "locations": [
+        8,
+        14
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0004",
+      "locations": [
+        17,
+        -0
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    }
+  ],
+  "width": 52
+}

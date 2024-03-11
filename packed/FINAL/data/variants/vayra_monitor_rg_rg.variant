@@ -1,0 +1,29 @@
+{
+    "displayName": "Red Guard",
+    "fluxCapacitors": 5,
+    "fluxVents": 10,
+    "goalVariant": true,
+    "hullId": "vayra_monitor_rg",
+    "hullMods": [],
+    "permaMods": [],
+    "quality": 1,
+    "variantId": "vayra_monitor_rg_rg",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 001": "flak",
+                "WS 002": "flak"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS 003": "heatseeker",
+                "WS 004": "heatseeker"
+            }
+        }
+    ]
+}

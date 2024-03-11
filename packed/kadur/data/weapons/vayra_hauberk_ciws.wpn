@@ -1,0 +1,57 @@
+{
+  "animationType": "MUZZLE_FLASH",
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "vulcan_cannon_fire",
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointGunSprite": "graphics/weapons/vayra_hauberk_barrel.png",
+  "hardpointOffsets": [
+    16.5,
+    -2,
+    16.5,
+    2
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_hauberk_body.png",
+  "id": "vayra_hauberk_ciws",
+  "muzzleFlashSpec": {
+    "length": 10,
+    "particleColor": [
+      255,
+      240,
+      165,
+      180
+    ],
+    "particleCount": 5,
+    "particleDuration": 0.15,
+    "particleSizeMin": 3,
+    "particleSizeRange": 6,
+    "spread": 6
+  },
+  "noImpactSounds": false,
+  "noNonShieldImpactSounds": false,
+  "noShieldImpactSounds": false,
+  "projectileSpecId": "vulcan_shot",
+  "renderAboveAllWeapons": 0,
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "size": "SMALL",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "turretGunSprite": "graphics/weapons/vayra_hauberk_barrel.png",
+  "turretOffsets": [
+    11,
+    -2,
+    11,
+    2
+  ],
+  "turretSprite": "graphics/weapons/vayra_hauberk_body.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 3
+}

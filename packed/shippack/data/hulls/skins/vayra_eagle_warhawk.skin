@@ -1,0 +1,31 @@
+{
+	"baseHullId":"eagle",
+	"skinHullId":"vayra_eagle_warhawk",
+	"hullName":"Eagle (SR)",
+	"descriptionId":"eagle",
+	"spriteName":"graphics/ships/vayra_eagle_warhawk.png",
+    "baseValueMult":1.5,
+	"descriptionPrefix":"A product of the Stormhawk Republic, this ship has been engineered with highly modular parts and universal weapon mounts to increase its tactical flexibility.",
+	"hints":["HIDE_IN_CODEX"],
+	"tags":["warhawk"],
+	"tech":"Stormhawk Republic",
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	
+	"weaponSlotChanges":{
+		"WS 009":{
+            "type": "UNIVERSAL",
+		},	
+		"WS 011":{
+            "type": "UNIVERSAL"
+		},
+		"WS 013":{
+            "type": "UNIVERSAL",
+		}				
+	},
+	"builtInMods":["vayra_warhawk_modular"],
+	"builtInWeapons":{
+    },
+}

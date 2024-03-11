@@ -1,0 +1,65 @@
+{
+  "animationType": "SMOKE",
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "pilum_lrm_fire",
+  "hardpointAngleOffsets": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "hardpointOffsets": [
+    8,
+    4.5,
+    8,
+    -4.5,
+    8,
+    13.5,
+    8,
+    -13.5
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_slowlrm_builtin.png",
+  "id": "vayra_slowlrm",
+  "projectileSpecId": "vayra_slowlrm",
+  "renderHints": [
+    RENDER_LOADED_MISSILES
+  ],
+  "size": "SMALL",
+  "smokeSpec": {
+    "blowbackDuration": 2,
+    "blowbackLength": 30,
+    "blowbackParticleCount": 3,
+    "blowbackSpread": 10,
+    "cloudDuration": 1,
+    "cloudParticleCount": 3,
+    "cloudRadius": 10,
+    "particleColor": [
+      100,
+      100,
+      100,
+      200
+    ],
+    "particleSizeMin": 20,
+    "particleSizeRange": 20
+  },
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "turretOffsets": [
+    1.5,
+    4.5,
+    1.5,
+    -4.5,
+    1.5,
+    13.5,
+    1.5,
+    -13.5
+  ],
+  "turretSprite": "graphics/weapons/vayra_slowlrm_builtin.png",
+  "type": "MISSILE"
+}

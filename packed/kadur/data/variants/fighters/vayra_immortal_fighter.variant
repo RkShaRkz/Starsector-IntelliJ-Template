@@ -1,0 +1,42 @@
+{
+  "displayName": "Assault Corvette",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_immortal",
+  "hullMods": [
+    "advancedshieldemitter",
+    "autorepair",
+    "fluxbreakers"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_immortal_fighter",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_burst_ciws",
+        "WS0002": "vayra_burst_ciws"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_volley_gun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_srm_4_fighter",
+        "WS0006": "vayra_srm_4_fighter"
+      }
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,56 @@
+{
+  "animationType": "GLOW_AND_FLASH",
+  "autocharge": true,
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "thermal_pulse_cannon_fire",
+  "glowColor": [
+    255,
+    100,
+    100,
+    255
+  ],
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointGlowSprite": "graphics/weapons/vayra_tpc_turret_glow.png",
+  "hardpointOffsets": [
+    42.5,
+    14,
+    41.5,
+    -13
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_tpc_turret_base.png",
+  "id": "vayra_tpc",
+  "muzzleFlashSpec": {
+    "length": 30,
+    "particleColor": [
+      255,
+      100,
+      100,
+      255
+    ],
+    "particleCount": 10,
+    "particleDuration": 0.12,
+    "particleSizeMin": 15,
+    "particleSizeRange": 20,
+    "spread": 5
+  },
+  "projectileSpecId": "tpc_shot",
+  "size": "LARGE",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "turretGlowSprite": "graphics/weapons/vayra_tpc_turret_glow.png",
+  "turretOffsets": [
+    25,
+    14,
+    24,
+    -13
+  ],
+  "turretSprite": "graphics/weapons/vayra_tpc_turret_base.png",
+  "type": "ENERGY"
+}

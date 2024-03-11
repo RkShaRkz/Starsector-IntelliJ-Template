@@ -1,0 +1,62 @@
+{
+  "variantId": "vayra_aurora_ai_attack",
+  "hullId": "vayra_aurora_ai",
+  "displayName": "Hunter-Killer",
+  "goalVariant": true,
+  "fluxCapacitors": 17,
+  "fluxVents": 30,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "advancedshieldemitter",
+    "fluxbreakers",
+    "missleracks"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 010": "reaper"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 009": "sabotpod",
+        "WS 011": "sabot",
+        "WS 012": "sabot",
+        "WS 013": "sabot"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 006": "harpoonpod"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 004": "ioncannon",
+        "WS 007": "heavyblaster",
+        "WS 008": "heavyblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "pdlaser",
+        "WS 002": "pdlaser",
+        "WS 003": "pdlaser",
+        "WS 005": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

@@ -1,0 +1,56 @@
+{
+  "animationType": "GLOW_AND_FLASH",
+  "autocharge": true,
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "harpoon_fire",
+  "glowColor": [
+    30,
+    165,
+    255,
+    125
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGlowSprite": "graphics/weapons/vayra_rocket_gun_hardpoint_glow.png",
+  "hardpointGunSprite": "graphics/weapons/vayra_rocket_gun_hardpoint_barrel.png",
+  "hardpointOffsets": [
+    27,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_rocket_gun_hardpoint_base.png",
+  "id": "vayra_rocket_gun",
+  "muzzleFlashSpec": {
+    "length": 40,
+    "particleColor": [
+      30,
+      165,
+      255,
+      200
+    ],
+    "particleCount": 12,
+    "particleDuration": 0.5,
+    "particleSizeMin": 12,
+    "particleSizeRange": 14,
+    "spread": 5
+  },
+  "projectileSpecId": "vayra_jazeraint_mis",
+  "renderHints": [
+    "RENDER_BARREL_BELOW"
+  ],
+  "size": "MEDIUM",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGlowSprite": "graphics/weapons/vayra_rocket_gun_turret_glow.png",
+  "turretGunSprite": "graphics/weapons/vayra_rocket_gun_turret_barrel.png",
+  "turretOffsets": [
+    22,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_rocket_gun_turret_base.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 8
+}

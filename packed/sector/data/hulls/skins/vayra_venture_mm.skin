@@ -1,0 +1,21 @@
+{
+	"baseHullId":"venture",
+	"skinHullId":"vayra_venture_mm",
+	"hullName":"Venture (MM)",
+	"descriptionId":"venture",  # optional
+	"descriptionPrefix":"This ship has been overhauled for fleet use by the Rimward Venture Trading Company, removing the surveying equipment in order to upgrade the normally-hardcoded fighter autofactory to accept modular LPCs and the main battery turret to allow the mounting of missile weapons.",
+	"hints":[],
+	"tags":["mercantile"],
+	"tech":"Merchant Marine",
+	"baseValueMult":1.5,
+	"spriteName":"graphics/ships/vayra_venture_mm.png",
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":["surveying_equipment"], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"removeBuiltInWings":["mining_drone_wing"],
+	"weaponSlotChanges":{
+	},
+	"builtInMods":["shielded_holds", "vayra_merchant_marine"],
+	"builtInWeapons":{
+    },
+}

@@ -1,0 +1,3 @@
+id,trigger,conditions,script,text,options,notes
+# Game starts,,,,,,
+ngcKadurMinerStart,NewGameKadurOptions,,"SetTooltip ngcKadurMiner""Your flagship is a Groundhog, an agile and sturdy utility frigate with well-protected weapon mounts.\n\nYou have backup from a Rock Hound, a utility-focused refit of the ubiquitous light combat freighter which sacrifices some armor and speed in exchange for energy mounts, salvaging tools, and an upgraded flux core; and a small fleet of support drone tenders, providing additional cargo space and salvaging equipment as well as some defense from bandits and brigandry.""",,"6:ngcKadurMiner:The proprietor of an independent deep-space mining and salvage outfit, ready to make your fortune",

@@ -1,0 +1,56 @@
+{
+  "variantId": "vayra_targe_lp_rubin",
+  "hullId": "vayra_targe_lp",
+  "displayName": "Overdriven",
+  "goalVariant": false,
+  "fluxCapacitors": 20,
+  "fluxVents": 2,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "autorepair",
+    "missleracks",
+    "hardenedshieldemitter"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "reaper",
+        "WS0005": "reaper"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "reaper",
+        "WS0007": "reaper"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "chaingun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "heavymg"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "heavymg"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

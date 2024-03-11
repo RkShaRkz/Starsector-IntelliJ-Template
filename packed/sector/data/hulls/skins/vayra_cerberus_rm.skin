@@ -1,0 +1,32 @@
+{
+    "baseHullId":"cerberus",
+    "skinHullId":"vayra_cerberus_rm",
+    "hullName":"Cerberus (RM)",
+    "descriptionId":"cerberus",  # optional
+	"descriptionPrefix":"This ship has undergone cutting-edged alterations by the Research Mandate. Utilising advanced (and some might say, A.I. influenced) engineering, this vessel is able to produce localised regions of phased space in their hulls, mitigating some incoming damage. It has also been fitted with auxiliary fuel tanks and built-in surveying equipment, and had its ship system and standard weapon mountings thoroughly modernized.",
+	"hints":[],
+	"tags":["science"],
+	"tech":"Research Mandate",
+    "spriteName":"graphics/ships/vayra_cerberus_rm.png",
+    "baseValueMult":1.5,
+    "systemId":"flarelauncher_active",
+    "removeWeaponSlots":[], 		# ids
+    "removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+    "removeBuiltInMods":[], 		# hullmod ids
+    "removeBuiltInWeapons":[], 		# weapon slot ids
+    "builtInMods":["vayra_science_hull","auxiliary_fuel_tanks","surveying_equipment"],
+    "builtInWeapons":{
+    },
+    "weaponSlotChanges":{
+	   "WS 001":{"type":"ENERGY"},
+	   "WS 002":{"type":"ENERGY"},
+	   "WS 003":{"type":"ENERGY"},
+	   "WS 004":{"type":"ENERGY"},
+    },
+	"engineSlotChanges":{
+		"0":{"style":"HIGH_TECH"},
+		"1":{"style":"HIGH_TECH"},
+		"2":{"style":"HIGH_TECH"},
+		"3":{"style":"HIGH_TECH"},
+	},    
+}

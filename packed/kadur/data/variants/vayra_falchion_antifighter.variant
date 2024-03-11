@@ -1,0 +1,50 @@
+{
+  "displayName": "Antifighter",
+  "fluxCapacitors": 0,
+  "fluxVents": 18,
+  "goalVariant": true,
+  "hullId": "vayra_falchion",
+  "hullMods": [
+    "auxiliarythrusters"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_falchion_antifighter",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_multirail",
+        "WS0002": "vayra_multirail",
+        "WS0003": "vayra_light_chemrail",
+        "WS0004": "vayra_light_chemrail"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_burst_ciws",
+        "WS0006": "vayra_burst_ciws"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "vayra_frag_scatter",
+        "WS0008": "vayra_frag_scatter"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0009": "vayra_srm_4"
+      }
+    }
+  ],
+  "wings": []
+}

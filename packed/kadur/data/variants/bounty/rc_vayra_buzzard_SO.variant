@@ -1,0 +1,25 @@
+{
+    "displayName": "Buzz",
+    "fluxCapacitors": 5,
+    "fluxVents": 0,
+    "hullId": "vayra_buzzard",
+	"goalVariant": true,
+    "hullMods": [
+        "vayra_secret_buff_hullmod",
+        "safetyoverrides"
+    ],
+    "permaMods": ["vayra_secret_buff_hullmod"],
+    "variantId": "rc_vayra_buzzard_SO",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0004": "chaingun"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS0001": "sabotpod"}
+        }
+    ]
+}

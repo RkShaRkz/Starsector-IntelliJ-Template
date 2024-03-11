@@ -1,0 +1,46 @@
+{
+    "displayName": "Thunder",
+    "fluxCapacitors": 3,
+    "fluxVents": 0,
+    "hullId": "vayra_shirdal",
+	"goalVariant": true,
+    "hullMods": [
+        "vayra_secret_buff_hullmod",
+        "expanded_deck_crew",
+        "missleracks"
+    ],
+    "permaMods": ["vayra_secret_buff_hullmod"],
+    "variantId": "rc_vayra_shirdal_Drover-",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0003": "vayra_sabot_battery"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0005": "vayra_jamadhar_rack",
+                "WS0006": "vayra_jamadhar_rack"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0004": "flak"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0001": "vulcan",
+                "WS0002": "vulcan"
+            }
+        }
+    ],
+    "wings": [
+        "thunder_wing",
+        "thunder_wing"
+    ]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "vayra_multirail",
+  "specClass": "projectile",
+  "projectileSpecId": "vayra_multirail_shot",
+  "type": "BALLISTIC",
+  "size": "MEDIUM",
+  "turretSprite": "graphics/weapons/vayra_multirail_turret00.png",
+  "hardpointSprite": "graphics/weapons/vayra_multirail_hardpoint00.png",
+  "renderAboveAllWeapons": 0,
+  "turretOffsets": [
+    23.5,
+    0
+  ],
+  "turretAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    25.5,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "barrelMode": "ALTERNATING",
+  "animationType": "MUZZLE_FLASH",
+  "numFrames": 4,
+  "frameRate": 20,
+  "muzzleFlashSpec": {
+    "length": 50,
+    "spread": 5,
+    "particleSizeMin": 6,
+    "particleSizeRange": 14,
+    "particleDuration": 0.35,
+    "particleCount": 11,
+    "particleColor": [
+      255,
+      250,
+      225,
+      200
+    ]
+  },
+  "textureType": ROUGH,
+  "fireSoundOne": "needler_spinup",
+  "fireSoundTwo": "vayra_m60_noise"
+}

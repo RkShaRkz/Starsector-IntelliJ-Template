@@ -1,0 +1,33 @@
+{
+  "availableCacheBlueprints": {
+    "hullSpecIds": [
+      "vayra_camel",
+      "vayra_camel_p",
+      "vayra_falchion",
+      "vayra_falchion_p",
+      "vayra_rukh",
+      "vayra_sphinx",
+      "vayra_seraph"
+    ],
+    "weaponSpecIds": [
+      "vayra_light_flechette",
+      "vayra_volley_gun",
+      "vayra_frag_scatter",
+      "vayra_burst_ciws",
+      "vayra_srm_4",
+      "vayra_strikecannon",
+      "vayra_sabot_battery",
+      "vayra_rocket_gun",
+      "vayra_splintergun",
+      "vayra_jericho_sml",
+      "vayra_jericho_med",
+      "vayra_jericho_lrg"
+    ],
+    "fighterWingIds": [
+      "vayra_phalanx_wing",
+      "vayra_dervish_wing",
+      "vayra_immortal_wing",
+      "vayra_myrmidon_wing"
+    ]
+  }
+}

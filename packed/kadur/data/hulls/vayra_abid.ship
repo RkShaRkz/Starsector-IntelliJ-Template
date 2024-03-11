@@ -1,0 +1,96 @@
+{
+  "bounds": [
+    7.5,
+    -23,
+    7.5,
+    -8,
+    24,
+    -0,
+    7.5,
+    8,
+    7.5,
+    23,
+    -20.5,
+    0
+  ],
+  "center": [
+    26,
+    24
+  ],
+  "collisionRadius": 34.5,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 6,
+      "length": 11.5,
+      "location": [
+        -7.5,
+        14
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 6
+    },
+    {
+      "angle": -180,
+      "contrailSize": 6,
+      "length": 11.5,
+      "location": [
+        -7.5,
+        -14
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 6
+    }
+  ],
+  "height": 49,
+  "hullId": "vayra_abid",
+  "hullName": "Abid",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    1,
+    -0
+  ],
+  "shieldRadius": 32.5,
+  "spriteName": "graphics/ships/vayra_abid.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 180,
+      "arc": 360,
+      "id": "WS0003",
+      "locations": [
+        1,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -0,
+      "arc": 0,
+      "id": "WS0001",
+      "locations": [
+        10,
+        14
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0002",
+      "locations": [
+        10,
+        -14
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    }
+  ],
+  "width": 52
+}

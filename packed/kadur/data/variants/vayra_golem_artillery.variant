@@ -1,0 +1,58 @@
+{
+  "displayName": "Artillery",
+  "fluxCapacitors": 0,
+  "fluxVents": 27,
+  "goalVariant": true,
+  "hullId": "vayra_golem",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_golem_artillery",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_sabot_battery",
+        "WS0002": "vayra_sabot_battery",
+        "WS0012": "vayra_heavy_chemrail",
+        "WS0019": "vayra_heavy_chemrail"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "vayra_dual_ciws_beam",
+        "WS0009": "vayra_dual_ciws_beam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_dual_ciws_beam",
+        "WS0004": "vayra_burst_ciws",
+        "WS0007": "vayra_hauberk_ciws",
+        "WS0008": "vayra_hauberk_ciws"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "vayra_jericho_sml",
+        "WS0014": "vayra_jericho_sml",
+        "WS0020": "vayra_jericho_sml",
+        "WS0021": "vayra_jericho_sml"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "wings": []
+}

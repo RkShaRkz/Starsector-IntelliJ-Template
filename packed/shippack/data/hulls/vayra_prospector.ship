@@ -1,0 +1,305 @@
+{
+  "bounds": [
+    9,
+    -38,
+    5,
+    -52,
+    -41,
+    -53,
+    -71,
+    -18,
+    -71,
+    18,
+    -41,
+    53,
+    5,
+    52,
+    9,
+    38,
+    59,
+    39,
+    60,
+    23,
+    93.5,
+    23.5,
+    132.5,
+    16.5,
+    93.5,
+    15,
+    95,
+    -5,
+    111.5,
+    -11,
+    93,
+    -16.5,
+    99.5,
+    -24,
+    89,
+    -34,
+    111.5,
+    -34,
+    86,
+    -40
+  ],
+  "builtInMods": [
+    "civgrade",
+    "surveying_equipment",
+    "solar_shielding",
+    "vayra_mining_tools"
+  ],
+  "builtInWeapons": {
+    "WS0010": "vayra_prospector_drill"
+  },
+  "builtInWings": [
+    "vayra_lr_mining_drone_wing",
+    "vayra_survey_drone_wing"
+  ],
+  "center": [
+    58,
+    76
+  ],
+  "collisionRadius": 152.5,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 24,
+      "length": 67,
+      "location": [
+        -75.5,
+        12
+      ],
+      "style": "MIDLINE",
+      "width": 24
+    },
+    {
+      "angle": -180,
+      "contrailSize": 24,
+      "length": 67,
+      "location": [
+        -75.5,
+        -12
+      ],
+      "style": "MIDLINE",
+      "width": 24
+    },
+    {
+      "angle": 180,
+      "contrailSize": 18,
+      "length": 68,
+      "location": [
+        -53.5,
+        47
+      ],
+      "style": "MIDLINE",
+      "width": 18
+    },
+    {
+      "angle": -180,
+      "contrailSize": 18,
+      "length": 68,
+      "location": [
+        -53.5,
+        -47
+      ],
+      "style": "MIDLINE",
+      "width": 18
+    },
+    {
+      "angle": 180,
+      "contrailSize": 12,
+      "length": 34,
+      "location": [
+        -70.5,
+        28.5
+      ],
+      "style": "MIDLINE",
+      "width": 12
+    },
+    {
+      "angle": -180,
+      "contrailSize": 12,
+      "length": 34,
+      "location": [
+        -70.5,
+        -28.5
+      ],
+      "style": "MIDLINE",
+      "width": 12
+    }
+  ],
+  "height": 210,
+  "hullId": "vayra_prospector",
+  "hullName": "Prospector",
+  "hullSize": "DESTROYER",
+  "shieldCenter": [
+    0,
+    0
+  ],
+  "shieldRadius": 149.5,
+  "spriteName": "graphics/ships/vayra_prospector.png",
+  "style": "MIDLINE",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 270,
+      "id": "WS0001",
+      "locations": [
+        83,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": -75,
+      "arc": 170,
+      "id": "WS0002",
+      "locations": [
+        30,
+        -19
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 75,
+      "arc": 170,
+      "id": "WS0003",
+      "locations": [
+        30,
+        19
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 115,
+      "arc": 220,
+      "id": "WS0004",
+      "locations": [
+        -31,
+        29
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": -115,
+      "arc": 220,
+      "id": "WS0005",
+      "locations": [
+        -31,
+        -29
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "ENERGY"
+    },
+    {
+      "angle": 60,
+      "arc": 120,
+      "id": "WS0006",
+      "locations": [
+        -4,
+        42
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "HYBRID"
+    },
+    {
+      "angle": -60,
+      "arc": 120,
+      "id": "WS0007",
+      "locations": [
+        -4,
+        -42
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "HYBRID"
+    },
+    {
+      "angle": -60,
+      "arc": 190,
+      "id": "WS0008",
+      "locations": [
+        68,
+        -32
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 180,
+      "arc": 190,
+      "id": "WS0009",
+      "locations": [
+        -42,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0010",
+      "locations": [
+        56.5,
+        32
+      ],
+      "mount": "HARDPOINT",
+      "size": "MEDIUM",
+      "type": "BUILT_IN"
+    },
+    {
+      "angle": 0,
+      "arc": 360,
+      "id": "LB 1",
+      "locations": [
+        23.5,
+        31,
+        31,
+        31.5
+      ],
+      "mount": "HIDDEN",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY"
+    },
+    {
+      "angle": 0,
+      "arc": 360,
+      "id": "LB 2",
+      "locations": [
+        31,
+        -32,
+        22.5,
+        -32
+      ],
+      "mount": "HIDDEN",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0011",
+      "locations": [
+        99,
+        -23
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    }
+  ],
+  "width": 116
+}

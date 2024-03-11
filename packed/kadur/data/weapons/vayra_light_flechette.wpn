@@ -1,0 +1,50 @@
+{
+  "animationType": "MUZZLE_FLASH",
+  "autocharge": true,
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "railgun_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGunSprite": "graphics/weapons/vayra_jezail_hardpoint_barrel.png",
+  "hardpointOffsets": [
+    10,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_jezail_hardpoint_base.png",
+  "hardpointUnderSprite": "graphics/weapons/vayra_jezail_hardpoint_under.png",
+  "id": "vayra_light_flechette",
+  "muzzleFlashSpec": {
+    "length": 50,
+    "particleColor": [
+      30,
+      165,
+      255,
+      155
+    ],
+    "particleCount": 12,
+    "particleDuration": 0.2,
+    "particleSizeMin": 5,
+    "particleSizeRange": 6,
+    "spread": 2
+  },
+  "projectileSpecId": "vayra_light_flechette_shot",
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "size": "SMALL",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGunSprite": "graphics/weapons/vayra_jezail_turret_barrel.png",
+  "turretOffsets": [
+    8,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_jezail_turret_base.png",
+  "turretUnderSprite": "graphics/weapons/vayra_jezail_turret_under.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 6
+}

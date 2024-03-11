@@ -1,0 +1,203 @@
+{
+  "hullName": "Badger Mk.II",
+  "hullId": "vayra_badger_p",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/vayra_badger_p.png",
+  "style": "LOW_TECH",
+  "height": 164,
+  "width": 126,
+  "center": [63, 74.5],
+  "collisionRadius": 113.5,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 110.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "civgrade",
+    "shielded_holds",
+    "heavyarmor",
+    "vayra_targeting_pods"
+  ],
+  "builtInWings": [
+    "vayra_targeting_pod_wing",
+    "vayra_defense_pod_wing"
+  ],
+  "builtInWeapons": {
+    "WS0008": "vayra_hammer_carrier_p_launcher"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 235,
+      "angle": 40,
+      "locations": [45.5, 30]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 235,
+      "angle": -40,
+      "locations": [45.5, -30]
+    },
+    {
+      "id": "WS0003",
+      "size": "MEDIUM",
+      "type": "MISSILE",
+      "mount": "HARDPOINT",
+      "arc": 5,
+      "angle": 90,
+      "locations": [-18.5, 54.5]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "HYBRID",
+      "mount": "TURRET",
+      "arc": 290,
+      "angle": 0,
+      "locations": [1.5, -39]
+    },
+    {
+      "id": "LB 1",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        40.5, 7,
+        40.5, 6
+      ]
+    },
+    {
+      "id": "LB 2",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        40, -7,
+        40, -5.5
+      ]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 90,
+      "locations": [54.5, 49.5]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": -90,
+      "locations": [54.5, -50.5]
+    },
+    {
+      "id": "WS0007",
+      "size": "LARGE",
+      "type": "ENERGY",
+      "mount": "TURRET",
+      "arc": 120,
+      "angle": 0,
+      "locations": [-4, 0]
+    },
+    {
+      "id": "LB 3",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY",
+      "mount": "HIDDEN",
+      "arc": 360,
+      "angle": 0,
+      "locations": [
+        40, -0,
+        41, -0
+      ]
+    },
+    {
+      "id": "WS0008",
+      "size": "LARGE",
+      "type": "BUILT_IN",
+      "mount": "HIDDEN",
+      "arc": 0,
+      "angle": 0,
+      "locations": [47, 0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-75.5, -44],
+      "length": 24.5,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 10,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-75.5, 44],
+      "length": 24.5,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 10,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-74.5, 30.5],
+      "length": 44.5,
+      "width": 17,
+      "angle": 180,
+      "contrailSize": 17,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-74.5, -30.5],
+      "length": 44.5,
+      "width": 17,
+      "angle": -180,
+      "contrailSize": 17,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-59.5, 0],
+      "length": 51,
+      "width": 29,
+      "angle": 180,
+      "contrailSize": 29,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    -55, -10.5,
+    -72, -25,
+    -68.5, -46,
+    -52.5, -61,
+    11.5, -61,
+    21.5, -51.5,
+    27.5, -56,
+    61, -56,
+    70, -48,
+    74.5, -13,
+    66.5, -11.5,
+    66.5, 11.5,
+    74.5, 13,
+    70, 48,
+    61, 56,
+    27.5, 56,
+    21.5, 51.5,
+    11.5, 61,
+    -52.5, 61,
+    -68.5, 46,
+    -72, 25,
+    -55, 10.5
+  ]
+}

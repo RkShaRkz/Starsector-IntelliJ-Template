@@ -1,0 +1,85 @@
+{
+  "hullName": "Black Shark",
+  "hullId": "vayra_blackshark",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/vayra_blackshark.png",
+  "style": "LOW_TECH",
+  "height": 42,
+  "width": 36,
+  "center": [18, 22],
+  "collisionRadius": 24,
+  "shieldCenter": [0, -0],
+  "shieldRadius": 23,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_red_army",
+    "vayra_beam_rotor"
+  ],
+  "builtInWeapons": {
+    "WS0005": "vayra_beam_rotor",
+    "WS0006": "vayra_rotor_beam"
+  },
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HIDDEN",
+      "arc": 190,
+      "angle": 0,
+      "locations": [14, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": 0,
+      "locations": [4, 11]
+    },
+    {
+      "id": "WS0003",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": -0,
+      "locations": [4, -11]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": 0,
+      "locations": [9, 5]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "TURRET",
+      "arc": 360,
+      "angle": 0,
+      "locations": [2, -0]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "DECORATIVE",
+      "mount": "TURRET",
+      "arc": 360,
+      "angle": 0,
+      "locations": [2, -0]
+    }
+  ],
+  "engineSlots": [],
+  "bounds": [
+    2, -14,
+    17, -0,
+    2, 14,
+    -17, -0
+  ]
+}
