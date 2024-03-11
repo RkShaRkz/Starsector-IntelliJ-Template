@@ -1,4 +1,4 @@
-package com.fs.starfarer.api.impl.campaign.rulecmd;
+package data.campaign.rulecmd;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.Script;
@@ -12,12 +12,17 @@ import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.CharacterCreationData;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import java.util.Map;
 
-public class NGCKadurCommieStartScript extends BaseCommandPlugin {
+/**
+ *
+ * @author Vayra
+ */
+public class NGCKadurPirateStartScript extends BaseCommandPlugin {
 
     @Override
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
@@ -25,10 +30,13 @@ public class NGCKadurCommieStartScript extends BaseCommandPlugin {
             return false;
         }
         CharacterCreationData data = (CharacterCreationData) memoryMap.get(MemKeys.LOCAL).get("$characterData");
+        //final MemoryAPI memory = memoryMap.get(MemKeys.LOCAL);
 
         data.addScript(new Script() {
             @Override
             public void run() {
+
+                //SectorAPI sector = Global.getSector();
 
                 SharedData.getData().getPersonBountyEventData().addParticipatingFaction(Factions.PIRATES);
 
@@ -37,26 +45,16 @@ public class NGCKadurCommieStartScript extends BaseCommandPlugin {
                 FactionAPI parent = Global.getSector().getFaction(parentId);
                 for (FactionAPI other : Global.getSector().getAllFactions()) {
                     player.setRelationship(other.getId(), parent.getRelationship(other.getId()));
+                    if (player.isAtBest(other, RepLevel.HOSTILE)) player.setRelationship(other.getId(), RepLevel.VENGEFUL);
                 }
-                
-                // pirates
-                player.setRelationship(Factions.PIRATES, RepLevel.NEUTRAL);
-                
-                // PDPRC allies
-                player.setRelationship("shadow_industry", RepLevel.FAVORABLE);
-                player.setRelationship("junk_pirates", RepLevel.FAVORABLE);
-                player.setRelationship("pack", RepLevel.FAVORABLE);
-                player.setRelationship("dassault_mikoyan", RepLevel.FAVORABLE);
-                player.setRelationship("kadur_remnant", RepLevel.FAVORABLE);
-                
-                // PDPRC enemies that aren't hostile to pirates
-                player.setRelationship(Factions.LUDDIC_PATH, RepLevel.HOSTILE);
-                player.setRelationship("tahlan_legioinfernalis", RepLevel.VENGEFUL);
+                player.setRelationship(parentId, RepLevel.WELCOMING);
+                player.setRelationship("tahlan_legioinfernalis", RepLevel.NEUTRAL);
+                player.setRelationship("cabal", RepLevel.HOSTILE);
 
                 CampaignFleetAPI fleet = Global.getSector().getPlayerFleet();
                 CargoAPI cargo = fleet.getCargo();
                 cargo.initPartialsIfNeeded();
-                cargo.addCommodity(Commodities.HAND_WEAPONS, 50);
+                cargo.addCommodity(Commodities.DRUGS, 50);
 
             }
 

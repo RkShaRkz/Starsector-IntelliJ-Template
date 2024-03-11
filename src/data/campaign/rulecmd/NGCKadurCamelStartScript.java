@@ -1,4 +1,4 @@
-package com.fs.starfarer.api.impl.campaign.rulecmd;
+package data.campaign.rulecmd;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.Script;
@@ -9,15 +9,12 @@ import com.fs.starfarer.api.campaign.rules.MemKeys;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.CharacterCreationData;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.util.Misc;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author Vayra
- */
-public class NGCKadurTriTachStartScript extends BaseCommandPlugin {
+public class NGCKadurCamelStartScript extends BaseCommandPlugin {
 
     @Override
     public boolean execute(String ruleId, InteractionDialogAPI dialog, List<Misc.Token> params, Map<String, MemoryAPI> memoryMap) {
@@ -31,7 +28,7 @@ public class NGCKadurTriTachStartScript extends BaseCommandPlugin {
             @Override
             public void run() {
 
-                String parentId = Factions.TRITACHYON;
+                String parentId = "kadur_remnant";
                 FactionAPI player = Global.getSector().getFaction(Factions.PLAYER);
                 FactionAPI parent = Global.getSector().getFaction(parentId);
                 for (FactionAPI other : Global.getSector().getAllFactions()) {
