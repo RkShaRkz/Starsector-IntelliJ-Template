@@ -1,0 +1,45 @@
+{
+  "animationType": "SMOKE",
+  "barrelMode": "ALTERNATING",
+  "displayArcRadius":1000,
+  "fireSoundTwo": "harpoon_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    7.5,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_hammer_carrier_launcher.png",
+  "id": "vayra_hammer_carrier_p_launcher",
+  "projectileSpecId": "vayra_hammer_carrier_p",
+  "size": "LARGE",
+  "smokeSpec": {
+    "blowbackDuration": 1.1,
+    "blowbackLength": 20,
+    "blowbackParticleCount": 4,
+    "blowbackSpread": 10,
+    "cloudDuration": 0.9,
+    "cloudParticleCount": 3,
+    "cloudRadius": 8,
+    "particleColor": [
+      170,
+      160,
+      150,
+      130
+    ],
+    "particleSizeMin": 10,
+    "particleSizeRange": 16
+  },
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretOffsets": [
+    1.5,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_hammer_carrier_launcher.png",
+  "type": "MISSILE"
+}

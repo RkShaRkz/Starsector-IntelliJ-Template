@@ -1,0 +1,50 @@
+{
+  "animationType": "GLOW_AND_FLASH",
+  "autocharge": true,
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "antediluvian_sonic_01",
+  "glowColor": [
+    150,
+    255,
+    200,
+    200
+  ],
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGlowSprite": "graphics/weapons/antediluvian_sonic_hardpoint_glow.png",
+  "hardpointOffsets": [
+    19.5,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/antediluvian_sonic_hardpoint_base.png",
+  "id": "antediluvian_solon_blaster",
+  "muzzleFlashSpec": {
+    "length": 60,
+    "particleColor": [
+      150,
+      255,
+      200,
+      200
+    ],
+    "particleCount": 12,
+    "particleDuration": 0.12,
+    "particleSizeMin": 20,
+    "particleSizeRange": 10,
+    "spread": 15
+  },
+  "projectileSpecId": "antediluvian_sonic_pulse",
+  "size": "MEDIUM",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGlowSprite": "graphics/weapons/antediluvian_sonic_turret_glow.png",
+  "turretOffsets": [
+    16,
+    0
+  ],
+  "turretSprite": "graphics/weapons/antediluvian_sonic_turret_base.png",
+  "type": "ENERGY"
+}

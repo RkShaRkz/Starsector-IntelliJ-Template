@@ -1,0 +1,15 @@
+{
+	"id":"vayra_degradedpulse_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC_AS_BEAM",
+	"collisionClass":"RAY",
+	"collisionClassByFighter":"RAY_FIGHTER",
+	"length":70.0,
+	"width":11.0,
+	"fadeTime":0.25,
+	"fringeColor":[0,200,0,240],
+	"coreColor":[255,255,255,185],
+	"textureType":"SMOOTH",  # only needed for BEAM spawnType
+	"textureScrollSpeed":-256.0,
+	"pixelsPerTexel":1.0	
+}
