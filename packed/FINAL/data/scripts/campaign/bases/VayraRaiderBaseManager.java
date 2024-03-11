@@ -15,9 +15,9 @@ import static com.fs.starfarer.api.impl.campaign.intel.bases.PirateBaseManager.C
 import data.scripts.campaign.bases.VayraRaiderBaseIntel.RaiderBaseTier;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.MOD_ID;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraModPlugin.JSONArrayToStringArray;
+import static data.scripts.VayraMergedModPlugin.MOD_ID;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.JSONArrayToStringArray;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;

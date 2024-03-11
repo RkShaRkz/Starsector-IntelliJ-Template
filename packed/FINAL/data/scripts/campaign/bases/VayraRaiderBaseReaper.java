@@ -7,7 +7,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.bases.LuddicPathBaseIntel;
 import com.fs.starfarer.api.impl.campaign.intel.bases.PirateBaseIntel;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraModPlugin.RAIDER_BASE_REAPER_ENABLED;
+import static data.scripts.VayraMergedModPlugin.RAIDER_BASE_REAPER_ENABLED;
 import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAIDERS;
 import java.util.ArrayList;
 import java.util.HashMap;

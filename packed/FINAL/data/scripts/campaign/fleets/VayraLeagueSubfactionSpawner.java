@@ -32,7 +32,7 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.LEAGUE_SUBFACTIONS;
+import static data.scripts.VayraMergedModPlugin.LEAGUE_SUBFACTIONS;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.log4j.Logger;

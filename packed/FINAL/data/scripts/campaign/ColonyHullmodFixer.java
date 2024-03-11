@@ -9,7 +9,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;

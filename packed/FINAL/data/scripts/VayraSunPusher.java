@@ -5,7 +5,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import java.util.Calendar;
 
 public class VayraSunPusher implements EveryFrameScript {

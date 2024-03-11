@@ -39,7 +39,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import java.util.HashMap;
 import java.util.Map;
 

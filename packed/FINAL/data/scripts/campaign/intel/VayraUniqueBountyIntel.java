@@ -62,7 +62,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.campaign.intel.VayraUniqueBountyManager.UniqueBountyData;
 import java.io.IOException;
 

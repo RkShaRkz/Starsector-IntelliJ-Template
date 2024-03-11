@@ -50,9 +50,9 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySp
 import com.fs.starfarer.api.util.Misc;
 import static com.fs.starfarer.api.util.Misc.setSalvageSpecial;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.MOD_ID;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraModPlugin.addMarketplace;
+import static data.scripts.VayraMergedModPlugin.MOD_ID;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.addMarketplace;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;

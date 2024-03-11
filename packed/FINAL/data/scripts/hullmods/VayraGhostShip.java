@@ -25,7 +25,7 @@ import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.campaign.events.VayraEngineeredPlagueListener;
 import data.scripts.campaign.intel.VayraGhostShipIntel;
 import static data.scripts.campaign.intel.VayraGhostShipIntel.ALIEN_ATTACK;

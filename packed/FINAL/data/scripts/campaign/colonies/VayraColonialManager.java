@@ -37,14 +37,14 @@ import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.AI_REBELLION_THRESHOLD;
-import static data.scripts.VayraModPlugin.COLONIAL_FACTIONS_ENABLED;
-import static data.scripts.VayraModPlugin.COLONIAL_FACTION_TIMEOUT;
-import data.scripts.VayraModPlugin;
-import static data.scripts.VayraModPlugin.COLONIAL_FACTION_COLONY_MULT;
-import static data.scripts.VayraModPlugin.EXERELIN_LOADED;
-import static data.scripts.VayraModPlugin.MOD_ID;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.AI_REBELLION_THRESHOLD;
+import static data.scripts.VayraMergedModPlugin.COLONIAL_FACTIONS_ENABLED;
+import static data.scripts.VayraMergedModPlugin.COLONIAL_FACTION_TIMEOUT;
+import data.scripts.VayraMergedModPlugin;
+import static data.scripts.VayraMergedModPlugin.COLONIAL_FACTION_COLONY_MULT;
+import static data.scripts.VayraMergedModPlugin.EXERELIN_LOADED;
+import static data.scripts.VayraMergedModPlugin.MOD_ID;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.VayraTags;
 import static data.scripts.VayraTags.E;
 import static data.scripts.VayraTags.readSpecial;
@@ -886,13 +886,13 @@ public class VayraColonialManager implements EveryFrameScript {
                 inactiveColonyFactions.remove(factionId);
                 test.setShowInIntelTab(true);
                 SharedData.getData().getPersonBountyEventData().addParticipatingFaction(factionId);
-                VayraModPlugin.setExerelinActive(factionId, true);
+                VayraMergedModPlugin.setExerelinActive(factionId, true);
             } else if (!inactiveColonyFactions.contains(factionId) && !hasMarkets.contains(factionId) && test instanceof FactionAPI) {
                 log.info(String.format("Removing %s from the intel and bounty lists... good riddance", test.getDisplayNameLongWithArticle()));
                 inactiveColonyFactions.add(factionId);
                 test.setShowInIntelTab(false);
                 SharedData.getData().getPersonBountyEventData().getParticipatingFactions().remove(factionId);
-                VayraModPlugin.setExerelinActive(factionId, false);
+                VayraMergedModPlugin.setExerelinActive(factionId, false);
             }
         }
     }

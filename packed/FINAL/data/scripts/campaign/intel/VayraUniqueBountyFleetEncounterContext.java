@@ -11,7 +11,7 @@ import com.fs.starfarer.api.impl.campaign.FleetEncounterContext;
 import static com.fs.starfarer.api.impl.campaign.FleetEncounterContext.prepareShipForRecovery;
 import com.fs.starfarer.api.loading.VariantSource;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.campaign.intel.VayraUniqueBountyManager.UniqueBountyData;
 import java.util.ArrayList;
 import java.util.List;

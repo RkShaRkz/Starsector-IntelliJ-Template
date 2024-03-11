@@ -25,7 +25,7 @@ import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseAssignmentAI.FleetA
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.colonies.VayraColonialExpeditionIntel.KadurColonialExpeditionOutcome;
-import static data.scripts.VayraModPlugin.createAdmin;
+import static data.scripts.VayraMergedModPlugin.createAdmin;
 import static java.lang.Math.random;
 import java.util.ArrayList;
 import org.apache.log4j.Logger;

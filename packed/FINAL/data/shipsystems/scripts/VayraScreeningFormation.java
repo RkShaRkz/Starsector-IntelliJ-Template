@@ -7,7 +7,7 @@ import com.fs.starfarer.api.combat.ShieldAPI.ShieldType;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
-import static data.scripts.VayraShipPackModPlugin.getFighters;
+import static data.scripts.VayraMergedModPlugin.getFighters;
 import java.awt.Color;
 
 public class VayraScreeningFormation extends BaseShipSystemScript {
@@ -98,16 +98,21 @@ public class VayraScreeningFormation extends BaseShipSystemScript {
 
     @Override
     public ShipSystemStatsScript.StatusData getStatusData(int index, ShipSystemStatsScript.State state, float effectLevel) {
-        if (index == 0) {
-            return new ShipSystemStatsScript.StatusData("-75% engagement range", false);
+        ShipSystemStatsScript.StatusData retVal;
+        switch(index) {
+            case 0:
+                retVal = new ShipSystemStatsScript.StatusData("-75% engagement range", false);
+                break;
+            case 1:
+                retVal = new ShipSystemStatsScript.StatusData("-" + (int) (DAMAGE_TAKEN_MULT * effectLevel * 100f) + "% damage taken by fighters", false);
+                break;
+            case 2:
+                retVal = new ShipSystemStatsScript.StatusData("+" + (int) (DAMAGE_BONUS_PERCENT * effectLevel) + "% fighter damage dealt to fighters and missiles", false);
+                break;
+            default:
+                throw new IllegalArgumentException("Please add code for value "+index+" in VayraScreeningFormation.java");
         }
-        if (index == 1) {
-            return new ShipSystemStatsScript.StatusData("-" + (int) (DAMAGE_TAKEN_MULT * effectLevel * 100f) + "% damage taken by fighters", false);
-        }
-        if (index == 2) {
-            return new ShipSystemStatsScript.StatusData("+" + (int) (DAMAGE_BONUS_PERCENT * effectLevel) + "% fighter damage dealt to fighters and missiles", false);
-        }
-        return null;
+        return retVal;
     }
 
 }

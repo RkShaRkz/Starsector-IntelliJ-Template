@@ -32,7 +32,7 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import static data.scripts.campaign.fleets.VayraPopularFrontManager.JOINT_FACTION;
 import static data.scripts.campaign.fleets.VayraPopularFrontManager.POSSIBLE_ALLIES;
 import org.apache.log4j.Logger;

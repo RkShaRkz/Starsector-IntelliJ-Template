@@ -12,6 +12,7 @@ import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
 import com.fs.starfarer.api.characters.ImportantPeopleAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Industries;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.impl.campaign.ids.Ranks;
@@ -19,34 +20,26 @@ import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
 import com.fs.starfarer.api.impl.campaign.intel.deciv.DecivTracker;
 import com.fs.starfarer.api.util.Misc;
-import data.scripts.campaign.colonies.VayraColonialManager;
-import data.scripts.campaign.intel.VayraPersonBountyManager;
-import data.scripts.campaign.bases.VayraRaiderBaseReaper;
-import data.scripts.campaign.bases.VayraRaiderBaseManager;
-import data.scripts.campaign.fleets.VayraTreasureFleetManager;
-import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.ColonyHullmodFixer;
-import data.scripts.campaign.VayraCampaignPlugin;
 import data.scripts.campaign.VayraAbandonedStationAndLeagueSubfactionBonker;
+import data.scripts.campaign.VayraCampaignPlugin;
 import data.scripts.campaign.VayraLoreObjectsFramework;
 import data.scripts.campaign.bases.VayraProcgenEntityFramework;
+import data.scripts.campaign.bases.VayraRaiderBaseManager;
+import data.scripts.campaign.bases.VayraRaiderBaseReaper;
+import data.scripts.campaign.colonies.VayraColonialManager;
 import data.scripts.campaign.events.VayraDistressCallManager;
 import data.scripts.campaign.fleets.VayraPopularFrontManager;
+import data.scripts.campaign.fleets.VayraTreasureFleetManager;
+import data.scripts.campaign.intel.VayraPersonBountyManager;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel;
+import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
-import static data.scripts.hullmods.VayraGhostShip.GHOST_GALLEON_BOUNTY_ID;
 import data.scripts.world.VayraAddPlanets;
 import exerelin.campaign.DiplomacyManager;
 import exerelin.campaign.fleets.InvasionFleetManager;
 import exerelin.utilities.NexConfig;
 import exerelin.utilities.NexFactionConfig;
-import java.io.IOException;
-import static java.lang.Math.random;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -56,11 +49,17 @@ import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.io.IOException;
+import java.util.*;
+
+import static data.scripts.hullmods.VayraGhostShip.GHOST_GALLEON_BOUNTY_ID;
+import static java.lang.Math.random;
+
 public class VayraMergedModPlugin extends BaseModPlugin {
 
     public static Logger logger = Global.getLogger(VayraMergedModPlugin.class);
 
-    public static final String MOD_ID = "vayrasector";
+    public static final String MOD_ID = "vayramerged";
 
     private static final String SETTINGS_FILE = "VAYRA_SETTINGS.ini";
     public static boolean VAYRA_DEBUG;
@@ -98,6 +97,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         SOMETIMES,
         BOTH
     }
+
     public static PirateMode PIRATE_BOUNTY_MODE = PirateMode.ALWAYS;
 
     public static boolean EXERELIN_LOADED;
@@ -145,34 +145,34 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
         VayraUniqueBountyManager uniques = VayraUniqueBountyManager.getInstance();
         if (uniques != null) {
-            log.info("reloading unique bounties");
+            logger.info("reloading unique bounties");
             uniques.reload();
         } else {
-            log.warn("VayraUniqueBountyManager.getInstance() returned null");
+            logger.warn("VayraUniqueBountyManager.getInstance() returned null");
         }
 
         VayraPersonBountyManager bounties = VayraPersonBountyManager.getInstance();
         if (bounties != null) {
-            log.info("reloading regular bounties");
+            logger.info("reloading regular bounties");
             bounties.reload();
         } else {
-            log.warn("VayraPersonBountyManager.getInstance() returned null");
+            logger.warn("VayraPersonBountyManager.getInstance() returned null");
         }
 
         VayraPlayerBountyIntel player = VayraPlayerBountyIntel.getInstance();
         if (player != null) {
-            log.info("reloading player-targeted bounties");
+            logger.info("reloading player-targeted bounties");
             player.loadParticipatingFactionList();
         } else {
-            log.warn("VayraPlayerBountyIntel.getInstance() returned null");
+            logger.warn("VayraPlayerBountyIntel.getInstance() returned null");
         }
 
         VayraDistressCallManager distress = VayraDistressCallManager.getInstance();
         if (distress != null) {
-            log.info("reloading distress calls");
+            logger.info("reloading distress calls");
             distress.loadEvents();
         } else {
-            log.warn("VayraDistressCallManager.getInstance() returned null");
+            logger.warn("VayraDistressCallManager.getInstance() returned null");
         }
     }
 
@@ -236,7 +236,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     @Override
     public void onNewGameAfterTimePass() {
 
-        log.info("new game started, adding scripts");
+        logger.info("new game started, adding scripts");
 
         Global.getSector().addScript(new VayraSunPusher());
 
@@ -281,7 +281,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             float x = fleet.getLocation().x;
             float y = fleet.getLocation().y;
 
-            log.info(String.format("fleet [%s] is at [%s, %s]... player fleet is at [%s, %s]", fleet.getNameWithFaction(), x, y, playerFleet.getLocation().x, playerFleet.getLocation().y));
+            logger.info(String.format("fleet [%s] is at [%s, %s]... player fleet is at [%s, %s]", fleet.getNameWithFaction(), x, y, playerFleet.getLocation().x, playerFleet.getLocation().y));
 
             if (playerFleet.getLocation().x > x) {
                 x -= 3000f;
@@ -296,7 +296,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             }
 
             fleet.setLocation(x, y);
-            log.info(String.format("Moving [%s] to [%s, %s] get da FUK out my gOD DAMN FAcE", fleet.getNameWithFaction(), x, y));
+            logger.info(String.format("Moving [%s] to [%s, %s] get da FUK out my gOD DAMN FAcE", fleet.getNameWithFaction(), x, y));
         }
 
         // hacky thing here to spend the Galleon P bounty
@@ -313,8 +313,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         // only do anything if exerelin is active, just in case
         if (EXERELIN_LOADED) {
 
-		// PATCHED BY SHARK - the added parameter is the 'useDefault' in case the factionId isn't found
-			NexFactionConfig conf = NexConfig.getFactionConfig(factionId, true);
+            // PATCHED BY SHARK - the added parameter is the 'useDefault' in case the factionId isn't found
+            NexFactionConfig conf = NexConfig.getFactionConfig(factionId, true);
             if (active) {
 
                 // if we already did it just return to save time/not fuck up faction relationships etc
@@ -371,7 +371,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     }
 
     public static MarketAPI addMarketplace(String factionID, SectorEntityToken primaryEntity, ArrayList<SectorEntityToken> connectedEntities, String name,
-            int size, ArrayList<String> marketConditions, ArrayList<String> submarkets, boolean WithJunkAndChatter, boolean pirateMode, boolean freePort) {
+                                           int size, ArrayList<String> marketConditions, ArrayList<String> submarkets, boolean WithJunkAndChatter, boolean pirateMode, boolean freePort) {
 
         EconomyAPI globalEconomy = Global.getSector().getEconomy();
         String entityId = primaryEntity.getId();
@@ -436,7 +436,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
         newMarket.reapplyIndustries();
 
-        log.info("created " + factionID + " market " + name);
+        logger.info("created " + factionID + " market " + name);
 
         return newMarket;
     }
@@ -507,11 +507,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
                 }
             } else {
             */
-                // nothing else suitable, so just make sure there's at least one skill, if this wasn't already set
-                if (skills.contains(Skills.INDUSTRIAL_PLANNING)) {
-                    //admin.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 3);
-                    admin.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 1);
-                }
+            // nothing else suitable, so just make sure there's at least one skill, if this wasn't already set
+            if (skills.contains(Skills.INDUSTRIAL_PLANNING)) {
+                //admin.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 3);
+                admin.getStats().setSkillLevel(Skills.INDUSTRIAL_PLANNING, 1);
+            }
 //            }
         }
 
@@ -525,7 +525,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         ip.getData(admin).getLocation().setMarket(market);
         ip.checkOutPerson(admin, "permanent_staff");
 
-        log.info(String.format("Applying admin %s %s to market %s", market.getFaction().getRank(admin.getRankId()), admin.getNameString(), market.getName()));
+        logger.info(String.format("Applying admin %s %s to market %s", market.getFaction().getRank(admin.getRankId()), admin.getNameString(), market.getName()));
 
         return admin;
     }
@@ -538,7 +538,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             }
             return ret;
         } catch (JSONException e) {
-            log.warn(e);
+            logger.warn(e);
             return new String[]{};
         }
     }
@@ -566,8 +566,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         point = CollisionUtils.getNearestPointOnBounds(point, entity);
         return Misc.isInArc(angle, arc, source, point) && Misc.getDistance(point, source) <= range;
     }
-	
-	    public static List<ShipAPI> getFighters(ShipAPI carrier) {
+
+    public static List<ShipAPI> getFighters(ShipAPI carrier) {
         List<ShipAPI> result = new ArrayList<>();
 
         for (ShipAPI ship : Global.getCombatEngine().getShips()) {

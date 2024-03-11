@@ -24,17 +24,17 @@ import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.PLAYER_BOUNTY_MAX_RANGE;
-import static data.scripts.VayraModPlugin.PLAYER_BOUNTY_RANGE_DAYS;
-import static data.scripts.VayraModPlugin.PLAYER_BOUNTY_SPAWN_RANGE;
-import static data.scripts.VayraModPlugin.PLAYER_BOUNTY_SYSTEM_DAYS;
-import static data.scripts.VayraModPlugin.RARE_BOUNTY_FLAGSHIP_CHANCE;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_MAX_RANGE;
+import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_RANGE_DAYS;
+import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_SPAWN_RANGE;
+import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_SYSTEM_DAYS;
+import static data.scripts.VayraMergedModPlugin.RARE_BOUNTY_FLAGSHIP_CHANCE;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import static data.scripts.campaign.intel.VayraPersonBountyIntel.getSharedData;
 import data.scripts.campaign.intel.VayraPersonBountyManager.RareBountyFlagshipData;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel.PlayerBountyData;
 import org.apache.log4j.Logger;
-import static data.scripts.VayraModPlugin.PLAYER_BOUNTY_FP_SCALING;
+import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_FP_SCALING;
 
 public class VayraPlayerBountyHunter implements EveryFrameScript {
 

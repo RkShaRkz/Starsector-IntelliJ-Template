@@ -32,8 +32,8 @@ import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraModPlugin.aOrAn;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.aOrAn;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
 

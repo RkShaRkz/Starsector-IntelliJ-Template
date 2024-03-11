@@ -10,9 +10,9 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraModPlugin.BOUNTY_DURATION;
-import static data.scripts.VayraModPlugin.BOUNTY_SOFT_MAX_DIST;
-import static data.scripts.VayraModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.BOUNTY_DURATION;
+import static data.scripts.VayraMergedModPlugin.BOUNTY_SOFT_MAX_DIST;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import java.util.List;
 import org.apache.log4j.Logger;
 
