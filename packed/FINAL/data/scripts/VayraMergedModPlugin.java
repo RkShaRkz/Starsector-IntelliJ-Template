@@ -566,4 +566,22 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         point = CollisionUtils.getNearestPointOnBounds(point, entity);
         return Misc.isInArc(angle, arc, source, point) && Misc.getDistance(point, source) <= range;
     }
+	
+	    public static List<ShipAPI> getFighters(ShipAPI carrier) {
+        List<ShipAPI> result = new ArrayList<>();
+
+        for (ShipAPI ship : Global.getCombatEngine().getShips()) {
+            if (!ship.isFighter()) {
+                continue;
+            }
+            if (ship.getWing() == null) {
+                continue;
+            }
+            if (ship.getWing().getSourceShip() == carrier) {
+                result.add(ship);
+            }
+        }
+
+        return result;
+    }
 }
