@@ -1,0 +1,50 @@
+{
+  "variantId": "vayra_wolverine_m",
+  "hullId": "vayra_wolverine",
+  "displayName": "Drone Frigate",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 0.5,
+  "permaMods": [],
+  "hullMods": [
+    "armoredweapons",
+    "autorepair",
+    "fluxbreakers",
+    "insulatedengine"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "miningblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_mining_lance",
+        "WS0006": "vayra_mining_lance"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0008": "vayra_lr_mining_laser",
+        "WS0009": "vayra_lr_mining_laser"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "vayra_mining_lance"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

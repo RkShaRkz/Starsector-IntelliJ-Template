@@ -1,0 +1,63 @@
+{
+  "displayName": "Assault",
+  "fluxCapacitors": 30,
+  "fluxVents": 24,
+  "goalVariant": true,
+  "hullId": "vayra_typhon",
+  "hullMods": [
+    "unstable_injector"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_typhon_as",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "annihilator",
+        "WS0006": "annihilator",
+        "WS0015": "annihilator",
+        "WS0016": "annihilator",
+        "WS0017": "annihilator",
+        "WS0018": "annihilator"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "autopulse"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "pulselaser",
+        "WS0007": "irpulse",
+        "WS0008": "irpulse"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_combat_laser",
+        "WS0002": "vayra_combat_laser",
+        "WS0009": "lrpdlaser",
+        "WS0010": "lrpdlaser",
+        "WS0011": "lrpdlaser",
+        "WS0012": "pdlaser",
+        "WS0013": "pdlaser",
+        "WS0014": "pdlaser"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "wings": []
+}

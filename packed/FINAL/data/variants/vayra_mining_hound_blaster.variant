@@ -1,0 +1,32 @@
+{
+  "displayName": "Mining",
+  "fluxCapacitors": 5,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_mining_hound",
+  "hullMods": [
+    "fluxdistributor"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_mining_hound_blaster",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "miningblaster"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "mininglaser",
+        "WS0001": "mininglaser"
+      }
+    }
+  ],
+  "wings": []
+}

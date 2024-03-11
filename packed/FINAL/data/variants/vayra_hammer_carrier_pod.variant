@@ -1,0 +1,20 @@
+{
+  "displayName": "Auxiliary",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_hammer_carrier",
+  "hullMods": [],
+  "permaMods": [],
+  "variantId": "vayra_hammer_carrier_pod",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "hammer_single"
+      }
+    }
+  ],
+  "wings": []
+}

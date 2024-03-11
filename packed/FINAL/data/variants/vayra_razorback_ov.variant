@@ -1,0 +1,26 @@
+{
+  "displayName": "Overdriven",
+  "fluxCapacitors": 0,
+  "fluxVents": 3,
+  "goalVariant": true,
+  "hullId": "vayra_razorback",
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_razorback_ov",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "chaingun",
+        "WS0002": "heavymg",
+        "WS0003": "railgun",
+        "WS0004": "lightag"
+      }
+    }
+  ],
+  "wings": []
+}

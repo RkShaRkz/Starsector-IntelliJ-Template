@@ -1,0 +1,49 @@
+{
+  "displayName": "Mining",
+  "fluxCapacitors": 16,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "venture",
+  "hullMods": [
+    "advancedoptics",
+    "targetingunit",
+    "turretgyros"
+  ],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "venture_vayra_mining",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 005": "sabotpod",
+        "WS 006": "sabotpod"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS 004": "hammer",
+        "WS 007": "hammer"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 002": "vayra_heavy_cutter"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "dualflak",
+        "WS 003": "dualflak"
+      }
+    }
+  ],
+  "wings": []
+}

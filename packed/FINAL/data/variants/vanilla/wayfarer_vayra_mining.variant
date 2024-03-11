@@ -1,0 +1,42 @@
+{
+  "displayName": "Mining",
+  "fluxCapacitors": 10,
+  "fluxVents": 6,
+  "goalVariant": true,
+  "hullId": "wayfarer",
+  "hullMods": [
+    "fluxcoil",
+    "fluxdistributor",
+    "advancedoptics"
+  ],
+  "permaMods": [],
+  "quality": 0.5,
+  "variantId": "wayfarer_vayra_mining",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 003": "vayra_light_cutter",
+        "WS 004": "vayra_light_cutter"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "lightmortar",
+        "WS 002": "lightmortar"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 005": "mininglaser",
+        "WS 006": "mininglaser"
+      }
+    }
+  ],
+  "wings": []
+}

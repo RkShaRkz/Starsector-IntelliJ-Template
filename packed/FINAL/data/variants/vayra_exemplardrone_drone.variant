@@ -1,0 +1,26 @@
+{
+  "variantId": "vayra_exemplardrone_drone",
+  "hullId": "vayra_exemplardrone",
+  "displayName": "Defensive Orbiter",
+  "goalVariant": true,
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "quality": 1,
+  "permaMods": [],
+  "hullMods": [
+    "turretgyros",
+    "pointdefenseai",
+    "fluxshunt"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS 001": "pdlaser"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}
