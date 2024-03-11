@@ -1,0 +1,142 @@
+{
+  "bounds": [
+    21,
+    -28,
+    -21.5,
+    -28,
+    -21.5,
+    28,
+    21,
+    28,
+    21.5,
+    14.5,
+    38.5,
+    14.5,
+    38,
+    1,
+    20.5,
+    1
+  ],
+  "builtInMods": [
+    "automated",
+    "armoredweapons",
+    "autorepair",
+    "fluxbreakers",
+    "insulatedengine"
+  ],
+  "center": [
+    33,
+    35
+  ],
+  "collisionRadius": 62.5,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 14,
+      "length": 37,
+      "location": [
+        -29.5,
+        15.5
+      ],
+      "style": "LOW_TECH",
+      "width": 14
+    },
+    {
+      "angle": -180,
+      "contrailSize": 14,
+      "length": 37,
+      "location": [
+        -29.5,
+        -15.5
+      ],
+      "style": "LOW_TECH",
+      "width": 14
+    },
+    {
+      "angle": 180,
+      "contrailSize": 19,
+      "length": 53.5,
+      "location": [
+        -34.5,
+        -0
+      ],
+      "style": "LOW_TECH",
+      "width": 19
+    }
+  ],
+  "height": 78,
+  "hullId": "vayra_tower",
+  "hullName": "tower",
+  "hullSize": "FRIGATE",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 59,
+  "spriteName": "graphics/ships/vayra_tower.png",
+  "style": "LOW_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0001",
+      "locations": [
+        20,
+        25
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0002",
+      "locations": [
+        23,
+        -9
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0003",
+      "locations": [
+        23,
+        -23
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0004",
+      "locations": [
+        35,
+        8
+      ],
+      "mount": "HARDPOINT",
+      "size": "MEDIUM",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -90,
+      "arc": 195,
+      "id": "WS0005",
+      "locations": [
+        -3,
+        -6
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    }
+  ],
+  "width": 66
+}
