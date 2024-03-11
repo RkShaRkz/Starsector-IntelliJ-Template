@@ -1,0 +1,25 @@
+{
+	"id":"vayra_gloryburn",
+	"type":"ENGINE_MOD",
+    "aiType":"CUSTOM",
+    "aiScript":"data.shipsystems.scripts.ai.VayraGloryBurnAI",
+	
+	"statsScript":"data.shipsystems.scripts.VayraGloryBurnStats",
+	
+	"flameoutOnImpactChance":0,
+
+	"clampTurnRateAfter":false,
+	"clampMaxSpeedAfter":false,
+	"alwaysAccelerate":true,
+
+	"useSound":"system_maneuvering_jets",
+	"loopSound":"system_maneuvering_jets_loop",
+	"deactivateSound":"system_burn_drive_deactivate",
+	"outOfUsesSound":"engine_disabled",
+	
+	"aiHints":{
+		"activeSpeedIncrease":60,
+		"burstMovementPotential":0,
+		"averageSpeedIncrease":20,
+	}
+}

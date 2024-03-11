@@ -1,0 +1,19 @@
+{
+	"id":"vayra_screeningformation",
+	"type":"STAT_MOD",
+    "aiType":"CUSTOM",
+    "aiScript":"data.shipsystems.scripts.ai.VayraScreeningFormationAI",
+	
+	"statsScript":"data.shipsystems.scripts.VayraScreeningFormation",
+	
+	"useSound":"system_targeting_feed",
+	"deactivateSound":"gun_out_of_ammo",
+	"outOfUsesSound":"gun_out_of_ammo",
+	
+	"aiHints":{
+	}
+}
+
+
+
+
