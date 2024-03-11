@@ -1,0 +1,15 @@
+{
+	"hullFrequency":{
+		"hulls":{
+			"vayra_tower":0.69, # too scary
+			"vayra_redoubt":0.69, # too scary
+			"vayra_motte":0.69, # too scary
+			"vayra_battlement":0.666, # too scary
+			"vayra_fortress":0.420, # too scary
+		},
+	},
+}
+
+
+
+
