@@ -6,11 +6,12 @@ import com.fs.starfarer.api.campaign.SectorAPI;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Conditions;
 import com.fs.starfarer.api.impl.campaign.procgen.NameGenData;
-import com.fs.starfarer.api.util.Misc;
-import java.util.List;
 import com.fs.starfarer.api.impl.campaign.procgen.ProcgenUsedNames;
+import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 public class VayraAddPlanets {
 
@@ -38,9 +39,9 @@ public class VayraAddPlanets {
                 types.add("barren");
                 types.add("barren2");
                 types.add("barren3");
-                types.add("barren-bombarded"); 
-                types.add("barren-desert"); 
-                types.add("irradiated");                
+                types.add("barren-bombarded");
+                types.add("barren-desert");
+                types.add("irradiated");
                 String type = types.pick();
                 //(String id, SectorEntityToken focus, String name, String type, float angle, float radius, float orbitRadius, float orbitDays)
                 PlanetAPI planet = system.addPlanet(system.getId() + "_" + name, system.getCenter(), name, type,

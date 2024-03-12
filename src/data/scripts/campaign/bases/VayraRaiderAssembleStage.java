@@ -1,19 +1,14 @@
 package data.scripts.campaign.bases;
 
 import com.fs.starfarer.api.campaign.SectorEntityToken;
-import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.MercType.BOUNTY_HUNTER;
-import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.MercType.PATROL;
-import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.MercType.PRIVATEER;
-import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.MercType.SCOUT;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.raid.AssembleStage;
 import com.fs.starfarer.api.impl.campaign.intel.raid.RaidIntel;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.FP_BOUNTY_HUNTER;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.FP_PATROL;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.FP_PRIVATEER;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.FP_SCOUT;
+
+import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.MercType.*;
+import static data.scripts.campaign.bases.VayraRaiderBaseManager.*;
 
 public class VayraRaiderAssembleStage extends AssembleStage {
 

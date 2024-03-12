@@ -9,7 +9,9 @@ import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.ShipwideAIFlags;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.util.IntervalUtil;
+
 import java.util.ArrayList;
+
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -21,9 +23,10 @@ public class VayraFluxOverdriveAI implements ShipSystemAIScript {
 
     // only check every tenth-second (for optimization and, hopefully, synchronization)
     private final IntervalUtil timer = new IntervalUtil(0.1f, 0.1f);
-    
+
     private static final ArrayList<AIFlags> PRO = new ArrayList<>();
     private static final ArrayList<AIFlags> CON = new ArrayList<>();
+
     static {
         PRO.add(AIFlags.PURSUING);
         PRO.add(AIFlags.HARASS_MOVE_IN);
@@ -40,14 +43,14 @@ public class VayraFluxOverdriveAI implements ShipSystemAIScript {
         CON.add(AIFlags.DO_NOT_PURSUE);
         CON.add(AIFlags.KEEP_SHIELDS_ON);
     }
-        
+
     @Override
     public void init(ShipAPI ship, ShipSystemAPI system, ShipwideAIFlags flags, CombatEngineAPI engine) {
         this.ship = ship;
         this.flags = flags;
         this.engine = engine;
     }
-    
+
     @Override
     public void advance(float amount, Vector2f missileDangerDir, Vector2f collisionDangerDir, ShipAPI target) {
         if (engine.isPaused()) {
@@ -64,17 +67,17 @@ public class VayraFluxOverdriveAI implements ShipSystemAIScript {
         }
 
         boolean useMe = false;
-        
+
         AssignmentInfo assignment = engine.getFleetManager(ship.getOwner()).getTaskManager(ship.isAlly()).getAssignmentFor(ship);
 
         if (assignment != null && assignment.getType() == CombatAssignmentType.RETREAT) {
             useMe = true;
-        } 
-        
+        }
+
         for (AIFlags f : PRO) {
             if (flags.hasFlag(f)) useMe = true;
         }
-        
+
         for (AIFlags f : CON) {
             if (flags.hasFlag(f)) useMe = false;
         }

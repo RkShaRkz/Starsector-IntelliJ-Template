@@ -46,7 +46,7 @@ public class KadurBlueprintStocker implements EveryFrameScript {
         float days = Global.getSector().getClock().convertToDays(amount);
         timer.advance(days);
         if (timer.intervalElapsed()) {
-            log.info(String.format("Interval elapsed, calling stocking methods"));
+            log.info("Interval elapsed, calling stocking methods");
             stockKadurBlueprints();
             stockKadurWeapons();
         }
@@ -56,7 +56,7 @@ public class KadurBlueprintStocker implements EveryFrameScript {
 
     public void stockKadurBlueprints() {
         List<MarketAPI> markets = Misc.getFactionMarkets(Global.getSector().getFaction(KADUR_ID));
-        log.info(String.format("Starting stockKadurBlueprints scan"));
+        log.info("Starting stockKadurBlueprints scan");
 
         for (MarketAPI market : markets) {
             if (market != null && market.hasSubmarket(Submarkets.GENERIC_MILITARY) && !stocked.contains(market)) {
@@ -111,7 +111,7 @@ public class KadurBlueprintStocker implements EveryFrameScript {
     private void stockKadurWeapons() {
         FactionAPI kadur = Global.getSector().getFaction(KADUR_ID);
         List<MarketAPI> markets = Misc.getFactionMarkets(kadur);
-        log.info(String.format("Starting stockKadurWeapons scan"));
+        log.info("Starting stockKadurWeapons scan");
 
         WeightedRandomPicker<String> smalls = new WeightedRandomPicker<>();
         WeightedRandomPicker<String> mediums = new WeightedRandomPicker<>();

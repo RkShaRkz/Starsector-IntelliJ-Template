@@ -1,17 +1,9 @@
 package data.scripts.campaign.intel;
 
-import java.util.Random;
-
-import org.lwjgl.util.vector.Vector2f;
-
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.FactoryAPI;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.FleetAssignment;
-import com.fs.starfarer.api.campaign.RepLevel;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
@@ -24,17 +16,15 @@ import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_MAX_RANGE;
-import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_RANGE_DAYS;
-import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_SPAWN_RANGE;
-import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_SYSTEM_DAYS;
-import static data.scripts.VayraMergedModPlugin.RARE_BOUNTY_FLAGSHIP_CHANCE;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import static data.scripts.campaign.intel.VayraPersonBountyIntel.getSharedData;
 import data.scripts.campaign.intel.VayraPersonBountyManager.RareBountyFlagshipData;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel.PlayerBountyData;
 import org.apache.log4j.Logger;
-import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTY_FP_SCALING;
+import org.lwjgl.util.vector.Vector2f;
+
+import java.util.Random;
+
+import static data.scripts.VayraMergedModPlugin.*;
+import static data.scripts.campaign.intel.VayraPersonBountyIntel.getSharedData;
 
 public class VayraPlayerBountyHunter implements EveryFrameScript {
 
@@ -214,7 +204,7 @@ public class VayraPlayerBountyHunter implements EveryFrameScript {
         log.info("rolled " + pts + " total FP");
         pts += 5f;
         log.info("added 5 more FP just because. fuck you");
-        
+
         FleetParamsV3 params = new FleetParamsV3(
                 null,
                 Global.getSector().getPlayerFleet().getLocationInHyperspace(),
@@ -263,7 +253,7 @@ public class VayraPlayerBountyHunter implements EveryFrameScript {
                 newFlagship.getRepairTracker().setCR(newFlagship.getRepairTracker().getMaxCR());
                 log.info(String.format("picked rare flagship %s for bounty hunter %s", flagVariant, person.getNameString()));
             } else {
-                log.info(String.format("couldn't find a rare bounty hunter flagship RIP"));
+                log.info("couldn't find a rare bounty hunter flagship RIP");
             }
         }
 

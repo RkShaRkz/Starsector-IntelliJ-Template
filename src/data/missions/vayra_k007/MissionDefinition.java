@@ -25,7 +25,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
         api.addToFleet(FleetSide.PLAYER, "vayra_caliph_revenant", FleetMemberType.SHIP, "KHS-001 Hand of God", true);
         api.defeatOnShipLoss("KHS-001 Hand of God");
-        
+
         api.addToFleet(FleetSide.PLAYER, "vayra_prophet_line", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "vayra_ziz_support", FleetMemberType.SHIP, false);
 
@@ -71,7 +71,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         }
 
         api.addToFleet(FleetSide.ENEMY, "radiant_Standard", FleetMemberType.SHIP, false).getCaptain().setPersonality(Personalities.RECKLESS);
-        
+
         api.addToFleet(FleetSide.ENEMY, "brilliant_Standard", FleetMemberType.SHIP, false).getCaptain().setPersonality(Personalities.RECKLESS);
         api.addToFleet(FleetSide.ENEMY, "brilliant_Standard", FleetMemberType.SHIP, false).getCaptain().setPersonality(Personalities.RECKLESS);
 

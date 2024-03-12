@@ -14,10 +14,10 @@ public class vayra_red_army extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) CHEAP_BOOTLEG_PARTS_FALL_OFF_SPACE_TRUCK + "%";
+            return (int) CHEAP_BOOTLEG_PARTS_FALL_OFF_SPACE_TRUCK + "%";
         }
         if (index == 1) {
-            return "" + (int) ETHANOL_IN_THE_ANTIFREEZE_TANK + "%";
+            return (int) ETHANOL_IN_THE_ANTIFREEZE_TANK + "%";
         }
         if (index == 2) {
             return "" + (int) BUILT_TOUGH_LIKE_BABUSHKA;

@@ -1,24 +1,18 @@
 package data.scripts.plugins;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.MissileAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventAPI;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class VayraProjHandlerPlugin extends BaseEveryFrameCombatPlugin {
 
@@ -37,8 +31,8 @@ public class VayraProjHandlerPlugin extends BaseEveryFrameCombatPlugin {
     /////////////////////////////CONFIG/////////////////////////////
     private static final String EMP_SOUND = "tachyon_lance_emp_impact"; // standard EMP arc sound for everything
 
-    private Map<DamagingProjectileAPI, Vector2f> biorifleGoo = new HashMap<>();
-    private Map<DamagingProjectileAPI, Integer> shortcircuitArcs = new HashMap<>();
+    private final Map<DamagingProjectileAPI, Vector2f> biorifleGoo = new HashMap<>();
+    private final Map<DamagingProjectileAPI, Integer> shortcircuitArcs = new HashMap<>();
 
     //////////////////////////////BITS//////////////////////////////
     public static class ProjData {
@@ -86,8 +80,8 @@ public class VayraProjHandlerPlugin extends BaseEveryFrameCombatPlugin {
         if (engine == null || engine.isPaused()) {
             return;
         }
-        
-        List<DamagingProjectileAPI> projToRemove= new ArrayList<>();
+
+        List<DamagingProjectileAPI> projToRemove = new ArrayList<>();
         for (DamagingProjectileAPI test : shortcircuitArcs.keySet()) {
             if (!engine.isEntityInPlay(test)) projToRemove.add(test);
         }

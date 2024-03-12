@@ -1,8 +1,6 @@
 package data.scripts.campaign.intel;
 
 import com.fs.starfarer.api.EveryFrameScript;
-import org.apache.log4j.Logger;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.RepLevel;
@@ -18,21 +16,17 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraMergedModPlugin.BOUNTY_DURATION;
-import static data.scripts.VayraMergedModPlugin.MOD_ID;
-import static data.scripts.VayraMergedModPlugin.PLAYER_BOUNTIES;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import java.awt.Color;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.*;
+
+import static data.scripts.VayraMergedModPlugin.*;
 
 public class VayraPlayerBountyIntel extends BaseIntelPlugin {
 
@@ -50,7 +44,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
     protected IntervalUtil updateDays = new IntervalUtil(7, 7);
     protected float timerMultBecauseOfCrimes = 0f;
     protected float previousCrimeMult = 0f;
-    
+
     public boolean hasBounty() {
         return !bountiesPosted.isEmpty();
     }
@@ -94,7 +88,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
             if (this.elapsedDays < 0f) {
                 this.elapsedDays = 0f;
             }
-            this.value += (int) newBounty.value;
+            this.value += newBounty.value;
         }
 
         public void addValue(int credits) {
@@ -138,7 +132,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
     public int getBountyValue() {
         float base = Global.getSettings().getFloat("basePersonBounty");
         float perLevel = Global.getSettings().getFloat("personBountyPerLevel");
-        int level = (int) Global.getSector().getPlayerStats().getLevel();
+        int level = Global.getSector().getPlayerStats().getLevel();
         // bounty levels are 1-10, player levels are 1-50, but I DON'T CARE this is more fun big numbers are fun
         int value = (int) (base + (perLevel * level));
         return value;
@@ -163,7 +157,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
     protected void advanceImpl(float amount) {
 
         Object memoryCheck = Global.getSector().getMemory().get(KEY);
-        
+
         if (memoryCheck == null || !(memoryCheck instanceof VayraPlayerBountyIntel)) {
             Global.getSector().getMemoryWithoutUpdate().set(KEY, this);
             log.info("adding the player-targeted bounty key, pointing to this instance");

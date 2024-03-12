@@ -2,19 +2,18 @@ package data.scripts.campaign.intel.bar.events;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin.ListInfoMode;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEvent.KEY_CHARACTER_SHEET;
-import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEvent.armorName;
-import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEvent.weaponName;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterData.VayraRPGCharacterSheetData;
-import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterData.XP;
-import java.awt.Color;
+
+import java.awt.*;
 import java.util.Set;
+
+import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEvent.*;
+import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterData.XP;
 
 public class VayraRPGAliveCharacterIntel extends BaseIntelPlugin {
 

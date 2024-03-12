@@ -1,12 +1,8 @@
 package data.scripts.hullmods;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 
@@ -60,10 +56,10 @@ public class VayraDamagedOptics extends BaseHullMod {
         float beamWaver = BEAM_WAVER * effect;
 
         if (index == 0) {
-            return "" + (int) Math.round((1f - rangeMult) * 100f) + "%";
+            return Math.round((1f - rangeMult) * 100f) + "%";
         }
         if (index == 1) {
-            return "" + (int) Math.round(beamWaver * 2f);
+            return "" + Math.round(beamWaver * 2f);
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);

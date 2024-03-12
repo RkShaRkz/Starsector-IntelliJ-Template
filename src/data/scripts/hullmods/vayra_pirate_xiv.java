@@ -21,7 +21,7 @@ public class vayra_pirate_xiv extends BaseHullMod {
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
 
         // better armour
-        stats.getArmorBonus().modifyFlat(id, (Float) ARMOR_BONUS);
+        stats.getArmorBonus().modifyFlat(id, ARMOR_BONUS);
 
         // better flux stats
         stats.getFluxCapacity().modifyMult(id, FLUX_HANDLING_MULT);
@@ -33,7 +33,7 @@ public class vayra_pirate_xiv extends BaseHullMod {
         stats.getDeceleration().modifyMult(id, FLUX_HANDLING_MULT);
         stats.getTurnAcceleration().modifyMult(id, FLUX_HANDLING_MULT);
         stats.getMaxTurnRate().modifyMult(id, FLUX_HANDLING_MULT);
-        
+
         // +1 burn speed
         stats.getMaxBurnLevel().modifyFlat(id, BURN_BONUS);
     }

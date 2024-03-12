@@ -4,9 +4,10 @@ import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
-import java.awt.Color;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
 
 public class VayraBeamRotorEffect implements EveryFrameWeaponEffectPlugin {
 
@@ -19,7 +20,7 @@ public class VayraBeamRotorEffect implements EveryFrameWeaponEffectPlugin {
         ShipAPI ship = weapon.getShip();
         if (ship == null || engine == null || engine.isPaused() || !ship.isAlive()) {
             weapon.getAnimation().setFrame(0);
-            weapon.getSprite().setColor(new Color(0,0,0,0));
+            weapon.getSprite().setColor(new Color(0, 0, 0, 0));
             return;
         }
 

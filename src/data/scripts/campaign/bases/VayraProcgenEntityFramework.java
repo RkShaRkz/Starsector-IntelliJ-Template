@@ -2,25 +2,7 @@ package data.scripts.campaign.bases;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignEventListener;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.FleetAssignment;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.JumpPointAPI;
-import com.fs.starfarer.api.campaign.LocationAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
-import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import com.fs.starfarer.api.campaign.OrbitAPI;
-import com.fs.starfarer.api.campaign.RepLevel;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyPlayerHostileActListener;
@@ -34,34 +16,28 @@ import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin.DerelictShipD
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
-import com.fs.starfarer.api.impl.campaign.ids.Abilities;
-import com.fs.starfarer.api.impl.campaign.ids.Entities;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.deciv.DecivTracker;
-import static com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator.addSalvageEntity;
-import static com.fs.starfarer.api.impl.campaign.procgen.themes.RemnantThemeGenerator.addRemnantStationInteractionConfig;
+import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner.ShipRecoverySpecialCreator;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial.ShipCondition;
 import com.fs.starfarer.api.util.Misc;
-import static com.fs.starfarer.api.util.Misc.setSalvageSpecial;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.MOD_ID;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraMergedModPlugin.addMarketplace;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.io.IOException;
+import java.util.*;
+
+import static com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator.addSalvageEntity;
+import static com.fs.starfarer.api.impl.campaign.procgen.themes.RemnantThemeGenerator.addRemnantStationInteractionConfig;
+import static com.fs.starfarer.api.util.Misc.setSalvageSpecial;
+import static data.scripts.VayraMergedModPlugin.*;
 
 public class VayraProcgenEntityFramework implements EveryFrameScript, DiscoverEntityListener, FleetEventListener, ColonyPlayerHostileActListener {
 
@@ -377,7 +353,7 @@ public class VayraProcgenEntityFramework implements EveryFrameScript, DiscoverEn
             if (hyperspace != null) {
                 location = hyperspace;
             } else {
-                location = (LocationAPI) system;
+                location = system;
                 orbit = BaseThemeGenerator.pickAnyLocation(new Random(), system, dist, exclude).orbit;
             }
 
@@ -401,7 +377,7 @@ public class VayraProcgenEntityFramework implements EveryFrameScript, DiscoverEn
                     CampaignFleetAPI fleet = FleetFactoryV3.createEmptyFleet(data.factionId, FleetTypes.BATTLESTATION, null);
                     FleetMemberAPI member = Global.getFactory().createFleetMember(FleetMemberType.SHIP, data.entityId);
                     fleet.getFleetData().addFleetMember(member);
-                    entity = (SectorEntityToken) fleet;
+                    entity = fleet;
 
                     fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_MAKE_AGGRESSIVE, true);
                     fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_NO_JUMP, true);

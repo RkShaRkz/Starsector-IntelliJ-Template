@@ -8,7 +8,7 @@ import org.apache.log4j.Logger;
 // Code is free to copy, modify, and redistribute. Attribution must be made to the original creator, DarkRevenant.
 
 public class VayraUniqueBountyInteractionDialogPlugin extends FleetInteractionDialogPluginImpl {
-    
+
     public static Logger log = Global.getLogger(VayraUniqueBountyInteractionDialogPlugin.class);
 
     public VayraUniqueBountyInteractionDialogPlugin() {

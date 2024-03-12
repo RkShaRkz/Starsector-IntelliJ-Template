@@ -1,12 +1,7 @@
 package data.scripts.campaign.intel.bar.events;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.OptionPanelAPI;
-import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
@@ -18,15 +13,14 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.AddRemoveCommodity;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.SalvageEntity;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.IS_AVANITIA;
-import static data.scripts.VayraMergedModPlugin.IS_CJUICY;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraMergedModPlugin.aOrAn;
-import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterData.*;
-import java.awt.Color;
+import org.apache.log4j.Logger;
+
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 
-import org.apache.log4j.Logger;
+import static data.scripts.VayraMergedModPlugin.*;
+import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterData.*;
 
 // TODO
 // add dialogue to neutral/friendly monsters
@@ -48,7 +42,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
     public static final int LANTERN_ROOMS = 5; // plus 1d6
 
     // these are all of the things it is possible to do in a tabletop RPG
-    public static enum Options {
+    public enum Options {
         // meta-interactions
         INIT, // first thing we do
         ROLL_NEW, // make a new character even if you already have one
@@ -185,7 +179,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
                         data.maxHp = 8 + data.STR;
                         currHp = data.maxHp;
                         textPanel.addPara("You start out with " + data.maxHp + " HP, and gain 1d8" + data.textStr() + " at levels 2, 3, and 4. "
-                                + "You reroll HP every level and take the new total if it's higher, even above 4th.",
+                                        + "You reroll HP every level and take the new total if it's higher, even above 4th.",
                                 t, h, data.maxHp + "", "1d8" + data.textStr());
                         WeightedRandomPicker<Armor> startArmors = new WeightedRandomPicker<>();
                         startArmors.add(Armor.CLOTH, 1f);
@@ -683,7 +677,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
                             case "kill":
                                 dmg = monsterHp;
                                 if (d20() + monster.HD >= saveDC) {
-                                    dmg = (int) dmg / 2;
+                                    dmg = dmg / 2;
                                     effectString = "The " + monster.name + " shrieks and staggers, taking " + dmg + " damage, but does not fall.";
                                 }
                                 break;
@@ -691,7 +685,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
                                 dmg = d6() + d6() + d6() + d6();
                                 effectString = "The " + monster.name + " catches the full force of the firey explosion and takes " + dmg + " damage!";
                                 if (d20() + monster.HD >= saveDC) {
-                                    dmg = (int) dmg / 2;
+                                    dmg = dmg / 2;
                                     effectString = "The " + monster.name + " dodges the worst of the blast, and takes " + dmg + " damage.";
                                 }
                                 break;
@@ -699,7 +693,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
                                 dmg = d6() + d6() + d6() + d6();
                                 effectString = "The " + monster.name + " catches the full force of the bolt and takes " + dmg + " damage!";
                                 if (d20() + monster.HD >= saveDC) {
-                                    dmg = (int) dmg / 2;
+                                    dmg = dmg / 2;
                                     effectString = "The " + monster.name + " dodges the worst of the blast, and takes " + dmg + " damage.";
                                 }
                                 break;
@@ -707,7 +701,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
                                 dmg = d6() + d6() + d6() + d6();
                                 effectString = "The " + monster.name + " catches the full force of the choking cloud and takes " + dmg + " damage!";
                                 if (d20() + monster.HD >= saveDC) {
-                                    dmg = (int) dmg / 2;
+                                    dmg = dmg / 2;
                                     effectString = "The " + monster.name + " stumbles out of the worst of the gas, and takes " + dmg + " damage.";
                                 }
                                 break;
@@ -718,7 +712,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
                             case "vampirism":
                                 dmg = d6() + d6();
                                 if (d20() + monster.HD >= saveDC) {
-                                    dmg = (int) dmg / 2;
+                                    dmg = dmg / 2;
                                 }
                                 if (dmg > monsterHp) {
                                     dmg = monsterHp;
@@ -1527,7 +1521,7 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
         if (data.getAc() < 17) {
             loot.add("armor", 1f);
         }
-        if ((float) (DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 5.5f) {
+        if ((DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 5.5f) {
             loot.add("weapon", 1f);
         }
         loot.add("items", 1f);
@@ -1580,21 +1574,21 @@ public class VayraDungeonMasterBarEvent extends BaseBarEventWithPerson {
                 }
                 break;
             case "weapon":
-                if ((float) (DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 2.5f) {
+                if ((DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 2.5f) {
                     loot.add("dagger");
                     loot.add("club");
                 }
-                if ((float) (DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 3.5f) {
+                if ((DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 3.5f) {
                     loot.add("staff");
                     loot.add("mace");
                     loot.add("sling");
                 }
-                if ((float) (DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 4.5f) {
+                if ((DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 4.5f) {
                     loot.add("spear");
                     loot.add("axe");
                     loot.add("bow");
                 }
-                if ((float) (DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 5.5f) {
+                if ((DMG.get(data.weapon) / 2f) + 0.5f + data.magicWeapon < 5.5f) {
                     loot.add("sword");
                 }
                 String weaponType = loot.pick();

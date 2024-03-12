@@ -2,15 +2,7 @@ package data.scripts.campaign.colonies;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.AICoreAdminPlugin;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.PlanetAPI;
-import com.fs.starfarer.api.campaign.RepLevel;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -23,45 +15,28 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.AICoreAdminPluginImpl;
 import com.fs.starfarer.api.impl.campaign.econ.ResourceDepositsCondition;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
-import com.fs.starfarer.api.impl.campaign.ids.Commodities;
-import com.fs.starfarer.api.impl.campaign.ids.Conditions;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.Items;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
-import static com.fs.starfarer.api.impl.campaign.procgen.themes.MiscellaneousThemeGenerator.PLANETARY_SHIELD_PLANET_KEY;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.loading.Description;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.AI_REBELLION_THRESHOLD;
-import static data.scripts.VayraMergedModPlugin.COLONIAL_FACTIONS_ENABLED;
-import static data.scripts.VayraMergedModPlugin.COLONIAL_FACTION_TIMEOUT;
 import data.scripts.VayraMergedModPlugin;
-import static data.scripts.VayraMergedModPlugin.COLONIAL_FACTION_COLONY_MULT;
-import static data.scripts.VayraMergedModPlugin.EXERELIN_LOADED;
-import static data.scripts.VayraMergedModPlugin.MOD_ID;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.VayraTags;
-import static data.scripts.VayraTags.E;
-import static data.scripts.VayraTags.readSpecial;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.apache.log4j.Logger;
-import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.io.IOException;
+import java.util.*;
+
+import static com.fs.starfarer.api.impl.campaign.procgen.themes.MiscellaneousThemeGenerator.PLANETARY_SHIELD_PLANET_KEY;
+import static data.scripts.VayraMergedModPlugin.*;
+import static data.scripts.VayraTags.E;
+import static data.scripts.VayraTags.readSpecial;
 
 public class VayraColonialManager implements EveryFrameScript {
 
@@ -173,6 +148,7 @@ public class VayraColonialManager implements EveryFrameScript {
         Object test = Global.getSector().getMemoryWithoutUpdate().get(KEY);
         return (VayraColonialManager) test;
     }
+
     private IntervalUtil t = null;
 
     @Override
@@ -274,7 +250,7 @@ public class VayraColonialManager implements EveryFrameScript {
             if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= colonyChance) {
                 FactionAPI colonyFaction = pickFaction();
                 if (colonyFaction == null) {
-                    log.info(String.format("Not starting a colonial expedition -- everyone is at the global colony cap"));
+                    log.info("Not starting a colonial expedition -- everyone is at the global colony cap");
                     return;
                 }
                 // and this is where we create the colonial expedition! ohgodsomuchwork
@@ -286,7 +262,7 @@ public class VayraColonialManager implements EveryFrameScript {
                 }
                 MarketAPI target = pickTarget(source, colonyFaction);
                 if (target == null) {
-                    log.info(String.format("We were gonna colonize a planet, but target returned null so we're giving up instead"));
+                    log.info("We were gonna colonize a planet, but target returned null so we're giving up instead");
                     return;
                 }
                 if (!target.isPlanetConditionMarketOnly()) {
@@ -419,7 +395,7 @@ public class VayraColonialManager implements EveryFrameScript {
                 && !market.getIndustry(Industries.HEAVYINDUSTRY).isUpgrading()
                 && market.getIndustry(Industries.HEAVYINDUSTRY).getSpecialItem() == null) {
             market.removeIndustry(Industries.HEAVYINDUSTRY, null, false);
-            market.addIndustry(Industries.HEAVYINDUSTRY, new ArrayList<>(Arrays.asList(Items.CORRUPTED_NANOFORGE)));
+            market.addIndustry(Industries.HEAVYINDUSTRY, new ArrayList<>(Collections.singletonList(Items.CORRUPTED_NANOFORGE)));
             log.info(String.format("Applying corrupted nanoforge to heavy industry on %s", market.getName()));
         }
 
@@ -435,7 +411,7 @@ public class VayraColonialManager implements EveryFrameScript {
                             && !market.getIndustry(Industries.FUELPROD).isUpgrading()
                             && market.getIndustry(Industries.FUELPROD).getSpecialItem() == null) {
                         market.removeIndustry(Industries.FUELPROD, null, false);
-                        market.addIndustry(Industries.FUELPROD, new ArrayList<>(Arrays.asList(Items.SYNCHROTRON)));
+                        market.addIndustry(Industries.FUELPROD, new ArrayList<>(Collections.singletonList(Items.SYNCHROTRON)));
                         log.info(String.format("Applying synchrotron to fuel production on %s", market.getName()));
                     }
                     break;
@@ -446,14 +422,14 @@ public class VayraColonialManager implements EveryFrameScript {
                             && (market.getIndustry(Industries.ORBITALWORKS).getSpecialItem() == null
                             ? Items.PRISTINE_NANOFORGE != null : !market.getIndustry(Industries.ORBITALWORKS).getSpecialItem().getId().equals(Items.PRISTINE_NANOFORGE))) {
                         market.removeIndustry(Industries.ORBITALWORKS, null, false);
-                        market.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Arrays.asList(Items.PRISTINE_NANOFORGE)));
+                        market.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Collections.singletonList(Items.PRISTINE_NANOFORGE)));
                         log.info(String.format("Applying pristine nanoforge to orbital works on %s", market.getName()));
                     } else if (market.hasIndustry(Industries.HEAVYINDUSTRY)
                             && !market.getIndustry(Industries.HEAVYINDUSTRY).isBuilding()
                             && !market.getIndustry(Industries.HEAVYINDUSTRY).isUpgrading()
                             && market.getIndustry(Industries.HEAVYINDUSTRY).getSpecialItem() == null) {
                         market.removeIndustry(Industries.HEAVYINDUSTRY, null, false);
-                        market.addIndustry(Industries.HEAVYINDUSTRY, new ArrayList<>(Arrays.asList(Items.CORRUPTED_NANOFORGE)));
+                        market.addIndustry(Industries.HEAVYINDUSTRY, new ArrayList<>(Collections.singletonList(Items.CORRUPTED_NANOFORGE)));
                         log.info(String.format("Applying corrupted nanoforge to heavy industry on %s", market.getName()));
                     }
                     break;
@@ -827,7 +803,7 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         if (possibleTargets.isEmpty()) {
-            log.info(String.format("Tried to pick a target but the list wae empty (jesus, how), returning null"));
+            log.info("Tried to pick a target but the list wae empty (jesus, how), returning null");
             return null;
         } else if (!preferredTargets.isEmpty()) {
             target = preferredTargets.pick();
@@ -924,7 +900,7 @@ public class VayraColonialManager implements EveryFrameScript {
         for (IntelInfoPlugin check : Global.getSector().getIntelManager().getIntel(VayraColonialExpeditionIntel.class)) {
             VayraColonialExpeditionIntel intel = (VayraColonialExpeditionIntel) check;
             if (intel.getOutcome() == null && !VAYRA_DEBUG) {
-                log.info(String.format("there is already an active colony expedition, no more expansion right now"));
+                log.info("there is already an active colony expedition, no more expansion right now");
                 return false;
             }
         }

@@ -21,7 +21,7 @@ public class VayraDamagedFighterWeapons extends BaseHullMod {
 
     @Override
     public void applyEffectsToFighterSpawnedByShip(ShipAPI fighter, ShipAPI ship, String id) {
-        
+
         MutableShipStatsAPI stats = ship.getMutableStats();
         if (stats == null) return;
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
@@ -47,10 +47,10 @@ public class VayraDamagedFighterWeapons extends BaseHullMod {
         float accuracyMult = FIGHTER_ACCURACY_MULT + (1f - FIGHTER_ACCURACY_MULT) * (1f - effect);
 
         if (index == 0) {
-            return "" + (int) Math.round((1f - damageMult) * 100f) + "%";
+            return Math.round((1f - damageMult) * 100f) + "%";
         }
         if (index == 1) {
-            return "" + (int) Math.round((1f - accuracyMult) * 100f) + "%";
+            return Math.round((1f - accuracyMult) * 100f) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);

@@ -8,20 +8,15 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Personalities;
 import com.fs.starfarer.api.impl.campaign.intel.BaseEventManager;
 import com.fs.starfarer.api.util.IntervalUtil;
-import static data.scripts.VayraMergedModPlugin.MOD_ID;
-import static data.scripts.VayraMergedModPlugin.UNIQUE_BOUNTIES;
-import static data.scripts.VayraMergedModPlugin.UNIQUE_BOUNTIES_MAX;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.*;
+
+import static data.scripts.VayraMergedModPlugin.*;
 
 public class VayraUniqueBountyManager extends BaseEventManager {
 
@@ -430,7 +425,7 @@ public class VayraUniqueBountyManager extends BaseEventManager {
                 VayraUniqueBountyIntel jerk = (VayraUniqueBountyIntel) createEvent();
 
                 if (jerk != null) {
-                    Global.getSector().addScript((EveryFrameScript) jerk);
+                    Global.getSector().addScript(jerk);
                 } else {
                     log.info("failed to spawn unique bounty");
                     log.info("unique bounty data list contains: " + bounties.keySet());
@@ -495,7 +490,7 @@ public class VayraUniqueBountyManager extends BaseEventManager {
 
         if (intel != null) {
             addActive(intel);
-            Global.getSector().addScript((EveryFrameScript) intel);
+            Global.getSector().addScript(intel);
             currentBounties.put(intel.bountyId, intel);
             log.info("unique currentBounties contains: " + currentBounties);
         }

@@ -2,11 +2,7 @@ package data.scripts.campaign;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.PluginPick;
-import com.fs.starfarer.api.campaign.BaseCampaignPlugin;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.CampaignPlugin;
-import com.fs.starfarer.api.campaign.InteractionDialogPlugin;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.*;
 import data.scripts.campaign.intel.VayraUniqueBountyInteractionDialogPlugin;
 import org.apache.log4j.Logger;
 

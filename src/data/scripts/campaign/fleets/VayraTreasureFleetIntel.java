@@ -1,10 +1,5 @@
 package data.scripts.campaign.fleets;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
@@ -21,6 +16,11 @@ import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class VayraTreasureFleetIntel extends BaseIntelPlugin {
 
@@ -204,12 +204,12 @@ public class VayraTreasureFleetIntel extends BaseIntelPlugin {
         String fleetType = "treasure fleet";
 
         LabelAPI label = info.addPara("Your contacts within " + faction.getDisplayNameLongWithArticle()
-                + " have informed you that "
-                + faction.getPersonNamePrefixAOrAn() + " "
-                + faction.getPersonNamePrefix() + " " + fleetType + " is preparing for a voyage and will soon depart from "
-                + data.from.getName() 
-                + ", carrying resources extracted from the company's colonial holdings bound for their shareholders " 
-                + data.from.getOnOrAt() + " " + data.to.getName() + ".",
+                        + " have informed you that "
+                        + faction.getPersonNamePrefixAOrAn() + " "
+                        + faction.getPersonNamePrefix() + " " + fleetType + " is preparing for a voyage and will soon depart from "
+                        + data.from.getName()
+                        + ", carrying resources extracted from the company's colonial holdings bound for their shareholders "
+                        + data.from.getOnOrAt() + " " + data.to.getName() + ".",
                 opad, tc,
                 faction.getBaseUIColor(),
                 faction.getDisplayNameLong(),

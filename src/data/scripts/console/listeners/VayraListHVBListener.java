@@ -13,14 +13,10 @@ public class VayraListHVBListener implements CommandListener {
     @Override
     public boolean onPreExecute(@NotNull String command, @NotNull String args, @NotNull BaseCommand.CommandContext context, boolean alreadyIntercepted) {
         // Return true to tell the console that you want to take over from the base command
-        boolean hvb = false;
-
-        if ("hvb".equalsIgnoreCase(args)
+        boolean hvb = "hvb".equalsIgnoreCase(args)
                 || "hvbs".equalsIgnoreCase(args)
                 || "highvaluebounties".equalsIgnoreCase(args)
-                || "high_value_bounties".equalsIgnoreCase(args)) {
-            hvb = true;
-        }
+                || "high_value_bounties".equalsIgnoreCase(args);
 
         return "list".equals(command) && hvb;
     }

@@ -1,18 +1,10 @@
 package data.scripts.campaign.fleets;
 
 import com.fs.starfarer.api.FactoryAPI;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
-
-import org.apache.log4j.Logger;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
+import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.ReputationActionResponsePlugin.ReputationAdjustmentResult;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
@@ -24,13 +16,9 @@ import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActionEnvelope;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActions;
 import com.fs.starfarer.api.impl.campaign.econ.ShippingDisruption;
-import com.fs.starfarer.api.impl.campaign.fleets.BaseRouteFleetManager;
-import com.fs.starfarer.api.impl.campaign.fleets.EconomyFleetAssignmentAI;
+import com.fs.starfarer.api.impl.campaign.fleets.*;
 import com.fs.starfarer.api.impl.campaign.fleets.EconomyFleetAssignmentAI.CargoQuantityData;
 import com.fs.starfarer.api.impl.campaign.fleets.EconomyFleetAssignmentAI.EconomyRouteData;
-import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
-import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
-import com.fs.starfarer.api.impl.campaign.fleets.RouteManager;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.OptionalFleetData;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteData;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteSegment;
@@ -39,9 +27,11 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
+import org.apache.log4j.Logger;
+
+import java.util.*;
+
 import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import java.util.HashMap;
-import java.util.Map;
 
 public class VayraTreasureFleetManager extends BaseRouteFleetManager implements FleetEventListener {
 
@@ -57,7 +47,7 @@ public class VayraTreasureFleetManager extends BaseRouteFleetManager implements 
     public static final String PARENT_ID = Factions.HEGEMONY;
     public static final FactionAPI PARENT = Global.getSector().getFaction(PARENT_ID);
     public static final String DEFAULT_DEST = "chicomoztoc";
-    
+
     public final MarketAPI destMarket = Global.getSector().getEconomy().getMarket(DEFAULT_DEST);
 
     public static final String SOURCE_ID = "colonialism";
@@ -86,7 +76,7 @@ public class VayraTreasureFleetManager extends BaseRouteFleetManager implements 
         }
         super.advance(amount);
     }
-    
+
     @Override
     protected String getRouteSourceId() {
         return SOURCE_ID;
@@ -210,7 +200,7 @@ public class VayraTreasureFleetManager extends BaseRouteFleetManager implements 
             if (com.isNonEcon()) {
                 continue;
             }
-            
+
             // ignore ship hulls chicomoztoc doesnt want em
             if (com.getCommodity().getId().equals(Commodities.SHIPS)) {
                 continue;

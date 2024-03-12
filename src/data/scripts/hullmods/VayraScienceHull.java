@@ -1,20 +1,16 @@
 package data.scripts.hullmods;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lazywizard.lazylib.combat.entities.SimpleEntity;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VayraScienceHull extends BaseHullMod {
 
@@ -81,10 +77,10 @@ public class VayraScienceHull extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) ((1f - DAMAGE_MULT) * 100) + "%";
+            return (int) ((1f - DAMAGE_MULT) * 100) + "%";
         }
         if (index == 1) {
-            return "" + (int) ((1f - SENSOR_MULT) * 100) + "%";
+            return (int) ((1f - SENSOR_MULT) * 100) + "%";
         }
         if (index == 2) {
             return "detonate spectacularly in an EMP burst";

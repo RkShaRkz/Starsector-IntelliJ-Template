@@ -7,8 +7,9 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import org.apache.log4j.Logger;
+
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 public class VayraBountyRecoveryHullmod extends BaseHullMod {
 

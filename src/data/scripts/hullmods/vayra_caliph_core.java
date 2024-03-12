@@ -6,6 +6,7 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -30,13 +31,13 @@ public class vayra_caliph_core extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + Math.round(ANTIFTR_BONUS) + "%";
+            return Math.round(ANTIFTR_BONUS) + "%";
         }
         if (index == 1) {
             return "non-PD";
         }
         if (index == 2) {
-            return "" + Math.round(RANGE_BONUS) + "%";
+            return Math.round(RANGE_BONUS) + "%";
         }
         if (index == 3) {
             return "significantly";
@@ -52,15 +53,15 @@ public class vayra_caliph_core extends BaseHullMod {
         stats.getBeamPDWeaponRangeBonus().modifyPercent(id, -RANGE_BONUS);
 
         stats.getSightRadiusMod().modifyFlat(id, VISION_BONUS);
-        
+
         stats.getAutofireAimAccuracy().modifyFlat(id, AUTOFIRE_PENALTY);
 
         stats.getMaxRecoilMult().modifyPercent(id, RECOIL_PENALTY);
         stats.getRecoilPerShotMult().modifyPercent(id, RECOIL_PENALTY);
-        
+
         stats.getDamageToFighters().modifyPercent(id, ANTIFTR_BONUS);
     }
-    
+
     // handles removing excluded hullmods
     @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {

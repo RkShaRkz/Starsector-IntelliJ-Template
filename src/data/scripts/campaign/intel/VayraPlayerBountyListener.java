@@ -1,13 +1,7 @@
 package data.scripts.campaign.intel;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.BaseCampaignEventListener;
-import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignEventListener;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.RepLevel;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyPlayerHostileActListener;
@@ -28,7 +22,7 @@ public class VayraPlayerBountyListener extends BaseCampaignEventListener impleme
     public static final String RAIDED_KEY = "$vayra_playerRaided";
     public static final String SATBOMBED_KEY = "$vayra_playerSatBombed";
     public static final String SATBOMBED_TARGET_KEY = "$vayra_playerSatBombedTarget";
-    
+
     public static final int PLAYER_BOUNTY_BASE_COMBAT = 750;
     public static final int PLAYER_BOUNTY_BASE_RAID = 250000;
     public static final int PLAYER_BOUNTY_BASE_BOMB = 500000;

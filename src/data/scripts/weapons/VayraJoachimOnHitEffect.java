@@ -1,32 +1,27 @@
 package data.scripts.weapons;
 
-import com.fs.starfarer.api.combat.BeamAPI;
-import com.fs.starfarer.api.combat.BeamEffectPlugin;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.util.IntervalUtil;
 import org.lwjgl.util.vector.Vector2f;
 
 public class VayraJoachimOnHitEffect implements BeamEffectPlugin {
-    
+
     private static final float HARD_FLUX_PERCENT = 10f;
 
     private final IntervalUtil fireInterval = new IntervalUtil(0.5f, 0.6f);
     private boolean wasZero = true;
-    
+
     @Override
     public void advance(float amount, CombatEngineAPI engine, BeamAPI beam) {
         CombatEntityAPI target = beam.getDamageTarget();
-        
+
         if (target instanceof ShipAPI && beam.getBrightness() >= 1f) {
 
             boolean shieldHit = target.getShield() != null && target.getShield().isWithinArc(beam.getTo());
             if (shieldHit) {
                 ShipAPI fucko = (ShipAPI) target;
                 fucko.getFluxTracker().increaseFlux((fucko.getMaxFlux() / 100) * HARD_FLUX_PERCENT * amount, true);
-                
+
                 float dur = beam.getDamage().getDpsDuration();
                 // needed because when the ship is in fast-time, dpsDuration will not be reset every frame as it should be
                 if (!wasZero) {
@@ -34,7 +29,7 @@ public class VayraJoachimOnHitEffect implements BeamEffectPlugin {
                 }
                 wasZero = beam.getDamage().getDpsDuration() <= 0;
                 fireInterval.advance(dur);
-                
+
                 if (fireInterval.intervalElapsed()) {
                     Vector2f dir = Vector2f.sub(beam.getTo(), beam.getFrom(), new Vector2f());
                     if (dir.lengthSquared() > 0) {

@@ -7,13 +7,15 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.bases.LuddicPathBaseIntel;
 import com.fs.starfarer.api.impl.campaign.intel.bases.PirateBaseIntel;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraMergedModPlugin.RAIDER_BASE_REAPER_ENABLED;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAIDERS;
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.List;
-import org.apache.log4j.Logger;
+import java.util.Map;
+
+import static data.scripts.VayraMergedModPlugin.RAIDER_BASE_REAPER_ENABLED;
+import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAIDERS;
 
 @SuppressWarnings("unchecked")
 public class VayraRaiderBaseReaper implements EveryFrameScript {
@@ -45,7 +47,7 @@ public class VayraRaiderBaseReaper implements EveryFrameScript {
         if (!deadFactions.isEmpty()) {
             for (String factionId : deadFactions) {
 
-                if (RAIDERS.keySet().contains(factionId)) {
+                if (RAIDERS.containsKey(factionId)) {
                     List<VayraRaiderBaseIntel> vayraIntel = (List) Global.getSector().getIntelManager().getIntel(VayraRaiderBaseIntel.class);
                     for (VayraRaiderBaseIntel intel : vayraIntel) {
                         if (intel.getData().raiderFactionId.equals(factionId) && !storedBases.get(factionId).contains(intel.getMarket())) {
@@ -62,7 +64,7 @@ public class VayraRaiderBaseReaper implements EveryFrameScript {
                         if (!storedBases.get(factionId).contains(intel.getMarket())) {
                             Misc.fadeAndExpire(intel.getEntity());
                             intel.endImmediately();
-                            log.info(String.format("Path are on deadlist: Killing a non-preexisting Pather raider base."));
+                            log.info("Path are on deadlist: Killing a non-preexisting Pather raider base.");
                         }
                     }
                 }
@@ -73,7 +75,7 @@ public class VayraRaiderBaseReaper implements EveryFrameScript {
                         if (!storedBases.get(factionId).contains(intel.getMarket())) {
                             Misc.fadeAndExpire(intel.getEntity());
                             intel.endImmediately();
-                            log.info(String.format("Pirates are on deadlist: Killing a non-preexisting Pirate raider base."));
+                            log.info("Pirates are on deadlist: Killing a non-preexisting Pirate raider base.");
                         }
                     }
                 }
@@ -96,7 +98,7 @@ public class VayraRaiderBaseReaper implements EveryFrameScript {
             }
             nonHiddenMarketCounts.put(Factions.LUDDIC_PATH, 0);
             nonHiddenMarketCounts.put(Factions.PIRATES, 0);
-            
+
             List<MarketAPI> hiddenMarkets = new ArrayList<>();
 
             for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
@@ -115,7 +117,7 @@ public class VayraRaiderBaseReaper implements EveryFrameScript {
                     nonHiddenMarketCounts.put(market.getFactionId(), count);
                 }
             }
-            
+
             for (String id : RAIDERS.keySet()) {
                 if (!deadFactions.contains(id) && nonHiddenMarketCounts.get(id) <= 0) {
                     deadFactions.add(id);
@@ -142,10 +144,10 @@ public class VayraRaiderBaseReaper implements EveryFrameScript {
                     }
                 }
                 storedBases.put(Factions.LUDDIC_PATH, existingBases);
-                log.info(String.format("Putting the Luddic Path on the deadlist, storing all their extant hidden markets."));
+                log.info("Putting the Luddic Path on the deadlist, storing all their extant hidden markets.");
             } else if (deadFactions.contains(Factions.LUDDIC_PATH) && nonHiddenMarketCounts.get(Factions.LUDDIC_PATH) > 0) {
                 deadFactions.remove(Factions.LUDDIC_PATH);
-                log.info(String.format("Luddic Path off the deadlist. Death to the faithless."));
+                log.info("Luddic Path off the deadlist. Death to the faithless.");
             }
 
             if (!deadFactions.contains(Factions.PIRATES) && nonHiddenMarketCounts.get(Factions.PIRATES) <= 0) {
@@ -157,10 +159,10 @@ public class VayraRaiderBaseReaper implements EveryFrameScript {
                     }
                 }
                 storedBases.put(Factions.PIRATES, existingBases);
-                log.info(String.format("Putting pirates on the deadlist, storing all their extant hidden markets."));
+                log.info("Putting pirates on the deadlist, storing all their extant hidden markets.");
             } else if (deadFactions.contains(Factions.PIRATES) && nonHiddenMarketCounts.get(Factions.PIRATES) > 0) {
                 deadFactions.remove(Factions.PIRATES);
-                log.info(String.format("Pirates off the deadlist. We comin for that toothbrush also yt."));
+                log.info("Pirates off the deadlist. We comin for that toothbrush also yt.");
             }
         }
     }

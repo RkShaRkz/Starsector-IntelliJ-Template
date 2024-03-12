@@ -34,10 +34,10 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
         float crewMult = CREW_CAPACITY_MULT + (1f - CREW_CAPACITY_MULT) * (1f - effect);
 
         if (index == 0) {
-            return "" + (int) Math.round(crPenalty) + "%";
+            return Math.round(crPenalty) + "%";
         }
         if (index == 1) {
-            return "" + (int) Math.round((1f - crewMult) * 100f) + "%";
+            return Math.round((1f - crewMult) * 100f) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class vayra_targeting_pods extends BaseHullMod {
         float rangeBonus = (float) podCount * BONUS_PER_POD;
         stats.getBallisticWeaponRangeBonus().modifyFlat(this.toString(), rangeBonus);
         stats.getEnergyWeaponRangeBonus().modifyFlat(this.toString(), rangeBonus);
-        
+
         if (Global.getCombatEngine().getPlayerShip().equals(ship) && rangeBonus > 100) {
             Global.getCombatEngine().maintainStatusForPlayerShip(this, SPRITE_NAME, STATUS_TITLE, getData(podCount), false);
         }

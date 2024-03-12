@@ -1,10 +1,6 @@
 package data.scripts.campaign.events;
 
 import com.fs.starfarer.api.EveryFrameScript;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
@@ -16,15 +12,16 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.TimeoutTracker;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.MOD_ID;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.*;
+
+import static data.scripts.VayraMergedModPlugin.MOD_ID;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 public class VayraDistressCallManager implements EveryFrameScript {
 
@@ -238,7 +235,7 @@ public class VayraDistressCallManager implements EveryFrameScript {
 
         Class<?> scriptClass;
         try {
-            scriptClass = (Class<?>) Global.getSettings().getScriptClassLoader().loadClass(distressCallEvents.get(event));
+            scriptClass = Global.getSettings().getScriptClassLoader().loadClass(distressCallEvents.get(event));
             EveryFrameScript script = (EveryFrameScript) scriptClass.newInstance();
             log.info("adding new distress call script " + script);
             Global.getSector().addScript(script);

@@ -11,7 +11,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
 import org.apache.log4j.Logger;
 
 public class MissionDefinition implements MissionDefinitionPlugin {
-    
+
     public static Logger log = Global.getLogger(MissionDefinition.class);
 
     @Override
@@ -53,9 +53,9 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         boolean scalar = Global.getSettings().getModManager().isModEnabled("tahlan_scalartech");
         boolean xhan = Global.getSettings().getModManager().isModEnabled("XhanEmpire");
         boolean vic = Global.getSettings().getModManager().isModEnabled("vic");
-        boolean ice = Global.getSettings().getModManager().isModEnabled("nbj_ice");   
-        boolean jp = Global.getSettings().getModManager().isModEnabled("junk_pirates_release");  
-        boolean lta = Global.getSettings().getModManager().isModEnabled("LTA");        
+        boolean ice = Global.getSettings().getModManager().isModEnabled("nbj_ice");
+        boolean jp = Global.getSettings().getModManager().isModEnabled("junk_pirates_release");
+        boolean lta = Global.getSettings().getModManager().isModEnabled("LTA");
 
         WeightedRandomPicker<String> flags = new WeightedRandomPicker<>();
         WeightedRandomPicker<String> mercs = new WeightedRandomPicker<>();
@@ -197,7 +197,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         if (lta) {
             flags.add("LTA_Epattcudxx_Heavilymodified");
         }
-        
+
         String ship1 = flags.pickAndRemove();
         String ship2 = flags.pickAndRemove();
         String ship3 = mercs.pickAndRemove();
@@ -208,19 +208,23 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         String ship8 = backup.pick();
 
         // ships in fleets
-        
+
         // flags
         FleetMemberAPI fm1 = api.addToFleet(FleetSide.PLAYER, ship1, FleetMemberType.SHIP, true);
-        if (fm1.getVariant().getHullVariantId() == null ? ship1 != null : !fm1.getVariant().getHullVariantId().equals(ship1)) log.error("couldn't find variant " + ship1);
+        if (fm1.getVariant().getHullVariantId() == null ? ship1 != null : !fm1.getVariant().getHullVariantId().equals(ship1))
+            log.error("couldn't find variant " + ship1);
         FleetMemberAPI fm2 = api.addToFleet(FleetSide.PLAYER, ship2, FleetMemberType.SHIP, false);
-        if (fm2.getVariant().getHullVariantId() == null ? ship2 != null : !fm2.getVariant().getHullVariantId().equals(ship2)) log.error("couldn't find variant " + ship2);
-        
+        if (fm2.getVariant().getHullVariantId() == null ? ship2 != null : !fm2.getVariant().getHullVariantId().equals(ship2))
+            log.error("couldn't find variant " + ship2);
+
         // mercs
         FleetMemberAPI fm3 = api.addToFleet(FleetSide.PLAYER, ship3, FleetMemberType.SHIP, false);
-        if (fm3.getVariant().getHullVariantId() == null ? ship3 != null : !fm3.getVariant().getHullVariantId().equals(ship3)) log.error("couldn't find variant " + ship3);
+        if (fm3.getVariant().getHullVariantId() == null ? ship3 != null : !fm3.getVariant().getHullVariantId().equals(ship3))
+            log.error("couldn't find variant " + ship3);
         FleetMemberAPI fm4 = api.addToFleet(FleetSide.PLAYER, ship4, FleetMemberType.SHIP, false);
-        if (fm4.getVariant().getHullVariantId() == null ? ship4 != null : !fm4.getVariant().getHullVariantId().equals(ship4)) log.error("couldn't find variant " + ship4);
-        
+        if (fm4.getVariant().getHullVariantId() == null ? ship4 != null : !fm4.getVariant().getHullVariantId().equals(ship4))
+            log.error("couldn't find variant " + ship4);
+
         // backup ships
         api.addToFleet(FleetSide.PLAYER, ship5, FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, ship6, FleetMemberType.SHIP, false);

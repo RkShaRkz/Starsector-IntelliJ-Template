@@ -1,14 +1,14 @@
 package data.campaign.rulecmd;
 
-import java.util.List;
-import java.util.Map;
-
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.rules.MemKeys;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.CharacterCreationData;
 import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.util.Misc.Token;
+
+import java.util.List;
+import java.util.Map;
 
 public class NGCKadurTrySetStartingLocation extends BaseCommandPlugin {
 
@@ -32,7 +32,7 @@ public class NGCKadurTrySetStartingLocation extends BaseCommandPlugin {
             data.setStartingLocationName(id);
             data.getStartingCoordinates().set(x, y);
         }
-        
+
         return true;
     }
 

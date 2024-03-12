@@ -38,13 +38,13 @@ public class VayraDamagedGunnery extends BaseHullMod {
         float recoilMult = RECOIL_MULT + (1f - RECOIL_MULT) * (1f - effect);
 
         if (index == 0) {
-            return "" + (int) Math.round((1f - autofireMult) * 100f) + "%";
+            return Math.round((1f - autofireMult) * 100f) + "%";
         }
         if (index == 1) {
-            return "" + (int) Math.round((1f - projSpeedMult) * 100f) + "%";
+            return Math.round((1f - projSpeedMult) * 100f) + "%";
         }
         if (index == 2) {
-            return "" + (int) Math.round((recoilMult - 1f) * 100f) + "%";
+            return Math.round((recoilMult - 1f) * 100f) + "%";
         }
         if (index >= 3) {
             return CompromisedStructure.getCostDescParam(index, 3);

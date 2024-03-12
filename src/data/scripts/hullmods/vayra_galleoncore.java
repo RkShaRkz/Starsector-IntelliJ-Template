@@ -6,6 +6,7 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -24,7 +25,7 @@ public class vayra_galleoncore extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + Math.round(RANGE_BONUS) + "%";
+            return Math.round(RANGE_BONUS) + "%";
         }
         return null;
     }

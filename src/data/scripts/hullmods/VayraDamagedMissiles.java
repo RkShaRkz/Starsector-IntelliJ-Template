@@ -35,10 +35,10 @@ public class VayraDamagedMissiles extends BaseHullMod {
         float fireRateMult = MISSILE_ROF_MULT + (1f - MISSILE_ROF_MULT) * (1f - effect);
 
         if (index == 0) {
-            return "" + (int) Math.round((1f - ammoMult) * 100f) + "%";
+            return Math.round((1f - ammoMult) * 100f) + "%";
         }
         if (index == 1) {
-            return "" + (int) Math.round((1f - fireRateMult) * 100f) + "%";
+            return Math.round((1f - fireRateMult) * 100f) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);

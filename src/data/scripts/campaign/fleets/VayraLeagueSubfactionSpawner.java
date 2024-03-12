@@ -1,11 +1,9 @@
 package data.scripts.campaign.fleets;
 
-import java.util.Random;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
+import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.Industry;
@@ -13,29 +11,28 @@ import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.econ.impl.MilitaryBase.PatrolFleetData;
+import com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.PatrolType;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.fleets.PatrolAssignmentAIV4;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager;
-import com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.PatrolType;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.OptionalFleetData;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteData;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteFleetSpawner;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteSegment;
-import com.fs.starfarer.api.impl.campaign.ids.Commodities;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.impl.campaign.ids.Stats;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.Pair;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.LEAGUE_SUBFACTIONS;
+import org.apache.log4j.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.log4j.Logger;
+import java.util.Random;
+
+import static data.scripts.VayraMergedModPlugin.LEAGUE_SUBFACTIONS;
 
 public class VayraLeagueSubfactionSpawner extends BaseIndustry implements RouteFleetSpawner, FleetEventListener {
 
@@ -211,7 +208,7 @@ public class VayraLeagueSubfactionSpawner extends BaseIndustry implements RouteF
         tracker.advance(days * spawnRate + extraTime);
 
         if (tracker.intervalElapsed()) {
-            
+
             log.info("patrol spawn timer elapsed at " + market.getId());
 
             int newLevel = 1;
@@ -358,7 +355,7 @@ public class VayraLeagueSubfactionSpawner extends BaseIndustry implements RouteF
         } else if (level >= 2f) {
             combat *= 1.5f;
         }
-        
+
         String factionId = SPAWN_FACTIONS.get(market.getPrimaryEntity().getId());
         FactionAPI pickedFaction = Global.getSector().getFaction(factionId);
         if (factionId == null || pickedFaction == null) {

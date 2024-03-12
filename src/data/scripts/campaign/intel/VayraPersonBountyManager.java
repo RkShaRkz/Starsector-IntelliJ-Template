@@ -10,24 +10,19 @@ import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel;
 import com.fs.starfarer.api.impl.campaign.intel.PersonBountyManager;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.MOD_ID;
-import static data.scripts.campaign.intel.VayraPersonBountyIntel.getSharedData;
-import static data.scripts.VayraMergedModPlugin.PIRATE_BOUNTY_MODE;
-import data.scripts.VayraMergedModPlugin.PirateMode;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import java.awt.Color;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import data.scripts.VayraMergedModPlugin.*;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.List;
+import java.util.*;
+
+import static data.scripts.VayraMergedModPlugin.*;
+import static data.scripts.campaign.intel.VayraPersonBountyIntel.getSharedData;
 
 public class VayraPersonBountyManager extends BaseEventManager {
 
@@ -62,7 +57,7 @@ public class VayraPersonBountyManager extends BaseEventManager {
             return asList;
         } catch (IOException | JSONException e) {
             log.info("bounty_shit.json loading ended" + e.getMessage());
-            return new ArrayList<>(Arrays.asList("SOMETHING HAS GONE TERRIBLY WRONG"));
+            return new ArrayList<>(Collections.singletonList("SOMETHING HAS GONE TERRIBLY WRONG"));
         }
     }
 
@@ -277,11 +272,11 @@ public class VayraPersonBountyManager extends BaseEventManager {
                 && Global.getSector().getFaction(Factions.PIRATES).isHostileTo(Factions.PLAYER))) {
             if (!Global.getSector().hasScript(PersonBountyManager.class)) {
                 Global.getSector().addScript(new PersonBountyManager());
-                log.info(String.format("Re-adding the vanilla bounty manager, alas"));
+                log.info("Re-adding the vanilla bounty manager, alas");
             }
             if (getSharedData().isParticipating(Factions.PIRATES)) {
                 SharedData.getData().getPersonBountyEventData().getParticipatingFactions().remove(Factions.PIRATES);
-                log.info(String.format("Fucking off for now, since player is a bootlicker and hates freedom"));
+                log.info("Fucking off for now, since player is a bootlicker and hates freedom");
             }
             return;
         }
@@ -300,7 +295,7 @@ public class VayraPersonBountyManager extends BaseEventManager {
             for (EveryFrameScript s : PersonBountyManager.getInstance().getActive()) {
                 ((PersonBountyIntel) s).endImmediately();
                 Global.getSector().removeScript(s);
-                log.info(String.format("Killing a vanilla bounty, pirates run the show now"));
+                log.info("Killing a vanilla bounty, pirates run the show now");
                 EveryFrameScript jerk = createEvent();
                 if (jerk != null) {
                     addActive(jerk);
@@ -310,7 +305,7 @@ public class VayraPersonBountyManager extends BaseEventManager {
 
         if ((PIRATE_BOUNTY_MODE.equals(PirateMode.ALWAYS) || PIRATE_BOUNTY_MODE.equals(PirateMode.SOMETIMES)) && Global.getSector().hasScript(PersonBountyManager.class)) {
             Global.getSector().removeScript(PersonBountyManager.getInstance());
-            log.info(String.format("Killing the vanilla bounty manager, RIP losers"));
+            log.info("Killing the vanilla bounty manager, RIP losers");
         }
     }
 

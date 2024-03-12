@@ -1,93 +1,61 @@
 package data.scripts.campaign.intel;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.FactoryAPI;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignClockAPI;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.FleetAssignment;
-import com.fs.starfarer.api.campaign.LocationAPI;
-import com.fs.starfarer.api.campaign.PlanetAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
-import com.fs.starfarer.api.campaign.RepLevel;
 import com.fs.starfarer.api.campaign.ReputationActionResponsePlugin.ReputationAdjustmentResult;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI.SurveyLevel;
 import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
-import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.FullName.Gender;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
-import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActionEnvelope;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActions;
+import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
-import com.fs.starfarer.api.impl.campaign.ids.Conditions;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.impl.campaign.ids.Skills;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.bases.PirateBaseManager;
 import com.fs.starfarer.api.impl.campaign.intel.misc.BreadcrumbIntel;
 import com.fs.starfarer.api.impl.campaign.procgen.Constellation;
-import static com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner.BreadcrumbSpecialCreator.isLargeShipOrNonShip;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.BreadcrumbSpecial;
-import static com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.BreadcrumbSpecial.getLocatedString;
 import com.fs.starfarer.api.impl.campaign.shared.PersonBountyEventData;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.BOUNTY_DURATION;
-import static data.scripts.VayraMergedModPlugin.CRUMB_CHANCE;
-import static data.scripts.VayraMergedModPlugin.EXTRA_BOUNTY_LEVEL_MULT;
-import static java.lang.Math.random;
 import data.scripts.VayraTags;
-import static data.scripts.VayraMergedModPlugin.RARE_BOUNTY_FLAGSHIP_CHANCE;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraMergedModPlugin.aOrAn;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_CRIMES;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_DESCS;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_FLEETS;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_KILL_WORDS;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_REASONS;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_TITLES;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_TYPES;
-import static data.scripts.campaign.intel.VayraPersonBountyManager.JERK_VICTIMS;
-import data.scripts.campaign.intel.VayraPersonBountyManager.RareBountyFlagshipData;
-import java.util.HashMap;
-import java.util.Map;
+import data.scripts.campaign.intel.VayraPersonBountyManager.*;
+import org.apache.log4j.Logger;
+
+import java.awt.*;
+import java.util.List;
+import java.util.*;
+
+import static com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner.BreadcrumbSpecialCreator.isLargeShipOrNonShip;
+import static com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.BreadcrumbSpecial.getLocatedString;
+import static data.scripts.VayraMergedModPlugin.*;
+import static data.scripts.campaign.intel.VayraPersonBountyManager.*;
+import static java.lang.Math.random;
 
 public final class VayraPersonBountyIntel extends BaseIntelPlugin implements EveryFrameScript, FleetEventListener {
 
     public static Logger log = Global.getLogger(VayraPersonBountyIntel.class);
 
-    public static enum BountyType {
+    public enum BountyType {
         HOSTILE,
         DESERTER,
     }
@@ -102,7 +70,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
     private float bountyCredits = 0;
     private float perLevel;
 
-    protected FactionAPI faction;
+    private FactionAPI faction;
     private FactionAPI bountyFaction;
     private PersonAPI person;
     private String wordForKillingJerk;
@@ -261,7 +229,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         }
     }
 
-    protected void pickLevel() {
+    private void pickLevel() {
 
         int base = getSharedData().getLevel();
 
@@ -820,7 +788,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         return f;
     }
 
-    protected BountyResult result = null;
+    private BountyResult result = null;
 
     @Override
     protected void notifyEnding() {
@@ -828,7 +796,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         cleanUpFleetAndEndIfNecessary();
     }
 
-    protected void cleanUpFleetAndEndIfNecessary() {
+    private void cleanUpFleetAndEndIfNecessary() {
         if (fleet != null) {
             Misc.makeUnimportant(fleet, "pbe");
             fleet.clearAssignments();
@@ -844,11 +812,11 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         }
     }
 
-    protected boolean willPay() {
+    private boolean willPay() {
         return true;
     }
 
-    protected boolean willRepIncrease() {
+    private boolean willRepIncrease() {
         return true;
     }
 
@@ -1112,7 +1080,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
                 bountyCredits += perLevel; // plus one "level" just because the flagship gets a non-autofit variant so it's probably harder
                 log.info(String.format("picked rare flagship %s for bounty %s", flagVariant, person.getNameString()));
             } else {
-                log.info(String.format("couldn't find a rare bounty flagship RIP"));
+                log.info("couldn't find a rare bounty flagship RIP");
             }
         }
 
@@ -1304,8 +1272,8 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
         String has = faction.getDisplayNameHasOrHave();
         info.addPara(Misc.ucFirst(faction.getDisplayNameWithArticle()) + " " + has
-                + " posted a bounty for the " + killType + " of " + jerkNameWithTitle
-                + ", " + jerkType + ".",
+                        + " posted a bounty for the " + killType + " of " + jerkNameWithTitle
+                        + ", " + jerkType + ".",
                 opad, bountyFaction.getBaseUIColor(), jerkName, titleOfJerk, jerkFactionWithArticle, jerkFaction);
 
         String her = "her";
@@ -1313,7 +1281,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
             her = "his";
         }
         info.addPara("Sources indicate the bounty has been posted in response to "
-                + her + " recent " + reasonForJerk + ".",
+                        + her + " recent " + reasonForJerk + ".",
                 opad, bountyFaction.getBaseUIColor(), shipType);
 
         String increaseOrDecrease = "";
@@ -1357,14 +1325,14 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
                         break;
                     case END_PLAYER_NO_BOUNTY:
                         info.addPara("You have successfully completed this bounty, but received no "
-                                + "credit reward because of your standing with "
-                                + Misc.ucFirst(faction.getDisplayNameWithArticle()) + ".",
+                                        + "credit reward because of your standing with "
+                                        + Misc.ucFirst(faction.getDisplayNameWithArticle()) + ".",
                                 opad, faction.getBaseUIColor(), faction.getDisplayNameWithArticleWithoutArticle());
                         break;
                     case END_PLAYER_NO_REWARD:
                         info.addPara("You have successfully completed this bounty, but received no "
-                                + "reward because of your standing with "
-                                + Misc.ucFirst(faction.getDisplayNameWithArticle()) + ".",
+                                        + "reward because of your standing with "
+                                        + Misc.ucFirst(faction.getDisplayNameWithArticle()) + ".",
                                 opad, faction.getBaseUIColor(), faction.getDisplayNameWithArticleWithoutArticle());
                         break;
                     default:
@@ -1420,7 +1388,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
                 }
 
                 List<FleetMemberAPI> list = new ArrayList<>();
-                Random random = new Random(person.getNameString().hashCode() * 170000);
+                Random random = new Random(person.getNameString().hashCode() * 170000L);
 
                 List<FleetMemberAPI> members = fleet.getFleetData().getMembersListCopy();
                 int max = 7;

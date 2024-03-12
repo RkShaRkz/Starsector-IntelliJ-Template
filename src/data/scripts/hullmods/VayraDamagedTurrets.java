@@ -34,10 +34,10 @@ public class VayraDamagedTurrets extends BaseHullMod {
         float hpMult = WEAPON_HP_MULT + (1f - WEAPON_HP_MULT) * (1f - effect);
 
         if (index == 0) {
-            return "" + (int) Math.round((1f - speedMult) * 100f) + "%";
+            return Math.round((1f - speedMult) * 100f) + "%";
         }
         if (index == 1) {
-            return "" + (int) Math.round((1f - hpMult) * 100f) + "%";
+            return Math.round((1f - hpMult) * 100f) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);

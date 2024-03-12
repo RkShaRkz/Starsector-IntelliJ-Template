@@ -15,7 +15,7 @@ public class VayraWesternesse extends BaseHullMod {
 
         stats.getBallisticRoFMult().modifyPercent(id, BALLISTIC_ROF_BONUS_PERCENT);
         stats.getBeamWeaponDamageMult().modifyPercent(id, BEAM_DAMAGE_BONUS_PERCENT);
-        
+
         stats.getAcceleration().modifyPercent(id, MANEUVERABILITY_BONUS_PERCENT * 2f);
         stats.getDeceleration().modifyPercent(id, MANEUVERABILITY_BONUS_PERCENT);
         stats.getTurnAcceleration().modifyPercent(id, MANEUVERABILITY_BONUS_PERCENT * 2f);
@@ -26,13 +26,13 @@ public class VayraWesternesse extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) (BALLISTIC_ROF_BONUS_PERCENT) + "%";
+            return (int) (BALLISTIC_ROF_BONUS_PERCENT) + "%";
         }
         if (index == 1) {
-            return "" + (int) (BEAM_DAMAGE_BONUS_PERCENT) + "%";
+            return (int) (BEAM_DAMAGE_BONUS_PERCENT) + "%";
         }
         if (index == 2) {
-            return "" + (int) (MANEUVERABILITY_BONUS_PERCENT) + "%";
+            return (int) (MANEUVERABILITY_BONUS_PERCENT) + "%";
         }
         return null;
     }

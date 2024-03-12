@@ -2,16 +2,16 @@ package data.scripts.campaign.intel;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin.ListInfoMode;
 import com.fs.starfarer.api.impl.campaign.intel.misc.FleetLogIntel;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.VayraLoreObjectsFramework.LoreObjectData;
-import java.awt.Color;
+import org.apache.log4j.Logger;
+
+import java.awt.*;
 import java.util.List;
 import java.util.Set;
-import org.apache.log4j.Logger;
 
 public class VayraListeningPostIntel extends FleetLogIntel {
 

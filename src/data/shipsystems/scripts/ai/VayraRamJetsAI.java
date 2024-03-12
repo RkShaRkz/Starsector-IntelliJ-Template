@@ -1,27 +1,22 @@
 package data.shipsystems.scripts.ai;
 
-import com.fs.starfarer.api.combat.CombatAssignmentType;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.CombatFleetManagerAPI.AssignmentInfo;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.ShipSystemAIScript;
-import com.fs.starfarer.api.combat.ShipSystemAPI;
-import com.fs.starfarer.api.combat.ShipwideAIFlags;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.fleet.FleetGoal;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
-import static data.shipsystems.scripts.vayra_RamJetsStats.RAM_JET_SPEED;
-import java.util.ArrayList;
-import java.util.List;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static data.shipsystems.scripts.vayra_RamJetsStats.RAM_JET_SPEED;
 
 public class VayraRamJetsAI implements ShipSystemAIScript {
 
@@ -111,19 +106,19 @@ public class VayraRamJetsAI implements ShipSystemAIScript {
                 if (hasTakenHullDamage && hullDamage >= WOUNDED_DAMAGE_THRESHOLD) {
                     safe = false;
                 }
-                
+
             } else if (test instanceof ShipAPI) {
                 ShipAPI other = (ShipAPI) test;
                 HullSize size = ship.getHullSize();
                 HullSize otherSize = other.getHullSize();
-                
+
                 if (otherSize.compareTo(size) >= 1) {
                     safe = false;
                 }
                 if (hasTakenHullDamage && otherSize.compareTo(size) >= 0) {
                     safe = false;
                 }
-                
+
             }
         }
 
@@ -148,7 +143,7 @@ public class VayraRamJetsAI implements ShipSystemAIScript {
         if (!AIUtils.canUseSystemThisFrame(ship)) {
             return;
         }
-        
+
         // don't use if unsafe
         if (!nothingCanStopMe(ship)) {
             return;

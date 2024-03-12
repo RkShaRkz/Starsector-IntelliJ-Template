@@ -51,8 +51,8 @@ import org.lwjgl.util.vector.Vector2f;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 import static data.scripts.hullmods.VayraGhostShip.GHOST_GALLEON_BOUNTY_ID;
 import static java.lang.Math.random;
@@ -102,7 +102,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static final String KADUR_SPLINTER = "vayra_splintergun_shot_copy";
     public static final String KADUR_ANTIFTR = "vayra_antifighter_mis";
 
-    public static enum PirateMode {
+    public enum PirateMode {
         ALWAYS,
         NEVER,
         SOMETIMES,
@@ -405,12 +405,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
                 conf.loadFactionConfig();
 
                 // i don't think exerelin edits these automatically when you load settings?
-                if (InvasionFleetManager.EXCEPTION_LIST.contains(conf.factionId)) {
-                    InvasionFleetManager.EXCEPTION_LIST.remove(conf.factionId);
-                }
-                if (DiplomacyManager.disallowedFactions.contains(conf.factionId)) {
-                    DiplomacyManager.disallowedFactions.remove(conf.factionId);
-                }
+                InvasionFleetManager.EXCEPTION_LIST.remove(conf.factionId);
+                DiplomacyManager.disallowedFactions.remove(conf.factionId);
 
             } else {
 
@@ -432,9 +428,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
                 conf.noHomeworld = true;
                 conf.showIntelEvenIfDead = false;
 
-                if (!InvasionFleetManager.EXCEPTION_LIST.contains(conf.factionId)) {
-                    InvasionFleetManager.EXCEPTION_LIST.add(conf.factionId);
-                }
+                InvasionFleetManager.EXCEPTION_LIST.add(conf.factionId);
                 if (!DiplomacyManager.disallowedFactions.contains(conf.factionId)) {
                     DiplomacyManager.disallowedFactions.add(conf.factionId);
                 }

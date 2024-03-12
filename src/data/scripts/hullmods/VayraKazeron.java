@@ -30,7 +30,7 @@ public class VayraKazeron extends BaseHullMod {
             return Misc.getRoundedValue(WEAPON_ENGINE_HEALTH_BONUS);
         }
         if (index == 2) {
-            return "" + (int) (-OVERLOAD_TIME_PERCENT) + "%";
+            return (int) (-OVERLOAD_TIME_PERCENT) + "%";
         }
         return null;
     }

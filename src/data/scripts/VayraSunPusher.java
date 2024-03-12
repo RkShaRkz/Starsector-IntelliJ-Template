@@ -5,13 +5,15 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
+
 import java.util.Calendar;
+
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 public class VayraSunPusher implements EveryFrameScript {
 
     PlanetHolder jangala = null;
-    IntervalUtil timer = new IntervalUtil(0.1f,0.1f);
+    IntervalUtil timer = new IntervalUtil(0.1f, 0.1f);
 
     public static class PlanetHolder {
 
@@ -29,7 +31,7 @@ public class VayraSunPusher implements EveryFrameScript {
             float angle = planet.getCircularOrbitAngle();
             float radius = planet.getCircularOrbitRadius();
             float days = planet.getCircularOrbitPeriod();
-            radius -= 1f * amount;
+            radius -= amount;
             days -= Misc.interpolate(0, initialDays, radius / initialRadius);
             planet.setCircularOrbit(sun, angle, radius, days);
         }
@@ -61,7 +63,7 @@ public class VayraSunPusher implements EveryFrameScript {
                 timer.advance(amount);
                 SectorEntityToken sun = Global.getSector().getStarSystem("Corvus").getStar();
                 if (sun != null) {
-                    jangala.pushInto(sun, amount * (1/timer.getIntervalDuration()));
+                    jangala.pushInto(sun, amount * (1 / timer.getIntervalDuration()));
                 }
             }
         }

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,13 +42,13 @@ public class vayra_merchant_marine extends BaseHullMod {
 
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         if (index == 0) {
-            return "" + Math.round((1f - MAINTENANCE_MULT) * 100f) + "%";
+            return Math.round((1f - MAINTENANCE_MULT) * 100f) + "%";
         }
         if (index == 1) {
             return "" + ARMOR.get(hullSize);
         }
         if (index == 2) {
-            return "" + Math.round((1f - MANEUVER_PENALTY) * 100f) + "%";
+            return Math.round((1f - MANEUVER_PENALTY) * 100f) + "%";
         }
         return null;
     }

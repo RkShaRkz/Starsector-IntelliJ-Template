@@ -1,8 +1,5 @@
 package data.scripts.campaign.bases;
 
-import java.awt.Color;
-import java.util.Set;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
@@ -19,8 +16,12 @@ import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.campaign.bases.VayraRaiderBaseIntel.log;
+
+import java.awt.*;
 import java.io.IOException;
+import java.util.Set;
+
+import static data.scripts.campaign.bases.VayraRaiderBaseIntel.log;
 
 public class VayraRaiderActivityIntel extends BaseIntelPlugin {
 
@@ -186,7 +187,7 @@ public class VayraRaiderActivityIntel extends BaseIntelPlugin {
     public String getIcon() {
 
         String spritePath = source.data.raiderActivityIntelIcon;
-        
+
         SpriteAPI sprite = Global.getSettings().getSprite(spritePath);
         // Load sprite if it hasn't been loaded yet - not needed if you add it to settings.json
         if (!loaded) {

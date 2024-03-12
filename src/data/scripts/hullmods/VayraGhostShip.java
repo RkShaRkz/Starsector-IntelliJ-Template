@@ -4,50 +4,35 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.CargoAPI;
 import com.fs.starfarer.api.campaign.FleetDataAPI;
-import com.fs.starfarer.api.combat.ArmorGridAPI;
-import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.CollisionClass;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEngineLayers;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.MissileAPI;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.MutableStat;
-import com.fs.starfarer.api.combat.ShieldAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.campaign.events.VayraEngineeredPlagueListener;
 import data.scripts.campaign.intel.VayraGhostShipIntel;
-import static data.scripts.campaign.intel.VayraGhostShipIntel.ALIEN_ATTACK;
-import static data.scripts.campaign.intel.VayraGhostShipIntel.CANNIBAL_ATTACK;
-import static data.scripts.campaign.intel.VayraGhostShipIntel.NANITE_TRANSMISSION;
-import static data.scripts.campaign.intel.VayraGhostShipIntel.PLAGUE_THRESHOLD;
 import data.scripts.plugins.MagicTrailPlugin;
 import data.scripts.util.MagicRender;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.apache.log4j.Logger;
 import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
+import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
+import static data.scripts.campaign.intel.VayraGhostShipIntel.*;
 import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
 import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import org.lwjgl.util.vector.Vector2f;
 
 public class VayraGhostShip extends BaseHullMod {
 
@@ -881,10 +866,7 @@ public class VayraGhostShip extends BaseHullMod {
         float angleToTarget = VectorUtils.getAngle(ship.getLocation(), target.getLocation());
 
         //Gets the target's shield status
-        boolean hasValidShield = false;
-        if (target.getShield() != null && target.getShield().getType() != ShieldAPI.ShieldType.PHASE && target.getShield().isOn()) {
-            hasValidShield = true;
-        }
+        boolean hasValidShield = target.getShield() != null && target.getShield().getType() != ShieldAPI.ShieldType.PHASE && target.getShield().isOn();
 
         //Run the hit-checking several times due to our "spread" of hits
         for (float ang = -40f; ang < 40f; ang += 4f) {
@@ -1068,7 +1050,8 @@ public class VayraGhostShip extends BaseHullMod {
                     log.info("nanite chance was " + chance + ", multiplying that by 10");
                     chance *= 10f;
                 }
-                if (ship.getVariant().hasHullMod(ANTI_AI_HULLMOD)) chance *= 0.5f; // if the nanites are inhibited, they're less likely to save you
+                if (ship.getVariant().hasHullMod(ANTI_AI_HULLMOD))
+                    chance *= 0.5f; // if the nanites are inhibited, they're less likely to save you
                 float roll = (float) Math.random();
                 if (VAYRA_DEBUG) {
                     log.info("rolled " + roll + " against nanite spawn chance " + chance);
@@ -1330,7 +1313,8 @@ public class VayraGhostShip extends BaseHullMod {
             campaignGhostShipTimers.put(id, 0f);
         } else {
             float timer = campaignGhostShipTimers.get(id);
-            if (member.getVariant().hasHullMod(ANTI_AI_HULLMOD)) amount *= 0.5f; // if the nanites are inhibited, they eat less often
+            if (member.getVariant().hasHullMod(ANTI_AI_HULLMOD))
+                amount *= 0.5f; // if the nanites are inhibited, they eat less often
             timer += (amount * 0.5f) + (Math.random() * amount);
 
             // silently eat crew and supplies
@@ -1340,8 +1324,10 @@ public class VayraGhostShip extends BaseHullMod {
                 float roll = (float) Math.random();
                 float chance = 0.5f;
                 float chance2 = NANITE_TRANSMISSION_CHANCE;
-                if (member.getVariant().hasHullMod(ANTI_AI_HULLMOD)) chance *= 0.5f; // if the nanites are inhibited, they're less likely to eat more stuff
-                if (member.getVariant().hasHullMod(ANTI_AI_HULLMOD)) chance2 *= 0.5f; // if the nanites are inhibited, they're less likely to transmit to a new ship
+                if (member.getVariant().hasHullMod(ANTI_AI_HULLMOD))
+                    chance *= 0.5f; // if the nanites are inhibited, they're less likely to eat more stuff
+                if (member.getVariant().hasHullMod(ANTI_AI_HULLMOD))
+                    chance2 *= 0.5f; // if the nanites are inhibited, they're less likely to transmit to a new ship
                 if (VAYRA_DEBUG) {
                     chance2 *= 50f;
                     log.info("nanites rolled " + roll + " under " + chance + " to eat extra crew and supplies"

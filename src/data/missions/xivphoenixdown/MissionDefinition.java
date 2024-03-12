@@ -11,8 +11,9 @@ import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 import com.fs.starfarer.api.util.Misc;
-import java.util.List;
 import org.lazywizard.lazylib.combat.CombatUtils;
+
+import java.util.List;
 
 public class MissionDefinition implements MissionDefinitionPlugin {
 
@@ -127,11 +128,11 @@ public class MissionDefinition implements MissionDefinitionPlugin {
                         0.3f,
                         Misc.ZERO,
                         90f);
-                
+
                 station.getFleetMember().setShipName("HGG OLD EARTH 2");
                 station.setAlly(true);
             }
-            
+
             if (station != null && (!station.isAlive() || station.isHulk())) {
                 engine.endCombat(5f, FleetSide.ENEMY);
             }

@@ -9,7 +9,6 @@ import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin.DerelictShipData;
-import static com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin.pickVariant;
 import com.fs.starfarer.api.impl.campaign.ids.Entities;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.ShipRoles;
@@ -22,8 +21,11 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySp
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.campaign.events.VayraGhostShipSpecial.VayraGhostShipSpecialData;
-import java.util.Random;
 import org.apache.log4j.Logger;
+
+import java.util.Random;
+
+import static com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin.pickVariant;
 
 public class VayraGhostShipDistressCall implements EveryFrameScript {
 
@@ -109,7 +111,7 @@ public class VayraGhostShipDistressCall implements EveryFrameScript {
         DerelictShipData params = new DerelictShipData(shipData, false);
 
         params.durationDays = duration;
-        entity = (CustomCampaignEntityAPI) BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, params);
+        entity = BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, params);
         entity.addTag(Tags.EXPIRES);
 
         DerelictShipEntityPlugin plugin = new DerelictShipEntityPlugin();
@@ -143,7 +145,7 @@ public class VayraGhostShipDistressCall implements EveryFrameScript {
         }
 
         VayraGhostShipSpecialData special = new VayraGhostShipSpecialData((CustomCampaignEntityAPI) entity, shipData);
-        Misc.setSalvageSpecial(entity, (Object) special);
+        Misc.setSalvageSpecial(entity, special);
 
         Misc.makeImportant(entity, EVENT_ID);
 

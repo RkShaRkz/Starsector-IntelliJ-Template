@@ -49,16 +49,16 @@ public class vayra_extremely_converted_hangar extends BaseHullMod {
             return "" + (int) CARGO_PENALTY;
         }
         if (index == 1) {
-            return "" + (int) Math.round(100f * realSpeedReduction) + "%";
+            return Math.round(100f * realSpeedReduction) + "%";
         }
         if (index == 2) {
-            return "" + (int) Math.round((DAMAGE_INCREASE * 100f * effect)) + "%";
+            return Math.round((DAMAGE_INCREASE * 100f * effect)) + "%";
         }
         if (index == 3) {
-            return "" + BOMBER_COST_PERCENT + "%";
+            return BOMBER_COST_PERCENT + "%";
         }
         if (index == 4) {
-            return "" + ALL_FIGHTER_COST_PERCENT + "%";
+            return ALL_FIGHTER_COST_PERCENT + "%";
         }
         return null;
     }

@@ -12,10 +12,10 @@ public class VayraTerminatorCore extends BaseHullMod {
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
-        
+
         stats.getDamageToMissiles().modifyPercent(id, DAMAGE_MISSILES_PERCENT);
         stats.getDamageToFighters().modifyPercent(id, DAMAGE_FIGHTERS_PERCENT);
-        
+
         stats.getBeamWeaponTurnRateBonus().modifyMult(id, 2f);
         stats.getBeamWeaponRangeBonus().modifyFlat(id, 300f);
         stats.getAutofireAimAccuracy().modifyFlat(id, 1f);

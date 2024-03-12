@@ -1,20 +1,21 @@
 package data.scripts.hullmods;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class vayra_collapsedcargo extends BaseHullMod {
 
     public static final float CARGO_ARMOR = 1f;                 // 100% of cargo converted to armor
-    public static final float CARGO_MULT = 0.1f;		// 10% cargo space
+    public static final float CARGO_MULT = 0.1f;        // 10% cargo space
     public static final float PPT_MULT = 0.75f;                 // 25% less peak time
-    
+
     public static final Map<HullSize, Float> CAP_MAP = new HashMap<>();
+
     static {
         CAP_MAP.put(HullSize.FRIGATE, 100f);
         CAP_MAP.put(HullSize.DESTROYER, 300f);
@@ -35,7 +36,7 @@ public class vayra_collapsedcargo extends BaseHullMod {
 
         if (STORAGE_MAP.get(id) != null) {
 
-            float MODIFIER = Math.min(STORAGE_MAP.get(id),CAP_MAP.get(hullSize));
+            float MODIFIER = Math.min(STORAGE_MAP.get(id), CAP_MAP.get(hullSize));
 
             stats.getCargoMod().modifyMult(id, CARGO_MULT);
             stats.getArmorBonus().modifyFlat(id, (MODIFIER));
@@ -87,7 +88,7 @@ public class vayra_collapsedcargo extends BaseHullMod {
 
     @Override
     public boolean isApplicableToShip(ShipAPI ship) {
-        return !ship.getVariant().hasHullMod("expanded_cargo_holds") && !ship.getVariant().hasHullMod("converted_bay") && !ship.getVariant().hasHullMod("vayra_extremely_converted_hangar") ;
+        return !ship.getVariant().hasHullMod("expanded_cargo_holds") && !ship.getVariant().hasHullMod("converted_bay") && !ship.getVariant().hasHullMod("vayra_extremely_converted_hangar");
     }
 
     @Override
@@ -96,7 +97,7 @@ public class vayra_collapsedcargo extends BaseHullMod {
         if (ship.getVariant().getHullMods().contains("expanded_cargo_holds")) {
             return "Incompatible with Expanded Cargo Holds";
         }
-        
+
         if (ship.getVariant().getHullMods().contains("converted_bay")) {
             return "Incompatible with Converted Cargo Bay";
         }

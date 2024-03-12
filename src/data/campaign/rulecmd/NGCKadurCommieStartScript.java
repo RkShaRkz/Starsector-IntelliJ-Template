@@ -2,11 +2,7 @@ package data.campaign.rulecmd;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.Script;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.RepLevel;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.rules.MemKeys;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.CharacterCreationData;
@@ -15,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.util.Misc;
+
 import java.util.List;
 import java.util.Map;
 
@@ -39,17 +36,17 @@ public class NGCKadurCommieStartScript extends BaseCommandPlugin {
                 for (FactionAPI other : Global.getSector().getAllFactions()) {
                     player.setRelationship(other.getId(), parent.getRelationship(other.getId()));
                 }
-                
+
                 // pirates
                 player.setRelationship(Factions.PIRATES, RepLevel.NEUTRAL);
-                
+
                 // PDPRC allies
                 player.setRelationship("shadow_industry", RepLevel.FAVORABLE);
                 player.setRelationship("junk_pirates", RepLevel.FAVORABLE);
                 player.setRelationship("pack", RepLevel.FAVORABLE);
                 player.setRelationship("dassault_mikoyan", RepLevel.FAVORABLE);
                 player.setRelationship("kadur_remnant", RepLevel.FAVORABLE);
-                
+
                 // PDPRC enemies that aren't hostile to pirates
                 player.setRelationship(Factions.LUDDIC_PATH, RepLevel.HOSTILE);
                 player.setRelationship("tahlan_legioinfernalis", RepLevel.VENGEFUL);

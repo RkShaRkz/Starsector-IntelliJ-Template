@@ -1,12 +1,7 @@
 package data.scripts.hullmods;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
@@ -31,9 +26,9 @@ public class VayraDamagedAmmo extends BaseHullMod {
 
         for (DamagingProjectileAPI p : engine.getProjectiles()) {
             if (ship.equals(p.getSource()) && p.getWeapon() != null) {
-                if (p.getDamageType() != DamageType.FRAGMENTATION 
+                if (p.getDamageType() != DamageType.FRAGMENTATION
                         && p.getDamageType() != DamageType.OTHER
-                        && (p.getWeapon().getType() == WeaponType.BALLISTIC 
+                        && (p.getWeapon().getType() == WeaponType.BALLISTIC
                         || p.getWeapon().getType() == WeaponType.MISSILE)) {
                     p.getDamage().setType(DamageType.FRAGMENTATION);
                 }

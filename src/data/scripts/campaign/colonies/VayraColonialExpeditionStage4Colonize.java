@@ -1,8 +1,5 @@
 package data.scripts.campaign.colonies;
 
-import java.awt.Color;
-import java.util.List;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FleetAssignment;
@@ -25,10 +22,14 @@ import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseAssignmentAI.FleetA
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.colonies.VayraColonialExpeditionIntel.KadurColonialExpeditionOutcome;
+import org.apache.log4j.Logger;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static data.scripts.VayraMergedModPlugin.createAdmin;
 import static java.lang.Math.random;
-import java.util.ArrayList;
-import org.apache.log4j.Logger;
 
 public class VayraColonialExpeditionStage4Colonize extends ActionStage implements FleetActionDelegate {
 
@@ -132,10 +133,10 @@ public class VayraColonialExpeditionStage4Colonize extends ActionStage implement
             log.info(String.format("Outcome == %s, Raid status == %s, so cutting this updateStatus off short (in %s)", outcomeString, status.name(), target.getStarSystem().getNameWithLowercaseType()));
             return;
         }
-        
+
         SectorEntityToken entity = target.getPrimaryEntity();
-        if (target.isPlayerOwned() 
-                || (target.getFactionId() != null && target.getFactionId().equals(Factions.PLAYER)) 
+        if (target.isPlayerOwned()
+                || (target.getFactionId() != null && target.getFactionId().equals(Factions.PLAYER))
                 || (entity.getFaction() != null && entity.getFaction().getId().equals(Factions.PLAYER))) {
             status = RaidStageStatus.FAILURE;
             giveReturnOrdersToStragglers(getRoutes());
@@ -174,10 +175,10 @@ public class VayraColonialExpeditionStage4Colonize extends ActionStage implement
     }
 
     public void colonize(MarketAPI market) {
-        
+
         SectorEntityToken entity = target.getPrimaryEntity();
-        if (target.isPlayerOwned() 
-                || (target.getFactionId() != null && target.getFactionId().equals(Factions.PLAYER)) 
+        if (target.isPlayerOwned()
+                || (target.getFactionId() != null && target.getFactionId().equals(Factions.PLAYER))
                 || (entity.getFaction() != null && entity.getFaction().getId().equals(Factions.PLAYER))) {
             status = RaidStageStatus.FAILURE;
             giveReturnOrdersToStragglers(getRoutes());
@@ -323,7 +324,7 @@ public class VayraColonialExpeditionStage4Colonize extends ActionStage implement
 
         int stage = 0;
         VayraColonialManager.getInstance().putColony(market);
-        
+
         log.info(String.format("Added %s to the colonies list at stage %s, now building a spaceport", market.getName(), stage));
 
         return market;

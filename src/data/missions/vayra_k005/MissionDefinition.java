@@ -90,7 +90,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         // Set up the map.
         float width = 24000f;
         float height = 18000f;
-        api.initMap((float) -width / 2f, (float) width / 2f, (float) -height / 2f, (float) height / 2f);
+        api.initMap(-width / 2f, width / 2f, -height / 2f, height / 2f);
 
         float minX = -width / 2;
         float minY = -height / 2;

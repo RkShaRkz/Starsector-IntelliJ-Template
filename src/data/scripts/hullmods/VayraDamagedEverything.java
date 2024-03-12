@@ -33,7 +33,7 @@ public class VayraDamagedEverything extends BaseHullMod {
         float crPenalty = CR_PENALTY * effect;
 
         if (index == 0) {
-            return "" + (int) Math.round(crPenalty) + "%";
+            return Math.round(crPenalty) + "%";
         }
         if (index == 1) {
             return "minor";

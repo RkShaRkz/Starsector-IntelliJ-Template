@@ -24,7 +24,7 @@ public class CHM_ashen extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) ((1f - HIGH_EXP_DAMAGE_MULT) * 100f) + "%";
+            return (int) ((1f - HIGH_EXP_DAMAGE_MULT) * 100f) + "%";
         }
         return null;
     }

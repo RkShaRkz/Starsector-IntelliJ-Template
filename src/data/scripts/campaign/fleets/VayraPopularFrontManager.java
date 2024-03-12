@@ -2,12 +2,7 @@ package data.scripts.campaign.fleets;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.LocationAPI;
-import com.fs.starfarer.api.campaign.RepLevel;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ColonyPlayerHostileActListener;
@@ -20,17 +15,16 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.POPULAR_FRONT_ENABLED;
-import static data.scripts.VayraMergedModPlugin.POPULAR_FRONT_TIMEOUT;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraMergedModPlugin.addMarketplace;
 import data.scripts.VayraTags;
+import data.scripts.campaign.colonies.VayraColonialManager;
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.log4j.Logger;
+
+import static data.scripts.VayraMergedModPlugin.*;
 import static data.scripts.VayraTags.E;
-import data.scripts.campaign.colonies.VayraColonialManager;
 
 public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerHostileActListener {
 

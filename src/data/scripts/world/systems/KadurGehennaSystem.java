@@ -17,6 +17,7 @@ import com.fs.starfarer.api.util.Misc;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static data.scripts.VayraMergedModPlugin.*;
 
@@ -116,7 +117,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
         // in Angra Mainyu's L3, shielded from it (does that make sense? maybe not lol) by the event horizon
         SectorEntityToken vayra_gehenna_perdition = system.addCustomEntity("vayra_gehenna_perdition", "Perdition Outpost", "station_pirate_type", "pirates");
         vayra_gehenna_perdition.setInteractionImage("illustrations", "facility_explosion");
-        vayra_gehenna_perdition.setCircularOrbitPointingDown(star, 0 + 180, 1800, 66);
+        vayra_gehenna_perdition.setCircularOrbitPointingDown(star, 180, 1800, 66);
         vayra_gehenna_perdition.setCustomDescriptionId("vayra_gehenna_perdition");
 
         MarketAPI vayra_gehenna_perditionmarket = addMarketplace("pirates", vayra_gehenna_perdition, null,
@@ -147,7 +148,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
 
         // inner system jump point  (initial position in degrees, distance in pixels, orbit speed in days)
         JumpPointAPI jumpPoint = Global.getFactory().createJumpPoint("gehenna_inner_jump", "Road to Perdition");
-        jumpPoint.setCircularOrbit(star, 0 - 60, 2000, 66);
+        jumpPoint.setCircularOrbit(star, -60, 2000, 66);
         jumpPoint.setRelatedPlanet(gehennaI);
         jumpPoint.setStandardWormholeToHyperspaceVisual();
         system.addEntity(jumpPoint);
@@ -291,7 +292,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                 false); // freeport
 
         // can't figure out how to add items inside my addmarketplace, too complicated, just brute force it separately
-        vayra_refugestationmarket.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Arrays.asList(Items.PRISTINE_NANOFORGE)));
+        vayra_refugestationmarket.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Collections.singletonList(Items.PRISTINE_NANOFORGE)));
 
         // blueprints added to military market       
         vayra_refugestationmarket.getSubmarket(Submarkets.GENERIC_MILITARY).getCargo().addSpecial(new SpecialItemData("kadur_missile_package", null), 1f);

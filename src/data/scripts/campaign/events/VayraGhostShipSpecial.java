@@ -12,21 +12,11 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySp
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.hullmods.VayraGhostShip.ALIEN_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.CANNIBAL_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.HYPERLOST_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.NANITE_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.PLAGUE_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.ROGUE_AI_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_NOTHING_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_ALIEN_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_CANNIBAL_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_HYPERLOST_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_NANITE_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_PLAGUE_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_ROGUE_AI_HULLMOD;
-import java.awt.Color;
 import org.apache.log4j.Logger;
+
+import java.awt.*;
+
+import static data.scripts.hullmods.VayraGhostShip.*;
 
 public class VayraGhostShipSpecial extends BaseSalvageSpecial {
 
@@ -45,7 +35,7 @@ public class VayraGhostShipSpecial extends BaseSalvageSpecial {
     public static final String RECOVER_AFTER_FIGHT = "recover_after_fight";
 
     // ghost ship hazard levels
-    public static enum Danger {
+    public enum Danger {
         NONE,
         UNIDENTIFIED,
         TOKEN,
@@ -54,7 +44,7 @@ public class VayraGhostShipSpecial extends BaseSalvageSpecial {
     }
 
     // ghost ship hazard types
-    public static enum Type {
+    public enum Type {
         ROGUE_AI,
         HYPERLOST,
         ALIEN,
@@ -64,7 +54,7 @@ public class VayraGhostShipSpecial extends BaseSalvageSpecial {
     }
 
     // ghost ship boarding losses
-    public static enum BoardingLosses {
+    public enum BoardingLosses {
         NONE,
         FEW,
         SOME,
@@ -193,7 +183,7 @@ public class VayraGhostShipSpecial extends BaseSalvageSpecial {
             dialog.getVisualPanel().showImagePortion("illustrations", "raid_prepare", 640, 400, 0, 0, 480, 300);
 
             LabelAPI label = text.addPara("A proper boarding party requires %s crew, and an %s of marines to escort them. "
-                    + "You have %s crew and %s marines.",
+                            + "You have %s crew and %s marines.",
                     t, haveOptimal ? h : b, "" + optimal, "equal number", "" + crew, "" + marines);
             //label.setHighlight("" + required, "equal number", "" + crew, "" + marines);
             //label.setHighlightColors(haveEnough ? h : b, haveEnough ? h : b);

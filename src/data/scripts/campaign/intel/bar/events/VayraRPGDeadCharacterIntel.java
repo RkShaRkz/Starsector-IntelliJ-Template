@@ -2,18 +2,19 @@ package data.scripts.campaign.intel.bar.events;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin.ListInfoMode;
 import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEvent.KEY_RETIRED;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterData.VayraRPGCharacterSheetData;
-import java.awt.Color;
+
+import java.awt.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import static data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEvent.KEY_RETIRED;
 
 public class VayraRPGDeadCharacterIntel extends BaseIntelPlugin {
 
@@ -122,10 +123,10 @@ public class VayraRPGDeadCharacterIntel extends BaseIntelPlugin {
             for (VayraRPGCharacterSheetData data : list) {
                 if (data.dead) {
                     info.addPara(data.name + ", level " + data.level + " " + data.className, opad, h, data.name, data.level + "", data.className);
-        bullet(info);
-                    info.addPara("Score: " + data.xp + "", pad, h, data.xp + "");
+                    bullet(info);
+                    info.addPara("Score: " + data.xp, pad, h, data.xp + "");
                     info.addPara("Descended " + data.maxDepth + " rooms into the dungeon and was " + data.fate + ".", pad, n, data.maxDepth + "", data.fate);
-        unindent(info);
+                    unindent(info);
                 }
             }
         }

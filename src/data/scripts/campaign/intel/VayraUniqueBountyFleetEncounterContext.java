@@ -8,25 +8,26 @@ import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.DModManager;
 import com.fs.starfarer.api.impl.campaign.FleetEncounterContext;
-import static com.fs.starfarer.api.impl.campaign.FleetEncounterContext.prepareShipForRecovery;
 import com.fs.starfarer.api.loading.VariantSource;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.campaign.intel.VayraUniqueBountyManager.UniqueBountyData;
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import org.apache.log4j.Logger;
+
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 // script originally by DarkRevenant, used under license - which at the time of this writing is:
 // Code is free to copy, modify, and redistribute. Attribution must be made to the original creator, DarkRevenant.
 public class VayraUniqueBountyFleetEncounterContext extends FleetEncounterContext {
-    
+
     public static Logger log = Global.getLogger(VayraUniqueBountyFleetEncounterContext.class);
 
     @Override
     public List<FleetMemberAPI> getRecoverableShips(BattleAPI battle, CampaignFleetAPI winningFleet, CampaignFleetAPI otherFleet) {
-        
+
         log.info("triggering VayraUniqueBountyFleetEncounterContext");
 
         List<FleetMemberAPI> result = super.getRecoverableShips(battle, winningFleet, otherFleet);
@@ -99,21 +100,21 @@ public class VayraUniqueBountyFleetEncounterContext extends FleetEncounterContex
                 variant.setSource(VariantSource.REFIT);
                 variant.setOriginalVariant(null);
                 data.getMember().setVariant(variant, false, true);
-                
-                
+
+
                 if (VAYRA_DEBUG) {
                     log.info("autorecovering " + variant.getFullDesignationWithHullName());
                 }
 
                 // Completely fuck this ship up
-                Random dModRandom = new Random(1000000 * data.getMember().getId().hashCode() + Global.getSector().getPlayerBattleSeed());
+                Random dModRandom = new Random(1000000L * data.getMember().getId().hashCode() + Global.getSector().getPlayerBattleSeed());
                 dModRandom = Misc.getRandom(dModRandom.nextLong(), 5);
-                
+
                 // set a number of D-mods here...
                 float dp = data.getMember().getBaseDeployCost();
                 int num = (int) (dp / 5f);
                 if (num < 4) num = 4;
-                
+
                 DModManager.addDMods(data.getMember(), true, num, dModRandom);
                 if (DModManager.getNumDMods(variant) > 0) {
                     DModManager.setDHull(variant);

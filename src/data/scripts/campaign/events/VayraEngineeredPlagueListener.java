@@ -1,6 +1,5 @@
 package data.scripts.campaign.events;
 
-import data.scripts.campaign.intel.*;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.BaseCampaignEventListener;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -12,11 +11,11 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI.SurveyLevel;
 import com.fs.starfarer.api.campaign.listeners.ColonyPlayerHostileActListener;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD;
-import static data.scripts.campaign.intel.VayraGhostShipIntel.PLAGUE_PLANET;
-import static data.scripts.hullmods.VayraGhostShip.MYSTERY_PLAGUE_HULLMOD;
-import static data.scripts.hullmods.VayraGhostShip.PLAGUE_CONDITION;
-import static data.scripts.hullmods.VayraGhostShip.PLAGUE_HULLMOD;
+import data.scripts.campaign.intel.VayraGhostShipIntel;
 import org.apache.log4j.Logger;
+
+import static data.scripts.campaign.intel.VayraGhostShipIntel.PLAGUE_PLANET;
+import static data.scripts.hullmods.VayraGhostShip.*;
 
 public class VayraEngineeredPlagueListener extends BaseCampaignEventListener implements ColonyPlayerHostileActListener {
 
@@ -30,14 +29,14 @@ public class VayraEngineeredPlagueListener extends BaseCampaignEventListener imp
     public void reportRaidForValuablesFinishedBeforeCargoShown(InteractionDialogAPI dialog, MarketAPI market, MarketCMD.TempData actionData, CargoAPI cargo) {
         CampaignFleetAPI fleet = Global.getSector().getPlayerFleet();
         for (FleetMemberAPI test : fleet.getFleetData().getMembersInPriorityOrder()) {
-            if (test.getVariant() != null 
+            if (test.getVariant() != null
                     && !market.hasCondition(PLAGUE_CONDITION)
-                    && (test.getVariant().getHullMods().contains(PLAGUE_HULLMOD) 
+                    && (test.getVariant().getHullMods().contains(PLAGUE_HULLMOD)
                     || test.getVariant().getHullMods().contains(MYSTERY_PLAGUE_HULLMOD))) {
                 market.addCondition(PLAGUE_CONDITION);
                 market.setSurveyLevel(SurveyLevel.FULL);
                 market.getCondition(PLAGUE_CONDITION).setSurveyed(true);
-                
+
                 log.info(market.getName() + " has the plague now");
 
                 boolean known = true;
@@ -56,14 +55,14 @@ public class VayraEngineeredPlagueListener extends BaseCampaignEventListener imp
     public void reportRaidToDisruptFinished(InteractionDialogAPI dialog, MarketAPI market, MarketCMD.TempData actionData, Industry industry) {
         CampaignFleetAPI fleet = Global.getSector().getPlayerFleet();
         for (FleetMemberAPI test : fleet.getFleetData().getMembersInPriorityOrder()) {
-            if (test.getVariant() != null 
+            if (test.getVariant() != null
                     && !market.hasCondition(PLAGUE_CONDITION)
-                    && (test.getVariant().getHullMods().contains(PLAGUE_HULLMOD) 
+                    && (test.getVariant().getHullMods().contains(PLAGUE_HULLMOD)
                     || test.getVariant().getHullMods().contains(MYSTERY_PLAGUE_HULLMOD))) {
                 market.addCondition(PLAGUE_CONDITION);
                 market.setSurveyLevel(SurveyLevel.FULL);
                 market.getCondition(PLAGUE_CONDITION).setSurveyed(true);
-                
+
                 log.info(market.getName() + " has the plague now");
 
                 boolean known = true;

@@ -1,14 +1,10 @@
 package data.scripts.campaign.colonies;
 
-import java.awt.Color;
-import java.util.Random;
-import java.util.Set;
-
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.ReputationActionResponsePlugin.ReputationAdjustmentResult;
+import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.CustomRepImpact;
@@ -19,11 +15,7 @@ import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteLocationCalculator;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteData;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.raid.RaidIntel;
 import com.fs.starfarer.api.impl.campaign.intel.raid.RaidIntel.RaidDelegate;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.RouteFleetAssignmentAI;
@@ -32,17 +24,22 @@ import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import static data.scripts.VayraMergedModPlugin.aOrAn;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.awt.*;
+import java.util.Random;
+import java.util.Set;
+
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.aOrAn;
+
 public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDelegate {
-    
+
     public static Logger log = Global.getLogger(VayraColonialExpeditionIntel.class);
 
-    public static enum KadurColonialExpeditionOutcome {
-        TARGET_ALREADY_COLONIZED, 
+    public enum KadurColonialExpeditionOutcome {
+        TARGET_ALREADY_COLONIZED,
         EXPEDITION_DESTROYED,
         COLONY_ESTABLISHED, // yeah boiiiiiiiiii
     }
@@ -60,7 +57,7 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
 
     protected boolean enteredSystem = false;
     protected KadurColonialExpeditionOutcome outcome;
-        
+
     protected Random random = new Random();
 
     @Override
@@ -227,7 +224,7 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
         boolean hostile = getFaction().isHostileTo(Factions.PLAYER);
         if (!hostile) {
             repResult = Global.getSector().adjustPlayerReputation(new RepActionEnvelope(RepActions.MAKE_HOSTILE_AT_BEST,
-                    null, null, null, false, true),
+                            null, null, null, false, true),
                     colonyFaction.getId());
         }
     }
@@ -247,7 +244,7 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
 
     public void sendOutcomeUpdate() {
         sendUpdateIfPlayerHasIntel(OUTCOME_UPDATE, false, true);
-            log.info(String.format("Sending outcome update %s for expedition in %s",outcome.name(),target.getStarSystem().getNameWithLowercaseType()));
+        log.info(String.format("Sending outcome update %s for expedition in %s", outcome.name(), target.getStarSystem().getNameWithLowercaseType()));
     }
 
     @Override
@@ -290,12 +287,12 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
             log.info(String.format("Colonial expedition has arrived in %s", system.getNameWithLowercaseType()));
             return;
         }
-        
+
         if (getListInfoParam() == MADE_HOSTILE_UPDATE) {
             info.addPara("Target: %s", initPad, tc,
                     g, target.getName());
             initPad = 0f;
-            info.addPara("" + faction.getDisplayName() + " arrived to discover their destination already colonized", initPad, tc,
+            info.addPara(faction.getDisplayName() + " arrived to discover their destination already colonized", initPad, tc,
                     faction.getBaseUIColor(), faction.getDisplayName());
             initPad = 0f;
             CoreReputationPlugin.addAdjustmentMessage(repResult.delta, faction, null,
@@ -366,10 +363,10 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
         String strDesc = getRaidStrDesc();
 
         String articleOfPlanet = aOrAn(target.getPlanetEntity().getTypeNameWithLowerCaseWorld());
-        
+
         LabelAPI label = info.addPara(Misc.ucFirst(colonyFaction.getDisplayNameWithArticle()) + " " + is
-                + " sending a colonial expedition to %s, " + articleOfPlanet + " %s in the %s."
-                + " The expedition is projected to be " + strDesc + ".",
+                        + " sending a colonial expedition to %s, " + articleOfPlanet + " %s in the %s."
+                        + " The expedition is projected to be " + strDesc + ".",
                 opad, colonyFaction.getBaseUIColor(), target.getName(), target.getPlanetEntity().getTypeNameWithLowerCaseWorld().toLowerCase(), target.getStarSystem().getNameWithLowercaseType());
         label.setHighlight(colonyFaction.getDisplayNameWithArticleWithoutArticle(), target.getName(), strDesc);
         label.setHighlightColors(colonyFaction.getBaseUIColor(), target.getFaction().getBaseUIColor(), h);

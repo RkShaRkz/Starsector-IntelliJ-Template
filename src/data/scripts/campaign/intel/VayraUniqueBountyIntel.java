@@ -1,57 +1,31 @@
 package data.scripts.campaign.intel;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.FleetAssignment;
-import com.fs.starfarer.api.campaign.LocationAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
 import com.fs.starfarer.api.campaign.ReputationActionResponsePlugin.ReputationAdjustmentResult;
-import com.fs.starfarer.api.campaign.SpecialItemData;
-import com.fs.starfarer.api.campaign.SpecialItemSpecAPI;
 import com.fs.starfarer.api.campaign.comm.IntelInfoPlugin;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
-import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.characters.FullName.Gender;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
-import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActionEnvelope;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActions;
+import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin.DerelictShipData;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
-import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3.BASE_QUALITY_WHEN_NO_MARKET;
-import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3.addCommanderAndOfficers;
-import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3.createEmptyFleet;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
-import com.fs.starfarer.api.impl.campaign.ids.Entities;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.Personalities;
-import com.fs.starfarer.api.impl.campaign.ids.Skills;
-import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.impl.campaign.procgen.Constellation;
-import static com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator.addSalvageEntity;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner.ShipRecoverySpecialCreator;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.BreadcrumbSpecial;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial.PerShipData;
@@ -62,9 +36,19 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import data.scripts.campaign.intel.VayraUniqueBountyManager.UniqueBountyData;
+import org.apache.log4j.Logger;
+
+import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
+
+import static com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3.*;
+import static com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator.addSalvageEntity;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFrameScript, FleetEventListener {
 
@@ -88,7 +72,7 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
 
     private SectorEntityToken hideoutLocation = null;
 
-    private int level = 0;
+    private final int level = 0;
 
     public static final String HVB_HOSTILE = "hvb_hostile";
 
@@ -126,7 +110,7 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
         bountyData = pickData();
         if (bountyData == null) {
             endImmediately();
-            log.info(String.format("aborting UNIQUE bounty due to no eligible picks"));
+            log.info("aborting UNIQUE bounty due to no eligible picks");
             return;
         }
 
@@ -150,7 +134,7 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
 
         if (bountyData == null) {
             endImmediately();
-            log.info(String.format("aborting UNIQUE bounty WITH OVERRIDE because i was fed a malformed ID or something else broke"));
+            log.info("aborting UNIQUE bounty WITH OVERRIDE because i was fed a malformed ID or something else broke");
             return;
         }
 
@@ -498,9 +482,9 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
     }
 
     private SectorEntityToken addDerelictShip(LocationAPI location,
-            String variantId,
-            ShipCondition condition,
-            boolean recoverable) {
+                                              String variantId,
+                                              ShipCondition condition,
+                                              boolean recoverable) {
         DerelictShipData params = new DerelictShipData(new PerShipData(variantId, condition), false);
         SectorEntityToken ship = addSalvageEntity(location, Entities.WRECK, Factions.NEUTRAL, params);
         ship.setDiscoverable(true);
@@ -953,7 +937,7 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
                 }
 
                 List<FleetMemberAPI> list = new ArrayList<>();
-                Random random = new Random(person.getNameString().hashCode() * 170000);
+                Random random = new Random(person.getNameString().hashCode() * 170000L);
 
                 List<FleetMemberAPI> members = fleet.getFleetData().getMembersListCopy();
                 int max = 7;

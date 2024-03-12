@@ -31,7 +31,7 @@ public class VayraDamagedEnvironment extends BaseHullMod {
         float damageMult = DAMAGE_MULT + (1f - DAMAGE_MULT) * (1f - effect);
 
         if (index == 0) {
-            return "" + (int) Math.round((damageMult - 1f) * 100f) + "%";
+            return Math.round((damageMult - 1f) * 100f) + "%";
         }
         if (index >= 1) {
             return CompromisedStructure.getCostDescParam(index, 1);

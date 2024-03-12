@@ -1,18 +1,16 @@
 package data.scripts.campaign.colonies;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CargoAPI;
-import com.fs.starfarer.api.campaign.CargoStackAPI;
-import com.fs.starfarer.api.campaign.InteractionDialogAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.SpecialItemData;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.listeners.ShowLootListener;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
 import com.fs.starfarer.api.impl.campaign.ids.Commodities;
-import static data.scripts.campaign.colonies.VayraColonialManager.INDUSTRY_CORE_ESCAPE_CHANCE;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static data.scripts.campaign.colonies.VayraColonialManager.INDUSTRY_CORE_ESCAPE_CHANCE;
 
 public class VayraFixAIBlueprintsListener implements ShowLootListener {
 

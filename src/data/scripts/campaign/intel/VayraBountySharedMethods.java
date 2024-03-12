@@ -10,11 +10,11 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.VayraMergedModPlugin.BOUNTY_DURATION;
-import static data.scripts.VayraMergedModPlugin.BOUNTY_SOFT_MAX_DIST;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import java.util.List;
 import org.apache.log4j.Logger;
+
+import java.util.List;
+
+import static data.scripts.VayraMergedModPlugin.*;
 
 public class VayraBountySharedMethods {
 
@@ -69,10 +69,10 @@ public class VayraBountySharedMethods {
                 }
                 continue;
             }
-            
+
             // weight systems lower if they're too far away
             if (distToPlayer > BOUNTY_SOFT_MAX_DIST) {
-                mult = (float) BOUNTY_SOFT_MAX_DIST / distToPlayer;
+                mult = BOUNTY_SOFT_MAX_DIST / distToPlayer;
             }
 
             // skip systems that have been used recently

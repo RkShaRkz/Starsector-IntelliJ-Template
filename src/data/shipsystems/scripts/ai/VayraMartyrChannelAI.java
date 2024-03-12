@@ -7,12 +7,16 @@ import com.fs.starfarer.api.combat.ShipSystemAIScript;
 import com.fs.starfarer.api.combat.ShipSystemAPI;
 import com.fs.starfarer.api.combat.ShipwideAIFlags;
 import com.fs.starfarer.api.util.IntervalUtil;
+
 import static data.shipsystems.scripts.vayra_MartyrChannelStats.CHECK_RADIUS;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,12 +24,12 @@ public class VayraMartyrChannelAI implements ShipSystemAIScript {
 
     private ShipAPI ship;
     private CombatEngineAPI engine;
-    
+
     // use the system if at least one wing is locally outnumbered by at least 50%
     public static final float USE_THRESHOLD = 0.5f;
 
     // only check every little while (for optimization and staggering)
-    private IntervalUtil timer = new IntervalUtil(0.2f, 0.5f);
+    private final IntervalUtil timer = new IntervalUtil(0.2f, 0.5f);
 
     @Override
     public void init(ShipAPI ship, ShipSystemAPI system, ShipwideAIFlags flags, CombatEngineAPI engine) {
@@ -117,7 +121,7 @@ public class VayraMartyrChannelAI implements ShipSystemAIScript {
                 usefulness = Math.max(usefulness, (buffLevel / fighter.getWing().getWingMembers().size()));
             }
         }
-        
+
         if (usefulness > USE_THRESHOLD) {
             ship.useSystem();
         }

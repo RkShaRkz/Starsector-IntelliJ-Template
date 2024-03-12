@@ -208,7 +208,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
                 }
                 break;
         }
-        
+
         api.setFleetTagline(FleetSide.ENEMY, enemyName);
     }
 }

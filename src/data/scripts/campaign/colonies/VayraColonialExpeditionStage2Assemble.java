@@ -1,8 +1,6 @@
 package data.scripts.campaign.colonies;
 
 import com.fs.starfarer.api.Global;
-import java.awt.Color;
-
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.intel.raid.AssembleStage;
@@ -11,6 +9,8 @@ import com.fs.starfarer.api.impl.campaign.intel.raid.RaidIntel.RaidStageStatus;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import org.apache.log4j.Logger;
+
+import java.awt.*;
 
 public class VayraColonialExpeditionStage2Assemble extends AssembleStage {
 
@@ -32,7 +32,7 @@ public class VayraColonialExpeditionStage2Assemble extends AssembleStage {
             status = RaidStageStatus.FAILURE;
             giveReturnOrdersToStragglers(getRoutes());
             raidIntel.sendOutcomeUpdate();
-            log.info(String.format("oh GOD DAMN it this is the problem isn't it. raidIntel.getFrom.getFactionId = %s, raidIntel.getFaction.getId = %s",raidIntel.getFrom().getFactionId(),raidIntel.getFaction().getId()));
+            log.info(String.format("oh GOD DAMN it this is the problem isn't it. raidIntel.getFrom.getFactionId = %s, raidIntel.getFaction.getId = %s", raidIntel.getFrom().getFactionId(), raidIntel.getFaction().getId()));
         }
         super.updateStatus();
     }

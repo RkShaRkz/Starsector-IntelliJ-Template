@@ -45,7 +45,7 @@ public class vayra_modular_shields extends BaseHullMod {
     public static String ERROR_SOUND = "vayra_note1";
 
     // excluded hullmods
-    public static ArrayList<String> EXCLUDED_HULLMODS = new ArrayList<>(Arrays.asList(
+    public static ArrayList<String> EXCLUDED_HULLMODS = new ArrayList<>(Collections.singletonList(
             HullMods.MAKESHIFT_GENERATOR));
 
     public static final class JitterData {

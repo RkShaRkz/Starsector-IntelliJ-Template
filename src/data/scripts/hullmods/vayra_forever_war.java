@@ -4,6 +4,7 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ public class vayra_forever_war extends BaseHullMod {
         HULL.put(HullSize.CRUISER, 2000f);
         HULL.put(HullSize.CAPITAL_SHIP, 4000f);
     }
+
     private static final Map<HullSize, Float> ARMOR = new HashMap<>();
 
     static {
@@ -30,6 +32,7 @@ public class vayra_forever_war extends BaseHullMod {
         ARMOR.put(HullSize.CRUISER, 200f);
         ARMOR.put(HullSize.CAPITAL_SHIP, 250f);
     }
+
     private static final float SPEED = 10f;
     private static final float MANEUVERABILITY = 0.5f;
     private static final Map<HullSize, Float> FUEL_CAP = new HashMap<>();
@@ -41,6 +44,7 @@ public class vayra_forever_war extends BaseHullMod {
         FUEL_CAP.put(HullSize.CRUISER, 60f);
         FUEL_CAP.put(HullSize.CAPITAL_SHIP, 150f);
     }
+
     private static final Map<HullSize, Float> FUEL_EFF = new HashMap<>();
 
     static {
@@ -63,7 +67,7 @@ public class vayra_forever_war extends BaseHullMod {
             return "" + (int) SPEED;
         }
         if (index == 3) {
-            return "" + (int) (MANEUVERABILITY * 100f) + "%";
+            return (int) (MANEUVERABILITY * 100f) + "%";
         }
         if (index == 4) {
             return "" + FUEL_EFF.get(hullSize);

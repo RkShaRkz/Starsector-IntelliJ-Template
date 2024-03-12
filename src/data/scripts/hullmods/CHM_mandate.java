@@ -1,11 +1,12 @@
 package data.scripts.hullmods;
 
-import java.util.HashMap;
-import java.util.Map;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CHM_mandate extends BaseHullMod {
 
@@ -17,6 +18,7 @@ public class CHM_mandate extends BaseHullMod {
         RANGE_BONUS.put(HullSize.CRUISER, 5f);
         RANGE_BONUS.put(HullSize.CAPITAL_SHIP, 5f);
     }
+
     private static final Map<HullSize, Float> ARMOR_PENALTY = new HashMap<>();
 
     static {

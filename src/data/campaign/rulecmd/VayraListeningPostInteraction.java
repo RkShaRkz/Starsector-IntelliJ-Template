@@ -10,10 +10,11 @@ import com.fs.starfarer.api.util.Misc;
 import data.scripts.campaign.VayraLoreObjectsFramework;
 import data.scripts.campaign.VayraLoreObjectsFramework.LoreObjectData;
 import data.scripts.campaign.intel.VayraListeningPostIntel;
-import java.awt.Color;
+import org.apache.log4j.Logger;
+
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
 
 public class VayraListeningPostInteraction extends BaseCommandPlugin {
 

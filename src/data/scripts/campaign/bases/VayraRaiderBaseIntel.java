@@ -1,53 +1,28 @@
 package data.scripts.campaign.bases;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.JumpPointAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
-import com.fs.starfarer.api.campaign.TextPanelAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
 import com.fs.starfarer.api.campaign.ReputationActionResponsePlugin.ReputationAdjustmentResult;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
+import com.fs.starfarer.api.campaign.econ.EconomyAPI.EconomyUpdateListener;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.campaign.econ.EconomyAPI.EconomyUpdateListener;
 import com.fs.starfarer.api.campaign.econ.MarketAPI.SurveyLevel;
 import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.combat.MutableStat.StatMod;
+import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
-import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.CustomRepImpact;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActionEnvelope;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.RepActions;
+import com.fs.starfarer.api.impl.campaign.DebugFlags;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.PatrolType;
-import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
-import com.fs.starfarer.api.impl.campaign.fleets.PatrolAssignmentAI;
-import com.fs.starfarer.api.impl.campaign.fleets.PatrolFleetManager;
-import com.fs.starfarer.api.impl.campaign.fleets.RouteLocationCalculator;
-import com.fs.starfarer.api.impl.campaign.fleets.RouteManager;
-import com.fs.starfarer.api.impl.campaign.ids.Entities;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
+import com.fs.starfarer.api.impl.campaign.fleets.*;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel.BountyResult;
 import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel.BountyResultType;
@@ -55,10 +30,10 @@ import com.fs.starfarer.api.impl.campaign.intel.bar.PortsideBarData;
 import com.fs.starfarer.api.impl.campaign.intel.deciv.DecivTracker;
 import com.fs.starfarer.api.impl.campaign.intel.raid.PirateRaidActionStage;
 import com.fs.starfarer.api.impl.campaign.intel.raid.RaidIntel;
-import com.fs.starfarer.api.impl.campaign.intel.raid.ReturnStage;
-import com.fs.starfarer.api.impl.campaign.intel.raid.TravelStage;
 import com.fs.starfarer.api.impl.campaign.intel.raid.RaidIntel.RaidDelegate;
 import com.fs.starfarer.api.impl.campaign.intel.raid.RaidIntel.RaidStageStatus;
+import com.fs.starfarer.api.impl.campaign.intel.raid.ReturnStage;
+import com.fs.starfarer.api.impl.campaign.intel.raid.TravelStage;
 import com.fs.starfarer.api.impl.campaign.procgen.MarkovNames;
 import com.fs.starfarer.api.impl.campaign.procgen.MarkovNames.MarkovNameResult;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
@@ -71,17 +46,22 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static java.lang.Math.random;
+import data.scripts.campaign.bases.VayraRaiderBaseManager.*;
+import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Set;
+
 import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 import static data.scripts.VayraMergedModPlugin.createAdmin;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAIDERS;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAID_TIER1_FP;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAID_TIER2_FP;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAID_TIER3_FP;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAID_TIER4_FP;
-import static data.scripts.campaign.bases.VayraRaiderBaseManager.RAID_TIER5_FP;
-import data.scripts.campaign.bases.VayraRaiderBaseManager.RaiderData;
-import java.io.IOException;
+import static data.scripts.campaign.bases.VayraRaiderBaseManager.*;
+import static java.lang.Math.random;
 
 public class VayraRaiderBaseIntel extends BaseIntelPlugin implements EveryFrameScript, FleetEventListener,
         EconomyUpdateListener, RaidDelegate {
@@ -89,7 +69,7 @@ public class VayraRaiderBaseIntel extends BaseIntelPlugin implements EveryFrameS
     public RaiderData data;
     private transient boolean loaded = false;
 
-    public static enum RaiderBaseTier {
+    public enum RaiderBaseTier {
         TIER_1_1MODULE,
         TIER_2_1MODULE,
         TIER_3_2MODULE,
@@ -133,7 +113,8 @@ public class VayraRaiderBaseIntel extends BaseIntelPlugin implements EveryFrameS
     @SuppressWarnings({"unchecked", "unchecked"})
     public VayraRaiderBaseIntel(StarSystemAPI system, String factionId, RaiderBaseTier tier) {
 
-        if (VAYRA_DEBUG) log.info("attempting to spawn a " + factionId + " raider base in " + system.getNameWithLowercaseType());
+        if (VAYRA_DEBUG)
+            log.info("attempting to spawn a " + factionId + " raider base in " + system.getNameWithLowercaseType());
 
         this.system = system;
         this.tier = tier;
@@ -269,7 +250,7 @@ public class VayraRaiderBaseIntel extends BaseIntelPlugin implements EveryFrameS
             script.setIntel(this);
             log.info("set intel of " + script + " to this");
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException ex) {
-            log.error("Raider base rumor BaseBarEvent script for "+this.data.raiderFactionId+"  is fucked up and threw a " + ex + " - adding the default one instead");
+            log.error("Raider base rumor BaseBarEvent script for " + this.data.raiderFactionId + "  is fucked up and threw a " + ex + " - adding the default one instead");
             PortsideBarData.getInstance().addEvent(new VayraRaiderBaseBarEvent(this));
             log.info("added VayraRaiderBaseBarEvent as an event to PortsideBarData.getInstance()");
             log.info("set intel of VayraRaiderBaseBarEvent to this");
@@ -878,9 +859,9 @@ public class VayraRaiderBaseIntel extends BaseIntelPlugin implements EveryFrameS
         String has = faction.getDisplayNameHasOrHave();
 
         info.addPara(Misc.ucFirst(faction.getDisplayNameWithArticle()) + " " + has
-                + " established a camp in the "
-                + market.getContainingLocation().getNameWithLowercaseType() + ". "
-                + "The camp serves as a staging ground for assaults on nearby settlements.",
+                        + " established a camp in the "
+                        + market.getContainingLocation().getNameWithLowercaseType() + ". "
+                        + "The camp serves as a staging ground for assaults on nearby settlements.",
                 opad, faction.getBaseUIColor(), faction.getDisplayNameWithArticleWithoutArticle());
 
         if (!entity.isDiscoverable()) {
@@ -922,8 +903,8 @@ public class VayraRaiderBaseIntel extends BaseIntelPlugin implements EveryFrameS
 
         if (bountyData != null) {
             info.addPara(Misc.ucFirst(bountyData.bountyFaction.getDisplayNameWithArticle()) + " "
-                    + bountyData.bountyFaction.getDisplayNameHasOrHave()
-                    + " posted a bounty for the destruction of this camp.",
+                            + bountyData.bountyFaction.getDisplayNameHasOrHave()
+                            + " posted a bounty for the destruction of this camp.",
                     opad, bountyData.bountyFaction.getBaseUIColor(),
                     bountyData.bountyFaction.getDisplayNameWithArticleWithoutArticle());
 
@@ -1238,7 +1219,7 @@ public class VayraRaiderBaseIntel extends BaseIntelPlugin implements EveryFrameS
             String targetFactionId = targetMarket.getFactionId();
             float repWeight = -faction.getRelationship(targetFactionId);
             repWeight = Math.max(0f, repWeight);
-            
+
             if (!faction.isHostileTo(targetFactionId)) {
                 continue;
             }

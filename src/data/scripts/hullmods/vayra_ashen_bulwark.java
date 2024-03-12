@@ -1,21 +1,17 @@
 package data.scripts.hullmods;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.MissileAPI;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
 import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class vayra_ashen_bulwark extends BaseHullMod {
 
@@ -32,16 +28,16 @@ public class vayra_ashen_bulwark extends BaseHullMod {
             return "" + (int) MSL_DMG_THRESHOLD;
         }
         if (index == 2) {
-            return "" + (int) ((1 - MSL_DMG_MULT) * 100) + "%";
+            return (int) ((1 - MSL_DMG_MULT) * 100) + "%";
         }
         if (index == 3) {
             return "" + (int) ((MSL_DMG_MAX - MSL_DMG_THRESHOLD) * (1 - MSL_DMG_MULT));
         }
         if (index == 4) {
-            return "" + 1 + " incoming missile";
+            return 1 + " incoming missile";
         }
         if (index == 5) {
-            return "" + ARC_TIMER + " seconds";
+            return ARC_TIMER + " seconds";
         }
         if (index == 6) {
             return "+" + (int) ((SUPPLY_MULT - 1) * 100) + "%";

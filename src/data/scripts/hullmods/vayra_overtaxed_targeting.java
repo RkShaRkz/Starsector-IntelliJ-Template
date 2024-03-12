@@ -7,8 +7,8 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 
 public class vayra_overtaxed_targeting extends BaseHullMod {
 
-	private static final float RANGE_MULT = 0.9f;
-	
+    private static final float RANGE_MULT = 0.9f;
+
     /**
      *
      * @param index
@@ -16,11 +16,11 @@ public class vayra_overtaxed_targeting extends BaseHullMod {
      * @return
      */
     @Override
-	public String getDescriptionParam(int index, HullSize hullSize) {
-		if (index == 0) return (int) ((1f - RANGE_MULT) * 100) + "%";
-		return null;
-	}
-	
+    public String getDescriptionParam(int index, HullSize hullSize) {
+        if (index == 0) return (int) ((1f - RANGE_MULT) * 100) + "%";
+        return null;
+    }
+
     /**
      *
      * @param hullSize
@@ -28,9 +28,9 @@ public class vayra_overtaxed_targeting extends BaseHullMod {
      * @param id
      */
     @Override
-	public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
-		stats.getBallisticWeaponRangeBonus().modifyMult(id, RANGE_MULT);
-		stats.getEnergyWeaponRangeBonus().modifyMult(id, RANGE_MULT);
-	}
-	
+    public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
+        stats.getBallisticWeaponRangeBonus().modifyMult(id, RANGE_MULT);
+        stats.getEnergyWeaponRangeBonus().modifyMult(id, RANGE_MULT);
+    }
+
 }

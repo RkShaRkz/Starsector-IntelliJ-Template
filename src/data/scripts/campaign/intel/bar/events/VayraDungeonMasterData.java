@@ -8,7 +8,7 @@ import java.util.List;
 public class VayraDungeonMasterData {
 
     // these are all of the things it is possible to wear in a tabletop RPG
-    public static enum Armor {
+    public enum Armor {
         CLOTH,
         LEATHER,
         CHAIN,
@@ -16,7 +16,7 @@ public class VayraDungeonMasterData {
     }
 
     // these are all of the things it is possible to wield in a tabletop RPG
-    public static enum Weapon {
+    public enum Weapon {
         DAGGER,
         CLUB,
         STAFF,
@@ -1189,7 +1189,7 @@ public class VayraDungeonMasterData {
     ));
 
     // these are the things it is possible to suffer as a result of quitting the game without returning to town
-    public static enum Consequence {
+    public enum Consequence {
         DEATH,
         PERMANENT_INJURY,
         LOSE_WEAPON,

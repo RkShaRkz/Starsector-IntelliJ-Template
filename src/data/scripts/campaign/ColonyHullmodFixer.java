@@ -9,15 +9,11 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.apache.log4j.Logger;
+
+import java.util.*;
+
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 public class ColonyHullmodFixer implements EveryFrameScript {
 
@@ -28,19 +24,19 @@ public class ColonyHullmodFixer implements EveryFrameScript {
         // The RVTC knows ships and weapons with the `mercantile` tag
         // and applies the faction hullmod to ships that have hull IDs ending in `vayra_mercantile` OR have the `vayra_merchant_marine` tag
         COLONY_FACTIONS_HULLMODS.put("almighty_dollar", new ArrayList<>(Arrays.asList("vayra_mercantile", "vayra_merchant_marine")));
-        
+
         // The Ashen Keepers know ships and weapons with the `ashen` and `ashen_rare` tags
         // and applies the faction hullmod to ships that have hull IDs ending in `vayra_ashen` OR have the `vayra_ashen_bulwark` tag
         COLONY_FACTIONS_HULLMODS.put("ashen_keepers", new ArrayList<>(Arrays.asList("vayra_ashen", "vayra_ashen_bulwark")));
-        
+
         // The PDPRC knows ships and weapons with the `revolutionary` tag
         // and applies the faction hullmod to ships that have hull IDs ending in `vayra_revolutionary` OR have the `vayra_red_army` tag
         COLONY_FACTIONS_HULLMODS.put("communist_clouds", new ArrayList<>(Arrays.asList("vayra_revolutionary", "vayra_red_army")));
-        
+
         // The Research Mandate knows ships and weapons with the `science` tag and will learn the `science_post_ai` tag after some time
         // and applies the faction hullmod to ships that have hull IDs ending in `vayra_science` OR have the `vayra_science_hull` tag
         COLONY_FACTIONS_HULLMODS.put("science_fuckers", new ArrayList<>(Arrays.asList("vayra_science", "vayra_science_hull")));
-        
+
         // The Stormhawk Republic knows ships and weapons with the `warhawk` tag
         // and applies the faction hullmod to ships that have hull IDs ending in `vayra_warhawk` OR have the `vayra_warhawk_modular` tag
         COLONY_FACTIONS_HULLMODS.put("warhawk_republic", new ArrayList<>(Arrays.asList("vayra_warhawk", "vayra_warhawk_modular")));
@@ -79,7 +75,7 @@ public class ColonyHullmodFixer implements EveryFrameScript {
                 }
             }
         }
-        
+
         // only check markets once per second
         timer.advance(amount);
         if (timer.intervalElapsed()) {

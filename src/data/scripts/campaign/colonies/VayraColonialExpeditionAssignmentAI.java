@@ -15,69 +15,69 @@ import com.fs.starfarer.api.util.Misc;
 
 public class VayraColonialExpeditionAssignmentAI extends RouteFleetAssignmentAI implements FleetActionTextProvider {
 
-	public VayraColonialExpeditionAssignmentAI(CampaignFleetAPI fleet, RouteData route, BaseAssignmentAI.FleetActionDelegate delegate) {
-		super(fleet, route, delegate);
-		fleet.getAI().setActionTextProvider(this);
-	}
-	
-	@Override
-	public void advance(float amount) {
-		super.advance(amount, false);
-		
-		RouteSegment curr = route.getCurrent();
-		if (curr != null && 
-				(
-					BaseRaidStage.STRAGGLER.equals(route.getCustom()) || 
-					AssembleStage.WAIT_STAGE.equals(curr.custom) || 
-					curr.isTravel())) {
-			Misc.setFlagWithReason(fleet.getMemoryWithoutUpdate(), MemFlags.FLEET_BUSY, "raid_wait", true, 1);
-		}
-		
-		checkCapture(amount);
-		
-		if (fleet.getMemoryWithoutUpdate().getBoolean(MemFlags.MEMORY_KEY_RAIDER)) {
-			checkRaid(amount);
-		}
-	}
+    public VayraColonialExpeditionAssignmentAI(CampaignFleetAPI fleet, RouteData route, BaseAssignmentAI.FleetActionDelegate delegate) {
+        super(fleet, route, delegate);
+        fleet.getAI().setActionTextProvider(this);
+    }
 
-	@Override
-	protected String getInSystemActionText(RouteSegment segment) {
-		if (AssembleStage.WAIT_STAGE.equals(segment.custom)) {
-			return "waiting at rendezvous point";
-		}
-		String s = null;
-		if (delegate != null) s = delegate.getRaidInSystemText(fleet);
-		if (s == null) s = "on a colonial expedition"; 
-		return s;
-	}
+    @Override
+    public void advance(float amount) {
+        super.advance(amount, false);
 
-	@Override
-	protected String getEndingActionText(RouteSegment segment) {
-		return super.getEndingActionText(segment);
-	}
+        RouteSegment curr = route.getCurrent();
+        if (curr != null &&
+                (
+                        BaseRaidStage.STRAGGLER.equals(route.getCustom()) ||
+                                AssembleStage.WAIT_STAGE.equals(curr.custom) ||
+                                curr.isTravel())) {
+            Misc.setFlagWithReason(fleet.getMemoryWithoutUpdate(), MemFlags.FLEET_BUSY, "raid_wait", true, 1);
+        }
 
-	@Override
-	protected String getStartingActionText(RouteSegment segment) {
-		if (AssembleStage.PREP_STAGE.equals(segment.custom)) {
-			String s = null;
-			if (delegate != null) s = delegate.getRaidPrepText(fleet, segment.from);
-			if (s == null) s = "preparing for colonial expedition"; 
-			return s;
-		}
-		if (segment.from == route.getMarket().getPrimaryEntity()) {
-			return "orbiting " + route.getMarket().getName();
-		}
-		
-		String s = null;
-		if (delegate != null) s = delegate.getRaidDefaultText(fleet);
-		if (s == null) s = "on a colonial expedition"; 
-		return s;
-	}
+        checkCapture(amount);
 
-	@Override
-	protected String getTravelActionText(RouteSegment segment) {
-		return super.getTravelActionText(segment);
-	}
+        if (fleet.getMemoryWithoutUpdate().getBoolean(MemFlags.MEMORY_KEY_RAIDER)) {
+            checkRaid(amount);
+        }
+    }
+
+    @Override
+    protected String getInSystemActionText(RouteSegment segment) {
+        if (AssembleStage.WAIT_STAGE.equals(segment.custom)) {
+            return "waiting at rendezvous point";
+        }
+        String s = null;
+        if (delegate != null) s = delegate.getRaidInSystemText(fleet);
+        if (s == null) s = "on a colonial expedition";
+        return s;
+    }
+
+    @Override
+    protected String getEndingActionText(RouteSegment segment) {
+        return super.getEndingActionText(segment);
+    }
+
+    @Override
+    protected String getStartingActionText(RouteSegment segment) {
+        if (AssembleStage.PREP_STAGE.equals(segment.custom)) {
+            String s = null;
+            if (delegate != null) s = delegate.getRaidPrepText(fleet, segment.from);
+            if (s == null) s = "preparing for colonial expedition";
+            return s;
+        }
+        if (segment.from == route.getMarket().getPrimaryEntity()) {
+            return "orbiting " + route.getMarket().getName();
+        }
+
+        String s = null;
+        if (delegate != null) s = delegate.getRaidDefaultText(fleet);
+        if (s == null) s = "on a colonial expedition";
+        return s;
+    }
+
+    @Override
+    protected String getTravelActionText(RouteSegment segment) {
+        return super.getTravelActionText(segment);
+    }
 
     public String getActionText(CampaignFleetAPI fleet) {
         FleetAssignmentDataAPI curr = fleet.getCurrentAssignment();
@@ -98,7 +98,4 @@ public class VayraColonialExpeditionAssignmentAI extends RouteFleetAssignmentAI 
     }
 
 
-
-	
-	
 }

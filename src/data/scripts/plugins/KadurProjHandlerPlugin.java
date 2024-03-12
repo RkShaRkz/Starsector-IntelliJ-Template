@@ -1,27 +1,21 @@
 package data.scripts.plugins;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.MissileAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.weapons.KadurBoomerangShieldGuidance;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.lazywizard.lazylib.FastTrig;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class KadurProjHandlerPlugin extends BaseEveryFrameCombatPlugin {
 
@@ -71,11 +65,11 @@ public class KadurProjHandlerPlugin extends BaseEveryFrameCombatPlugin {
     // boomerang shield reload range
     private static final float SHIELD_RELOAD_RANGE = 33f; // shield must get at least this close to its fighter to disappear
 
-    private Map<DamagingProjectileAPI, Float> canisters = new HashMap<>();
-    private Map<DamagingProjectileAPI, IntervalUtil> scatterBlasts = new HashMap<>();
-    private Map<DamagingProjectileAPI, List<CombatEntityAPI>> capacitiveRodTargets = new HashMap<>();
-    private Map<DamagingProjectileAPI, Integer> spikeTorpedoes = new HashMap<>();
-    private List<DamagingProjectileAPI> boomerangShields = new ArrayList<>();
+    private final Map<DamagingProjectileAPI, Float> canisters = new HashMap<>();
+    private final Map<DamagingProjectileAPI, IntervalUtil> scatterBlasts = new HashMap<>();
+    private final Map<DamagingProjectileAPI, List<CombatEntityAPI>> capacitiveRodTargets = new HashMap<>();
+    private final Map<DamagingProjectileAPI, Integer> spikeTorpedoes = new HashMap<>();
+    private final List<DamagingProjectileAPI> boomerangShields = new ArrayList<>();
 
     //////////////////////////////BITS//////////////////////////////
     public static final Color KADUR_TEAL = new Color(33, 103, 109, 150);
@@ -273,7 +267,7 @@ public class KadurProjHandlerPlugin extends BaseEveryFrameCombatPlugin {
                             }
                             Color canisterFlash = new Color(125, 200, 255, 255);
                             engine.spawnExplosion(loc, vel, canisterFlash, 18f, 0.33f);
-                            for (int p = 0; p < (int) (CANISTER_SPIKES * 3); p++) {
+                            for (int p = 0; p < (CANISTER_SPIKES * 3); p++) {
                                 float partSize = (float) ((data.pMaxSize * 0.2f) + (Math.random() * data.pMaxSize * 0.8f));
                                 float partSpeed = (float) (data.pMaxSpeed + (Math.random() * data.pMaxSpeed));
                                 float partAngle = angle + (float) (-CANISTER_SPREAD + (Math.random() * CANISTER_SPREAD * 2f));

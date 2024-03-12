@@ -1,21 +1,17 @@
 package data.scripts.weapons;
 
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.OnHitEffectPlugin;
-import com.fs.starfarer.api.combat.ShipAPI;
-import java.awt.Color;
-
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
 
 public class VayraFlamerOnHitEffect implements OnHitEffectPlugin {
 
     public static final Color FLAME_COLOR = new Color(100, 255, 0, 50);
     public static final float FLAME_SIZE = 35f; // +/- 50%
     public static final float FLAME_DUR = 0.666f;
-    
+
     public static final float FLUX_PORTION = 0.5f; // fraction of damage dealt as flux to target
 
     @Override

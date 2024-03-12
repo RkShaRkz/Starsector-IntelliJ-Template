@@ -2,29 +2,25 @@ package data.scripts.campaign;
 
 import com.fs.starfarer.api.EveryFrameScript;
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.campaign.OrbitAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
+import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
 import com.fs.starfarer.api.util.Misc;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import com.fs.starfarer.api.campaign.OrbitAPI;
-import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import org.apache.log4j.Logger;
+
+import java.util.*;
 
 public class VayraAbandonedStationAndLeagueSubfactionBonker implements EveryFrameScript {
 
     private boolean finished = false;
     public static Logger log = Global.getLogger(VayraAbandonedStationAndLeagueSubfactionBonker.class);
-    
+
     private static final String INDUSTRY_ID = "vayra_league_subfaction_spawner";
     private static final String LEAGUE_ID = "persean";
     private static final List<String> MARKET_IDS = new ArrayList<>(Arrays.asList(
@@ -36,7 +32,7 @@ public class VayraAbandonedStationAndLeagueSubfactionBonker implements EveryFram
             "athulf"
     ));
 
-    private static final List<String> ENTITIES = new ArrayList<>(Arrays.asList(
+    private static final List<String> ENTITIES = new ArrayList<>(Collections.singletonList(
             "vayra_procgen_abandonedstation" // unique ID, should probably be unique across mods so a prefix is a good idea
     ));
 
@@ -53,8 +49,8 @@ public class VayraAbandonedStationAndLeagueSubfactionBonker implements EveryFram
                     market.addIndustry(INDUSTRY_ID);
                 }
             }
-                
-            
+
+
             for (String thing : ENTITIES) {
 
                 // generic setup, done once for each thing

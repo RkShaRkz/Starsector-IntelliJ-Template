@@ -13,15 +13,15 @@ public class VayraRotorEffect implements EveryFrameWeaponEffectPlugin {
         if (engine.isPaused() || weapon.getShip() == null) {
             return;
         }
-        
+
         if (!weapon.getShip().isAlive()) {
             weapon.getSprite().setAlphaMult(0f);
         }
 
         float curr = weapon.getCurrAngle();
-        
+
         float spin = SPIN * amount; // always spin at base spin rate/sec
-        
+
         curr += spin;
 
         weapon.setCurrAngle(curr);

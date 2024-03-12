@@ -34,10 +34,10 @@ public class VayraDamagedAutomation extends BaseHullMod {
         float minCrewMult = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - effect);
 
         if (index == 0) {
-            return "" + (int) Math.round(crPenalty) + "%";
+            return Math.round(crPenalty) + "%";
         }
         if (index == 1) {
-            return "" + (int) Math.round((minCrewMult - 1f) * 100f) + "%";
+            return Math.round((minCrewMult - 1f) * 100f) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);
