@@ -1,13 +1,13 @@
 {
-    "id":"author_modname", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
-	"name":"Template Mod", # Displayed to the player
+    "id":"Shark_utilityconsole", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
+	"name":"Utility Console Commands", # Displayed to the player
 	"author":"Wisp",
     "utility":"false",
 	"version":"1.0.0",
-	"description":"Starsector IntelliJ template.",
+	"description":"New console commands to add/remove dmods, adjust CR and so on.",
     "gameVersion": "0.97a-RC6",
-  	"jars":["jars/Template.jar"],
-  	"modPlugin":"author.modname.TemplateModPlugin",
+  	"jars":["jars/UtilityConsole.jar"],
+  	"modPlugin":"shark.utilityconsole.UtilityConsoleModPlugin",
 	  	"dependencies": [
         #{
         #    "id": "lw_lazylib",

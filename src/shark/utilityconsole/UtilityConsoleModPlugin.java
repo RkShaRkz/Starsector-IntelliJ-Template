@@ -1,9 +1,9 @@
-package author.modname;
+package shark.utilityconsole;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 
-public class TemplateModPlugin extends BaseModPlugin {
+public class UtilityConsoleModPlugin extends BaseModPlugin {
     @Override
     public void onApplicationLoad() throws Exception {
         super.onApplicationLoad();
