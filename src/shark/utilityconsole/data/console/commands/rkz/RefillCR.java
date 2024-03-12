@@ -8,10 +8,7 @@ import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.RepairTrackerAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import org.lazywizard.console.BaseCommand;
-import org.lazywizard.console.CommonStrings;
 import org.lazywizard.console.Console;
-
-import java.util.Iterator;
 
 public class RefillCR implements BaseCommand {
     @Override
@@ -55,7 +52,7 @@ public class RefillCR implements BaseCommand {
         FleetMemberAPI shipToRefill = null;
 
         // We will use these to give console feedback to the user which ship was refilled.
-        boolean usedName, usedId, usedHullId;
+        boolean usedName = false, usedId = false, usedHullId = false;
 
         CampaignFleetAPI fleetAPI = Global.getSector().getPlayerFleet();
         // Figure out whether args is
@@ -82,7 +79,7 @@ public class RefillCR implements BaseCommand {
                 break;
             }
 
-            if (fleetMember.getId().equalsIgnoreCase(args)) {
+            if (fleetMember.getHullId().equalsIgnoreCase(args)) {
                 usedHullId = true;
                 shipToRefill = fleetMember;
                 break;
@@ -112,16 +109,18 @@ public class RefillCR implements BaseCommand {
 
             StringBuilder sb = new StringBuilder();
             if (usedName) {
-                sb.append("Refilled CR of ship with name: "+args);
+                sb.append("Refilled CR of ship with name: ").append(args);
             } else if (usedId) {
-                sb.append("Refilled CR of ship with ID: "+args);
+                sb.append("Refilled CR of ship with ID: ").append(args);
             } else if (usedHullId) {
-                sb.append("Refilled CR of ship with Hull ID: "+args);
+                sb.append("Refilled CR of ship with Hull ID: ").append(args);
             } else {
 //                throw new IllegalStateException("This should never really happen");
                 // Actually, lets not throw any exceptions, and return bad syntax in this case.
                 retVal = CommandResult.BAD_SYNTAX;
             }
+
+            Console.showMessage(sb.toString());
         }
 
         return retVal;

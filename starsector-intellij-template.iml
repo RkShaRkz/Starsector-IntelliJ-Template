@@ -20,5 +20,17 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/LazyLib/jars/LazyLib.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/LazyLib/jars/LazyLib.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Games/Starsector/mods/LazyLib/jars/LazyLib.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
