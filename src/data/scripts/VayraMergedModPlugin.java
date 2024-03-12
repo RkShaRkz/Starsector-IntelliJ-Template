@@ -2,9 +2,8 @@ package data.scripts;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
-import com.fs.starfarer.api.campaign.FactionAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.PluginPick;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.EconomyAPI;
 import com.fs.starfarer.api.campaign.econ.Industry;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
@@ -12,18 +11,18 @@ import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
 import com.fs.starfarer.api.characters.ImportantPeopleAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.CombatEntityAPI;
+import com.fs.starfarer.api.combat.MissileAIPlugin;
+import com.fs.starfarer.api.combat.MissileAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
-import com.fs.starfarer.api.impl.campaign.ids.Ranks;
-import com.fs.starfarer.api.impl.campaign.ids.Skills;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
 import com.fs.starfarer.api.impl.campaign.intel.deciv.DecivTracker;
+import com.fs.starfarer.api.impl.campaign.terrain.BaseRingTerrain;
 import com.fs.starfarer.api.util.Misc;
-import data.scripts.campaign.ColonyHullmodFixer;
-import data.scripts.campaign.VayraAbandonedStationAndLeagueSubfactionBonker;
-import data.scripts.campaign.VayraCampaignPlugin;
-import data.scripts.campaign.VayraLoreObjectsFramework;
+import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.ai.VayraLRMAI;
+import data.scripts.ai.VayraSplinterAI;
+import data.scripts.campaign.*;
 import data.scripts.campaign.bases.VayraProcgenEntityFramework;
 import data.scripts.campaign.bases.VayraRaiderBaseManager;
 import data.scripts.campaign.bases.VayraRaiderBaseReaper;
@@ -35,8 +34,10 @@ import data.scripts.campaign.intel.VayraPersonBountyManager;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel;
 import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
+import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
 import exerelin.campaign.DiplomacyManager;
+import exerelin.campaign.SectorManager;
 import exerelin.campaign.fleets.InvasionFleetManager;
 import exerelin.utilities.NexConfig;
 import exerelin.utilities.NexFactionConfig;
@@ -48,8 +49,10 @@ import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lwjgl.util.vector.Vector2f;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 import static data.scripts.hullmods.VayraGhostShip.GHOST_GALLEON_BOUNTY_ID;
 import static java.lang.Math.random;
@@ -60,7 +63,6 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
     public static final String MOD_ID = "vayramerged";
 
-    private static final String CLASS_FQCN = VayraMergedModPlugin.class.getClass().getCanonicalName();
     private static final String SETTINGS_FILE = "VAYRA_SETTINGS.ini";
     public static boolean VAYRA_DEBUG;
     public static boolean RAIDER_BASE_REAPER_ENABLED;
@@ -91,6 +93,15 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static boolean IS_AVANITIA;
     public static boolean IS_CJUICY;
 
+    // Kadur globals here
+    public static final String KADUR_ID = "kadur_remnant";
+
+    public static final String KADUR_SRM = "vayra_partisanmis";
+    public static final String KADUR_LRM = "vayra_jerichomis";
+    public static final String KADUR_SLOWLRM = "vayra_slowlrm_copy";
+    public static final String KADUR_SPLINTER = "vayra_splintergun_shot_copy";
+    public static final String KADUR_ANTIFTR = "vayra_antifighter_mis";
+
     public static enum PirateMode {
         ALWAYS,
         NEVER,
@@ -117,6 +128,17 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             throw new ClassNotFoundException(message);
         }
 
+        try {
+            Global.getSettings().getScriptClassLoader().loadClass("data.scripts.util.MagicTargeting");
+        } catch (ClassNotFoundException magic) {
+            String message = System.lineSeparator()
+                    + System.lineSeparator() + "MagicLib is required to run Kadur Remnant."
+                    + System.lineSeparator() + System.lineSeparator()
+                    + "You can download MagicLib at http://fractalsoftworks.com/forum/index.php?topic=13718.0"
+                    + System.lineSeparator();
+            throw new ClassNotFoundException(message);
+        }
+
         EXERELIN_LOADED = Global.getSettings().getModManager().isModEnabled("nexerelin");
         loadVayraSettings();
 
@@ -124,6 +146,18 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             for (String factionId : VayraColonialManager.loadColonyFactionList()) {
                 setExerelinActive(factionId, COLONIAL_FACTIONS_ENABLED);
             }
+        }
+    }
+
+    @Override
+    public PluginPick<MissileAIPlugin> pickMissileAI(MissileAPI missile, ShipAPI launchingShip) {
+        switch (missile.getProjectileSpecId()) {
+            case KADUR_LRM:
+                return new PluginPick<MissileAIPlugin>(new VayraLRMAI(missile, launchingShip), CampaignPlugin.PickPriority.MOD_SET);
+            case KADUR_SPLINTER:
+                return new PluginPick<MissileAIPlugin>(new VayraSplinterAI(missile, launchingShip), CampaignPlugin.PickPriority.MOD_SET);
+            default:
+                return null;
         }
     }
 
@@ -262,6 +296,15 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             IS_CJUICY = true; // if you don't exist, you're Cjuicy now, them's the rules
             // yes this means you can be Cjuicy and Avanitia at the same time
         }
+
+        // Handle exerelin specially
+        if (EXERELIN_LOADED) {
+            if (!SectorManager.getCorvusMode()) {
+                // return here because we don't want to generate our handcrafted systems if we're in an exerelin random sector
+                return;
+            }
+        }
+        genKadur();
     }
 
     @Override
@@ -270,6 +313,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         logger.info("new game started, adding scripts");
 
         Global.getSector().addScript(new VayraSunPusher());
+        // add these scripts regardless of setting, since they all just return immediately if not activated
+        // and this way they will activate if you activate the setting midgame
+        Global.getSector().addScript(new KadurBlueprintStocker());
 
         if (ADD_BARREN_PLANETS) {
             new VayraAddPlanets().generate(Global.getSector());
@@ -395,6 +441,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             }
         }
+    }
+
+    private static void genKadur() {
+        new KadurGen().generate(Global.getSector());
     }
 
     public static float randomRange(float min, float max) {
@@ -590,6 +640,35 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         } else {
             return "a";
         }
+    }
+
+    public static float Rotate(float currAngle, float addAngle) {
+        return (currAngle + addAngle) % 360;
+    }
+
+    public static void addAccretionDisk(PlanetAPI star, String name) {
+        StarSystemAPI system = star.getStarSystem();
+        float orbitRadius = star.getRadius() * 8f;
+        float bandWidth = 256f;
+        int numBands = 12;
+
+        for (float i = 0; i < numBands; i++) {
+            float radius = orbitRadius - i * bandWidth * 0.25f - i * bandWidth * 0.1f;
+            float orbitDays = radius / (30f + 10f * Misc.random.nextFloat());
+            WeightedRandomPicker<String> rings = new WeightedRandomPicker<>();
+            rings.add("rings_dust0");
+            rings.add("rings_ice0");
+            String ring = rings.pick();
+            RingBandAPI visual = system.addRingBand(star, "misc", ring, 256f, 0, Color.white, bandWidth,
+                    radius + bandWidth / 2f, -orbitDays);
+            float spiralFactor = 2f + Misc.random.nextFloat() * 5f;
+            visual.setSpiral(true);
+            visual.setMinSpiralRadius(star.getRadius());
+            visual.setSpiralFactor(spiralFactor);
+        }
+        SectorEntityToken ring = system.addTerrain(Terrain.RING, new BaseRingTerrain.RingParams(orbitRadius, orbitRadius / 2f, star, name == null ? "Accretion Disk" : name));
+        ring.addTag(Tags.ACCRETION_DISK);
+        ring.setCircularOrbit(star, 0, 0, -100);
     }
 
     public static boolean isEntityInArc(Vector2f source, CombatEntityAPI entity, float range, float angle, float arc) {
