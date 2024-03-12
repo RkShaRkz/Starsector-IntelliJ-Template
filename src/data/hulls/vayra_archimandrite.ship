@@ -1,0 +1,258 @@
+{
+  "bounds": [
+    70,
+    -9,
+    93.5,
+    -19,
+    27,
+    -37,
+    31,
+    -54,
+    -64.5,
+    -32,
+    -55,
+    -0,
+    -64.5,
+    32,
+    31,
+    54,
+    27,
+    37,
+    93.5,
+    19,
+    70,
+    9
+  ],
+  "builtInMods": [
+    "vayra_forever_war",
+    "hbi"
+  ],
+  "center": [
+    59,
+    71
+  ],
+  "collisionRadius": 130,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 14,
+      "length": 65,
+      "location": [
+        -70.5,
+        31
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 14
+    },
+    {
+      "angle": -180,
+      "contrailSize": 14,
+      "length": 65,
+      "location": [
+        -70.5,
+        -31
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 14
+    },
+    {
+      "angle": 180,
+      "contrailSize": 5,
+      "length": 31,
+      "location": [
+        -70.5,
+        14.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    },
+    {
+      "angle": -180,
+      "contrailSize": 5,
+      "length": 31,
+      "location": [
+        -70.5,
+        -14.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    },
+    {
+      "angle": 180,
+      "contrailSize": 10,
+      "length": 42,
+      "location": [
+        -70.5,
+        20.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 10
+    },
+    {
+      "angle": -180,
+      "contrailSize": 10,
+      "length": 42,
+      "location": [
+        -70.5,
+        -20.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 10
+    },
+    {
+      "angle": 180,
+      "contrailSize": 5,
+      "length": 31,
+      "location": [
+        -69.5,
+        10.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    },
+    {
+      "angle": -180,
+      "contrailSize": 5,
+      "length": 31,
+      "location": [
+        -69.5,
+        -10.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    },
+    {
+      "angle": 180,
+      "contrailSize": 5,
+      "length": 31,
+      "location": [
+        -67.5,
+        6.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    },
+    {
+      "angle": -180,
+      "contrailSize": 5,
+      "length": 31,
+      "location": [
+        -67.5,
+        -6.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    }
+  ],
+  "height": 168,
+  "hullId": "vayra_archimandrite",
+  "hullName": "Archimandrite\r",
+  "hullSize": "DESTROYER",
+  "shieldCenter": [
+    7,
+    -0
+  ],
+  "shieldRadius": 122,
+  "spriteName": "graphics/ships/vayra_archimandrite.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0001",
+      "locations": [
+        59,
+        -0
+      ],
+      "mount": "HARDPOINT",
+      "size": "LARGE",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 45,
+      "arc": 115,
+      "id": "WS0003",
+      "locations": [
+        35,
+        19
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -45,
+      "arc": 115,
+      "id": "WS0004",
+      "locations": [
+        35,
+        -19
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 90,
+      "arc": 175,
+      "id": "WS0002",
+      "locations": [
+        13,
+        32
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -90,
+      "arc": 175,
+      "id": "WS0005",
+      "locations": [
+        13,
+        -32
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 180,
+      "arc": 205,
+      "id": "WS0006",
+      "locations": [
+        -42,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0008",
+      "locations": [
+        34,
+        48
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "COMPOSITE"
+    },
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0009",
+      "locations": [
+        34,
+        -48
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "COMPOSITE"
+    }
+  ],
+  "width": 118
+}

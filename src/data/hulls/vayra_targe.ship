@@ -1,0 +1,159 @@
+{
+  "hullName": "Targe",
+  "hullId": "vayra_targe",
+  "hullSize": "DESTROYER",
+  "spriteName": "graphics/ships/vayra_targe.png",
+  "style": "KADUR_TECH",
+  "height": 132,
+  "width": 144,
+  "center": [72, 50.5],
+  "collisionRadius": 136.5,
+  "shieldCenter": [9, -0],
+  "shieldRadius": 109,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_sometimes_war"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 260,
+      "angle": 0,
+      "locations": [-2.5, -0]
+    },
+    {
+      "id": "WS0002",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 220,
+      "angle": 45,
+      "locations": [9.5, 41]
+    },
+    {
+      "id": "WS0003",
+      "size": "MEDIUM",
+      "type": "BALLISTIC",
+      "mount": "TURRET",
+      "arc": 220,
+      "angle": -45,
+      "locations": [9.5, -41]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [45, 50]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": -0,
+      "locations": [45, -50]
+    },
+    {
+      "id": "WS0006",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": 0,
+      "locations": [67, 23]
+    },
+    {
+      "id": "WS0007",
+      "size": "SMALL",
+      "type": "COMPOSITE",
+      "mount": "HARDPOINT",
+      "arc": 10,
+      "angle": -0,
+      "locations": [67, -23]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-45, 37.5],
+      "length": 42,
+      "width": 15,
+      "angle": 180,
+      "contrailSize": 15,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-45, -37.5],
+      "length": 42,
+      "width": 15,
+      "angle": -180,
+      "contrailSize": 15,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-50, 6.5],
+      "length": 30,
+      "width": 10,
+      "angle": 180,
+      "contrailSize": 30,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-50, -6.5],
+      "length": 30,
+      "width": 10,
+      "angle": -180,
+      "contrailSize": 30,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-48, 24.5],
+      "length": 17,
+      "width": 5,
+      "angle": 180,
+      "contrailSize": 5,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-48, -24.5],
+      "length": 17,
+      "width": 5,
+      "angle": -180,
+      "contrailSize": 5,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-46, 28],
+      "length": 14.5,
+      "width": 4,
+      "angle": 180,
+      "contrailSize": 4,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-46, -28],
+      "length": 14.5,
+      "width": 4,
+      "angle": -180,
+      "contrailSize": 4,
+      "style": "KADUR_MIDLINE"
+    }
+  ],
+  "bounds": [
+    -46, -17.5,
+    -36, -44.5,
+    3, -67.5,
+    38.5, -50.5,
+    75.5, 0.5,
+    38.5, 50.5,
+    3, 67.5,
+    -36, 44.5,
+    -46, 17.5
+  ]
+}

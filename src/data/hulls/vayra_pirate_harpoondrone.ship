@@ -1,0 +1,54 @@
+{
+  "hullName": "Harpoon Drone",
+  "hullId": "vayra_pirate_harpoondrone",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/vayra_pirate_harpoondrone.png",
+  "style": "LOW_TECH",
+  "height": 34,
+  "width": 38,
+  "center": [19, 14],
+  "collisionRadius": 32.5,
+  "shieldCenter": [4, -0],
+  "shieldRadius": 28,
+  "viewOffset": 0,
+  "builtInMods": [
+    "automated"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "MISSILE",
+      "mount": "HIDDEN",
+      "arc": 10,
+      "angle": -0,
+      "locations": [10, -0]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-14, 7.5],
+      "length": 19,
+      "width": 11,
+      "angle": 180,
+      "contrailSize": 11,
+      "style": "LOW_TECH"
+    },
+    {
+      "location": [-14, -7.5],
+      "length": 19,
+      "width": 11,
+      "angle": -180,
+      "contrailSize": 11,
+      "style": "LOW_TECH"
+    }
+  ],
+  "bounds": [
+    15, -8,
+    6, -17,
+    -9, -8,
+    -9, 8,
+    6, 17,
+    15, 8
+  ]
+}

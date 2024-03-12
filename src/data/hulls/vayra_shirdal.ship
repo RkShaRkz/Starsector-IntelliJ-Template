@@ -1,0 +1,214 @@
+{
+  "bounds": [
+    62.5,
+    -24,
+    32.5,
+    -42,
+    -5.5,
+    -53.5,
+    -29.5,
+    -42.5,
+    -30.5,
+    -21,
+    -48.5,
+    -16,
+    -63.5,
+    -0,
+    -48.5,
+    16,
+    -30.5,
+    21,
+    -29.5,
+    42.5,
+    -5.5,
+    53.5,
+    32.5,
+    42,
+    62.5,
+    24,
+    78,
+    -0
+  ],
+  "builtInMods": [
+    "vayra_sometimes_war",
+    "vayra_kadur_iff"
+  ],
+  "center": [
+    58,
+    67
+  ],
+  "collisionRadius": 110,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 54,
+      "length": 50,
+      "location": [
+        -35.5,
+        37
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 18
+    },
+    {
+      "angle": -180,
+      "contrailSize": 54,
+      "length": 50,
+      "location": [
+        -35.5,
+        -37
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 18
+    },
+    {
+      "angle": 180,
+      "contrailSize": 8,
+      "length": 31.5,
+      "location": [
+        -36.5,
+        28
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 8
+    },
+    {
+      "angle": -180,
+      "contrailSize": 8,
+      "length": 31.5,
+      "location": [
+        -36.5,
+        -28
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 8
+    }
+  ],
+  "height": 152,
+  "hullId": "vayra_shirdal",
+  "hullName": "Shirdal",
+  "hullSize": "DESTROYER",
+  "shieldCenter": [
+    11,
+    -0
+  ],
+  "shieldRadius": 94.5,
+  "spriteName": "graphics/ships/vayra_shirdal.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 45,
+      "arc": 220,
+      "id": "WS0001",
+      "locations": [
+        54,
+        19
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -45,
+      "arc": 220,
+      "id": "WS0002",
+      "locations": [
+        54,
+        -19
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 90,
+      "arc": 230,
+      "id": "WS0003",
+      "locations": [
+        3,
+        30
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 180,
+      "arc": 230,
+      "id": "WS0004",
+      "locations": [
+        -38,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "MEDIUM",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 45,
+      "arc": 10,
+      "id": "WS0005",
+      "locations": [
+        50,
+        41
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 45,
+      "arc": 10,
+      "id": "WS0006",
+      "locations": [
+        37,
+        45
+      ],
+      "mount": "HARDPOINT",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 360,
+      "id": "LB 1",
+      "locations": [
+        10,
+        4,
+        14,
+        7.5,
+        20,
+        7.5,
+        29,
+        8,
+        40,
+        8
+      ],
+      "mount": "HIDDEN",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY"
+    },
+    {
+      "angle": 0,
+      "arc": 360,
+      "id": "LB 2",
+      "locations": [
+        14,
+        -7,
+        10,
+        -4,
+        20.5,
+        -6.5,
+        29.5,
+        -7,
+        40.5,
+        -7
+      ],
+      "mount": "HIDDEN",
+      "size": "LARGE",
+      "type": "LAUNCH_BAY"
+    }
+  ],
+  "width": 116
+}

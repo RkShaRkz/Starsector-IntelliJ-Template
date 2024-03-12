@@ -1,0 +1,70 @@
+{
+  "hullName": "Dirk",
+  "hullId": "vayra_dirk",
+  "hullSize": "FIGHTER",
+  "spriteName": "graphics/ships/vayra_dirk.png",
+  "style": "KADUR_TECH",
+  "height": 25,
+  "width": 42,
+  "center": [21, 11],
+  "collisionRadius": 32.5,
+  "shieldCenter": [2.5, -0],
+  "shieldRadius": 29.5,
+  "viewOffset": 0,
+  "builtInMods": [
+    "vayra_targeting_core"
+  ],
+  "weaponSlots": [
+    {
+      "id": "WS0001",
+      "size": "SMALL",
+      "type": "BALLISTIC",
+      "mount": "HARDPOINT",
+      "arc": 0,
+      "angle": 0,
+      "locations": [-1, 1]
+    },
+    {
+      "id": "WS0004",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 20,
+      "angle": 45,
+      "locations": [9.5, 12.5]
+    },
+    {
+      "id": "WS0005",
+      "size": "SMALL",
+      "type": "SYSTEM",
+      "mount": "HIDDEN",
+      "arc": 20,
+      "angle": -45,
+      "locations": [9.5, -12.5]
+    }
+  ],
+  "engineSlots": [
+    {
+      "location": [-9, 8],
+      "length": 15.5,
+      "width": 5,
+      "angle": 180,
+      "contrailSize": 5,
+      "style": "KADUR_MIDLINE"
+    },
+    {
+      "location": [-9, -8],
+      "length": 15.5,
+      "width": 5,
+      "angle": -180,
+      "contrailSize": 5,
+      "style": "KADUR_MIDLINE"
+    }
+  ],
+  "bounds": [
+    -6, -7,
+    9, -19.5,
+    9, 19.5,
+    -6, 7
+  ]
+}

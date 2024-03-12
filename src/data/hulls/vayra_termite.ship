@@ -1,0 +1,69 @@
+{
+  "bounds": [
+    -3.5,
+    -6,
+    -3.5,
+    6,
+    9.5,
+    -0
+  ],
+  "builtInMods": [
+    "no_weapon_flux"
+  ],
+  "center": [
+    8,
+    9
+  ],
+  "collisionRadius": 17.5,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 4,
+      "length": 11.5,
+      "location": [
+        -9,
+        2.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 4
+    },
+    {
+      "angle": -180,
+      "contrailSize": 4,
+      "length": 11.5,
+      "location": [
+        -9,
+        -2.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 4
+    }
+  ],
+  "height": 22,
+  "hullId": "vayra_termite",
+  "hullName": "Termite",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    1,
+    -0
+  ],
+  "shieldRadius": 15.5,
+  "spriteName": "graphics/ships/vayra_termite.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0001",
+      "locations": [
+        9,
+        -0
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    }
+  ],
+  "width": 16
+}

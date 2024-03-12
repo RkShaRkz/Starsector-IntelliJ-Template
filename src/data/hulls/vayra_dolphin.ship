@@ -1,0 +1,280 @@
+{
+  "bounds": [
+    -81,
+    -17,
+    -76.5,
+    -22,
+    -81,
+    -26,
+    -81,
+    -39.5,
+    -39,
+    -43.5,
+    -33.5,
+    -39,
+    -2.5,
+    -39.5,
+    4,
+    -34.5,
+    28,
+    -26.5,
+    29.5,
+    -28.5,
+    56.5,
+    -19.5,
+    58,
+    -17,
+    73.5,
+    -10.5,
+    81.5,
+    -0,
+    73.5,
+    10.5,
+    58,
+    17,
+    56.5,
+    19.5,
+    29.5,
+    28.5,
+    28,
+    26.5,
+    4,
+    34.5,
+    -2.5,
+    39.5,
+    -33.5,
+    39,
+    -39,
+    43.5,
+    -81,
+    39.5,
+    -81,
+    26,
+    -76.5,
+    22,
+    -81,
+    17
+  ],
+  "builtInMods": [
+    "high_maintenance",
+    "drive_field_stabilizer",
+    "vayra_forever_war"
+  ],
+  "builtInWeapons": {
+    "WS0003": "vayra_sling",
+    "WS0004": "vayra_runninglightyellow",
+    "WS0005": "vayra_runninglightyellow",
+    "WS0006": "vayra_runninglightyellow",
+    "WS0007": "vayra_runninglightyellow",
+    "WS0008": "vayra_runninglightyellow",
+    "WS0009": "vayra_runninglightyellow"
+  },
+  "builtInWings": [],
+  "center": [
+    44,
+    82
+  ],
+  "collisionRadius": 129,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 22,
+      "length": 79,
+      "location": [
+        -83,
+        -0
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 22
+    },
+    {
+      "angle": 180,
+      "contrailSize": 21,
+      "length": 52.5,
+      "location": [
+        -83,
+        12.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 21
+    },
+    {
+      "angle": -180,
+      "contrailSize": 21,
+      "length": 52.5,
+      "location": [
+        -83,
+        -12.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 21
+    },
+    {
+      "angle": 180,
+      "contrailSize": 21,
+      "length": 62.5,
+      "location": [
+        -83,
+        28
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 21
+    },
+    {
+      "angle": -180,
+      "contrailSize": 21,
+      "length": 62.5,
+      "location": [
+        -83,
+        -28
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 21
+    },
+    {
+      "angle": 180,
+      "contrailSize": 14,
+      "length": 44.5,
+      "location": [
+        -83.5,
+        36
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 14
+    },
+    {
+      "angle": -180,
+      "contrailSize": 14,
+      "length": 44.5,
+      "location": [
+        -83.5,
+        -36
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 14
+    }
+  ],
+  "height": 164,
+  "hullId": "vayra_dolphin",
+  "hullName": "Dolphin",
+  "hullSize": "FRIGATE",
+  "shieldCenter": [
+    0,
+    0
+  ],
+  "shieldRadius": 116.5,
+  "spriteName": "graphics/ships/vayra_dolphin.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 69,
+      "id": "WS0001",
+      "locations": [
+        70,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "COMPOSITE"
+    },
+    {
+      "angle": 0,
+      "arc": 69,
+      "id": "WS0002",
+      "locations": [
+        33,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 180,
+      "arc": 238,
+      "id": "WS0003",
+      "locations": [
+        -51,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "BUILT_IN"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0004",
+      "locations": [
+        58,
+        18
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": -0,
+      "arc": 0,
+      "id": "WS0005",
+      "locations": [
+        58,
+        -18
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0006",
+      "locations": [
+        -5,
+        24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": -0,
+      "arc": 0,
+      "id": "WS0007",
+      "locations": [
+        -5,
+        -24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0008",
+      "locations": [
+        -29,
+        24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": -0,
+      "arc": 0,
+      "id": "WS0009",
+      "locations": [
+        -29,
+        -24
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "DECORATIVE"
+    }
+  ],
+  "width": 88
+}

@@ -1,0 +1,145 @@
+{
+  "bounds": [
+    -15.5,
+    -10,
+    -2.5,
+    -20,
+    16.5,
+    -3,
+    16.5,
+    3,
+    -2.5,
+    20,
+    -15.5,
+    10
+  ],
+  "builtInMods": [
+    "no_weapon_flux"
+  ],
+  "center": [
+    22,
+    19.5
+  ],
+  "collisionRadius": 32.5,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 11,
+      "length": 21.5,
+      "location": [
+        -18.5,
+        6
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 11
+    },
+    {
+      "angle": -180,
+      "contrailSize": 11,
+      "length": 21.5,
+      "location": [
+        -18.5,
+        -6
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 11
+    },
+    {
+      "angle": 180,
+      "contrailSize": 5,
+      "length": 12.5,
+      "location": [
+        -18.5,
+        11.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    },
+    {
+      "angle": -180,
+      "contrailSize": 5,
+      "length": 12.5,
+      "location": [
+        -18.5,
+        -11.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 5
+    }
+  ],
+  "height": 39,
+  "hullId": "vayra_immortal",
+  "hullName": "Immortal",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 29.5,
+  "spriteName": "graphics/ships/vayra_immortal.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0001",
+      "locations": [
+        13.5,
+        12.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0002",
+      "locations": [
+        13.5,
+        -11.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": 0,
+      "arc": 360,
+      "id": "WS0003",
+      "locations": [
+        -4.5,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "SMALL",
+      "type": "COMPOSITE"
+    },
+    {
+      "angle": -0,
+      "arc": 5,
+      "id": "WS0005",
+      "locations": [
+        10,
+        14.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 5,
+      "id": "WS0006",
+      "locations": [
+        10,
+        -14.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    }
+  ],
+  "width": 43
+}

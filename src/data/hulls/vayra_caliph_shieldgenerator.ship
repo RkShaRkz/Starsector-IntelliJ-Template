@@ -1,0 +1,83 @@
+{
+  "bounds": [
+    69.5,
+    -9,
+    57,
+    -13.5,
+    45,
+    -24.5,
+    -6.5,
+    -26.5,
+    -17.5,
+    -15.5,
+    -9,
+    -7.5,
+    -9,
+    8.5,
+    -17.5,
+    16.5,
+    -6.5,
+    27.5,
+    45,
+    25.5,
+    57,
+    14.5,
+    69.5,
+    10
+  ],
+  "builtInMods": [
+    "vayra_modular_shields",
+    "reduced_explosion",
+    "always_detaches"
+  ],
+  "builtInWeapons": {
+    "WS0001": "vayra_caliph_shieldglow",
+    "WS0002": "vayra_caliph_shieldgen_lights"
+  },
+  "builtInWings": [],
+  "center": [
+    37,
+    153
+  ],
+  "collisionRadius": 108.5,
+  "engineSlots": [],
+  "height": 234,
+  "hullId": "vayra_caliph_shieldgenerator",
+  "hullName": "Shield Generator",
+  "hullSize": "DESTROYER",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 105,
+  "spriteName": "graphics/ships/khs_caliph_dreadnought_generatorcore.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0001",
+      "locations": [
+        -36,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "LARGE",
+      "type": "DECORATIVE"
+    },
+    {
+      "angle": 0,
+      "arc": 0,
+      "id": "WS0002",
+      "locations": [
+        -36,
+        -0
+      ],
+      "mount": "TURRET",
+      "size": "LARGE",
+      "type": "DECORATIVE"
+    }
+  ],
+  "width": 74
+}

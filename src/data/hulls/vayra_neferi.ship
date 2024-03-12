@@ -1,0 +1,143 @@
+{
+  "bounds": [
+    -11,
+    -25,
+    -5,
+    -11,
+    -15,
+    -0,
+    -5,
+    11,
+    -11,
+    25,
+    17,
+    -0
+  ],
+  "center": [
+    28,
+    18
+  ],
+  "collisionRadius": 35,
+  "engineSlots": [
+    {
+      "angle": 180,
+      "contrailSize": 15,
+      "length": 81.5,
+      "location": [
+        -16,
+        -0
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 15
+    },
+    {
+      "angle": 180,
+      "contrailSize": 12,
+      "length": 60,
+      "location": [
+        -16,
+        4.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 12
+    },
+    {
+      "angle": -180,
+      "contrailSize": 12,
+      "length": 60,
+      "location": [
+        -16,
+        -4.5
+      ],
+      "style": "KADUR_MIDLINE",
+      "width": 12
+    }
+  ],
+  "height": 38,
+  "hullId": "vayra_neferi",
+  "hullName": "Neferi",
+  "hullSize": "FIGHTER",
+  "shieldCenter": [
+    0,
+    -0
+  ],
+  "shieldRadius": 31.5,
+  "spriteName": "graphics/ships/vayra_neferi.png",
+  "style": "KADUR_TECH",
+  "viewOffset": 0,
+  "weaponSlots": [
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0003",
+      "locations": [
+        17.5,
+        5.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0005",
+      "locations": [
+        17.5,
+        -5.5
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "BALLISTIC"
+    },
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0001",
+      "locations": [
+        4,
+        9
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0002",
+      "locations": [
+        4,
+        -9
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": -0,
+      "arc": 10,
+      "id": "WS0004",
+      "locations": [
+        2,
+        11
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    },
+    {
+      "angle": 0,
+      "arc": 10,
+      "id": "WS0006",
+      "locations": [
+        2,
+        -11
+      ],
+      "mount": "HIDDEN",
+      "size": "SMALL",
+      "type": "MISSILE"
+    }
+  ],
+  "width": 56
+}
