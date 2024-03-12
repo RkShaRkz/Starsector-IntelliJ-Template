@@ -1,0 +1,154 @@
+{
+	"raiderFactionId":"kadur_remnant", # String, faction id
+	
+	"onlySpawnWhenVisibleInIntelTab":true, # OPTIONAL Boolean, default false. CAN be modified by scripts in-game
+	#"startEnabled":true, # OPTIONAL Boolean, default true. CAN be modified by scripts in-game
+	# other important note i guess: these will only spawn when the parent controls at least 1 (one) non-hidden market
+	
+	#"isFirebase":false, # OPTIONAL Boolean, default false
+	# Firebases spawn in the same system as their target
+	
+	"freePort":false, # OPTIONAL Boolean, default true
+	
+	"spawnNonEventFleets":false, # DEPRECATED, DOES NOTHING NOW
+	
+	"raiderActivityString":"Kadur Retribution", # OPTIONAL String, default "<personOrEntityPrefix> Raider Activity"
+	"raiderActivityIntelIcon":"graphics/icons/markets/vayra_kadur_raid_activity.png", # OPTIONAL String filePath, default to vanilla icons/markets/pirates.png
+	"raiderBaseIntelIcon":"graphics/icons/markets/vayra_kadur_base.png", # OPTIONAL String filePath, default to icons/markets/vayra_generic_base.png
+	"raiderBaseBarEventScript":"data.scripts.campaign.bases.KadurRaiderBaseBarEvent", # OPTIONAL String BaseBarEvent, default to data.scripts.campaign.bases.VayraRaiderBaseBarEvent
+	
+	"raidingActionText":"wreaking vengeance upon", # OPTIONAL String, default "raiding"
+	"raidingStanddownText":"mourning the fallen", # OPTIONAL String, default "standing down"
+	
+	"raidTargetWeights":{ # OPTIONAL String -> Float map, factionId -> pick weight, default no special weights
+		"hegemony":10, # example, "hegemony":10, = 10x more likely to pick Hegemony targets
+		},
+		
+	#"raiderBaseSize":3, # OPTIONAL Integer, default 3
+	"raiderBaseTypes":{ # OPTIONAL String -> Float map, orbital station industry ID -> pick weight, default low-tech
+		"orbitalstation":1,
+		"orbitalstation_mid":3,
+		},
+	"raiderBaseConditionsAndIndustries":[ # OPTIONAL List<String>, default “Frontier”, “No Atmosphere”, “Population”, “Spaceport”, “Military Base”, “Orbital Works”
+		"kadur_hardened_populace", 
+		"vayra_kadur_majority", 
+		"frontier", 
+		"no_atmosphere",
+		"population",
+		"spaceport",
+		"militarybase",
+		"orbitalworks"
+		],
+	# "raiderBaseSubmarkets":[ # OPTIONAL List<String>, default pulls SUBMARKET_OPEN, SUBMARKET_BLACK, and GENERIC_MILITARY from Submarkets instead
+	#	"open_market", 
+	#	"black_market", 
+	#	"generic_military"
+	#	],
+
+	# Fleet names are set in the .faction file, under the "merc" fleet types
+
+	# Base names will be combined with a random other word. idk where they come from
+    "raiderBaseTypeNames":[
+		"Abbey",
+        "Altar",
+        "Archdiocese",
+        "Armory",
+        "Barrow",
+        "Basilica",
+        "Bethel",
+        "Bishopric",
+        "Boneyard",
+        "Cabal",
+        "Canonicity",
+        "Catacomb",
+        "Cathedral",
+        "Cemetary",
+        "Chancel",
+        "Chantry",
+        "Chapel",
+        "Charnel",
+        "Churchyard",
+        "Cinerarium",
+        "Citadel",
+        "Cloister",
+        "Columbarium",
+        "Congregation",
+        "Convent",
+        "Coven",
+        "Crypt",
+        "Deaconry",
+        "Demesne",
+        "Devotion",
+        "Devotional",
+        "Diocese",
+        "Ecclesiastiary",
+        "Ecclesiasticum",
+        "Episcopacy",
+        "Episcopate",
+        "Fire Temple",
+        "Flock",
+        "Fold",
+        "Fortress",
+        "Funerary",
+        "Gazebo",
+        "Grave",
+        "Graveyard",
+        "Hall",
+        "Haven",
+        "Hermitage",
+        "Locus",
+        "Manse",
+        "Masjid",
+        "Mausoleum",
+        "Memorial",
+        "Minster",
+        "Mission",
+        "Monastery",
+        "Monument",
+        "Mosque",
+        "Necropolis",
+        "Nexus",
+        "Oratory",
+        "Ossuarium",
+        "Ossuary",
+        "Pagoda",
+        "Pantheon",
+        "Parish",
+        "Parsonage",
+        "Pastorium",
+        "Pit",
+        "Presbytery",
+        "Priory",
+        "Rectory",
+        "Refuge",
+        "Reliquary",
+        "Remains",
+        "Remembrance",
+        "Retreat",
+        "Sacellum",
+        "Sacrament",
+        "Safehold",
+        "Sanctorium",
+        "Sanctorum",
+        "Sanctuary",
+        "Sanctum",
+        "Sepulcher",
+        "Sepulture",
+        "Shadow",
+        "Shrine",
+        "Shul",
+        "Star Fortress",
+        "Starhold",
+        "Synagogue",
+        "Tabernac",
+        "Tabernacle",
+        "Temple",
+        "Tomb",
+        "Tract",
+        "Undercroft",
+        "Vault",
+        "Vestry",
+        "Vicarage",
+        "Ward"
+	],
+}

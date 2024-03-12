@@ -7,21 +7,38 @@
 	"altMouseMoveToMassTransfer":true,
 	"plugins":{
 		"VayraProjHandlerPlugin":"data.scripts.plugins.VayraProjHandlerPlugin",
+		"VayraSplinterPlugin":"data.scripts.plugins.VayraSplinterPlugin",
+		"KadurProjHandlerPlugin":"data.scripts.plugins.KadurProjHandlerPlugin",
 	},
 	"designTypeColors":{
 		"Red Guards":[175,25,35,255],
 		"Merchant Marine":[245,220,90,255],
 		"Ashen Keepers":[60,103,12,255],
-        "Stormhawk Republic":[50,85,150,255],
+		"Stormhawk Republic":[50,85,150,255],
 		"Research Mandate":[160,255,235,255],
 		"Recovered Tech":[255,240,0,255],
 		"Degraded Tech":[196,104,55,255],
 		"Antediluvian":[50,155,100,200],
-    },
-    "graphics":{
+		"Kadur Theocracy":[255,213,133,255],
+		"Theocracy Loyalist":[60,190,195,255],
+		"Qamar Insurgency":[208,174,185,255],
+	},
+	"graphics":{
 		"blueprint_packages":{
-            "kadur_mining_package":"graphics/icons/cargo/vayra_package_mining.png",
-            "antediluvian_package":"graphics/icons/cargo/antediluvian_package.png",
+			"kadur_mining_package":"graphics/icons/cargo/vayra_package_mining.png",
+			"antediluvian_package":"graphics/icons/cargo/antediluvian_package.png",
+			"kadur_fission_package":"graphics/icons/cargo/vayra_package_kadur_weapon_fission.png",
+			"kadur_rail_package":"graphics/icons/cargo/vayra_package_kadur_weapon_rail.png",
+			"kadur_missile_package":"graphics/icons/cargo/vayra_package_kadur_weapon_missile.png",
+			"kadur_warship_package":"graphics/icons/cargo/vayra_package_kadur_warship.png",
+			"kadur_support_package":"graphics/icons/cargo/vayra_package_kadur_support.png",
+			"kadur_capital_package":"graphics/icons/cargo/vayra_package_kadur_capital.png",
+		},
+		"vayra_splintergun_shot":{
+			"1":"graphics/missiles/vayra_chargedfissiondart.png",
+		},
+		"vayra_forever_war_icon":{
+			"1":"graphics/icons/hullsys/vayra_forever_war_icon.png",
 		},
 		"illustrations":{
 			"vayra_ghost_ship_combat":"graphics/illustrations/vayra_ghost_ship_combat.jpg",
@@ -29,6 +46,12 @@
 			"david_cliff_landing":"graphics/illustrations/david_cliff_landing.jpg",
 			"david_marine_prep":"graphics/illustrations/david_marine_prep.jpg",
 			"freighters":"graphics/illustrations/freighters.jpg",
+			"eventide":"graphics/illustrations/eventide.jpg",
+			"asteroid_belt_moon":"graphics/illustrations/asteroid_belt_moon.jpg",
+			"facility_explosion":"graphics/illustrations/facility_explosion.jpg",
+			"vayra_revenant_gestalt_caliph":"graphics/illustrations/vayra_revenant_gestalt_caliph.png",
+			"vayra_requiem":"graphics/illustrations/vayra_requiem.png",
+			"vayra_fort_toxx":"graphics/illustrations/vayra_fort_toxx.png",
 		},
 		"intel":{
 			"vayra_treasurefleet":"graphics/icons/intel/vayra_treasurefleet.png",
@@ -36,6 +59,9 @@
 		"misc":{	# to make the flag/crest load on game start
 			"ascendancyFlag":"graphics/factions/vayra_science_fuckers_flag_ai.png",
 			"ascendancyCrest":"graphics/factions/vayra_science_fuckers_crest_ai.png",
+		},
+		"planets":{
+			"bread":"graphics/planets/bread.png",
 		},
 		"fx":{
 			"vayra_nanobot_trail":"graphics/fx/nia_nanite_trail.png",

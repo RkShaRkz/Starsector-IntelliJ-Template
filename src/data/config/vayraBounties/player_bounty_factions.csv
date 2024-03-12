@@ -17,3 +17,4 @@ remnants,FALSE,# robots don't post bounties
 scavengers,FALSE,# subfactions don't post bounties
 lions_guard,FALSE,# subfactions don't post bounties
 knights_of_ludd,FALSE,# subfactions don't post bounties
+kadur_remnant,TRUE
