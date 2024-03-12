@@ -1,0 +1,48 @@
+{
+  "animationType": "SMOKE",
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "swarmer_fire",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointOffsets": [
+    11,
+    0
+  ],
+  "hardpointSprite": "graphics/missiles/vayra_fissiondart.png",
+  "id": "vayra_vsrm_fighter",
+  "noImpactSounds": false,
+  "noNonShieldImpactSounds": false,
+  "noShieldImpactSounds": false,
+  "projectileSpecId": "vayra_joshuamis",
+  "renderAboveAllWeapons": 0,
+  "size": "SMALL",
+  "smokeSpec": {
+    "blowbackDuration": 1.1,
+    "blowbackLength": 20,
+    "blowbackParticleCount": 4,
+    "blowbackSpread": 10,
+    "cloudDuration": 0.9,
+    "cloudParticleCount": 3,
+    "cloudRadius": 8,
+    "particleColor": [
+      170,
+      160,
+      150,
+      130
+    ],
+    "particleSizeMin": 10,
+    "particleSizeRange": 16
+  },
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretOffsets": [
+    7,
+    0
+  ],
+  "turretSprite": "graphics/missiles/vayra_fissiondart.png",
+  "type": "MISSILE"
+}

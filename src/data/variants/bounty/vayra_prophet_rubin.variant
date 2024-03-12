@@ -1,0 +1,81 @@
+{
+  "variantId": "vayra_prophet_rubin",
+  "hullId": "vayra_prophet",
+  "displayName": "Guns Blazing",
+  "goalVariant": false,
+  "fluxCapacitors": 47,
+  "fluxVents": 50,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+        "fluxbreakers",
+        "fluxdistributor",
+        "stabilizedshieldemitter",
+        "pointdefenseai"
+  ],
+  "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0012": "heavyneedler",
+                "WS0014": "heavyneedler",
+                "WS0025": "heavyneedler",
+                "WS0026": "heavyneedler"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0002": "hellbore",
+                "WS0003": "hellbore"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0004": "autopulse",
+                "WS0007": "autopulse"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS0005": "locust"}
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0001": "vayra_hauberk_ciws",
+                "WS0006": "vayra_hauberk_ciws",
+                "WS0008": "vayra_hauberk_ciws",
+                "WS0009": "vayra_hauberk_ciws",
+                "WS0010": "flak",
+                "WS0011": "flak",
+                "WS0013": "vayra_hauberk_ciws",
+                "WS0015": "vayra_hauberk_ciws",
+                "WS0016": "vayra_hauberk_ciws",
+                "WS0017": "vayra_hauberk_ciws",
+                "WS0018": "vayra_hauberk_ciws",
+                "WS0019": "vayra_hauberk_ciws",
+                "WS0020": "vayra_hauberk_ciws",
+                "WS0021": "vayra_hauberk_ciws",
+                "WS0022": "vayra_hauberk_ciws",
+                "WS0023": "vayra_hauberk_ciws",
+                "WS0024": "vayra_hauberk_ciws",
+                "WS0027": "vayra_hauberk_ciws",
+                "WS0028": "vayra_hauberk_ciws",
+                "WS0029": "vayra_hauberk_ciws",
+                "WS0030": "vayra_hauberk_ciws",
+                "WS0031": "vayra_hauberk_ciws",
+                "WS0032": "vayra_hauberk_ciws",
+                "WS0033": "vayra_hauberk_ciws"
+            }
+        }
+  ],
+  "modules": [],
+  "wings": []
+}

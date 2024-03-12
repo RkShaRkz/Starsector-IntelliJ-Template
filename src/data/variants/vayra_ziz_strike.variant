@@ -1,0 +1,67 @@
+{
+  "displayName": "Reckoning",
+  "fluxCapacitors": 13,
+  "fluxVents": 50,
+  "goalVariant": true,
+  "hullId": "vayra_ziz",
+  "hullMods": [
+    "targetingunit",
+    "missleracks"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_ziz_strike",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "vayra_jamadhar_rack",
+        "WS0014": "vayra_jamadhar_rack",
+        "WS0035": "vayra_spike_battery",
+        "WS0036": "vayra_spike_battery"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "vayra_jahannam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_sabot_battery",
+        "WS0004": "vayra_sabot_battery"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_med_chemrail",
+        "WS0002": "vayra_med_chemrail",
+        "WS0034": "vayra_light_chemrail",
+        "WS0037": "vayra_light_chemrail"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "vayra_hauberk_ciws",
+        "WS0007": "vayra_hauberk_ciws",
+        "WS0008": "vayra_hauberk_ciws",
+        "WS0009": "vayra_hauberk_ciws",
+        "WS0010": "vayra_frag_scatter",
+        "WS0011": "vayra_frag_scatter",
+        "WS0038": "vayra_dual_ciws_beam",
+        "WS0039": "vayra_dual_ciws_beam"
+      }
+    }
+  ],
+  "wings": []
+}

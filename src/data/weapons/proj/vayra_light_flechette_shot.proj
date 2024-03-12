@@ -1,0 +1,16 @@
+{
+	"id":"vayra_light_flechette_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"length":50.0,
+	"width":5,
+	"fadeTime":0.3,
+	"fringeColor":[30,165,255,215],
+	"coreColor":[220,220,255,255],
+	"hitGlowRadius":30,
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":5.0,
+	"bulletSprite":"graphics/missiles/vayra_lightflechette.png"	
+}

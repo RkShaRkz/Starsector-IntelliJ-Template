@@ -1,0 +1,64 @@
+{
+  "variantId": "vayra_sphinx_assault",
+  "hullId": "vayra_sphinx",
+  "displayName": "Assault",
+  "goalVariant": true,
+  "fluxCapacitors": 21,
+  "fluxVents": 30,
+  "quality": 0,
+  "permaMods": [],
+  "hullMods": [
+    "targetingunit"
+  ],
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "vayra_jamadhar_pod",
+        "WS0014": "vayra_jamadhar_pod",
+        "WS0015": "vayra_jamadhar_rack",
+        "WS0016": "vayra_jamadhar_rack",
+        "WS0017": "vayra_jamadhar_rack",
+        "WS0018": "vayra_jamadhar_rack"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_rod_launcher",
+        "WS0004": "vayra_rod_launcher"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_jahannam",
+        "WS0007": "vayra_volley_gun",
+        "WS0008": "vayra_volley_gun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_multirail",
+        "WS0005": "vayra_multirail"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0006": "vayra_hauberk_ciws",
+        "WS0009": "vayra_hauberk_ciws",
+        "WS0010": "vayra_hauberk_ciws",
+        "WS0011": "vayra_hauberk_ciws"
+      }
+    }
+  ],
+  "modules": [],
+  "wings": []
+}

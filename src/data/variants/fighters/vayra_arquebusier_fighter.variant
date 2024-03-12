@@ -1,0 +1,22 @@
+{
+  "displayName": "Support Gunship",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_arquebusier",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_arquebusier_fighter",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_heavy_fission_fighter"
+      }
+    }
+  ],
+  "wings": []
+}

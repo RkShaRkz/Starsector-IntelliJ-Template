@@ -1,0 +1,41 @@
+{
+	"id":"vayra_splintergun_shot",
+	"specClass":"missile",	
+	"missileType":"MISSILE",	
+	"sprite":"graphics/missiles/vayra_dormantfissiondart2.png",
+	"size":[5,20],	
+	"center":[2.5,6],
+	"collisionRadius":10,
+	"collisionClass":"MISSILE_NO_FF",
+	"onHitEffect":"data.scripts.weapons.VayraSplinterOnHitEffect",
+	"explosionColor":[33,103,109,225],  # purely visual, will get a white additively blended core on top of this color
+	"explosionRadius":15, # purely visual
+	"maxFlightTime":2,
+	"fadeTime":0.33,
+	"noEngineGlowTime":3,
+	"engineSpec":{"turnAcc":1312,
+				  "turnRate":45, 
+				  "acc":666,
+				  "dec":420},			  
+	"engineSlots":[ 
+                        {"id":"ES1",
+			"loc":[2.5, 0],
+			"style":"CUSTOM",
+			"styleSpec":{
+                            "mode":"QUAD_STRIP", # PARTICLES or QUAD_STRIP, determines which params are used
+                            "engineColor":[0,0,0,0],
+                            "contrailDuration":1.25,
+                            "contrailWidthMult":2.0,
+                            "contrailWidthAddedFractionAtEnd":-1,  # can be negative. makes trail spread out/narrow at the end
+                            "contrailMinSeg":15, # min segment length, in pixels
+                            "contrailMaxSpeedMult":0.5f,
+                            "contrailAngularVelocityMult":0.69f,
+                            "contrailColor":[33,103,109,120],
+                            "contrailSpawnDistMult":-6,								
+                            "type":"SMOKE" # GLOW or SMOKE; additive or regular blend mode
+                        },					
+                        "width":4.0,
+                        "length":0.0,
+                        "angle":180.0},											
+	]
+}

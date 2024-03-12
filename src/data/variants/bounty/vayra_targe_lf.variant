@@ -1,0 +1,39 @@
+{
+    "displayName": "Raider",
+    "fluxCapacitors": 1,
+    "fluxVents": 0,
+    "hullId": "vayra_targe",
+	"goalVariant": true,
+    "hullMods": [
+        "vayra_secret_buff_hullmod",
+        "safetyoverrides",
+        "unstable_injector"
+    ],
+    "permaMods": ["vayra_secret_buff_hullmod"],
+    "variantId": "vayra_targe_lf",
+    "weaponGroups": [
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {"WS0001": "vayra_dual_ciws_beam"}
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0004": "vayra_lightspike_pod",
+                "WS0005": "vayra_lightspike_pod",
+                "WS0006": "vayra_lightspike_pod",
+                "WS0007": "vayra_lightspike_pod"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0002": "heavymg",
+                "WS0003": "heavymg"
+            }
+        }
+    ]
+}

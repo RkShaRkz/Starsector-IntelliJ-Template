@@ -1,0 +1,30 @@
+{
+  "displayName": "Fire Support",
+  "fluxCapacitors": 10,
+  "fluxVents": 3,
+  "goalVariant": true,
+  "hullId": "vayra_mendicant",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_mendicant_fs",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_jericho_sml"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_light_flechette",
+        "WS0002": "vayra_light_flechette"
+      }
+    }
+  ],
+  "wings": []
+}

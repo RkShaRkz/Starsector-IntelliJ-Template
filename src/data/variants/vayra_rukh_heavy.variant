@@ -1,0 +1,54 @@
+{
+  "displayName": "Bomber",
+  "fluxCapacitors": 0,
+  "fluxVents": 10,
+  "goalVariant": true,
+  "hullId": "vayra_rukh",
+  "hullMods": [
+    "expanded_deck_crew"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_rukh_heavy",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_dual_ciws_beam",
+        "WS0002": "vayra_dual_ciws_beam"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_hauberk_ciws",
+        "WS0004": "vayra_hauberk_ciws",
+        "WS0005": "vayra_hauberk_ciws",
+        "WS0006": "vayra_hauberk_ciws",
+        "WS0007": "vayra_hauberk_ciws",
+        "WS0008": "vayra_hauberk_ciws",
+        "WS0009": "vayra_hauberk_ciws",
+        "WS0014": "vayra_hauberk_ciws",
+        "WS0015": "vayra_hauberk_ciws"
+      }
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    },
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "wings": [
+    "vayra_hoplite_wing",
+    "vayra_abid_wing",
+    "vayra_myrmidon_wing"
+  ]
+}

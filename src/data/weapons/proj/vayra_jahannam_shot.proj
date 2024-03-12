@@ -1,0 +1,19 @@
+{
+	"id":"vayra_jahannam_shot",
+	"specClass":"projectile",
+	"spawnType":"BALLISTIC",
+	"collisionClass":"PROJECTILE_FF",
+	"collisionClassByFighter":"PROJECTILE_FIGHTER",
+	"length":21.0,
+	"hitGlowRadius":275,
+	"width":11.0,
+	"fadeTime":0.5,
+	"fringeColor":[255,110,25,175],
+	"coreColor":[255,255,255,200],
+	"glowColor":[255,110,25,105],
+	"glowRadius":60,
+	"textureScrollSpeed":64.0,
+	"pixelsPerTexel":15.0,
+	"passThroughMissiles":true,
+	"bulletSprite":"graphics/missiles/vayra_fuckoff_shell_smol.png"
+}

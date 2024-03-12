@@ -1,0 +1,42 @@
+{
+  "displayName": "Strike",
+  "fluxCapacitors": 20,
+  "fluxVents": 14,
+  "goalVariant": true,
+  "hullId": "vayra_hegbinger",
+  "hullMods": [
+    "fluxcoil",
+    "fluxbreakers"
+  ],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_hegbinger_strike",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "typhoon",
+        "WS0002": "typhoon",
+        "WS0003": "reaper",
+        "WS0004": "reaper"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0005": "railgun",
+        "WS0006": "railgun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "vulcan"
+      }
+    }
+  ],
+  "wings": []
+}

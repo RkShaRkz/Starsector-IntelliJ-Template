@@ -1,0 +1,32 @@
+{
+  "displayName": "Refugee",
+  "fluxCapacitors": 10,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_mendicant",
+  "hullMods": [
+    "hardenedshieldemitter",
+    "unstable_injector"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_mendicant_refugee",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_hauberk_ciws",
+        "WS0002": "vayra_hauberk_ciws",
+        "WS0003": "vayra_spike_torpedo_small"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {}
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,46 @@
+{
+  "beamEffect": "data.scripts.weapons.VayraJoachimOnHitEffect",
+  "beamFireOnlyOnFullCharge": true,
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+	"fringeColor":[50,50,205,255],
+	"coreColor":[175,170,255,255],
+	"glowColor":[100,100,255,255],
+  "everyFrameEffect": "data.scripts.weapons.VayraJoachimEffect",
+  "fireSoundOne": "vayra_joachim_charge_noise",
+  "fireSoundTwo": "vayra_joachim_noise",
+  "hardpointAngleOffsets": [
+    0
+  ],
+  "hardpointGlowSprite": "graphics/weapons/vayra_joachim_hardpoint_glow.png",
+  "hardpointOffsets": [
+    22,
+    0
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_joachim_hardpoint.png",
+  "hitGlowRadius": 0,
+  "id": "vayra_joachim",
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER,
+    MISSILE_FF,
+    MISSILE_NO_FF
+  ],
+  "pixelsPerTexel": 5,
+  "size": "LARGE",
+  "specClass": "beam",
+  "textureScrollSpeed": -266,
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0
+  ],
+  "turretGlowSprite": "graphics/weapons/vayra_joachim_turret_glow.png",
+  "turretOffsets": [
+    19,
+    0
+  ],
+  "turretSprite": "graphics/weapons/vayra_joachim_turret.png",
+  "type": "ENERGY",
+  "width": 45
+}

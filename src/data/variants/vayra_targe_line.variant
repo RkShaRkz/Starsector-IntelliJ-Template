@@ -1,0 +1,44 @@
+{
+  "displayName": "Line",
+  "fluxCapacitors": 0,
+  "fluxVents": 9,
+  "goalVariant": true,
+  "hullId": "vayra_targe",
+  "hullMods": [
+    "targetingunit",
+    "missleracks",
+    "eccm"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_targe_line",
+  "weaponGroups": [
+    {
+      "autofire": false,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0004": "vayra_jamadhar_rack",
+        "WS0005": "vayra_jamadhar_rack",
+        "WS0006": "vayra_jamadhar_rack",
+        "WS0007": "vayra_jamadhar_rack"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_sabot_battery",
+        "WS0003": "vayra_sabot_battery"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_dual_ciws_beam"
+      }
+    }
+  ],
+  "wings": []
+}

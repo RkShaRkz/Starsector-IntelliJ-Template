@@ -1,0 +1,30 @@
+{
+  "displayName": "Kinetic Bomber",
+  "fluxCapacitors": 0,
+  "fluxVents": 0,
+  "goalVariant": true,
+  "hullId": "vayra_hoplite_m",
+  "hullMods": [],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_hoplite_m_fighter",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "ALTERNATING",
+      "weapons": {
+        "WS0003": "vayra_spike_fighter",
+        "WS0005": "vayra_spike_fighter"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0007": "vayra_medium_boomerangshield"
+      }
+    }
+  ],
+  "wings": []
+}

@@ -1,0 +1,51 @@
+{
+  "animationType": "SMOKE",
+  "barrelMode": "ALTERNATING",
+  "displayArcRadius": 1000,
+  "fireSoundTwo": "sabot_srm_fire",
+  "hardpointAngleOffsets": [
+    0,
+    -0
+  ],
+  "hardpointOffsets": [
+    8.5,
+    -4.5,
+    8.5,
+    4.5
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_spike_pod_hardpoint.png",
+  "id": "vayra_spike_pod",
+  "noImpactSounds": false,
+  "noNonShieldImpactSounds": false,
+  "noShieldImpactSounds": false,
+  "projectileSpecId": "vayra_spike_missile",
+  "renderAboveAllWeapons": 0,
+  "renderHints": [
+    RENDER_LOADED_MISSILES
+  ],
+  "size": "MEDIUM",
+	"smokeSpec":{"particleSizeMin":10.0,
+				 "particleSizeRange":10.0,
+				 "cloudParticleCount":3,
+				 "cloudDuration":0.5,
+				 "cloudRadius":10.0,
+				 "blowbackParticleCount":3,
+				 "blowbackDuration":2.0,
+				 "blowbackLength":10.0,
+				 "blowbackSpread":10.0,
+				 "particleColor":[100,150,255,150]},
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0,
+    -0
+  ],
+  "turretOffsets": [
+    3.5,
+    -4.5,
+    3.5,
+    4.5
+  ],
+  "turretSprite": "graphics/weapons/vayra_spike_pod_turret.png",
+  "type": "MISSILE"
+}

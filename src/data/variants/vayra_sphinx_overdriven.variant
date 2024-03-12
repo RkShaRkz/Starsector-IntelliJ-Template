@@ -1,0 +1,58 @@
+{
+  "displayName": "Overdriven",
+  "fluxCapacitors": 0,
+  "fluxVents": 9,
+  "goalVariant": true,
+  "hullId": "vayra_sphinx",
+  "hullMods": [
+    "safetyoverrides"
+  ],
+  "modules": [],
+  "permaMods": [],
+  "quality": 0,
+  "variantId": "vayra_sphinx_overdriven",
+  "weaponGroups": [
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0003": "vayra_strikecannon",
+        "WS0004": "vayra_strikecannon"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0001": "vayra_shockweb",
+        "WS0007": "vayra_volley_gun",
+        "WS0008": "vayra_volley_gun"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0002": "vayra_dual_ciws_beam",
+        "WS0005": "vayra_dual_ciws_beam",
+        "WS0006": "vayra_sling",
+        "WS0009": "vayra_sling",
+        "WS0010": "vayra_sling",
+        "WS0011": "vayra_sling"
+      }
+    },
+    {
+      "autofire": true,
+      "mode": "LINKED",
+      "weapons": {
+        "WS0013": "vayra_aam_med",
+        "WS0014": "vayra_aam_med",
+        "WS0015": "vayra_srm_4",
+        "WS0016": "vayra_srm_4",
+        "WS0017": "vayra_srm_4",
+        "WS0018": "vayra_srm_4"
+      }
+    }
+  ],
+  "wings": []
+}

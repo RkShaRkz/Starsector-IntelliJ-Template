@@ -1,0 +1,69 @@
+{
+  "beamFireOnlyOnFullCharge": true,
+  "collisionClass": "RAY",
+  "collisionClassByFighter": "RAY_FIGHTER",
+  "coreColor": [
+    255,
+    255,
+    215,
+    180
+  ],
+  "fireSoundTwo": "phase_beam_loop",
+  "frameRate": 30,
+  "fringeColor": [
+    255,
+    255,
+    200,
+    100
+  ],
+  "glowColor": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointOffsets": [
+    25,
+    -6,
+    25,
+    6
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_ciws_beam_hardpoint00.png",
+  "hitGlowRadius": 10,
+  "id": "vayra_dual_ciws_beam",
+  "noImpactSounds": false,
+  "noNonShieldImpactSounds": false,
+  "noShieldImpactSounds": false,
+  "numFrames": 4,
+  "pierceSet": [
+    PROJECTILE_FF,
+    PROJECTILE_NO_FF,
+    PROJECTILE_FIGHTER
+  ],
+  "pixelsPerTexel": 2.5,
+  "renderAboveAllWeapons": 0,
+  "size": "MEDIUM",
+  "specClass": "beam",
+  "textureScrollSpeed": 900,
+  "textureType": [
+    "graphics/fx/soren_tracer_blur.png",
+    "graphics/fx/soren_tracer_core.png"
+  ],
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "turretOffsets": [
+    16,
+    6,
+    16,
+    -6
+  ],
+  "turretSprite": "graphics/weapons/vayra_ciws_beam_turret00.png",
+  "type": "BALLISTIC",
+  "width": 8
+}

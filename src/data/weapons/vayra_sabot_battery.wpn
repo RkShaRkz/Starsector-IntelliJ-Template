@@ -1,0 +1,56 @@
+{
+  "animationType": "MUZZLE_FLASH",
+  "autocharge": true,
+  "barrelMode": "ALTERNATING",
+  "fireSoundTwo": "vayra_jezail_battery_noise",
+  "hardpointAngleOffsets": [
+    0,
+    0
+  ],
+  "hardpointGunSprite": "graphics/weapons/vayra_jezail_battery_hardpoint_barrel.png",
+  "hardpointOffsets": [
+    12.5,
+    5,
+    12.5,
+    -5
+  ],
+  "hardpointSprite": "graphics/weapons/vayra_jezail_battery_hardpoint_base.png",
+  "hardpointUnderSprite": "graphics/weapons/vayra_jezail_battery_hardpoint_under.png",
+  "id": "vayra_sabot_battery",
+  "muzzleFlashSpec": {
+    "length": 100,
+    "particleColor": [
+      30,
+      165,
+      255,
+      200
+    ],
+    "particleCount": 25,
+    "particleDuration": 0.2,
+    "particleSizeMin": 10,
+    "particleSizeRange": 12,
+    "spread": 2
+  },
+  "projectileSpecId": "vayra_flechette_shot",
+  "renderHints": [
+    RENDER_BARREL_BELOW
+  ],
+  "size": "MEDIUM",
+  "specClass": "projectile",
+  "textureType": ROUGH,
+  "turretAngleOffsets": [
+    0,
+    0
+  ],
+  "turretGunSprite": "graphics/weapons/vayra_jezail_battery_turret_barrel.png",
+  "turretOffsets": [
+    9,
+    -5,
+    9,
+    5
+  ],
+  "turretSprite": "graphics/weapons/vayra_jezail_battery_turret_base.png",
+  "turretUnderSprite": "graphics/weapons/vayra_jezail_battery_turret_under.png",
+  "type": "BALLISTIC",
+  "visualRecoil": 9
+}
