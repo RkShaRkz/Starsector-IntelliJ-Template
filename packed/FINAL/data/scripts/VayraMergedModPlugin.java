@@ -40,7 +40,6 @@ import exerelin.campaign.DiplomacyManager;
 import exerelin.campaign.fleets.InvasionFleetManager;
 import exerelin.utilities.NexConfig;
 import exerelin.utilities.NexFactionConfig;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,6 +60,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
     public static final String MOD_ID = "vayramerged";
 
+    private static final String CLASS_FQCN = VayraMergedModPlugin.class.getClass().getCanonicalName();
     private static final String SETTINGS_FILE = "VAYRA_SETTINGS.ini";
     public static boolean VAYRA_DEBUG;
     public static boolean RAIDER_BASE_REAPER_ENABLED;
@@ -118,11 +118,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
 
         EXERELIN_LOADED = Global.getSettings().getModManager().isModEnabled("nexerelin");
-        try {
-            loadVayraSettings();
-        } catch (IOException | JSONException e) {
-            logger.log(Level.ERROR, "VAYRA_SETTINGS.ini loading failed! ;....; " + e.getMessage());
-        }
+        loadVayraSettings();
 
         if (EXERELIN_LOADED) {
             for (String factionId : VayraColonialManager.loadColonyFactionList()) {
@@ -176,46 +172,81 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
     }
 
-    private static void loadVayraSettings() throws IOException, JSONException {
+    private static void loadVayraSettings() {
+        // Start safely opening the JSON
 
-        JSONObject setting = Global.getSettings().loadJSON(SETTINGS_FILE);
+        JSONObject setting = null;
+        try {
+            setting = Global.getSettings().loadJSON(SETTINGS_FILE);
+        } catch (IOException | JSONException e) {
+            logger.error(stringifyException(e), e);
+            // Lets not halt the mod-loading VM.
+            //throw new RuntimeException(e);
+        }
 
-        VAYRA_DEBUG = setting.getBoolean("vayraDebug");
+        if (setting == null) {
+            logger.warn("Could not load settings; loading default settings...");
+            loadDefaultVayraSettings();
+        } else {
+            // If settings were loaded, lets try loading each individual parameter, but presume they're not there.
+            // In that case, lets make them optional and fallback to their default value to avoid throwing JSONException
 
-        PIRATE_BOUNTY_MODE = PirateMode.valueOf(setting.getString("usePirateBountyManager"));
-        EXTRA_BOUNTY_LEVEL_MULT = (float) setting.getDouble("extraBountyLevelMult");
-        BOUNTY_DURATION = (float) setting.getDouble("bountyDuration");
-        RARE_BOUNTY_FLAGSHIP_CHANCE = (float) setting.getDouble("rareBountyFlagshipChance");
-        CRUMB_CHANCE = (float) setting.getDouble("bountyIntelCrumbChance");
-        BOUNTY_SOFT_MAX_DIST = setting.getInt("bountySoftMaxDist");
+            VAYRA_DEBUG = setting.optBoolean("vayraDebug", false);
+            PIRATE_BOUNTY_MODE = PirateMode.valueOf(setting.optString("usePirateBountyManager", "ALWAYS"));
+            EXTRA_BOUNTY_LEVEL_MULT = (float) setting.optDouble("extraBountyLevelMult", 1.5);
+            BOUNTY_DURATION = (float) setting.optDouble("bountyDuration", 90.0f);
+            RARE_BOUNTY_FLAGSHIP_CHANCE = (float) setting.optDouble("rareBountyFlagshipChance", 0.075f);
+            CRUMB_CHANCE = (float) setting.optDouble("bountyIntelCrumbChance", 0.5f);
+            BOUNTY_SOFT_MAX_DIST = setting.optInt("bountySoftMaxDist", 10);
+            UNIQUE_BOUNTIES = setting.optBoolean("spawnUniqueBounties", true);
+            UNIQUE_BOUNTIES_MAX = setting.optInt("maxActiveUniqueBounties", 5);
+            PLAYER_BOUNTIES = setting.optBoolean("bountiesOnPlayer", true);
+            PLAYER_BOUNTY_FP_SCALING = (float) setting.optDouble("playerBountyBaseFPScaling", 1.25f);
+            PLAYER_BOUNTY_SPAWN_RANGE = (float) setting.optDouble("playerBountySpawnRange", 2000.0f);
+            PLAYER_BOUNTY_MAX_RANGE = (float) setting.optDouble("playerBountySpawnRangeFromCore", 20000.0f);
+            PLAYER_BOUNTY_SYSTEM_DAYS = (float) setting.optDouble("playerBountyDaysInSystem", 7f);
+            PLAYER_BOUNTY_RANGE_DAYS = (float) setting.optDouble("playerBountyDaysOutOfRange", 45f);
+            RAIDER_BASE_REAPER_ENABLED = setting.optBoolean("stopSpawningRaiderBasesWhenFactionDelet", true);
+            COLONIAL_FACTIONS_ENABLED = setting.optBoolean("spawnColonialCompetitors", true);
+            COLONIAL_FACTION_TIMEOUT = setting.optInt("colonialCompetitorsStartCycle", 300);
+            COLONIAL_FACTION_COLONY_MULT = setting.optInt("colonialCompetitorsColonyCountMult", 4);
+            AI_REBELLION_THRESHOLD = setting.optInt("coreCriticalMass", 30);
+            POPULAR_FRONT_ENABLED = setting.optBoolean("spawnPopularFront", true);
+            POPULAR_FRONT_TIMEOUT = setting.optInt("popularFrontStartCycle", 350);
+            PROCGEN_ENTITIES = setting.optBoolean("spawnEntities", true);
+            LEAGUE_SUBFACTIONS = setting.optBoolean("leagueSubfactions", true);
+            PLAY_TTRPG = setting.optBoolean("playTabletopRoleplayingGame", true);
+            ADD_BARREN_PLANETS = setting.optBoolean("addBarrenPlanets", true);
+        }
+    }
 
-        UNIQUE_BOUNTIES = setting.getBoolean("spawnUniqueBounties");
-        UNIQUE_BOUNTIES_MAX = setting.getInt("maxActiveUniqueBounties");
-
-        PLAYER_BOUNTIES = setting.getBoolean("bountiesOnPlayer");
-        PLAYER_BOUNTY_FP_SCALING = (float) setting.getDouble("playerBountyBaseFPScaling");
-        PLAYER_BOUNTY_SPAWN_RANGE = (float) setting.getDouble("playerBountySpawnRange");
-        PLAYER_BOUNTY_MAX_RANGE = (float) setting.getDouble("playerBountySpawnRangeFromCore");
-        PLAYER_BOUNTY_SYSTEM_DAYS = (float) setting.getDouble("playerBountyDaysInSystem");
-        PLAYER_BOUNTY_RANGE_DAYS = (float) setting.getDouble("playerBountyDaysOutOfRange");
-
-        RAIDER_BASE_REAPER_ENABLED = setting.getBoolean("stopSpawningRaiderBasesWhenFactionDelet");
-
-        COLONIAL_FACTIONS_ENABLED = setting.getBoolean("spawnColonialCompetitors");
-        COLONIAL_FACTION_TIMEOUT = setting.getInt("colonialCompetitorsStartCycle");
-        COLONIAL_FACTION_COLONY_MULT = setting.getInt("colonialCompetitorsColonyCountMult");
-        AI_REBELLION_THRESHOLD = setting.getInt("coreCriticalMass");
-
-        POPULAR_FRONT_ENABLED = setting.getBoolean("spawnPopularFront");
-        POPULAR_FRONT_TIMEOUT = setting.getInt("popularFrontStartCycle");
-
-        PROCGEN_ENTITIES = setting.getBoolean("spawnEntities");
-
-        LEAGUE_SUBFACTIONS = setting.getBoolean("leagueSubfactions");
-
-        PLAY_TTRPG = setting.getBoolean("playTabletopRoleplayingGame");
-
-        ADD_BARREN_PLANETS = setting.getBoolean("addBarrenPlanets");
+    private static void loadDefaultVayraSettings() {
+        VAYRA_DEBUG = false;
+        PIRATE_BOUNTY_MODE = PirateMode.ALWAYS;
+        EXTRA_BOUNTY_LEVEL_MULT = 1.5f;
+        BOUNTY_DURATION = 90f;
+        RARE_BOUNTY_FLAGSHIP_CHANCE = 0.075f;
+        CRUMB_CHANCE = 0.5f;
+        BOUNTY_SOFT_MAX_DIST = 10;
+        UNIQUE_BOUNTIES = true;
+        UNIQUE_BOUNTIES_MAX = 5;
+        PLAYER_BOUNTIES = true;
+        PLAYER_BOUNTY_FP_SCALING = 1.25f;
+        PLAYER_BOUNTY_SPAWN_RANGE = 2000f;
+        PLAYER_BOUNTY_MAX_RANGE = 20000f;
+        PLAYER_BOUNTY_SYSTEM_DAYS = 7f;
+        PLAYER_BOUNTY_RANGE_DAYS = 45f;
+        RAIDER_BASE_REAPER_ENABLED = true;
+        COLONIAL_FACTIONS_ENABLED = true;
+        COLONIAL_FACTION_TIMEOUT = 212;
+        COLONIAL_FACTION_COLONY_MULT = 4;
+        AI_REBELLION_THRESHOLD = 30;
+        POPULAR_FRONT_ENABLED = true;
+        POPULAR_FRONT_TIMEOUT = 210;
+        PROCGEN_ENTITIES = true;
+        LEAGUE_SUBFACTIONS = true;
+        PLAY_TTRPG = true;
+        ADD_BARREN_PLANETS = true;
     }
 
     @Override
@@ -583,5 +614,19 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
 
         return result;
+    }
+
+    public static String stringifyException(Exception ex) {
+        StringBuilder sb = new StringBuilder();
+        StackTraceElement[] stackTrace = ex.getStackTrace();
+        int stacktraceDepth = ex.getStackTrace().length - 1;
+        sb.append("Exception ").append(ex).append(" happened!\n");
+        sb.append("STACKTRACE: \n");
+
+        for (int i = stacktraceDepth; i > 0; i--) {
+            sb.append(stackTrace[i]).append("\n");
+        }
+
+        return sb.toString();
     }
 }
