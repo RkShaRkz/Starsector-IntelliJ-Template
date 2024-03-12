@@ -1,7 +1,7 @@
 {
     "id":"Shark_utilityconsole", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
 	"name":"Utility Console Commands", # Displayed to the player
-	"author":"Wisp",
+	"author":"Shark",
     "utility":"false",
 	"version":"1.0.0",
 	"description":"New console commands to add/remove dmods, adjust CR and so on.",
