@@ -1,19 +1,19 @@
 {
-    "id":"author_modname", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
-	"name":"Template Mod", # Displayed to the player
-	"author":"Wisp",
-    "utility":"false",
+    "id":"Shark_ConstraintChanger", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
+	"name":"Constraint Changer", # Displayed to the player
+	"author":"Shark",
+    "utility":"true",
 	"version":"1.0.0",
-	"description":"Starsector IntelliJ template.",
+	"description":"Mod for editing various starsector-core/data/config/settings.json constraints.",
     "gameVersion": "0.97a-RC6",
-  	"jars":["jars/Template.jar"],
-  	"modPlugin":"author.modname.TemplateModPlugin",
+  	"jars":["jars/ConstraintChanger.jar"],
+  	"modPlugin":"data.script.ConstraintChangerModPlugin",
 	  	"dependencies": [
-        #{
-        #    "id": "lw_lazylib",
-        #    "name": "LazyLib",
-        #    #"version": "2.7b"
-        #},
+        {
+            "id": "LunaLib",
+            "name": "LunaLib",
+            "version": "1.8.4"
+        },
         #{
         #    "id": "MagicLib",
         #    "name": "MagicLib",

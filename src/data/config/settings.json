@@ -1,0 +1,56 @@
+{
+	# This file is optional and can be deleted if you aren't using it, but doesn't hurt to keep.
+
+	# Add plugins like `EveryFrameCombatPlugin` and `EveryFrameScript` here and the game will automatically run them.
+	# The list of plugins that should be added here seems slightly random.
+	#"plugins":{
+	#	 "coreLifecyclePlugin":"com.fs.starfarer.api.impl.campaign.CoreLifecyclePluginImpl",
+	#},
+
+	# rules.csv can call Java from within a rule. The code must extend `BaseCommandPlugin`.
+	# This section is where we can tell the game where to look for our custom rule commands.
+	# Rules from multiple packages CAN NOT share the same name	
+	#"ruleCommandPackages":[
+	#	 "com.fs.starfarer.api.impl.campaign.rulecmd",
+	#],
+	
+    # This section is where we can define images that can be referenced ingame using Global.getSettings().getSpriteName("category", "name");
+	#"graphics":{
+	#	"category":{ "name":"graphics/ui/sector_age_young.png", }
+	#}
+
+
+    "officerXPRequiredMult":4, # higher number = slower officer level gain
+    "officerMaxLevel":10, # was 5
+    "officerMaxEliteSkills":4, # was 1
+    "officerAIMax":10,
+
+    "baseNumOfficers":10; # was 8 # in a fleet w/o officer management skills 
+	"maxShipsInFleet":50, # was 30
+	"maxShipsInAIFleet":50, #was 30
+	"maxOfficersInAIFleet":12, # was 10 # should match what a max-skill player can get (apparently, should be baseNumOfficers + 2)
+
+	"officerBaseProb":0.1,
+	"officerProbPerColonySize":0.05,
+	"officerAdditionalBaseProb":0.1, # if rolled one officer, multiply probability by this and roll again
+	
+	"officerMercMinLevel":4,
+	"officerMercMaxLevel":8, # was 6
+	"officerMercPayMult":2, # hiring bonus and salary
+	"officerMercContractDur":730, # minimum days before mercs will try to leave
+
+    "minBattleSize":100, # was 200 # in supplies-to-recover. min value for settings slider
+    "defaultBattleSize":400, # in supplies-to-recover. starting value for settings slider
+    "maxBattleSize":800, # was 400 # in supplies-to-recover. max value for settings slider
+
+	# when activating the "speed up time" control, has to be an integer >= 2
+	# setting to a larger value may cause framerate drops when time is sped up
+	"campaignSpeedupMult":4, # was 2
+
+	# main color used for menu buttons and the like
+	"buttonBg":[70,222,255,255],
+	"buttonBgDark":[31,94,112,175],
+	"buttonText":[170,222,255,255],
+	"buttonShortcut":[255,210,0,255],
+	"storyOptionColor":[163,239,128,255],
+}
