@@ -1,8 +1,0 @@
-id,value
-# ship/wing/weapon ID or pack ID,100
-kadur_missile_package,7500
-kadur_rail_package,7500
-kadur_fission_package,7500
-kadur_warship_package,15000
-kadur_support_package,15000
-kadur_capital_package,15000

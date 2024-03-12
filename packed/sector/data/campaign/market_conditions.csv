@@ -1,6 +1,0 @@
-name,id,planetary,decivRemove,script,desc,icon,order
-Raider Activity,vayra_raider_activity,,TRUE,data.scripts.campaign.bases.VayraRaiderActivityCondition,"$market is uneasy under the continual threat of raiding parties and terrorist attacks. The populace are harried and fearful, rarely venturing outside of their homes except for the absolute necessities, and all nonessential services have been suspended for the duration of the current crisis.
-
-The raiders most likely have a camp somewhere relatively nearby.",graphics/icons/markets/pirates.png,1300
-Hardened Populace,vayra_hardened_populace,,TRUE,data.scripts.campaign.econ.VayraHardenedPopulace,"The people of $market have had everything they once knew torn away from them, and saw their homeworld destroyed before their very eyes -- nothing fazes them anymore, and they are accustomed to doing more with less.",graphics/icons/markets/dissidents.png,500
-Engineered Plague,vayra_engineered_plague,TRUE,,com.fs.starfarer.api.impl.campaign.econ.BaseHazardCondition,"$market has been contaminated by a ferociously virulent engineered plague. Extensive decontamination procedures are required for all inhabitants and exports, significantly increasing operating costs.",graphics/icons/markets/xenoplague.png,20

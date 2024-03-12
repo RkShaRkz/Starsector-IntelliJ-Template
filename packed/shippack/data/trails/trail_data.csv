@@ -1,9 +1,0 @@
-trail,projectile,sprite,minLength,fadeIn,duration,fadeOut,sizeIn,sizeOut,colorIn,colorOut,opacity,textLength,textScroll,distance,dispersion,drift,fadeOnFadeOut,angleAdjustment,additive,velocityIn,velocityOut,randomVelocity,angle,rotationIn,rotationOut,randomRotation,renderBelowExplosions
-vayra_phase_blaster_shot_trail,vayra_phase_blaster_shot,trail_clean,10,0,0.1,0.2,7,3.5,"[225,100,255]","[125,0,155]",0.555,300,-100,5,10,1,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
-vayra_phase_blaster_shot_rings,vayra_phase_blaster_shot,trail_rings,10,0,0.1,0.25,21,35,"[225,100,255]","[125,0,155]",0.777,128,0,5,0,1,FALSE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
-vayra_grav_blaster_shot_trail,vayra_grav_blaster_shot,trail_clean,10,0,0.1,0.2,7,3.5,"[25,215,255]","[5,135,175]",0.6,300,-100,5,0,1,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
-antediluvian_sonic_pulse_trail,antediluvian_sonic_pulse,trail_fuzzy,10,0,0.1,0.2,20,10,"[150,255,200]","[50,150,100]",0.555,300,-100,5,15,1,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
-antediluvian_sonic_pulse_rings,antediluvian_sonic_pulse,trail_rings,10,0,0.1,0.25,30,40,"[150,255,200]","[150,255,200]",0.777,128,0,5,0,1,FALSE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
-vayra_biorifle_goo_trail,vayra_biorifle_goo,base_trail_heavyBurn,10,0.1,0.2,0.4,40,1,"[100,255,100]","[0,100,0]",1,500,300,20,10,0.69,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
-vayra_biorifle_goo_tail,vayra_biorifle_goo,trail_clean,10,0,0.1,0.2,30,1,"[100,255,100]","[0,100,0]",1,500,300,10,10,1,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE
-vayra_shortcircuit_trail,vayra_shortcircuit_shot,trail_zappy,10,0,0.1,0.3,7,1,"[160,200,255]","[180,180,190]",0.5,300,0,5,10,1,TRUE,FALSE,TRUE,0,0,0,0,0,0,FALSE,FALSE

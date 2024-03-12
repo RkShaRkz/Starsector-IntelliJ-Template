@@ -1,8 +1,0 @@
-{
-    "startShipsSolo":[["vayra_groundhog_m"]],
-    "startShipsExplorerSmall":[["vayra_prospector_e", "vayra_mining_hound_streamer"]],
-    "startShipsExplorerLarge":[
-		["vayra_prospector_e", "vayra_heavy_drone_tender_beam", "vayra_groundhog_m"],
-		["vayra_pathfinder_artillery", "vayra_spade_torpedo", "vayra_spade_shielded"]
-	],
-}
