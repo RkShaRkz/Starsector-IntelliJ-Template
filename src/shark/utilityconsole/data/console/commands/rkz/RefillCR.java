@@ -33,14 +33,18 @@ public class RefillCR implements BaseCommand {
     private CommandResult refillAllShipsCR(CommandContext context) {
         if (context.isInCombat()) {
             for (ShipAPI ship : Global.getCombatEngine().getShips()) {
-                FleetMemberAPI fleetMember = Global.getCombatEngine().getFleetManager(ship.getOwner()).getDeployedFleetMember(ship).getMember();
-                ship.setCurrentCR(fleetMember.getRepairTracker().getMaxCR());
+                if (ship.getOwner() == FleetSide.PLAYER.ordinal()) {
+                    FleetMemberAPI fleetMember = Global.getCombatEngine().getFleetManager(ship.getOwner()).getDeployedFleetMember(ship).getMember();
+                    RepairTrackerAPI shipsRepairAPI = fleetMember.getRepairTracker();
+                    shipsRepairAPI.setCR(Math.max(shipsRepairAPI.getCR(), shipsRepairAPI.getMaxCR()));
+                    ship.setCurrentCR(Math.max(shipsRepairAPI.getCR(), shipsRepairAPI.getMaxCR()));
+                }
             }
         } else {
             CampaignFleetAPI fleetAPI = Global.getSector().getPlayerFleet();
             for (FleetMemberAPI fleetMemberAPI : fleetAPI.getMembersWithFightersCopy()) {
                 RepairTrackerAPI shipsRepairAPI = fleetMemberAPI.getRepairTracker();
-                shipsRepairAPI.setCR(shipsRepairAPI.getMaxCR());
+                shipsRepairAPI.setCR(Math.max(shipsRepairAPI.getCR(), shipsRepairAPI.getMaxCR()));
             }
         }
 
@@ -99,7 +103,12 @@ public class RefillCR implements BaseCommand {
 
                 // Get the ShipAPI reference from the CombatFleetManagerAPI
                 ShipAPI shipInstance = engine.getFleetManager(FleetSide.PLAYER).getShipFor(shipToRefill);
-                shipInstance.setCurrentCR(shipToRefill.getRepairTracker().getMaxCR());
+                if (shipInstance.getOwner() == FleetSide.PLAYER.ordinal()) {
+                    FleetMemberAPI fleetMember = Global.getCombatEngine().getFleetManager(shipInstance.getOwner()).getDeployedFleetMember(shipInstance).getMember();
+                    RepairTrackerAPI shipsRepairAPI = fleetMember.getRepairTracker();
+                    shipsRepairAPI.setCR(Math.max(shipsRepairAPI.getCR(), shipsRepairAPI.getMaxCR()));
+                    shipInstance.setCurrentCR(Math.max(shipsRepairAPI.getCR(), shipsRepairAPI.getMaxCR()));
+                }
             } else {
                 RepairTrackerAPI shipsRepairAPI = shipToRefill.getRepairTracker();
                 shipsRepairAPI.setCR(shipsRepairAPI.getMaxCR());
@@ -115,7 +124,6 @@ public class RefillCR implements BaseCommand {
             } else if (usedHullId) {
                 sb.append("Refilled CR of ship with Hull ID: ").append(args);
             } else {
-//                throw new IllegalStateException("This should never really happen");
                 // Actually, lets not throw any exceptions, and return bad syntax in this case.
                 retVal = CommandResult.BAD_SYNTAX;
             }
