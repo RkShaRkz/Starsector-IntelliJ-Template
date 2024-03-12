@@ -10,6 +10,7 @@
 			"vayra_spade":0.5, # frig off, you have your own
 			"vayra_groundhog":0.33, # too good for pirates
 			"vayra_prospector":0.33, # not fighty enough for pirates
+			"vayra_falchion_p":0.69, # its pretty good so more rare blah blah hurf
 		},
 	},
 	"portraits":{

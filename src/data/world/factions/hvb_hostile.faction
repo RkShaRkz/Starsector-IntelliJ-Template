@@ -159,6 +159,7 @@
 			"graphics/portraits/vayra_corvid_crow.png",
 			"graphics/portraits/vayra_majima.png",
 			"graphics/portraits/vayra_handsomejack.png",
+			"graphics/portraits/vayra_lightforger.png",
 		],
 		"standard_female":[
 			"graphics/portraits/vayra_portrait_00.png",
@@ -187,23 +188,26 @@
 			"graphics/portraits/portrait39.png",
 			"graphics/portraits/characters/old_spacer01.png",
 			"graphics/portraits/vayra_gal_paladin.png",
+			"graphics/portraits/vayra_sozzer.png",
+			"graphics/portraits/vayra_rubin.png",
+			"graphics/portraits/vayra_rubin_pather.png",
 		],
 	},
-    "custom":{
-        "exemptFromFoodShortages":true,
-        "ignoreTradeWithEnemiesForReputation":true,
-        "postsNoBounties":true,
-        "engageWhenEvenStrength":true,
-        "offersCommissions":false,
-        "engagesInHostilities":false,
-        "patrolsHaveNoPatrolMemoryKey":true,
-        "pirateBehavior":true, # for fleet behavior
-        "fightToTheLast":true, # order a full assault instead of retreating, in most cases
-        "punitiveExpeditionData":{
-            "vsCompetitors":false,
-            "vsFreePort":false,
-            "canBombard":false,
-            "territorial":false,
-        },
-    },
+	"custom":{
+		"exemptFromFoodShortages":true,
+		"ignoreTradeWithEnemiesForReputation":true,
+		"postsNoBounties":true,
+		"engageWhenEvenStrength":true,
+		"offersCommissions":false,
+		"engagesInHostilities":false,
+		"patrolsHaveNoPatrolMemoryKey":true,
+		"pirateBehavior":true, # for fleet behavior
+		"fightToTheLast":true, # order a full assault instead of retreating, in most cases
+		"punitiveExpeditionData":{
+			"vsCompetitors":false,
+			"vsFreePort":false,
+			"canBombard":false,
+			"territorial":false,
+		},
+	},
 },
