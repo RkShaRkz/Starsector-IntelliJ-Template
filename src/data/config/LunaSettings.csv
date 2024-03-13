@@ -1,4 +1,4 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 ,,,,,,,,
-constraintchanger_officerMaxLevel,Officer Max Level,Int,10,,Maximum Level of officers (vanilla value is 5),,,
-constraintchanger_officerNumber,Max Number of Officers,Int,12,,Maximum number of Officers (vanilla value is 8),,,
+constraintchanger_officerMaxLevel,Officer Max Level,Int,10,,Maximum Level of officers (vanilla value is 5),2,14,Officers
+constraintchanger_officerNumber,Max Number of Officers,Int,12,,Maximum number of Officers (vanilla value is 8),4,20,Officers
