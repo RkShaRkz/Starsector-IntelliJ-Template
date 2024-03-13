@@ -4,7 +4,7 @@ constraintchanger_officerNumber,Max Number of Officers,Int,12,,Maximum number of
 constraintchanger_officerMaxLevel,Officer Max Level,Int,10,,Maximum Level of officers (vanilla value is 5),2,14,Officers
 constraintchanger_officerMaxEliteSkills,Officer Max Elite Skills,Int,4,,How many Elite skills can officers have (vanilla value is 1),1,14,Officers
 constraintchanger_officerAIMax,Max Number of AI Officers (?),Int,14,,How many officers can the AI have (vanilla value is 10),4,22,Officers
-constraintchanger_maxOfficersInAIFleet,Max Number of Officers in AI Fleet,Int,14,,How many officers can the AI fleet have (vanilla value is 10, apparently should be 'number of officers + 2'),4,22,Officers
+constraintchanger_maxOfficersInAIFleet,Max Number of Officers in AI Fleet,Int,14,,How many officers can the AI fleet have (vanilla value is 10; apparently should be 'number of officers + 2'),4,22,Officers
 constraintchanger_officerMercMinLevel,Min Level of Mercenary Officers,Int,4,,Minimum Level of Merc Officers (vanilla value is 4),4,13,Officers
 constraintchanger_officerMercMaxLevel,Max Level of Mercenary Officers,Int,8,,Maximum Level of Merc Officers (vanilla value is 6),4,15,Officers
 constraintchanger_officerMercPayMult,Mercenary Officers' pay multiplier,Int,2,,Merc Officers' hiring bonus and salary (vanilla value is 2),1,10,Officers
