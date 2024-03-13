@@ -117,12 +117,6 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                             convertLunaToRealKey(lunaKey),
                             (float) safeUnboxing(LunaSettings.getInt(MOD_ID, lunaKey))
                     );
-            Global
-                    .getSettings()
-                    .setFloat(
-                            convertLunaToRealKey(lunaKey),
-                            new Float(LunaSettings.getInt(MOD_ID, lunaKey))
-                    );
         }
 
         /**
