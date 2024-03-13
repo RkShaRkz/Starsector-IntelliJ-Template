@@ -1,28 +1,21 @@
 {
-    "id":"Shark_ConstraintChanger", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
+	"id":"Shark_ConstraintChanger", # For the convenience of troubleshooters, include your name and the mod name, not just an acronym.
 	"name":"Constraint Changer", # Displayed to the player
 	"author":"Shark",
-    "utility":"true",
+	"utility":"true",
 	"version":"1.0.0",
 	"description":"Mod for editing various starsector-core/data/config/settings.json constraints.",
-    "gameVersion": "0.97a-RC6",
-  	"jars":["jars/ConstraintChanger.jar"],
-  	"modPlugin":"data.script.ConstraintChangerModPlugin",
-	  	"dependencies": [
-        {
-            "id": "LunaLib",
-            "name": "LunaLib",
-            "version": "1.8.4"
-        },
-        #{
-        #    "id": "MagicLib",
-        #    "name": "MagicLib",
-        #    #"version": "0.34"
-        #},
-        #{
-        #    "id": "shaderLib",
-        #    "name": "GraphicsLib",
-        #    #"version": "1.5.1"
-        #}
-    ],
+	"gameVersion": "0.97a-RC6",
+	"jars":["jars/ConstraintChanger.jar"],
+	"modPlugin":"data.script.ConstraintChangerModPlugin",
+	"dependencies": [
+		{
+			"id": "lw_lazylib",
+			"name": "LazyLib",
+		},
+		{
+			"id": "lunalib",
+			"name": "LunaLib",
+		},
+	],
 }

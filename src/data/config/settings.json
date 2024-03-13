@@ -25,7 +25,7 @@
     "officerMaxEliteSkills":4, # was 1
     "officerAIMax":10,
 
-    "baseNumOfficers":10; # was 8 # in a fleet w/o officer management skills 
+    "baseNumOfficers":20; # was 8 # in a fleet w/o officer management skills 
 	"maxShipsInFleet":50, # was 30
 	"maxShipsInAIFleet":50, #was 30
 	"maxOfficersInAIFleet":12, # was 10 # should match what a max-skill player can get (apparently, should be baseNumOfficers + 2)
