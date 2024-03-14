@@ -21,3 +21,5 @@ ForeverAlone,shark.utilityconsole.data.console.commands.advanced.ForeverAlone,"e
 StormGod,shark.utilityconsole.data.console.commands.advanced.StormGod,"example,cheat,campaign",stormgod (no arguments),"Lets you pass through hyperspace storms freely."
 # my commands
 RefillCR, shark.utilityconsole.data.console.commands.rkz.RefillCR, "cheat,campaign,combat",refillcr [optionalParam], "Refills CR to the max. Optional parameter can be 'no argument' to refill all ships' CR to max, or 'list' to list all ships' names, IDs and hull IDs, or can be either a name/ID/HullID of ship who's CR you want to refill."
+ListShips, shark.utilityconsole.data.console.commands.rkz.ListShips, "campaign,combat",listships, "Lists own ships, either all fleet ships on campaign screen or only deployed ones on combat screen. Will mention 'ID: <ship's id>     HullID: <ship's hull id>        Name: <ship's name>'"
+FindShips, shark.utilityconsole.data.console.commands.rkz.FindShips, "campaign,combat",findships, "Finds ships based on some specified criteria. Sample usage: 'findships ballistic > 5' OR 'findships size = frigate' OR 'findships { large ballistic > 2,energy > 2,capital,launchbay < 4 }'"
