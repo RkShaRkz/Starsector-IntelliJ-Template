@@ -1,4 +1,4 @@
-package data.console.commands.intermediate;
+package shark.utilityconsole.commands.intermediate;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.ShipAPI;

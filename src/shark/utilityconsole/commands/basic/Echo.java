@@ -1,4 +1,4 @@
-package data.console.commands.basic;
+package shark.utilityconsole.commands.basic;
 
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;

@@ -1,4 +1,4 @@
-package shark.utilityconsole.data.console.commands.rkz;
+package shark.utilityconsole.commands.rkz;
 
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;

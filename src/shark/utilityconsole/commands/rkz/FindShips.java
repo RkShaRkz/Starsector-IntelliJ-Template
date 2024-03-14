@@ -1,4 +1,4 @@
-package shark.utilityconsole.data.console.commands.rkz;
+package shark.utilityconsole.commands.rkz;
 
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
@@ -419,7 +419,7 @@ public class FindShips implements BaseCommand {
                                                           ParameterCriterion.CriteriaQuantity criteriaQuantity) {
         ParameterCriterion retVal = null;
 
-        // now make a context-sensitive ParameterCriterion based on the data we have parsed from the input console command
+        // now make a context-sensitive ParameterCriterion based on the data we have parsed from the input data.console command
         // Depending on the criteria, we will have to instantiate different data containers
         ParameterCriterion.CriteriaParameter.CriteriaData data = null;
 

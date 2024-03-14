@@ -1,4 +1,4 @@
-package data.console.commands.advanced;
+package shark.utilityconsole.commands.advanced;
 
 import java.lang.ref.WeakReference;
 import java.util.Iterator;
