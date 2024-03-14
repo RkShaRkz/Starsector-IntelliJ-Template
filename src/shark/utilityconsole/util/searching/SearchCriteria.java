@@ -1,13 +1,14 @@
 package shark.utilityconsole.util.searching;
 
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
+import com.sun.javafx.beans.annotations.NonNull;
 
 import java.util.List;
 
 public class SearchCriteria {
-    final List<ParameterCriterion> criteria;
+    final @NonNull List<ParameterCriterion> criteria;
 
-    public SearchCriteria(List<ParameterCriterion> listOfCriteria) {
+    public SearchCriteria(@NonNull List<ParameterCriterion> listOfCriteria) {
         this.criteria = listOfCriteria;
     }
 

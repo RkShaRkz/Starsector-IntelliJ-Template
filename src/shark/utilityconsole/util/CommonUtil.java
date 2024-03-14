@@ -6,6 +6,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
+import com.sun.javafx.beans.annotations.NonNull;
 import org.lazywizard.console.BaseCommand;
 import shark.utilityconsole.util.searching.ParameterCriterion;
 import shark.utilityconsole.util.searching.SearchCriteria;
@@ -72,7 +73,7 @@ public class CommonUtil {
      * Returns all {@link ShipHullSpecAPI}s matchin a certain {@link SearchCriteria}.
      * @param searchCriteria the criteria that needs to be satisfied for the ship to be included in the returned list
      */
-    public static void findShips(SearchCriteria searchCriteria, FindShipsListener listener) {
+    public static void findShips(@NonNull SearchCriteria searchCriteria,@NonNull FindShipsListener listener) {
         List<ShipHullSpecAPI> shipSpecs = Global.getSettings().getAllShipHullSpecs();
         List<ShipHullSpecAPI> filteredResults = new ArrayList<ShipHullSpecAPI>();
 

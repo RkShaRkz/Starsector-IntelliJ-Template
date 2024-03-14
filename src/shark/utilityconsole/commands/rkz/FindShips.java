@@ -7,8 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
 import shark.utilityconsole.util.CommonUtil;
-import shark.utilityconsole.util.searching.ParameterCriterion;
-import shark.utilityconsole.util.searching.SearchCriteria;
+import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
 
@@ -18,7 +17,6 @@ import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaPar
 public class FindShips implements BaseCommand {
     @Override
     public CommandResult runCommand(@NotNull String args, @NotNull BaseCommand.CommandContext context) {
-        CommandResult retVal = null;
         /**
          *
          * findships launchbay                  // lists all ships with launchbays, starting from most to least
@@ -38,16 +36,8 @@ public class FindShips implements BaseCommand {
          *
          * Afterwards, we should look for size, as it is optional.
          */
-        ParameterCriterion.CriteriaParameter.Criteria criteria = null;
 
-        WeaponAPI.WeaponSize weaponSize = null;
-        WeaponAPI.WeaponType weaponType = null;
-
-        ParameterCriterion.CriteriaParameter.ShipParameter shipParameter = null;
-
-        ParameterCriterion.CriteriaQuantity criteriaQuantity = null;
-        ParameterCriterion.CriteriaQuantity.Quantity quantityType = null;
-        int quantity = 0;
+        List<ParameterCriterion> criteriumList = new ArrayList<>();
 
         // SPECIAL CASE massaging:
         // in case we're dealing with a SIZE parameter, the rest of the code expects a number for everything
@@ -83,164 +73,71 @@ public class FindShips implements BaseCommand {
         if (args.startsWith("{")) {
             // we are dealing with a list of params
             // also make sure it ends with } and call bad syntax if it does not.
+            if (args.endsWith("}")) {
+                // start extracting
+                // Expected syntax 'findships { <expr>,<expr>,<expr> }`
+                // 1. get rid of { and } and trim the string to get rid of leading/trailing spaces between expressions and { or }
+                // 2. split the string on comma (,) to get individual expressions
+                // 3. convert each expression into a ParameterCriterion and add them to the 'criteriumList'
+                args = args.replace("{", "");
+                args = args.replace("}", "");
+                args = args.trim();
+                String[] expressions = args.split(",");
+                Console.showMessage("Received input: " + args + ", extracted expression list: " + Arrays.asList(expressions));
+                for (String expression : expressions) {
+                    ExpressionProcessingResult result = processSingleExpressionIntoParameterCriterion(expression);
+                    if (result.isSuccess()) {
+                        criteriumList.add(result.getResult());
+                    } else {
+                        return result.getCommandResult();
+                    }
+                }
+                // That's it, by this point we'd have compiled a list of processed criteriums for searching or had returned an error
+            } else {
+                return CommandResult.BAD_SYNTAX;
+            }
         } else {
             // only one parameter (but would still be a list of keywords)
-            String[] symbols = args.split(" ");
-            // Lets turn this into a list, since we can remove from lists
-            ArrayList<String> symbolList = new ArrayList<String>(Arrays.asList(symbols));
-            // check first symbol for size
-            if (isSizeSymbol(symbolList.get(0).trim())) {
-                // since it is a size, we can now determine two things:
-                // 1. we are going to be dealing with a WEAPON_WITH_SIZE query
-                // 2. the actual size as well
-                criteria = WEAPON_WITH_SIZE;
-                weaponSize = remapSizeSymbol(symbolList.get(0).trim());
-
-                // remove this element so the rest of the code can be much more straightforward
-                symbolList.remove(0);
-
-                // at this point, our query could have ended. in that case, the implicit criteria quantity is AT_LEAST 0
-                // otherwise, parse the criteria quantity as well
-            }
-
-            // Now we should check if the next symbol is a weapon, or a ship parameter
-            // at this point, there is nothing else our grammar supports, so if it's neither - syntax error
-            if (isWeaponSymbol(symbolList.get(0).trim())) {
-                // Since it's a weapon, we can determine two things:
-                // 1. we are going to be dealing with a WEAPON query
-                // 2. the actual weapon
-                criteria = WEAPON;
-                weaponType = remapWeaponSymbol(symbolList.get(0).trim());
-
-                // remove this element so the rest of the code can be much more straightforward
-                symbolList.remove(0);
-            } else if (isShipParameterSymbol(symbolList.get(0).trim())) {
-                // Since it's a ship parameter, we can determine two things:
-                // 1. we're going to be dealing with a SHIP_PARAMETER query
-                // 2. the actual parameter
-                criteria = SHIP_PARAMETER;
-                shipParameter = remapShipParameterSymbol(symbolList.get(0).trim());
-
-                // remove this element so the rest of the code can be much more straightforward
-                symbolList.remove(0);
+            ExpressionProcessingResult result = processSingleExpressionIntoParameterCriterion(args);
+            if (result.isSuccess()) {
+                criteriumList.add(result.getResult());
             } else {
-                retVal = CommandResult.BAD_SYNTAX;
+                return result.getCommandResult();
             }
-
-            // Now, presuming everything was alright, we have three possible scenarios:
-            // 1. the syntax was bad, so just return BAD_SYNTAX result
-            // 2. the query is over, so we're dealing with a query that has an implicit quantity of AT_LEAST 0
-            // 3. the query is not over, so we should parse the CriteriaQuantity
-
-            // if retVal is set - do an early return; ugly but easy way out.
-            if (retVal != null) return retVal;
-
-            if (symbolList.isEmpty()) {
-                criteriaQuantity = new ParameterCriterion.CriteriaQuantity(
-                        ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST,
-                        0
-                );
-            } else {
-                // parse quantity - we should have exactly 2 symbols now.
-                // first should be a Quantity symbol, the other should be quantity.
-                // verify for size, if sizecheck fails - set retval;
-
-                if (symbolList.size() == 2) {
-                    // great, parse them if they pass the rules
-                    if (isQuantitySymbol(symbolList.get(0).trim())) {
-                        quantityType = remapQuantitySymbol(symbolList.get(0).trim());
-
-                        try {
-                            quantity = Integer.parseInt(symbolList.get(1).trim());
-                        } catch (NumberFormatException nfe) {
-                            Console.showMessage("Wrong input for quantity! Expected a number, received " + symbolList.get(1));
-                            retVal = CommandResult.BAD_SYNTAX;
-                        }
-                    }
-
-                    criteriaQuantity = new ParameterCriterion.CriteriaQuantity(
-                            quantityType,
-                            quantity
-                    );
-                } else {
-                    Console.showMessage("Wrong input for quantity check! Expected an operation (< or = or >) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
-                    retVal = CommandResult.BAD_SYNTAX;
-                }
-            }
-
-            //TODO move this outside of this if/else below
-            // Now that we have everything, lets run the query.
-            ParameterCriterion searchParams = constructParameterCriteria(criteria, weaponSize, weaponType, shipParameter, criteriaQuantity);
-            final SearchCriteria searchCriteria = new SearchCriteria(Collections.singletonList(searchParams));
-
-            CommonUtil.findShips(searchCriteria, new CommonUtil.FindShipsListener() {
-                @Override
-                public void onShipsFound(List<ShipHullSpecAPI> foundShips, int queriedShips) {
-                    StringBuilder sb = new StringBuilder();
-                    sb
-                            .append("Found ").append(foundShips.size())
-                            .append(" results out of ").append(queriedShips)
-                            .append(" queried entries that meet the criteria\n");
-
-                    // Now, lets sort the list from highest to lowest, starting with the biggest ships.
-                    // "highest to lowest" as in "if we were looking for more than 3 ballistic slots, ships with 5
-                    // go before those with 4 which go before those with 3".
-                    Comparator<ShipHullSpecAPI> comparator = new Comparator<ShipHullSpecAPI>() {
-                        @Override
-                        public int compare(ShipHullSpecAPI o1, ShipHullSpecAPI o2) {
-                            // So far the idea is simple; we will rely on the user to have entered the criteria from
-                            // highest priority to lowest priority.
-                            //
-                            // As such, any case where there are multiple criteriums will be resolved by their
-                            // ordering in the criterium list
-                            return searchCriteria.compareResults(o1, o2);
-                        }
-                    };
-                    Collections.sort(foundShips, comparator);
-
-                    for(ShipHullSpecAPI ship : foundShips) {
-                        stringifyShipIntoStringBuilder(sb, ship);
-                    }
-                    Console.showMessage(sb.toString());
-                }
-            });
         }
-        //TODO move here
+        final SearchCriteria searchCriteria = new SearchCriteria(criteriumList);
 
-        /*
-        CommonUtil.getAllShips(
-                new SearchCriteria(
-                        Arrays.asList(
-                                new ParameterCriterion(
-                                        new ParameterCriterion.CriteriaParameter(
-                                                WEAPON_WITH_SIZE,
-                                                new ParameterCriterion.CriteriaParameter.WeaponAndSizeCriteriaData(
-                                                        WeaponAPI.WeaponType.BALLISTIC,
-                                                        WeaponAPI.WeaponSize.LARGE
-                                                )
-                                        ),
-                                        new ParameterCriterion.CriteriaQuantity(
-                                                ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST,
-                                                2
-                                        )
-                                ),
-                                new ParameterCriterion(
-                                        new ParameterCriterion.CriteriaParameter(
-                                                WEAPON_WITH_SIZE,
-                                                new ParameterCriterion.CriteriaParameter.WeaponAndSizeCriteriaData(
-                                                        WeaponAPI.WeaponType.BALLISTIC,
-                                                        WeaponAPI.WeaponSize.LARGE
-                                                )
-                                        ),
-                                        new ParameterCriterion.CriteriaQuantity(
-                                                ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST,
-                                                2
-                                        )
-                                )
-                        )
-                )
-        );
-         */
+        CommonUtil.findShips(searchCriteria, new CommonUtil.FindShipsListener() {
+            @Override
+            public void onShipsFound(List<ShipHullSpecAPI> foundShips, int queriedShips) {
+                StringBuilder sb = new StringBuilder();
+                sb
+                        .append("Found ").append(foundShips.size())
+                        .append(" results out of ").append(queriedShips)
+                        .append(" queried entries that meet the criteria\n");
+
+                // Now, lets sort the list from highest to lowest, starting with the biggest ships.
+                // "highest to lowest" as in "if we were looking for more than 3 ballistic slots, ships with 5
+                // go before those with 4 which go before those with 3".
+                Comparator<ShipHullSpecAPI> comparator = new Comparator<ShipHullSpecAPI>() {
+                    @Override
+                    public int compare(ShipHullSpecAPI o1, ShipHullSpecAPI o2) {
+                        // So far the idea is simple; we will rely on the user to have entered the criteria from
+                        // highest priority to lowest priority.
+                        //
+                        // As such, any case where there are multiple criteriums will be resolved by their
+                        // ordering in the criterium list
+                        return searchCriteria.compareResults(o1, o2);
+                    }
+                };
+                Collections.sort(foundShips, comparator);
+
+                for (ShipHullSpecAPI ship : foundShips) {
+                    stringifyShipIntoStringBuilder(sb, ship);
+                }
+                Console.showMessage(sb.toString());
+            }
+        });
 
         return CommandResult.SUCCESS;
     }
@@ -283,6 +180,7 @@ public class FindShips implements BaseCommand {
          * 		SYSTEM("System"),
          * 		STATION_MODULE("Station Module");
          */
+
 
         boolean retVal = false;
         retVal = symbol.equalsIgnoreCase("Ballistic")
@@ -350,6 +248,10 @@ public class FindShips implements BaseCommand {
                 || symbol.equalsIgnoreCase("SIZE");
 
         return retVal;
+    }
+
+    private boolean isValidSymbol(String symbol) {
+        return isWeaponSymbol(symbol) || isSizeSymbol(symbol) || isShipParameterSymbol(symbol);
     }
 
     private ParameterCriterion.CriteriaParameter.ShipParameter remapShipParameterSymbol(String symbol) {
@@ -479,8 +381,115 @@ public class FindShips implements BaseCommand {
 
     public void stringifyShipIntoStringBuilder(StringBuilder sb, ShipHullSpecAPI ship) {
         sb
-                .append("Hull name: ").append(String.format("%32s",ship.getHullName()))
-                .append("\t\t\tHull ID: ").append(String.format("%64s",ship.getHullId()))
+                .append("Hull name: ").append(String.format("%32s", ship.getHullName()))
+                .append("\t\t\tHull ID: ").append(String.format("%64s", ship.getHullId()))
                 .append("\n");
+    }
+
+    public ExpressionProcessingResult processSingleExpressionIntoParameterCriterion(String expression) {
+        ExpressionProcessingResult retVal = null;
+
+        ParameterCriterion.CriteriaParameter.Criteria criteria = null;
+
+        WeaponAPI.WeaponSize weaponSize = null;
+        WeaponAPI.WeaponType weaponType = null;
+
+        ParameterCriterion.CriteriaParameter.ShipParameter shipParameter = null;
+
+        ParameterCriterion.CriteriaQuantity criteriaQuantity = null;
+        ParameterCriterion.CriteriaQuantity.Quantity quantityType = null;
+        int quantity = 0;
+
+        // only one parameter (but would still be a list of keywords)
+        String[] symbols = expression.split(" ");
+        // Lets turn this into a list, since we can remove from lists
+        ArrayList<String> symbolList = new ArrayList<String>(Arrays.asList(symbols));
+        // sanity-check - is it even a valid symbol? e.g. flightbay is an invalid symbol that causes NPEs somehow.
+        if (!isValidSymbol(symbolList.get(0).trim())) {
+            return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
+        }
+
+        // check first symbol for size
+        if (isSizeSymbol(symbolList.get(0).trim())) {
+            // since it is a size, we can now determine two things:
+            // 1. we are going to be dealing with a WEAPON_WITH_SIZE query
+            // 2. the actual size as well
+            criteria = WEAPON_WITH_SIZE;
+            weaponSize = remapSizeSymbol(symbolList.get(0).trim());
+
+            // remove this element so the rest of the code can be much more straightforward
+            symbolList.remove(0);
+
+            // at this point, our query could have ended. in that case, the implicit criteria quantity is AT_LEAST 0
+            // otherwise, parse the criteria quantity as well
+        }
+
+        // Now we should check if the next symbol is a weapon, or a ship parameter
+        // at this point, there is nothing else our grammar supports, so if it's neither - syntax error
+        if (isWeaponSymbol(symbolList.get(0).trim())) {
+            // Since it's a weapon, we can determine two things:
+            // 1. we are going to be dealing with a WEAPON query, only if we didn't set it to WEAPON_WITH_SIZE before
+            // 2. the actual weapon
+            if (criteria == null) {
+                criteria = WEAPON;
+            }
+            weaponType = remapWeaponSymbol(symbolList.get(0).trim());
+
+            // remove this element so the rest of the code can be much more straightforward
+            symbolList.remove(0);
+        } else if (isShipParameterSymbol(symbolList.get(0).trim())) {
+            // Since it's a ship parameter, we can determine two things:
+            // 1. we're going to be dealing with a SHIP_PARAMETER query
+            // 2. the actual parameter
+            criteria = SHIP_PARAMETER;
+            shipParameter = remapShipParameterSymbol(symbolList.get(0).trim());
+
+            // remove this element so the rest of the code can be much more straightforward
+            symbolList.remove(0);
+        } else {
+            return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
+        }
+
+        // Now, presuming everything was alright, we have three possible scenarios:
+        // 1. the syntax was bad, so just return BAD_SYNTAX result
+        // 2. the query is over, so we're dealing with a query that has an implicit quantity of AT_LEAST 0
+        // 3. the query is not over, so we should parse the CriteriaQuantity
+        if (symbolList.isEmpty()) {
+            criteriaQuantity = new ParameterCriterion.CriteriaQuantity(
+                    ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST,
+                    0
+            );
+        } else {
+            // parse quantity - we should have exactly 2 symbols now.
+            // first should be a Quantity symbol, the other should be quantity.
+            // verify for size, if sizecheck fails - set retval;
+
+            if (symbolList.size() == 2) {
+                // great, parse them if they pass the rules
+                if (isQuantitySymbol(symbolList.get(0).trim())) {
+                    quantityType = remapQuantitySymbol(symbolList.get(0).trim());
+
+                    try {
+                        quantity = Integer.parseInt(symbolList.get(1).trim());
+                    } catch (NumberFormatException nfe) {
+                        Console.showMessage("Wrong input for quantity! Expected a number, received " + symbolList.get(1));
+                        return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
+                    }
+                }
+
+                criteriaQuantity = new ParameterCriterion.CriteriaQuantity(
+                        quantityType,
+                        quantity
+                );
+            } else {
+                Console.showMessage("Wrong input for quantity check! Expected an operation (< or = or >) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
+                return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
+            }
+        }
+
+        // Only if it wasn't set to failure are we allowed to do this here safely
+        return new SuccessfulExpressionProcessingResult(
+                constructParameterCriteria(criteria, weaponSize, weaponType, shipParameter, criteriaQuantity)
+        );
     }
 }
