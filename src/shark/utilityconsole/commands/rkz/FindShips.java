@@ -199,10 +199,7 @@ public class FindShips implements BaseCommand {
                     Collections.sort(foundShips, comparator);
 
                     for(ShipHullSpecAPI ship : foundShips) {
-                        sb
-                                .append("Hull name: ").append(ship.getHullName())
-                                .append("\t\tHull ID: ").append(ship.getHullId())
-                                .append("\n");
+                        stringifyShipIntoStringBuilder(sb, ship);
                     }
                     Console.showMessage(sb.toString());
                 }
@@ -245,7 +242,7 @@ public class FindShips implements BaseCommand {
         );
          */
 
-        return null;
+        return CommandResult.SUCCESS;
     }
 
     private boolean isSizeSymbol(String symbol) {
@@ -478,5 +475,12 @@ public class FindShips implements BaseCommand {
                 .replaceAll("capital", "size = " + ShipAPI.HullSize.CAPITAL_SHIP.ordinal())
                 .replaceAll("capital-ship", "size = " + ShipAPI.HullSize.CAPITAL_SHIP.ordinal())
                 .replaceAll("capital_ship", "size = " + ShipAPI.HullSize.CAPITAL_SHIP.ordinal());
+    }
+
+    public void stringifyShipIntoStringBuilder(StringBuilder sb, ShipHullSpecAPI ship) {
+        sb
+                .append("Hull name: ").append(String.format("%32s",ship.getHullName()))
+                .append("\t\t\tHull ID: ").append(String.format("%64s",ship.getHullId()))
+                .append("\n");
     }
 }
