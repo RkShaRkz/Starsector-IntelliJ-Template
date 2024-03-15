@@ -170,7 +170,7 @@ public class ParameterCriterion {
                 retVal = matchesCriteriaQuantity(matches);
             }
             break;
-            //TODO check and see how fighter bays behave, and maybe move them to be a parameter rather than a weapon
+
             case SHIP_PARAMETER: {
                 CriteriaParameter.ShipParameterCriteriaData actualData = (CriteriaParameter.ShipParameterCriteriaData) criteriaParameter.criteriaData;
                 // Somehow I think it's better to use rounding rather than direct casting, but I dont know if there's a real difference
