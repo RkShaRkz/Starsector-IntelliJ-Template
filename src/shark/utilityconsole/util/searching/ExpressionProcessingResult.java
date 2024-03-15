@@ -14,7 +14,7 @@ public class ExpressionProcessingResult {
     private final ParameterCriterion result;
 
     protected ExpressionProcessingResult(boolean failed, CommandResult commandResult, ParameterCriterion result) {
-        this.failed = false;
+        this.failed = failed;
         this.commandResult = commandResult;
         this.result = result;
     }

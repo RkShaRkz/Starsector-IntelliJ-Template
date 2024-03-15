@@ -186,7 +186,7 @@ public class FindShips implements BaseCommand {
         retVal = symbol.equalsIgnoreCase("Ballistic")
                 || symbol.equalsIgnoreCase("Energy")
                 || symbol.equalsIgnoreCase("Missile")
-                || symbol.equalsIgnoreCase("LaunchBay") || symbol.equalsIgnoreCase("Launch-Bay") || symbol.equalsIgnoreCase("Launch_Bay")
+                || symbol.equalsIgnoreCase("LaunchBay") || symbol.equalsIgnoreCase("Launch-Bay") || symbol.equalsIgnoreCase("Launch_Bay") || symbol.equalsIgnoreCase("LaunchBays")
                 || symbol.equalsIgnoreCase("Universal")
                 || symbol.equalsIgnoreCase("Hybrid")
                 || symbol.equalsIgnoreCase("Synergy")
@@ -208,7 +208,7 @@ public class FindShips implements BaseCommand {
             retVal = WeaponAPI.WeaponType.ENERGY;
         } else if (symbol.equalsIgnoreCase("Missile")) {
             retVal = WeaponAPI.WeaponType.MISSILE;
-        } else if (symbol.equalsIgnoreCase("LaunchBay") || symbol.equalsIgnoreCase("Launch-Bay") || symbol.equalsIgnoreCase("Launch_Bay")) {
+        } else if (symbol.equalsIgnoreCase("LaunchBay") || symbol.equalsIgnoreCase("Launch-Bay") || symbol.equalsIgnoreCase("Launch_Bay") || symbol.equalsIgnoreCase("LaunchBays")) {
             retVal = WeaponAPI.WeaponType.LAUNCH_BAY;
         } else if (symbol.equalsIgnoreCase("Universal")) {
             retVal = WeaponAPI.WeaponType.UNIVERSAL;
@@ -387,8 +387,8 @@ public class FindShips implements BaseCommand {
     }
 
     public ExpressionProcessingResult processSingleExpressionIntoParameterCriterion(String expression) {
-        ExpressionProcessingResult retVal = null;
-
+        // Start by trimming the expression just in case spaces were involved.
+        expression = expression.trim();
         ParameterCriterion.CriteriaParameter.Criteria criteria = null;
 
         WeaponAPI.WeaponSize weaponSize = null;
