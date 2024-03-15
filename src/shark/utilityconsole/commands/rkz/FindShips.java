@@ -406,6 +406,7 @@ public class FindShips implements BaseCommand {
         ArrayList<String> symbolList = new ArrayList<String>(Arrays.asList(symbols));
         // sanity-check - is it even a valid symbol? e.g. flightbay is an invalid symbol that causes NPEs somehow.
         if (!isValidSymbol(symbolList.get(0).trim())) {
+            Console.showMessage("Invalid token "+symbolList.get(0));
             return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
         }
 
@@ -447,6 +448,7 @@ public class FindShips implements BaseCommand {
             // remove this element so the rest of the code can be much more straightforward
             symbolList.remove(0);
         } else {
+            Console.showMessage("Invalid expression format. Parsable expression format is: [<size>] [<weapon> or <ship parameter>] [<op> <quantity>]\nTry 'findships <size> <weapon> or <ship parameter>' or 'findships { <expression>,<expression>,...,<expression> }'");
             return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
         }
 
