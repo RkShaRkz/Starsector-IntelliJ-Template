@@ -138,14 +138,18 @@ public class RefillCR implements BaseCommand {
         StringBuilder sb = new StringBuilder();
         CampaignFleetAPI fleetAPI = Global.getSector().getPlayerFleet();
         for (FleetMemberAPI fleetMember : fleetAPI.getMembersWithFightersCopy()) {
-            sb
-                    .append(fleetMember.getShipName())
-                    .append("\t\tID: ").append(fleetMember.getId())
-                    .append("\t\tHull ID: ").append(fleetMember.getHullId())
-                    .append("\n");
+            stringifyShipToStringBuilder(sb, fleetMember);
         }
         Console.showMessage(sb.toString());
 
         return CommandResult.SUCCESS;
+    }
+
+    private void stringifyShipToStringBuilder(StringBuilder sb, FleetMemberAPI fleetMember) {
+        sb
+                .append("Name: ").append(String.format("%24s", fleetMember.getShipName()))
+                .append("\t\tID: ").append(String.format("%8s", fleetMember.getId()))
+                .append("\t\tHull ID: ").append(String.format("%64s", fleetMember.getHullId()))
+                .append("\n");
     }
 }
