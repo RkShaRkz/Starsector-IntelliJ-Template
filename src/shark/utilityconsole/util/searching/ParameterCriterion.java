@@ -31,11 +31,17 @@ public class ParameterCriterion {
              * Actually maps to both {@link com.fs.starfarer.api.combat.WeaponAPI.WeaponType} and {@link com.fs.starfarer.api.combat.WeaponAPI.WeaponSize}
              */
             WEAPON_WITH_SIZE,
-            SHIP_PARAMETER
+            SHIP_PARAMETER,
+            WEAPON_PARAMETER
         }
 
         public enum ShipParameter {
             CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE
+        }
+
+        public enum WeaponParameter {
+            //  range, ammo, type, damagetype, turnrate, size, rarity, beam, mounttype,
+            RANGE, AMMO, TYPE, DAMAGE_TYPE, TURN_RATE, SIZE, RARITY, BEAM, MOUNT_TYPE
         }
 
         private final Criteria criteria;
@@ -118,7 +124,7 @@ public class ParameterCriterion {
                     break;
 
                 default: // we don't want to throw
-                    Console.showMessage("Unsupported criteria used");
+                    Console.showMessage("Unsupported criteria used! Received "+criteria);
             }
         }
     }
@@ -201,6 +207,11 @@ public class ParameterCriterion {
                         retVal = matchesCriteriaQuantity(ship.getHullSize().ordinal());
                         break;
                 }
+            }
+            break;
+
+            case WEAPON_PARAMETER: {
+                //TODO
             }
             break;
         }
