@@ -1,4 +1,4 @@
-//package shark.utilityconsole.data.console.commands.rkz;
+//package shark.utilityconsole.commands.rkz;
 //
 //import com.fs.starfarer.api.EveryFrameScript;
 //import com.fs.starfarer.api.Global;
@@ -10,8 +10,8 @@
 //import com.fs.starfarer.api.combat.ShipAPI;
 //import com.fs.starfarer.api.combat.ViewportAPI;
 //import com.fs.starfarer.api.fleet.FleetMemberAPI;
-//import org.lazywizard.console.BaseCommand;
-//import org.lazywizard.console.Console;
+//import org.lazywizard.data.console.BaseCommand;
+//import org.lazywizard.data.console.Console;
 //import org.lazywizard.lazylib.CollisionUtils;
 //import org.lazywizard.lazylib.MathUtils;
 //import org.lwjgl.input.Keyboard;

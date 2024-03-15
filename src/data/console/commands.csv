@@ -1,0 +1,25 @@
+command,class,tags,syntax,help
+# Command: what the player enters to use your custom command
+# Class: points towards the command's script, which should implement BaseCommand
+# Tags: used by the Help command to find specific types of commands. Example tags:
+#  Console - system-level commands such as Help or Status, will work everywhere
+#  Campaign/Combat - this command only works in these contexts
+#  A mod-specific tag - include your mod as a tag so Help can differentiate them! The data.console mod uses the "core" tag, so please don't use that tag in your mod
+# Syntax: the syntax pattern for your command. <> denotes a required field, [] an optional one. Ex: "addcrew <amount> [optionalLevel]"
+# Help: what the player is shown when they enter "help <command>". The syntax line will be shown by help as well, so you don't need to include it again.
+#
+# The most basic command possible, just to give you a starting point
+Echo,shark.utilityconsole.commands.basic.Echo,"example,data.console",echo <text>,"An example command that displays the message you entered to the player."
+# Intermediate complexity, runs once
+Dogpile,shark.utilityconsole.commands.intermediate.Dogpile,"example,cheat,campaign",dogpile (no arguments),"Summons all hostile fleets in the system to attack the player."
+FlipShips,shark.utilityconsole.commands.intermediate.FlipShips,"example,cheat,combat",flipships (no arguments),"Rotates all ships on the combat map by 180 degrees."
+SetFacing,shark.utilityconsole.commands.intermediate.SetFacing,"example,cheat,combat",setfacing <angle>,"Sets the facing of the targeted ship (or the player if no target is selected) to the specified angle in degrees."
+SetZoom,shark.utilityconsole.commands.intermediate.SetViewMult,"example,combat",setzoom [optionalMult],"Sets the zoom level in combat. The argument is a mutiplier to the default zoom level (ex: 0.5 is zoomed out to double the default zoom). If no argument is entered, prints the current zoom level."
+# Advanced complexity, runs until the next reload and can be toggled off and on
+FlakJacket,shark.utilityconsole.commands.advanced.FlakJacket,"example,cheat,combat",flakjacket (no arguments),"Surrounds the player ship with an impenetrable field of flak."
+ForeverAlone,shark.utilityconsole.commands.advanced.ForeverAlone,"example,cheat,campaign",foreveralone (no arguments),"Prevents your ship from approaching other fleets."
+StormGod,shark.utilityconsole.commands.advanced.StormGod,"example,cheat,campaign",stormgod (no arguments),"Lets you pass through hyperspace storms freely."
+# my commands
+RefillCR,shark.utilityconsole.commands.rkz.RefillCR,"shark,cheat,campaign,combat",refillcr [optionalParam],"Refills CR to the max. Optional parameter can be 'no argument' to refill all ships' CR to max, or 'list' to list all ships' names, IDs and hull IDs, or can be either a name/ID/HullID of ship who's CR you want to refill."
+ListShips,shark.utilityconsole.commands.rkz.ListShips,"shark,campaign,combat",listships,"Lists own ships, either all fleet ships on campaign screen or only deployed ones on combat screen. Will mention 'ID: <ship's id>     HullID: <ship's hull id>        Name: <ship's name>'"
+FindShips,shark.utilityconsole.commands.rkz.FindShips,"shark,campaign,combat",Please do 'help findships',"Finds ships based on some specified criteria. Sample usage: 'findships ballistic > 5' OR 'findships size = frigate' OR 'findships { large ballistic > 2,energy > 2,capital,launchbay < 4 }'\n\nThe general syntax is: 'findships { <expr1>,<expr2>,<expr3> }` or 'findships <expression>'. Expressions include some parameter, followed by an operand (<, =, >) followed by a number. \nHull sizes being an exception, which can function as either 'findships frigate' or 'findships size = 2'. Hull sizes can work in complex (list) expressions too, as either 'findships { ballistic > 2,hybrid > 1,frigate }' or 'findships { ballistic > 4, size < destroyer }'\n\nThe following keywords are permitted and none of them are case-sensitive:\n'Ballistic,Energy,Missile,LaunchBay or Launchbay or launch-bay or launch_bay or launchbays,universal,hybrid,synergy,composite,builtin,decorative,system,stationmodule' for weapons.\n'small,medium,large' for weapon sizes.\n'CARGO,FUEL,CREW,HITPOINTS,ARMOR,FLUX_CAPACITY or flux-capacity or fluxcapacity,FLUX_DISSIPATION or fluxdissipation or flux-dissipation,SIZE' for ship parameters.\n**SPACES (and lack of them) are SUPER IMPORTANT**. So if you see a 'please do help findships' when everything seems alright - check the spaces. There should be only commas between expressions, and spaces between tokens and operation (bla > 6) are necessary.\n\nFew more sample usages:\n'findships { capital,universal > 3,launchbays > 2,crew > 500 }'\n'findships cargo > 400'\n'findships { cargo > 400,crew > 400 }'\n'findships { large ballistic > 5, crew > 800, launchbays > 5,flux-capacity > 5000 }'"

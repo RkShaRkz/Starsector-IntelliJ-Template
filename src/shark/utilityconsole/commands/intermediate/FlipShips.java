@@ -1,4 +1,4 @@
-package data.console.commands.intermediate;
+package shark.utilityconsole.commands.intermediate;
 
 import java.util.Iterator;
 import com.fs.starfarer.api.Global;

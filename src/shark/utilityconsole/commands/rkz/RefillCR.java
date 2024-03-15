@@ -1,4 +1,4 @@
-package shark.utilityconsole.data.console.commands.rkz;
+package shark.utilityconsole.commands.rkz;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
@@ -55,7 +55,7 @@ public class RefillCR implements BaseCommand {
         CommandResult retVal;
         FleetMemberAPI shipToRefill = null;
 
-        // We will use these to give console feedback to the user which ship was refilled.
+        // We will use these to give data.console feedback to the user which ship was refilled.
         boolean usedName = false, usedId = false, usedHullId = false;
 
         CampaignFleetAPI fleetAPI = Global.getSector().getPlayerFleet();
@@ -90,7 +90,7 @@ public class RefillCR implements BaseCommand {
             }
         }
 
-        // After looping, if ship is non-null, refill and print a message to the console
+        // After looping, if ship is non-null, refill and print a message to the data.console
         // otherwise just fail and say there was no such ship
         if (shipToRefill == null) {
             Console.showMessage("Could not find ship with Name, ID or Hull ID of " + args);
@@ -138,14 +138,18 @@ public class RefillCR implements BaseCommand {
         StringBuilder sb = new StringBuilder();
         CampaignFleetAPI fleetAPI = Global.getSector().getPlayerFleet();
         for (FleetMemberAPI fleetMember : fleetAPI.getMembersWithFightersCopy()) {
-            sb
-                    .append(fleetMember.getShipName())
-                    .append("\t\tID: ").append(fleetMember.getId())
-                    .append("\t\tHull ID: ").append(fleetMember.getHullId())
-                    .append("\n");
+            stringifyShipToStringBuilder(sb, fleetMember);
         }
         Console.showMessage(sb.toString());
 
         return CommandResult.SUCCESS;
+    }
+
+    private void stringifyShipToStringBuilder(StringBuilder sb, FleetMemberAPI fleetMember) {
+        sb
+                .append("Name: ").append(String.format("%24s", fleetMember.getShipName()))
+                .append("\t\tID: ").append(String.format("%8s", fleetMember.getId()))
+                .append("\t\tHull ID: ").append(String.format("%64s", fleetMember.getHullId()))
+                .append("\n");
     }
 }

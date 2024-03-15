@@ -1,13 +1,10 @@
-package data.console.commands.advanced;
+package shark.utilityconsole.commands.advanced;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
 import com.fs.starfarer.api.combat.CombatEngineAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.CommonStrings;
