@@ -31,45 +31,15 @@ public class ListShips implements BaseCommand {
             }
         });
 
-        /*
-        if (context.isInCombat()) {
-            List<ShipAPI> ships = Global.getCombatEngine().getShips();
-            for (ShipAPI ship : ships) {
-                if (ship.getOwner() == FleetSide.PLAYER.ordinal()) {
-                    // cast to FleetMemberAPI
-
-                }
-            }
-        } else {
-            List<FleetMemberAPI> shipList =
-                    Global
-                            .getSector()
-                            .getPlayerFleet()
-                            .getFleetData()
-                            .getFleet()
-                            .getMembersWithFightersCopy();
-
-            StringBuilder sb = new StringBuilder();
-            for (FleetMemberAPI ship : shipList) {
-                sb
-                        .append("ID: ").append(ship.getId())
-                        .append("\t\tHull ID: ").append(ship.getHullId())
-                        .append("\t\tName: ").append(ship.getShipName())
-                        .append("\n");
-            }
-
-            Console.showMessage(sb.toString());
-        }
-         */
 
         return CommandResult.SUCCESS;
     }
 
     private String processFleetMember(FleetMemberAPI ship) {
         StringBuilder retVal = new StringBuilder()
-                .append("ID: ").append(ship.getId())
-                .append("\t\tHull ID: ").append(ship.getHullId())
-                .append("\t\tName: ").append(ship.getShipName())
+                .append("ID: ").append(String.format("%8s", ship.getId()))
+                .append("\t\tHull ID: ").append(String.format("%64s", ship.getHullId()))
+                .append("\t\tName: ").append(String.format("%32s", ship.getShipName()))
                 .append("\n");
 
         return retVal.toString();
