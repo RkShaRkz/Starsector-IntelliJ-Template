@@ -47,10 +47,21 @@
 	# setting to a larger value may cause framerate drops when time is sped up
 	"campaignSpeedupMult":4, # was 2
 
+	"minCombatZoom":0.5, # was 0.5 # zoomed in all the way
+	"maxCombatZoom":2.0, # was 2.0 # zoomed out all the way
+
+	# only used when devMode=false
+	"minCampaignZoom":0.5, # zoomed in all the way
+	"maxCampaignZoom":3.0, # zoomed out all the way
+
 	# main color used for menu buttons and the like
 	"buttonBg":[70,222,255,255],
 	"buttonBgDark":[31,94,112,175],
 	"buttonText":[170,222,255,255],
 	"buttonShortcut":[255,210,0,255],
 	"storyOptionColor":[163,239,128,255],
+
+	# some keys I added
+	"RKZ_useDynamicAutomatedShipsOpThreshold":true, # was false since I made it up
+	"RKZ_automatedShipsOPThreshold":200, # was 120
 }

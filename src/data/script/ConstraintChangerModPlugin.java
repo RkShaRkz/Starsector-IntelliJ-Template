@@ -2,16 +2,24 @@ package data.script;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
 public class ConstraintChangerModPlugin extends BaseModPlugin {
 
+    public static Logger logger = Global.getLogger(ConstraintChangerModPlugin.class);
+
     public static final boolean HAVE_LUNALIB = Global.getSettings().getModManager().isModEnabled("lunalib");
     public static final String MOD_ID = "Shark_ConstraintChanger";
+
+    /**************************
+     * OFFICER LUNAKEYS BELOW *
+     **************************/
 
     public static final String FIELD_MAX_OFFICER_COUNT = "constraintchanger_officerNumber";
     public static final String FIELD_OFFICER_MAX_LEVEL = "constraintchanger_officerMaxLevel";
@@ -22,12 +30,30 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_MERC_OFFICER_MAX_LEVEL = "constraintchanger_officerMercMaxLevel";
     public static final String FIELD_MERC_OFFICER_PAY_MULT = "constraintchanger_officerMercPayMult";
     public static final String FIELD_MERC_OFFICER_CONTRACT_DURATION = "constraintchanger_officerMercContractDur";
+
+    /*************************
+     * COMBAT LUNAKEYS BELOW *
+     *************************/
+
     public static final String FIELD_MAX_SHIPS_IN_FLEET = "constraintchanger_maxShipsInFleet";
     public static final String FIELD_MAX_SHIPS_IN_AI_FLEET = "constraintchanger_maxShipsInAIFleet";
     public static final String FIELD_MIN_BATTLE_SIZE = "constraintchanger_minBattleSize";
     public static final String FIELD_DEFAULT_BATTLE_SIZE = "constraintchanger_defaultBattleSize";
     public static final String FIELD_MAX_BATTLE_SIZE = "constraintchanger_maxBattleSize";
+
+    /***********************
+     * MISC LUNAKEYS BELOW *
+     ***********************/
+
     public static final String FIELD_CAMPAIGN_SPEEDUP_MULT = "constraintchanger_campaignSpeedupMult";
+    public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_useDynamicAutomatedShipsOpThreshold";
+    public static final String FIELD_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_automatedShipsOpThreshold";
+
+    public static final String FIELD_MIN_COMBAT_ZOOM = "constraintchanger_minCombatZoom";
+    public static final String FIELD_MAX_COMBAT_ZOOM = "constraintchanger_maxCombatZoom";
+    public static final String FIELD_MIN_CAMPAIGN_ZOOM = "constraintchanger_minCampaignZoom";
+    public static final String FIELD_MAX_CAMPAIGN_ZOOM = "constraintchanger_maxCampaignZoom";
+
 
     /**
      * Map used to map LunaSettings keys to their actual starsector-core/data/config/settings.json keys
@@ -53,11 +79,20 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_MAX_BATTLE_SIZE, "maxBattleSize");
         // Misc
         LunaToRealKeymap.put(FIELD_CAMPAIGN_SPEEDUP_MULT, "campaignSpeedupMult");
+        LunaToRealKeymap.put(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_useDynamicAutomatedShipsOpThreshold");
+        LunaToRealKeymap.put(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_automatedShipsOPThreshold");
+        LunaToRealKeymap.put(FIELD_MIN_COMBAT_ZOOM, "minCombatZoom");
+        LunaToRealKeymap.put(FIELD_MAX_COMBAT_ZOOM, "maxCombatZoom");
+        LunaToRealKeymap.put(FIELD_MIN_CAMPAIGN_ZOOM, "minCampaignZoom");
+        LunaToRealKeymap.put(FIELD_MAX_CAMPAIGN_ZOOM, "maxCampaignZoom");
+
     }
 
     @Override
     public void onApplicationLoad() throws Exception {
         super.onApplicationLoad();
+
+//        logger.info(">>>> Settings JSON: \n" + Global.getSettings().getSettingsJSON());
 
         if (HAVE_LUNALIB) {
             LunaSettings.addSettingsListener(new MyLunaSettinsListener());
@@ -99,6 +134,28 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                 writeLunaSettingToRealSetting(FIELD_MAX_BATTLE_SIZE);
                 // Misc
                 writeLunaSettingToRealSetting(FIELD_CAMPAIGN_SPEEDUP_MULT);
+                handleAutomaticShips();
+                writeLunaSettingToRealSetting(FIELD_MIN_COMBAT_ZOOM);
+                writeLunaSettingToRealSetting(FIELD_MAX_COMBAT_ZOOM);
+                writeLunaSettingToRealSetting(FIELD_MIN_CAMPAIGN_ZOOM);
+                writeLunaSettingToRealSetting(FIELD_MAX_CAMPAIGN_ZOOM);
+            }
+        }
+
+        private void handleAutomaticShips() {
+            // Automated ships need a bit more love
+            // Since these two "real" settings are actually made up, we don't even need to save both of them
+            // figure out whether we're using dynamic, save both of the made up settings, but only save what really matters
+            // to the real thing controlling the autoships threshold - into BaseSkillEffectDescription
+            boolean useDynamicAutoshipOP = safeUnboxing(LunaSettings.getBoolean(MOD_ID, FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD));
+            writeLunaSettingToRealSetting(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD);
+            if (useDynamicAutoshipOP) {
+                // get default battle size, use 40% of that for automated points OP
+                int defaultBattleSize = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DEFAULT_BATTLE_SIZE));
+                BaseSkillEffectDescription.AUTOMATED_POINTS_THRESHOLD = Math.round((defaultBattleSize * 4) / 10f);
+            } else {
+                BaseSkillEffectDescription.AUTOMATED_POINTS_THRESHOLD = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_AUTOMATED_SHIPS_OP_THRESHOLD));
             }
         }
 
@@ -139,7 +196,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
          *                             convertLunaToRealKey(lunaKey),
          *                             new Float(LunaSettings.getInt(MOD_ID, lunaKey))
          *                     );
-         * }
+         *}
          * Namely, if the {@link LunaSettings#getInt(String, String)} method returns null due to having no value
          * for the passed <i>lunaKey</i>, trying to instantiate a new Float out of that would, of course, also fail
          * and crash the program.
@@ -149,9 +206,20 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
          * @return 0 if the <b>object</b> was null, <b>object</b>'s value if it was non-null
          */
         private int safeUnboxing(Integer object) {
-            int retVal = 0;
+            int retVal;
             if (object == null) {
                 retVal = 0;
+            } else {
+                retVal = object;
+            }
+
+            return retVal;
+        }
+
+        private boolean safeUnboxing(Boolean object) {
+            boolean retVal;
+            if (object == null) {
+                retVal = false;
             } else {
                 retVal = object;
             }
