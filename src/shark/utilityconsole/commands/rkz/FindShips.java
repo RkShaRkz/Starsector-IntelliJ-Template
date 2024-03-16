@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
 import shark.utilityconsole.util.CommonUtil;
+import shark.utilityconsole.util.FormatUtil;
 import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
@@ -385,8 +386,8 @@ public class FindShips implements BaseCommand {
 
     public void stringifyShipIntoStringBuilder(StringBuilder sb, ShipHullSpecAPI ship) {
         sb
-                .append("Hull name: ").append(String.format("%32s", ship.getHullName()))
-                .append("\t\t\tHull ID: ").append(String.format("%64s", ship.getHullId()))
+                .append("Hull name: ").append(FormatUtil.formatName(ship.getHullName()))
+                .append("\t\t\tHull ID: ").append(FormatUtil.formatHullId(ship.getHullId()))
                 .append("\n");
     }
 

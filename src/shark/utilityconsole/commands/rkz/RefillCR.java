@@ -9,6 +9,7 @@ import com.fs.starfarer.api.fleet.RepairTrackerAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
+import shark.utilityconsole.util.FormatUtil;
 
 public class RefillCR implements BaseCommand {
     @Override
@@ -147,9 +148,9 @@ public class RefillCR implements BaseCommand {
 
     private void stringifyShipToStringBuilder(StringBuilder sb, FleetMemberAPI fleetMember) {
         sb
-                .append("Name: ").append(String.format("%24s", fleetMember.getShipName()))
-                .append("\t\tID: ").append(String.format("%8s", fleetMember.getId()))
-                .append("\t\tHull ID: ").append(String.format("%64s", fleetMember.getHullId()))
+                .append("Name: ").append(FormatUtil.formatName(fleetMember.getShipName()))
+                .append("\t\tID: ").append(FormatUtil.formatId(fleetMember.getId()))
+                .append("\t\tHull ID: ").append(FormatUtil.formatHullId(fleetMember.getHullId()))
                 .append("\n");
     }
 }
