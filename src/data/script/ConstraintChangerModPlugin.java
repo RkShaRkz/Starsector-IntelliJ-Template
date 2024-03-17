@@ -3,6 +3,8 @@ package data.script;
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
+import com.fs.starfarer.api.impl.campaign.skills.BulkTransport;
+import com.fs.starfarer.api.impl.campaign.skills.DerelictContingent;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 import org.apache.log4j.Logger;
@@ -46,14 +48,41 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
      ***********************/
 
     public static final String FIELD_CAMPAIGN_SPEEDUP_MULT = "constraintchanger_campaignSpeedupMult";
-    public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_useDynamicAutomatedShipsOpThreshold";
-    public static final String FIELD_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_automatedShipsOpThreshold";
+
 
     public static final String FIELD_MIN_COMBAT_ZOOM = "constraintchanger_minCombatZoom";
     public static final String FIELD_MAX_COMBAT_ZOOM = "constraintchanger_maxCombatZoom";
     public static final String FIELD_MIN_CAMPAIGN_ZOOM = "constraintchanger_minCampaignZoom";
     public static final String FIELD_MAX_CAMPAIGN_ZOOM = "constraintchanger_maxCampaignZoom";
 
+    /************************
+     * SKILL LUNAKEYS BELOW *
+     ************************/
+
+    public static final String FIELD_TACTICAL_DRILLS_OP_THRESHOLD = "constraintchanger_skill_TacticalDrills_OPThreshold";
+    public static final String FIELD_TACTICAL_DRILLS_DAMAGE_PERCENT = "constraintchanger_skill_TacticalDrills_DamagePercent";
+    public static final String FIELD_TACTICAL_DRILLS_ATTACK_BONUS = "constraintchanger_skill_TacticalDrills_AttackBonus";
+    public static final String FIELD_TACTICAL_DRILLS_CASUALTIES_MULTIPLIER = "constraintchanger_skill_TacticalDrills_CasualtiesMultiplier";
+    public static final String FIELD_CREW_TRAINING_OP_THRESHOLD = "constraintchanger_skill_CrewTraining_OPThreshold";
+    public static final String FIELD_CREW_TRAINING_PEAK_SECONDS = "TODO"; //TODO
+    public static final String FIELD_CREW_TRAINING_CR_PERCENT = "TODO"; //TODO
+    public static final String FIELD_FIGHTER_UPLINK_FIGHTER_BAYS = "constraintchanger_skill_FighterUplink_FighterBays";
+
+    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE = "TODO"; //TODO
+    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_CargoCapacityThreshold";
+    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE = "TODO"; //TODO
+    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_FuelCapacityThreshold";
+    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE = "TODO"; //TODO
+    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_PersonnelCapacityThreshold";
+    public static final String FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD = "constraintchanger_skill_ContainmentProcedures_OPThreshold";
+    public static final String FIELD_PHASE_COIL_TUNING_OP_THRESHOLD = "constraintchanger_skill_PhaseCoilTuning_OPThreshold";
+    public static final String FIELD_PHASE_COIL_SPEED_BONUS = "TODO"; //TODO
+    public static final String FIELD_PHASE_COIL_PEAK_TIME_BONUS = "TODO"; //TODO
+    public static final String FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT = "TODO"; //TODO
+    public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_DerelictOperations_DPCostReductionPerDmod";
+
+    public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_AutomatedShips_useDynamicOpThreshold";
+    public static final String FIELD_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_AutomatedShips_OPThreshold";
 
     /**
      * Map used to map LunaSettings keys to their actual starsector-core/data/config/settings.json keys
@@ -79,13 +108,33 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_MAX_BATTLE_SIZE, "maxBattleSize");
         // Misc
         LunaToRealKeymap.put(FIELD_CAMPAIGN_SPEEDUP_MULT, "campaignSpeedupMult");
-        LunaToRealKeymap.put(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_useDynamicAutomatedShipsOpThreshold");
-        LunaToRealKeymap.put(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_automatedShipsOPThreshold");
         LunaToRealKeymap.put(FIELD_MIN_COMBAT_ZOOM, "minCombatZoom");
         LunaToRealKeymap.put(FIELD_MAX_COMBAT_ZOOM, "maxCombatZoom");
         LunaToRealKeymap.put(FIELD_MIN_CAMPAIGN_ZOOM, "minCampaignZoom");
         LunaToRealKeymap.put(FIELD_MAX_CAMPAIGN_ZOOM, "maxCampaignZoom");
+        // Skills
+        // Leadership
+        LunaToRealKeymap.put(FIELD_TACTICAL_DRILLS_OP_THRESHOLD, "RKZ_skill_leadership_TacticalDrills_OPThreshold");
+        LunaToRealKeymap.put(FIELD_TACTICAL_DRILLS_DAMAGE_PERCENT, "RKZ_skill_leadership_TacticalDrills_DamagePercent");
+        LunaToRealKeymap.put(FIELD_TACTICAL_DRILLS_ATTACK_BONUS, "RKZ_skill_leadership_TacticalDrills_AttackBonus");
+        LunaToRealKeymap.put(FIELD_TACTICAL_DRILLS_CASUALTIES_MULTIPLIER, "RKZ_skill_leadership_TacticalDrills_CasualtiesMultiplier");
 
+        LunaToRealKeymap.put(FIELD_CREW_TRAINING_OP_THRESHOLD, "RKZ_skill_leadership_CrewTraining_OPThreshold");
+//        LunaToRealKeymap.put(FIELD_CREW_TRAINING_PEAK_SECONDS, "RKZ_skill_leadership_CrewTraining_PeakSeconds");
+//        LunaToRealKeymap.put(FIELD_CREW_TRAINING_CR_PERCENT, "RKZ_skill_leadership_CrewTraining_CRPercent");
+        LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_FIGHTER_BAYS, "RKZ_skill_leadership_FighterUplink_FighterBays");
+        // Technology
+        LunaToRealKeymap.put(FIELD_PHASE_COIL_TUNING_OP_THRESHOLD, "RKZ_skill_technology_PhaseCoilTuning_OPThreshold");
+        LunaToRealKeymap.put(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_useDynamicOpThreshold");
+        LunaToRealKeymap.put(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_OPThreshold");
+        // Industry
+        LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_CargoCapacityThreshold");
+        LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_FuelCapacityThreshold");
+        LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_PersonnelCapacityThreshold");
+
+        LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD, "RKZ_skill_industry_ContainmentProcedures_OPThreshold");
+
+        LunaToRealKeymap.put(FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD, "RKZ_skill_industry_DerelictOperations_DPCostReductionPerDmod");
     }
 
     @Override
@@ -117,32 +166,112 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
                 // Officers
-                writeLunaSettingToRealSetting(FIELD_OFFICER_MAX_LEVEL);
-                writeLunaSettingToRealSetting(FIELD_MAX_OFFICER_COUNT);
-                writeLunaSettingToRealSetting(FIELD_MAX_ELITE_SKILLS);
-                writeLunaSettingToRealSetting(FIELD_MAX_AI_OFFICER_COUNT);
-                writeLunaSettingToRealSetting(FIELD_MAX_OFFICERS_IN_AI_FLEET);
-                writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_MIN_LEVEL);
-                writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_MAX_LEVEL);
-                writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_PAY_MULT);
-                writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_CONTRACT_DURATION);
+                handleOfficerTabFields();
                 // Combat
-                writeLunaSettingToRealSetting(FIELD_MAX_SHIPS_IN_FLEET);
-                writeLunaSettingToRealSetting(FIELD_MAX_SHIPS_IN_AI_FLEET);
-                writeLunaSettingToRealSetting(FIELD_MIN_BATTLE_SIZE);
-                writeLunaSettingToRealSetting(FIELD_DEFAULT_BATTLE_SIZE);
-                writeLunaSettingToRealSetting(FIELD_MAX_BATTLE_SIZE);
+                handleCombatTabFields();
                 // Misc
                 writeLunaSettingToRealSetting(FIELD_CAMPAIGN_SPEEDUP_MULT);
-                handleAutomaticShips();
+
                 writeLunaSettingToRealSetting(FIELD_MIN_COMBAT_ZOOM);
                 writeLunaSettingToRealSetting(FIELD_MAX_COMBAT_ZOOM);
                 writeLunaSettingToRealSetting(FIELD_MIN_CAMPAIGN_ZOOM);
                 writeLunaSettingToRealSetting(FIELD_MAX_CAMPAIGN_ZOOM);
+
+                // Skills
+
+                // Combat
+                //Helmsmanship
+                //CombatEndurance
+                //ImpactMitigation
+                //DamageControl
+                //FieldModulation
+                //PointDefense
+                //TargetAnalysis
+                //BallisticMastery
+                //SystemsExpertise
+                //MissileSpecialization
+
+                // Leadership
+                //TacticalDrills
+                handleTacticalDrills();
+                //CoordinatedManeuvers
+                //WolfpackTactics
+                //CrewTraining
+                float crewTrainingSettingsValue = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CREW_TRAINING_OP_THRESHOLD));
+                BaseSkillEffectDescription.OP_THRESHOLD = crewTrainingSettingsValue;
+                //CarrierGroup
+                //Fighter Uplink
+                float fighterUplinkSettingsValue = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_FIGHTER_BAYS));
+                BaseSkillEffectDescription.FIGHTER_BAYS_THRESHOLD = fighterUplinkSettingsValue;
+                //OfficerTraining
+                //OfficerManagement
+                //BestOfTheBest
+                //SupportDoctrine
+
+                // Technology
+                //Navigation
+                //Sensors
+                //GunneryImplants
+                //EnergyWeaponMastery
+                //ElectronicWarfare
+                //FluxRegulation
+                //PhaseCoil
+                float coilTuning = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_TUNING_OP_THRESHOLD));
+                BaseSkillEffectDescription.PHASE_OP_THRESHOLD = coilTuning;
+                //NeuralLink - nope, will remain two ships only
+                //CyberneticAugmentation
+                //AutomatedShips
+                handleAutomatedShips();
+
+                // Industry
+
+                //BulkTransport
+                BulkTransport.CARGO_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD));
+                BulkTransport.FUEL_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD));
+                BulkTransport.PERSONNEL_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD));
+                //Salvaging
+                //FieldRepairs
+                //OrdnanceExpertise
+                //PolarizedArmor
+                //ContainmentProcedures
+                BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
+                //MakeshiftEquipment
+                //IndustrialPlanning
+                //HullRestoration
+                //DerelictOperations
+                DerelictContingent.MINUS_DP_PERCENT_PER_DMOD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD));
             }
         }
 
-        private void handleAutomaticShips() {
+        private void handleOfficerTabFields() {
+            writeLunaSettingToRealSetting(FIELD_OFFICER_MAX_LEVEL);
+            writeLunaSettingToRealSetting(FIELD_MAX_OFFICER_COUNT);
+            writeLunaSettingToRealSetting(FIELD_MAX_ELITE_SKILLS);
+            writeLunaSettingToRealSetting(FIELD_MAX_AI_OFFICER_COUNT);
+            writeLunaSettingToRealSetting(FIELD_MAX_OFFICERS_IN_AI_FLEET);
+            writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_MIN_LEVEL);
+            writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_MAX_LEVEL);
+            writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_PAY_MULT);
+            writeLunaSettingToRealSetting(FIELD_MERC_OFFICER_CONTRACT_DURATION);
+        }
+
+        private void handleCombatTabFields() {
+            writeLunaSettingToRealSetting(FIELD_MAX_SHIPS_IN_FLEET);
+            writeLunaSettingToRealSetting(FIELD_MAX_SHIPS_IN_AI_FLEET);
+            writeLunaSettingToRealSetting(FIELD_MIN_BATTLE_SIZE);
+            writeLunaSettingToRealSetting(FIELD_DEFAULT_BATTLE_SIZE);
+            writeLunaSettingToRealSetting(FIELD_MAX_BATTLE_SIZE);
+        }
+
+        private void handleTacticalDrills() {
+            float tacticalDrillsSettingsValue = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_TACTICAL_DRILLS_OP_THRESHOLD));
+            BaseSkillEffectDescription.OP_LOW_THRESHOLD = tacticalDrillsSettingsValue;
+
+
+            writeLunaSettingToRealSetting(FIELD_TACTICAL_DRILLS_OP_THRESHOLD);
+        }
+
+        private void handleAutomatedShips() {
             // Automated ships need a bit more love
             // Since these two "real" settings are actually made up, we don't even need to save both of them
             // figure out whether we're using dynamic, save both of the made up settings, but only save what really matters
@@ -220,6 +349,17 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             boolean retVal;
             if (object == null) {
                 retVal = false;
+            } else {
+                retVal = object;
+            }
+
+            return retVal;
+        }
+
+        private float safeUnboxing(Float object) {
+            float retVal;
+            if (object == null) {
+                retVal = 0;
             } else {
                 retVal = object;
             }

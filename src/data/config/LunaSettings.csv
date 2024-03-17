@@ -17,9 +17,34 @@ constraintchanger_defaultBattleSize,Default Battle Size,Int,400,,Default battle 
 constraintchanger_maxBattleSize,Maximum Battle Size,Int,800,,Maximum battle size changable in game's Settings (vanilla value is 400),400,1200,Combat
 ,,,,,,,,
 constraintchanger_campaignSpeedupMult,Campaign speedup multiplier,Int,4,,Campaign speedup multiplier - setting to a larger value may cause framerate drops when time is sped up (vanilla value is 2),2,10,Misc
-constraintchanger_useDynamicAutomatedShipsOpThreshold,Use dynamic Automated ships OP threshold,Boolean,true,,Should the game use a dynamic Automated ships OP threshold. Originally it used [40%%] of the original/default battle size of 300 (changeable in the Game Settings). So 180 for regular ships and [120] for automated ships. If this setting is toggled the setting below is ignored and the effect will be as if you toggled it to [40%% of default battle size]. [Directly dependant on the 'Default Battle Size' option from 'Combat' tab]. (vanilla value is 'false'),,,Misc
-constraintchanger_automatedShipsOpThreshold,Automated ships OP threshold,Int,120,,The 'automated ships' OP threshold for the 'Automated Ships' skill. [If you want to use the value entered here make sure the above option is unchecked] (vanilla value is 120),20,1000,Misc
+constraintchanger_combatzoom_header,Combat Zoom divider,Header,Combat Zoom,,,,,Misc
 constraintchanger_minCombatZoom,Minimum Combat zoom,Double,0.5,,Minimum Combat zoom (zoomed in all the way). The number is a multiplier for the viewport size (vanilla value is 0.5),0.1,1.0,Misc
 constraintchanger_maxCombatZoom,Maximum Combat zoom,Double,3.0,,Maximum Combat zoom (zoomed out all the way). The number is a multiplier for the viewport size (vanilla value is 2.0),1.0,10.0,Misc
+constraintchanger_campaignzoom_header,Campaign Zoom divider,Header,Campaign Zoom,,,,,Misc
 constraintchanger_minCampaignZoom,Minimum Campaign zoom,Double,0.5,,Minimum Campaign zoom (zoomed in all the way). The number is a multiplier for the viewport size (vanilla value is 0.5),0.1,1.0,Misc
 constraintchanger_maxCampaignZoom,Maximum Campaign zoom,Double,3.0,,Maximum Campaign zoom (zoomed out all the way). The number is a multiplier for the viewport size (vanilla value is 3.0),1.0,10.0,Misc
+,,,,,,,,
+constraintchanger_skill_TacticalDrills_header,Tactical Drills divider,Header,Tactical Drills,,,,,Skills
+constraintchanger_skill_TacticalDrills_OPThreshold,Tactical Drills - OP Threshold,Int,240,,[Tactical Drills] Leadership Skill [OP Threshold] Parameter Value (vanilla value is 240),0,2400,Skills
+constraintchanger_skill_TacticalDrills_DamagePercent,Tactical Drills - Damage Percent,Double,5.0,,[Tactical Drills] Leadership Skill [Damage Percent] Parameter Value (vanilla value is 5.0),0.0,200.0,Skills
+constraintchanger_skill_TacticalDrills_AttackBonus,Tactical Drills - Attack Bonus,Int,50,,[Tactical Drills] Leadership Skill [Attack Bonus] Parameter Value (vanilla value is 50),0,200,Skills
+constraintchanger_skill_TacticalDrills_CasualtiesMultiplier,Tactical Drills - Casualties Multiplier,Double,0.75,,[Tactical Drills] Leadership Skill [Casualties Multiplier] Parameter Value (vanilla value is 0.75),0.05,1.0,Skills
+constraintchanger_skill_CrewTraining_header,Crew Training divider,Header,Crew Training,,,,,Skills
+constraintchanger_skill_CrewTraining_OPThreshold,Crew Training - OP Threshold,Int,240,,later (vanilla value is 240),0,2400,Skills
+constraintchanger_skill_FighterUplink_header,Fighter Uplink divider,Header,Fighter Uplink,,,,,Skills
+constraintchanger_skill_FighterUplink_FighterBays,Fighter Uplink - Fighter Bays,Int,8,,later (vanilla value is 8),0,2400,Skills
+,,,,,,,,
+constraintchanger_skill_PhaseCoilTuning_header,Phase Coil Tuning divider,Header,Phase Coil Tuning,,,,,Skills
+constraintchanger_skill_PhaseCoilTuning_OPThreshold,Phase Coil Tuning - OP Threshold,Int,40,,later (vanilla value is 40),0,400,Skills
+constraintchanger_skill_AutomatedShips_header,Automated Ships divider,Header,Automated Ships,,,,,Skills
+constraintchanger_skill_AutomatedShips_useDynamicOpThreshold,Use dynamic Automated ships OP threshold,Boolean,true,,"Should the game use a dynamic Automated ships OP threshold. Originally it used [40%%] of the original/default battle size of 300 (changeable in the Game Settings). So 180 for regular ships and [120] for automated ships. If this setting is toggled the setting below is ignored and the effect will be as if you toggled it to [40%% of default battle size]. [Directly dependant on the 'Default Battle Size' option from 'Combat' tab]. (vanilla value is 'false')",,,Skills
+constraintchanger_skill_AutomatedShips_OPThreshold,Automated Ships - OP threshold,Int,120,,"The 'automated ships' OP threshold for the 'Automated Ships' skill. [If you want to use the value entered here make sure the above option is unchecked] (vanilla value is 120)",20,1000,Skills
+,,,,,,,,
+constraintchanger_skill_BulkTransport_header,Bulk Transport divider,Header,Bulk Transport,,,,,Skills
+constraintchanger_skill_BulkTransport_CargoCapacityThreshold,[Bulk Transport] - Cargo Capacity Threshold,Int,2000,,"Int Fields will only accept whole Numbers, and block any other character from being entered.",-50,20000,Skills
+constraintchanger_skill_BulkTransport_FuelCapacityThreshold,[Bulk Transport] - Fuel Capacity Threshold,Int,2000,,"Int Fields will only accept whole Numbers, and block any other character from being entered.",-50,20000,Skills
+constraintchanger_skill_BulkTransport_PersonnelCapacityThreshold,[Bulk Transport] - Personnel Capacity Threshold,Int,5000,,"Int Fields will only accept whole Numbers, and block any other character from being entered.",-50,50000,Skills
+constraintchanger_skill_ContainmentProcedures_header,Containment Procedures divider,Header,Containment Procedures,,,,,Skills
+constraintchanger_skill_ContainmentProcedures_OPThreshold,[Containment Procedures] - OP Threshold,Int,240,,later (vanilla value is 240),0,2400,Skills
+constraintchanger_skill_DerelictOperations_header,Derelict Operations divider,Header,Derelict Operations,,,,,Skills
+constraintchanger_skill_DerelictOperations_DPCostReductionPerDmod,[Derelict Operations] - DP Cost reduction per DMod,Int,6,,later (vanilla value is 6),0,100,Skills
