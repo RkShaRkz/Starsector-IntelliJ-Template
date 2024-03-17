@@ -2,9 +2,7 @@ package data.script;
 
 import com.fs.starfarer.api.BaseModPlugin;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.impl.campaign.skills.BaseSkillEffectDescription;
-import com.fs.starfarer.api.impl.campaign.skills.BulkTransport;
-import com.fs.starfarer.api.impl.campaign.skills.DerelictContingent;
+import com.fs.starfarer.api.impl.campaign.skills.*;
 import lunalib.lunaSettings.LunaSettings;
 import lunalib.lunaSettings.LunaSettingsListener;
 import org.apache.log4j.Logger;
@@ -63,10 +61,17 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_TACTICAL_DRILLS_DAMAGE_PERCENT = "constraintchanger_skill_TacticalDrills_DamagePercent";
     public static final String FIELD_TACTICAL_DRILLS_ATTACK_BONUS = "constraintchanger_skill_TacticalDrills_AttackBonus";
     public static final String FIELD_TACTICAL_DRILLS_CASUALTIES_MULTIPLIER = "constraintchanger_skill_TacticalDrills_CasualtiesMultiplier";
-    public static final String FIELD_CREW_TRAINING_OP_THRESHOLD = "constraintchanger_skill_CrewTraining_OPThreshold";
-    public static final String FIELD_CREW_TRAINING_PEAK_SECONDS = "TODO"; //TODO
-    public static final String FIELD_CREW_TRAINING_CR_PERCENT = "TODO"; //TODO
-    public static final String FIELD_FIGHTER_UPLINK_FIGHTER_BAYS = "constraintchanger_skill_FighterUplink_FighterBays";
+
+    public static final String FIELD_CREW_TRAINING_PEAK_SECONDS = "constraintchanger_skill_CrewTraining_PeakSeconds";
+    public static final String FIELD_CREW_TRAINING_CR_PERCENT = "constraintchanger_skill_CrewTraining_CRPercent";
+
+    public static final String FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT = "constraintchanger_skill_FighterUplink_MaxSpeedPercent";
+    public static final String FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT = "constraintchanger_skill_FighterUplink_CrewLossPercent";
+    public static final String FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS = "constraintchanger_skill_FighterUplink_TargetLeadingBonus";
+    public static final String FIELD_FIGHTER_UPLINK_OFFICER_MULT = "constraintchanger_skill_FighterUplink_OfficerMultiplier";
+
+    public static final String FIELD_SHARED_OP_THRESHOLD = "constraintchanger_skill_Shared_OPThreshold";
+    public static final String FIELD_SHARED_FIGHTER_BAYS = "constraintchanger_skill_Shared_FighterBays";
 
     public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE = "TODO"; //TODO
     public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_CargoCapacityThreshold";
@@ -76,9 +81,9 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_PersonnelCapacityThreshold";
     public static final String FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD = "constraintchanger_skill_ContainmentProcedures_OPThreshold";
     public static final String FIELD_PHASE_COIL_TUNING_OP_THRESHOLD = "constraintchanger_skill_PhaseCoilTuning_OPThreshold";
-    public static final String FIELD_PHASE_COIL_SPEED_BONUS = "TODO"; //TODO
-    public static final String FIELD_PHASE_COIL_PEAK_TIME_BONUS = "TODO"; //TODO
-    public static final String FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT = "TODO"; //TODO
+    public static final String FIELD_PHASE_COIL_SPEED_BONUS = "constraintchanger_skill_PhaseCoilTuning_SpeedBonus";
+    public static final String FIELD_PHASE_COIL_PEAK_TIME_BONUS = "constraintchanger_skill_PhaseCoilTuning_PeakTimeBonus";
+    public static final String FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT = "constraintchanger_skill_PhaseCoilTuning_SensorBonusPercent";
     public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_DerelictOperations_DPCostReductionPerDmod";
 
     public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_AutomatedShips_useDynamicOpThreshold";
@@ -119,12 +124,22 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_TACTICAL_DRILLS_ATTACK_BONUS, "RKZ_skill_leadership_TacticalDrills_AttackBonus");
         LunaToRealKeymap.put(FIELD_TACTICAL_DRILLS_CASUALTIES_MULTIPLIER, "RKZ_skill_leadership_TacticalDrills_CasualtiesMultiplier");
 
-        LunaToRealKeymap.put(FIELD_CREW_TRAINING_OP_THRESHOLD, "RKZ_skill_leadership_CrewTraining_OPThreshold");
-//        LunaToRealKeymap.put(FIELD_CREW_TRAINING_PEAK_SECONDS, "RKZ_skill_leadership_CrewTraining_PeakSeconds");
-//        LunaToRealKeymap.put(FIELD_CREW_TRAINING_CR_PERCENT, "RKZ_skill_leadership_CrewTraining_CRPercent");
-        LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_FIGHTER_BAYS, "RKZ_skill_leadership_FighterUplink_FighterBays");
+        LunaToRealKeymap.put(FIELD_CREW_TRAINING_PEAK_SECONDS, "RKZ_skill_leadership_CrewTraining_PeakSeconds");
+        LunaToRealKeymap.put(FIELD_CREW_TRAINING_CR_PERCENT, "RKZ_skill_leadership_CrewTraining_CRPercent");
+
+        LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT, "RKZ_skill_leadership_FighterUplink_MaxSpeedPercent");
+        LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT, "RKZ_skill_leadership_FighterUplink_CrewLossPercent");
+        LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS, "RKZ_skill_leadership_FighterUplink_TargetLeadingBonus");
+        LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_OFFICER_MULT, "RKZ_skill_leadership_FighterUplink_OfficerMultiplier");
+
+        LunaToRealKeymap.put(FIELD_SHARED_OP_THRESHOLD, "RKZ_skill_leadership_CrewTraining_and_FluxRegulation_OPThreshold");
+        LunaToRealKeymap.put(FIELD_SHARED_FIGHTER_BAYS, "RKZ_skill_leadership_FighterUplink_and_CarrierGroup_FighterBays");
         // Technology
         LunaToRealKeymap.put(FIELD_PHASE_COIL_TUNING_OP_THRESHOLD, "RKZ_skill_technology_PhaseCoilTuning_OPThreshold");
+        LunaToRealKeymap.put(FIELD_PHASE_COIL_SPEED_BONUS, "RKZ_skill_technology_PhaseCoilTuning_SpeedBonus");
+        LunaToRealKeymap.put(FIELD_PHASE_COIL_PEAK_TIME_BONUS, "RKZ_skill_technology_PhaseCoilTuning_PeakTimeBonus");
+        LunaToRealKeymap.put(FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT, "RKZ_skill_technology_PhaseCoilTuning_SensorBonusPercent");
+
         LunaToRealKeymap.put(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_useDynamicOpThreshold");
         LunaToRealKeymap.put(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_OPThreshold");
         // Industry
@@ -197,12 +212,16 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                 //CoordinatedManeuvers
                 //WolfpackTactics
                 //CrewTraining
-                float crewTrainingSettingsValue = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CREW_TRAINING_OP_THRESHOLD));
-                BaseSkillEffectDescription.OP_THRESHOLD = crewTrainingSettingsValue;
+                BaseSkillEffectDescription.OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_OP_THRESHOLD));
+                CrewTraining.CR_PERCENT = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_CR_PERCENT));
+                CrewTraining.PEAK_SECONDS = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_PEAK_SECONDS));
                 //CarrierGroup
                 //Fighter Uplink
-                float fighterUplinkSettingsValue = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_FIGHTER_BAYS));
-                BaseSkillEffectDescription.FIGHTER_BAYS_THRESHOLD = fighterUplinkSettingsValue;
+                BaseSkillEffectDescription.FIGHTER_BAYS_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIGHTER_BAYS));
+                FighterUplink.MAX_SPEED_PERCENT = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT));
+                FighterUplink.CREW_LOSS_PERCENT = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT));
+                FighterUplink.TARGET_LEADING_BONUS = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS));
+                FighterUplink.OFFICER_MULT = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_FIGHTER_UPLINK_OFFICER_MULT));
                 //OfficerTraining
                 //OfficerManagement
                 //BestOfTheBest
@@ -216,8 +235,10 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                 //ElectronicWarfare
                 //FluxRegulation
                 //PhaseCoil
-                float coilTuning = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_TUNING_OP_THRESHOLD));
-                BaseSkillEffectDescription.PHASE_OP_THRESHOLD = coilTuning;
+                BaseSkillEffectDescription.PHASE_OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_TUNING_OP_THRESHOLD));
+                PhaseCorps.PHASE_SPEED_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_SPEED_BONUS));
+                PhaseCorps.PEAK_TIME_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_PEAK_TIME_BONUS));
+                PhaseCorps.PHASE_SHIP_SENSOR_BONUS_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT));
                 //NeuralLink - nope, will remain two ships only
                 //CyberneticAugmentation
                 //AutomatedShips

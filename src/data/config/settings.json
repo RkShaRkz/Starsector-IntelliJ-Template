@@ -74,14 +74,22 @@
 	"RKZ_skill_leadership_TacticalDrills_AttackBonus":50,
 	"RKZ_skill_leadership_TacticalDrills_CasualtiesMultiplier":0.75,
 
-	"RKZ_skill_leadership_CrewTraining_OPThreshold":240,
 	"RKZ_skill_leadership_CrewTraining_PeakSeconds":30.0,
 	"RKZ_skill_leadership_CrewTraining_CRPercent":15.0,
 
-	"RKZ_skill_leadership_FighterUplink_FighterBays":8,
+	"RKZ_skill_leadership_FighterUplink_MaxSpeedPercent":20,
+	"RKZ_skill_leadership_FighterUplink_CrewLossPercent":50,
+	"RKZ_skill_leadership_FighterUplink_TargetLeadingBonus":50,
+	"RKZ_skill_leadership_FighterUplink_OfficerMultiplier":1.5,
+	# leadership - shared
+	"RKZ_skill_leadership_CrewTraining_and_FluxRegulation_OPThreshold":240,
+	"RKZ_skill_leadership_FighterUplink_and_CarrierGroup_FighterBays":8,
 
 	#TECHNOLOGY
 	"RKZ_skill_technology_PhaseCoilTuning_OPThreshold":40,
+	"RKZ_skill_technology_PhaseCoilTuning_SpeedBonus":50,
+	"RKZ_skill_technology_PhaseCoilTuning_PeakTimeBonus":180,
+	"RKZ_skill_technology_PhaseCoilTuning_SensorBonusPercent":100,
 
 	"RKZ_skill_technology_AutomatedShips_useDynamicOpThreshold":true, # was false since I made it up
 	"RKZ_skill_technology_AutomatedShips_OPThreshold":200, # was 120

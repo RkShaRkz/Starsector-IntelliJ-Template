@@ -30,12 +30,22 @@ constraintchanger_skill_TacticalDrills_DamagePercent,Tactical Drills - Damage Pe
 constraintchanger_skill_TacticalDrills_AttackBonus,Tactical Drills - Attack Bonus,Int,50,,[Tactical Drills] Leadership Skill [Attack Bonus] Parameter Value (vanilla value is 50),0,200,Skills
 constraintchanger_skill_TacticalDrills_CasualtiesMultiplier,Tactical Drills - Casualties Multiplier,Double,0.75,,[Tactical Drills] Leadership Skill [Casualties Multiplier] Parameter Value (vanilla value is 0.75),0.05,1.0,Skills
 constraintchanger_skill_CrewTraining_header,Crew Training divider,Header,Crew Training,,,,,Skills
-constraintchanger_skill_CrewTraining_OPThreshold,Crew Training - OP Threshold,Int,240,,later (vanilla value is 240),0,2400,Skills
+constraintchanger_skill_CrewTraining_PeakSeconds,Crew Training - Peak Seconds,Double,30,,[Crew Training] Leadership Skill [Peak Seconds] Parameter Value (vanilla value is 30.0),0,300,Skills
+constraintchanger_skill_CrewTraining_CRPercent,Crew Training - CR Percent,Double,15,,[Crew Training] Leadership Skill [CR Percent] Parameter Value (vanilla value is 15),0,300,Skills
 constraintchanger_skill_FighterUplink_header,Fighter Uplink divider,Header,Fighter Uplink,,,,,Skills
-constraintchanger_skill_FighterUplink_FighterBays,Fighter Uplink - Fighter Bays,Int,8,,later (vanilla value is 8),0,2400,Skills
+constraintchanger_skill_FighterUplink_MaxSpeedPercent,Fighter Uplink - Max Speed Percent,Int,20,,"[Fighter Uplink] Leadership Skill [Max Speed Percent] Parameter Value (vanilla value is 20)",0,200,Skills
+constraintchanger_skill_FighterUplink_CrewLossPercent,Fighter Uplink - Crew Loss Percent,Int,50,,"[Fighter Uplink] Leadership Skill [Crew Loss Percent] Parameter Value (vanilla value is 50)",0,100,Skills
+constraintchanger_skill_FighterUplink_TargetLeadingBonus,Fighter Uplink - Target Leading Bonus,Int,50,,"[Fighter Uplink] Leadership Skill [Target Leading Bonus] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_FighterUplink_OfficerMultiplier,Fighter Uplink - Officer Multiplier,Double,1.5,,"[Fighter Uplink] Leadership Skill [Officer Multiplier] Parameter Value (vanilla value is 1.5)",0,100,Skills
+constraintchanger_skill_Shared_header,Shared divider,Header,Shared,,,,,Skills
+constraintchanger_skill_Shared_FighterBays,Shared - Fighter Bays,Int,8,,"This value is [shared] for both [Carrier Group] and [Fighter Uplink] skills' [Fighter Bays] parameter. (vanilla value is 8)",0,240,Skills
+constraintchanger_skill_Shared_OPThreshold,Shared - OP Threshold,Int,240,,"This value is [shared] for both [Crew Training] and [Flux Regulation] skills' [OP Threshold] parameter. (vanilla value is 240)",0,2400,Skills
 ,,,,,,,,
 constraintchanger_skill_PhaseCoilTuning_header,Phase Coil Tuning divider,Header,Phase Coil Tuning,,,,,Skills
-constraintchanger_skill_PhaseCoilTuning_OPThreshold,Phase Coil Tuning - OP Threshold,Int,40,,later (vanilla value is 40),0,400,Skills
+constraintchanger_skill_PhaseCoilTuning_OPThreshold,Phase Coil Tuning - OP Threshold,Int,40,,[Phase Coil Tuning] Technology Skill [OP Threshold] Parameter Value (vanilla value is 40),0,400,Skills
+constraintchanger_skill_PhaseCoilTuning_SpeedBonus,Phase Coil Tuning - Speed Bonus,Int,50,,[Phase Coil Tuning] Technology Skill [Speed Bonus] Parameter Value (vanilla value is 50),0,500,Skills
+constraintchanger_skill_PhaseCoilTuning_PeakTimeBonus,Phase Coil Tuning - Peak Time Bonus,Int,180,,[Phase Coil Tuning] Technology Skill [Peak Time Bonus] Parameter Value (vanilla value is 180),0,1800,Skills
+constraintchanger_skill_PhaseCoilTuning_SensorBonusPercent,Phase Coil Tuning - Sensor Bonus Percent,Int,100,,[Phase Coil Tuning] Technology Skill [Sensor Bonus Percent] Parameter Value (vanilla value is 100),0,1000,Skills
 constraintchanger_skill_AutomatedShips_header,Automated Ships divider,Header,Automated Ships,,,,,Skills
 constraintchanger_skill_AutomatedShips_useDynamicOpThreshold,Use dynamic Automated ships OP threshold,Boolean,true,,"Should the game use a dynamic Automated ships OP threshold. Originally it used [40%%] of the original/default battle size of 300 (changeable in the Game Settings). So 180 for regular ships and [120] for automated ships. If this setting is toggled the setting below is ignored and the effect will be as if you toggled it to [40%% of default battle size]. [Directly dependant on the 'Default Battle Size' option from 'Combat' tab]. (vanilla value is 'false')",,,Skills
 constraintchanger_skill_AutomatedShips_OPThreshold,Automated Ships - OP threshold,Int,120,,"The 'automated ships' OP threshold for the 'Automated Ships' skill. [If you want to use the value entered here make sure the above option is unchecked] (vanilla value is 120)",20,1000,Skills
