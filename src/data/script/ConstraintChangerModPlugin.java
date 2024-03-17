@@ -73,12 +73,13 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_SHARED_OP_THRESHOLD = "constraintchanger_skill_Shared_OPThreshold";
     public static final String FIELD_SHARED_FIGHTER_BAYS = "constraintchanger_skill_Shared_FighterBays";
 
-    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE = "TODO"; //TODO
+    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_BulkTransport_CargoCapacityMaxPercent";
     public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_CargoCapacityThreshold";
-    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE = "TODO"; //TODO
+    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_BulkTransport_FuelCapacityMaxPercent";
     public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_FuelCapacityThreshold";
-    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE = "TODO"; //TODO
+    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_BulkTransport_PersonnelCapacityMaxPercent";
     public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_PersonnelCapacityThreshold";
+    public static final String FIELD_BULK_TRANSPORT_BURN_BONUS = "constraintchanger_skill_BulkTransport_BurnBonus";
     public static final String FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD = "constraintchanger_skill_ContainmentProcedures_OPThreshold";
     public static final String FIELD_PHASE_COIL_TUNING_OP_THRESHOLD = "constraintchanger_skill_PhaseCoilTuning_OPThreshold";
     public static final String FIELD_PHASE_COIL_SPEED_BONUS = "constraintchanger_skill_PhaseCoilTuning_SpeedBonus";
@@ -143,9 +144,13 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_useDynamicOpThreshold");
         LunaToRealKeymap.put(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_OPThreshold");
         // Industry
+        LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE, "RKZ_skill_industry_BulkTransport_CargoCapacityMaxPercent");
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_CargoCapacityThreshold");
+        LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE, "RKZ_skill_industry_BulkTransport_FuelCapacityMaxPercent");
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_FuelCapacityThreshold");
+        LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE, "RKZ_skill_industry_BulkTransport_PersonnelCapacityMaxPercent");
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_PersonnelCapacityThreshold");
+        LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_BURN_BONUS, "RKZ_skill_industry_BulkTransport_BurnBonus");
 
         LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD, "RKZ_skill_industry_ContainmentProcedures_OPThreshold");
 
@@ -185,82 +190,9 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                 // Combat
                 handleCombatTabFields();
                 // Misc
-                writeLunaSettingToRealSetting(FIELD_CAMPAIGN_SPEEDUP_MULT);
-
-                writeLunaSettingToRealSetting(FIELD_MIN_COMBAT_ZOOM);
-                writeLunaSettingToRealSetting(FIELD_MAX_COMBAT_ZOOM);
-                writeLunaSettingToRealSetting(FIELD_MIN_CAMPAIGN_ZOOM);
-                writeLunaSettingToRealSetting(FIELD_MAX_CAMPAIGN_ZOOM);
-
+                handleMiscTabFields();
                 // Skills
-
-                // Combat
-                //Helmsmanship
-                //CombatEndurance
-                //ImpactMitigation
-                //DamageControl
-                //FieldModulation
-                //PointDefense
-                //TargetAnalysis
-                //BallisticMastery
-                //SystemsExpertise
-                //MissileSpecialization
-
-                // Leadership
-                //TacticalDrills
-                handleTacticalDrills();
-                //CoordinatedManeuvers
-                //WolfpackTactics
-                //CrewTraining
-                BaseSkillEffectDescription.OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_OP_THRESHOLD));
-                CrewTraining.CR_PERCENT = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_CR_PERCENT));
-                CrewTraining.PEAK_SECONDS = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_PEAK_SECONDS));
-                //CarrierGroup
-                //Fighter Uplink
-                BaseSkillEffectDescription.FIGHTER_BAYS_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIGHTER_BAYS));
-                FighterUplink.MAX_SPEED_PERCENT = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT));
-                FighterUplink.CREW_LOSS_PERCENT = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT));
-                FighterUplink.TARGET_LEADING_BONUS = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS));
-                FighterUplink.OFFICER_MULT = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_FIGHTER_UPLINK_OFFICER_MULT));
-                //OfficerTraining
-                //OfficerManagement
-                //BestOfTheBest
-                //SupportDoctrine
-
-                // Technology
-                //Navigation
-                //Sensors
-                //GunneryImplants
-                //EnergyWeaponMastery
-                //ElectronicWarfare
-                //FluxRegulation
-                //PhaseCoil
-                BaseSkillEffectDescription.PHASE_OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_TUNING_OP_THRESHOLD));
-                PhaseCorps.PHASE_SPEED_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_SPEED_BONUS));
-                PhaseCorps.PEAK_TIME_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_PEAK_TIME_BONUS));
-                PhaseCorps.PHASE_SHIP_SENSOR_BONUS_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT));
-                //NeuralLink - nope, will remain two ships only
-                //CyberneticAugmentation
-                //AutomatedShips
-                handleAutomatedShips();
-
-                // Industry
-
-                //BulkTransport
-                BulkTransport.CARGO_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD));
-                BulkTransport.FUEL_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD));
-                BulkTransport.PERSONNEL_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD));
-                //Salvaging
-                //FieldRepairs
-                //OrdnanceExpertise
-                //PolarizedArmor
-                //ContainmentProcedures
-                BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
-                //MakeshiftEquipment
-                //IndustrialPlanning
-                //HullRestoration
-                //DerelictOperations
-                DerelictContingent.MINUS_DP_PERCENT_PER_DMOD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD));
+                handleSkillsTabFields();
             }
         }
 
@@ -284,14 +216,130 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             writeLunaSettingToRealSetting(FIELD_MAX_BATTLE_SIZE);
         }
 
-        private void handleTacticalDrills() {
-            float tacticalDrillsSettingsValue = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_TACTICAL_DRILLS_OP_THRESHOLD));
-            BaseSkillEffectDescription.OP_LOW_THRESHOLD = tacticalDrillsSettingsValue;
+        private void handleMiscTabFields() {
+            writeLunaSettingToRealSetting(FIELD_CAMPAIGN_SPEEDUP_MULT);
 
+            writeLunaSettingToRealSetting(FIELD_MIN_COMBAT_ZOOM);
+            writeLunaSettingToRealSetting(FIELD_MAX_COMBAT_ZOOM);
+            writeLunaSettingToRealSetting(FIELD_MIN_CAMPAIGN_ZOOM);
+            writeLunaSettingToRealSetting(FIELD_MAX_CAMPAIGN_ZOOM);
+        }
+
+        private void handleSkillsTabFields() {
+            // Combat
+            handleSkillsTabCombatSkillsFields();
+
+            // Leadership
+            handleSkillsTabLeadershipSkillsFields();
+
+            // Technology
+            handleSkillsTabTechnologySkillsFields();
+
+            // Industry
+            handleSkillsTabIndustrySkillsFields();
+        }
+
+        private void handleSkillsTabCombatSkillsFields() {
+            //Helmsmanship
+            //CombatEndurance
+            //ImpactMitigation
+            //DamageControl
+            //FieldModulation
+            //PointDefense
+            //TargetAnalysis
+            //BallisticMastery
+            //SystemsExpertise
+            //MissileSpecialization
+        }
+
+        private void handleSkillsTabLeadershipSkillsFields() {
+            //TacticalDrills
+            handleTacticalDrills();
+            //CoordinatedManeuvers
+            //WolfpackTactics
+            //CrewTraining
+            handleCrewTraining();
+            //CarrierGroup
+            //Fighter Uplink
+            handleFighterUplink();
+            //OfficerTraining
+            //OfficerManagement
+            //BestOfTheBest
+            //SupportDoctrine
+        }
+
+        private void handleSkillsTabTechnologySkillsFields() {
+            //Navigation
+            //Sensors
+            //GunneryImplants
+            //EnergyWeaponMastery
+            //ElectronicWarfare
+            //FluxRegulation
+            //PhaseCoil
+            handlePhaseCoil();
+            //NeuralLink - nope, will remain two ships only
+            //CyberneticAugmentation
+            //AutomatedShips
+            handleAutomatedShips();
+        }
+
+        private void handleSkillsTabIndustrySkillsFields() {
+            //BulkTransport
+            handleBulkTransport();
+            //Salvaging
+            //FieldRepairs
+            //OrdnanceExpertise
+            //PolarizedArmor
+            //ContainmentProcedures
+            handleContainmentProcedures();
+            //MakeshiftEquipment
+            //IndustrialPlanning
+            //HullRestoration
+            //DerelictOperations
+            handleDerelictOperations();
+        }
+
+        private void handleTacticalDrills() {
+            BaseSkillEffectDescription.OP_LOW_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_TACTICAL_DRILLS_OP_THRESHOLD));
 
             writeLunaSettingToRealSetting(FIELD_TACTICAL_DRILLS_OP_THRESHOLD);
         }
 
+        private void handleCrewTraining() {
+            BaseSkillEffectDescription.OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_OP_THRESHOLD));
+            CrewTraining.CR_PERCENT = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_CR_PERCENT));
+            CrewTraining.PEAK_SECONDS = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_PEAK_SECONDS));
+
+            writeLunaSettingToRealSetting(FIELD_SHARED_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_CREW_TRAINING_CR_PERCENT);
+            writeLunaSettingToRealSetting(FIELD_CREW_TRAINING_PEAK_SECONDS);
+        }
+
+        private void handleFighterUplink() {
+            BaseSkillEffectDescription.FIGHTER_BAYS_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIGHTER_BAYS));
+            FighterUplink.MAX_SPEED_PERCENT = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT));
+            FighterUplink.CREW_LOSS_PERCENT = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT));
+            FighterUplink.TARGET_LEADING_BONUS = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS));
+            FighterUplink.OFFICER_MULT = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_FIGHTER_UPLINK_OFFICER_MULT));
+
+            writeLunaSettingToRealSetting(FIELD_SHARED_FIGHTER_BAYS);
+            writeLunaSettingToRealSetting(FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT);
+            writeLunaSettingToRealSetting(FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT);
+            writeLunaSettingToRealSetting(FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS);
+            writeLunaSettingToRealSetting(FIELD_FIGHTER_UPLINK_OFFICER_MULT);
+        }
+
+        private void handlePhaseCoil() {
+            BaseSkillEffectDescription.PHASE_OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_TUNING_OP_THRESHOLD));
+            PhaseCorps.PHASE_SPEED_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_SPEED_BONUS));
+            PhaseCorps.PEAK_TIME_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_PEAK_TIME_BONUS));
+            PhaseCorps.PHASE_SHIP_SENSOR_BONUS_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT));
+
+            writeLunaSettingToRealSetting(FIELD_PHASE_COIL_TUNING_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_PHASE_COIL_SPEED_BONUS);
+            writeLunaSettingToRealSetting(FIELD_PHASE_COIL_PEAK_TIME_BONUS);
+            writeLunaSettingToRealSetting(FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT);
+        }
         private void handleAutomatedShips() {
             // Automated ships need a bit more love
             // Since these two "real" settings are actually made up, we don't even need to save both of them
@@ -307,6 +355,34 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             } else {
                 BaseSkillEffectDescription.AUTOMATED_POINTS_THRESHOLD = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_AUTOMATED_SHIPS_OP_THRESHOLD));
             }
+        }
+
+        private void handleBulkTransport() {
+            BulkTransport.CARGO_CAPACITY_MAX_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE));
+            BulkTransport.CARGO_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD));
+            BulkTransport.FUEL_CAPACITY_MAX_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE));
+            BulkTransport.FUEL_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD));
+            BulkTransport.PERSONNEL_CAPACITY_MAX_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE));
+            BulkTransport.PERSONNEL_CAPACITY_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD));
+            BulkTransport.BURN_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_BULK_TRANSPORT_BURN_BONUS));
+
+            writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE);
+            writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE);
+            writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE);
+            writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_BURN_BONUS);
+        }
+
+        private void handleContainmentProcedures() {
+            BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
+            //TODO add other fields and saving
+        }
+
+        private void handleDerelictOperations() {
+            DerelictContingent.MINUS_DP_PERCENT_PER_DMOD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD));
+            //TODO add other fields and saving
         }
 
         /**

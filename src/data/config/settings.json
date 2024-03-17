@@ -95,9 +95,13 @@
 	"RKZ_skill_technology_AutomatedShips_OPThreshold":200, # was 120
 
 	# INDUSTRY
+	"RKZ_skill_industry_BulkTransport_CargoCapacityMaxPercent":50,
 	"RKZ_skill_industry_BulkTransport_CargoCapacityThreshold":2000,
+	"RKZ_skill_industry_BulkTransport_FuelCapacityMaxPercent":50,
 	"RKZ_skill_industry_BulkTransport_FuelCapacityThreshold":2000,
+	"RKZ_skill_industry_BulkTransport_PersonnelCapacityMaxPercent":50,
 	"RKZ_skill_industry_BulkTransport_PersonnelCapacityThreshold":5000,
+	"RKZ_skill_industry_BulkTransport_BurnBonus":2,
 
 	"RKZ_skill_industry_ContainmentProcedures_OPThreshold":240,
 

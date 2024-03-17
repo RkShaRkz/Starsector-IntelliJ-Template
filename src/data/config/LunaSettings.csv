@@ -51,9 +51,13 @@ constraintchanger_skill_AutomatedShips_useDynamicOpThreshold,Use dynamic Automat
 constraintchanger_skill_AutomatedShips_OPThreshold,Automated Ships - OP threshold,Int,120,,"The 'automated ships' OP threshold for the 'Automated Ships' skill. [If you want to use the value entered here make sure the above option is unchecked] (vanilla value is 120)",20,1000,Skills
 ,,,,,,,,
 constraintchanger_skill_BulkTransport_header,Bulk Transport divider,Header,Bulk Transport,,,,,Skills
-constraintchanger_skill_BulkTransport_CargoCapacityThreshold,[Bulk Transport] - Cargo Capacity Threshold,Int,2000,,"Int Fields will only accept whole Numbers, and block any other character from being entered.",-50,20000,Skills
-constraintchanger_skill_BulkTransport_FuelCapacityThreshold,[Bulk Transport] - Fuel Capacity Threshold,Int,2000,,"Int Fields will only accept whole Numbers, and block any other character from being entered.",-50,20000,Skills
-constraintchanger_skill_BulkTransport_PersonnelCapacityThreshold,[Bulk Transport] - Personnel Capacity Threshold,Int,5000,,"Int Fields will only accept whole Numbers, and block any other character from being entered.",-50,50000,Skills
+constraintchanger_skill_BulkTransport_CargoCapacityMaxPercent,Bulk Transport - Cargo Capacity Max Percent,Int,50,,"[Bulk Transport] Technology Skill [Cargo Capacity Max Percent] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_BulkTransport_CargoCapacityThreshold,Bulk Transport - Cargo Capacity Threshold,Int,2000,,"[Bulk Transport] Technology Skill [Cargo Capacity Threshold] Parameter Value (vanilla value is 2000)",-5000,200000,Skills
+constraintchanger_skill_BulkTransport_FuelCapacityMaxPercent,Bulk Transport - Fuel Capacity Max Percent,Int,50,,"[Bulk Transport] Technology Skill [Fuel Capacity Max Percent] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_BulkTransport_FuelCapacityThreshold,Bulk Transport - Fuel Capacity Threshold,Int,2000,,"[Bulk Transport] Technology Skill [Fuel Capacity Threshold] Parameter Value (vanilla value is 2000)",-5000,200000,Skills
+constraintchanger_skill_BulkTransport_PersonnelCapacityMaxPercent,Bulk Transport - Cargo Capacity Max Percent,Int,50,,"[Bulk Transport] Technology Skill [Personnel Capacity Max Percent] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_BulkTransport_PersonnelCapacityThreshold,Bulk Transport - Personnel Capacity Threshold,Int,5000,,"[Bulk Transport] Technology Skill [Personnel Capacity Threshold] Parameter Value (vanilla value is 5000)",-5000,50000,Skills
+constraintchanger_skill_BulkTransport_BurnBonus,Bulk Transport - Burn Bonus,Int,2,,"[Bulk Transport] Technology Skill [Burn Bonus] Parameter Value (vanilla value is 2)",0,20,Skills
 constraintchanger_skill_ContainmentProcedures_header,Containment Procedures divider,Header,Containment Procedures,,,,,Skills
 constraintchanger_skill_ContainmentProcedures_OPThreshold,[Containment Procedures] - OP Threshold,Int,240,,later (vanilla value is 240),0,2400,Skills
 constraintchanger_skill_DerelictOperations_header,Derelict Operations divider,Header,Derelict Operations,,,,,Skills
