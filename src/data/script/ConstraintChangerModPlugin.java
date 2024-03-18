@@ -57,38 +57,62 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
      * SKILL LUNAKEYS BELOW *
      ************************/
 
-    public static final String FIELD_TACTICAL_DRILLS_OP_THRESHOLD = "constraintchanger_skill_TacticalDrills_OPThreshold";
-    public static final String FIELD_TACTICAL_DRILLS_DAMAGE_PERCENT = "constraintchanger_skill_TacticalDrills_DamagePercent";
-    public static final String FIELD_TACTICAL_DRILLS_ATTACK_BONUS = "constraintchanger_skill_TacticalDrills_AttackBonus";
-    public static final String FIELD_TACTICAL_DRILLS_CASUALTIES_MULTIPLIER = "constraintchanger_skill_TacticalDrills_CasualtiesMultiplier";
+    /**************************
+     * LEADERSHIP SKILLS FIELDS *
+     **************************/
 
-    public static final String FIELD_CREW_TRAINING_PEAK_SECONDS = "constraintchanger_skill_CrewTraining_PeakSeconds";
-    public static final String FIELD_CREW_TRAINING_CR_PERCENT = "constraintchanger_skill_CrewTraining_CRPercent";
+    public static final String FIELD_TACTICAL_DRILLS_OP_THRESHOLD = "constraintchanger_skill_leadership_TacticalDrills_OPThreshold";
+    public static final String FIELD_TACTICAL_DRILLS_DAMAGE_PERCENT = "constraintchanger_skill_leadership_TacticalDrills_DamagePercent";
+    public static final String FIELD_TACTICAL_DRILLS_ATTACK_BONUS = "constraintchanger_skill_leadership_TacticalDrills_AttackBonus";
+    public static final String FIELD_TACTICAL_DRILLS_CASUALTIES_MULTIPLIER = "constraintchanger_skill_leadership_TacticalDrills_CasualtiesMultiplier";
 
-    public static final String FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT = "constraintchanger_skill_FighterUplink_MaxSpeedPercent";
-    public static final String FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT = "constraintchanger_skill_FighterUplink_CrewLossPercent";
-    public static final String FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS = "constraintchanger_skill_FighterUplink_TargetLeadingBonus";
-    public static final String FIELD_FIGHTER_UPLINK_OFFICER_MULT = "constraintchanger_skill_FighterUplink_OfficerMultiplier";
+    public static final String FIELD_CREW_TRAINING_PEAK_SECONDS = "constraintchanger_skill_leadership_CrewTraining_PeakSeconds";
+    public static final String FIELD_CREW_TRAINING_CR_PERCENT = "constraintchanger_skill_leadership_CrewTraining_CRPercent";
 
-    public static final String FIELD_SHARED_OP_THRESHOLD = "constraintchanger_skill_Shared_OPThreshold";
-    public static final String FIELD_SHARED_FIGHTER_BAYS = "constraintchanger_skill_Shared_FighterBays";
+    public static final String FIELD_FIGHTER_UPLINK_MAX_SPEED_PERCENT = "constraintchanger_skill_leadership_FighterUplink_MaxSpeedPercent";
+    public static final String FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT = "constraintchanger_skill_leadership_FighterUplink_CrewLossPercent";
+    public static final String FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS = "constraintchanger_skill_leadership_FighterUplink_TargetLeadingBonus";
+    public static final String FIELD_FIGHTER_UPLINK_OFFICER_MULT = "constraintchanger_skill_leadership_FighterUplink_OfficerMultiplier";
 
-    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_BulkTransport_CargoCapacityMaxPercent";
-    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_CargoCapacityThreshold";
-    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_BulkTransport_FuelCapacityMaxPercent";
-    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_FuelCapacityThreshold";
-    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_BulkTransport_PersonnelCapacityMaxPercent";
-    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD = "constraintchanger_skill_BulkTransport_PersonnelCapacityThreshold";
-    public static final String FIELD_BULK_TRANSPORT_BURN_BONUS = "constraintchanger_skill_BulkTransport_BurnBonus";
-    public static final String FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD = "constraintchanger_skill_ContainmentProcedures_OPThreshold";
-    public static final String FIELD_PHASE_COIL_TUNING_OP_THRESHOLD = "constraintchanger_skill_PhaseCoilTuning_OPThreshold";
-    public static final String FIELD_PHASE_COIL_SPEED_BONUS = "constraintchanger_skill_PhaseCoilTuning_SpeedBonus";
-    public static final String FIELD_PHASE_COIL_PEAK_TIME_BONUS = "constraintchanger_skill_PhaseCoilTuning_PeakTimeBonus";
-    public static final String FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT = "constraintchanger_skill_PhaseCoilTuning_SensorBonusPercent";
-    public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_DerelictOperations_DPCostReductionPerDmod";
+    /**************************
+     * TECHNOLOGY SKILLS FIELDS *
+     **************************/
+    public static final String FIELD_PHASE_COIL_TUNING_OP_THRESHOLD = "constraintchanger_skill_technology_PhaseCoilTuning_OPThreshold";
+    public static final String FIELD_PHASE_COIL_SPEED_BONUS = "constraintchanger_skill_technology_PhaseCoilTuning_SpeedBonus";
+    public static final String FIELD_PHASE_COIL_PEAK_TIME_BONUS = "constraintchanger_skill_technology_PhaseCoilTuning_PeakTimeBonus";
+    public static final String FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT = "constraintchanger_skill_technology_PhaseCoilTuning_SensorBonusPercent";
 
-    public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_AutomatedShips_useDynamicOpThreshold";
-    public static final String FIELD_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_AutomatedShips_OPThreshold";
+    public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_technology_AutomatedShips_useDynamicOpThreshold";
+    public static final String FIELD_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_technology_AutomatedShips_OPThreshold";
+
+    public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_technology_DerelictOperations_DPCostReductionPerDmod";
+
+    /**************************
+     * INDUSTRY SKILLS FIELDS *
+     **************************/
+
+    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_industry_BulkTransport_CargoCapacityMaxPercent";
+    public static final String FIELD_BULK_TRANSPORT_CARGO_CAPACITY_THRESHOLD = "constraintchanger_skill_industry_BulkTransport_CargoCapacityThreshold";
+    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_industry_BulkTransport_FuelCapacityMaxPercent";
+    public static final String FIELD_BULK_TRANSPORT_FUEL_CAPACITY_THRESHOLD = "constraintchanger_skill_industry_BulkTransport_FuelCapacityThreshold";
+    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE = "constraintchanger_skill_industry_BulkTransport_PersonnelCapacityMaxPercent";
+    public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD = "constraintchanger_skill_industry_BulkTransport_PersonnelCapacityThreshold";
+    public static final String FIELD_BULK_TRANSPORT_BURN_BONUS = "constraintchanger_skill_industry_BulkTransport_BurnBonus";
+
+
+    public static final String FIELD_CONTAINMENT_PROCEDURES_CREW_LOSS_REDUCTION = "constraintchanger_skill_industry_ContainmentProcedures_CrewLossReduction";
+    public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_SALVAGE_BONUS = "constraintchanger_skill_industry_ContainmentProcedures_FuelSalvageBonus";
+    public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_PERCENT = "constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent";
+    public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_FUEL = "constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel";
+
+
+    /************************
+     * SHARED SKILLS FIELDS *
+     ************************/
+
+    public static final String FIELD_SHARED_CREW_TRAINING_AND_FLUX_REGULATION_OP_THRESHOLD = "constraintchanger_skill_shared_OPThreshold";
+    public static final String FIELD_SHARED_FIGHTER_BAYS = "constraintchanger_skill_shared_FighterBays";
+    public static final String FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD = "constraintchanger_skill_shared_OPThreshold2";
 
     /**
      * Map used to map LunaSettings keys to their actual starsector-core/data/config/settings.json keys
@@ -133,8 +157,6 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS, "RKZ_skill_leadership_FighterUplink_TargetLeadingBonus");
         LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_OFFICER_MULT, "RKZ_skill_leadership_FighterUplink_OfficerMultiplier");
 
-        LunaToRealKeymap.put(FIELD_SHARED_OP_THRESHOLD, "RKZ_skill_leadership_CrewTraining_and_FluxRegulation_OPThreshold");
-        LunaToRealKeymap.put(FIELD_SHARED_FIGHTER_BAYS, "RKZ_skill_leadership_FighterUplink_and_CarrierGroup_FighterBays");
         // Technology
         LunaToRealKeymap.put(FIELD_PHASE_COIL_TUNING_OP_THRESHOLD, "RKZ_skill_technology_PhaseCoilTuning_OPThreshold");
         LunaToRealKeymap.put(FIELD_PHASE_COIL_SPEED_BONUS, "RKZ_skill_technology_PhaseCoilTuning_SpeedBonus");
@@ -152,9 +174,18 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_PersonnelCapacityThreshold");
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_BURN_BONUS, "RKZ_skill_industry_BulkTransport_BurnBonus");
 
-        LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD, "RKZ_skill_industry_ContainmentProcedures_OPThreshold");
+        LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_CREW_LOSS_REDUCTION, "RKZ_skill_industry_ContainmentProcedures_CrewLossReduction");
+        LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_FUEL_SALVAGE_BONUS, "RKZ_skill_industry_ContainmentProcedures_FuelSalvageBonus");
+        LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_PERCENT, "RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent");
+        LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_FUEL, "RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel");
 
         LunaToRealKeymap.put(FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD, "RKZ_skill_industry_DerelictOperations_DPCostReductionPerDmod");
+
+        // Shared
+        LunaToRealKeymap.put(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD, "RKZ_skill_industry_FieldRepairs_and_ContainmentProcedures_OPThreshold");
+        LunaToRealKeymap.put(FIELD_SHARED_CREW_TRAINING_AND_FLUX_REGULATION_OP_THRESHOLD, "RKZ_skill_leadership_CrewTraining_and_FluxRegulation_OPThreshold");
+        LunaToRealKeymap.put(FIELD_SHARED_FIGHTER_BAYS, "RKZ_skill_leadership_FighterUplink_and_CarrierGroup_FighterBays");
+
     }
 
     @Override
@@ -288,6 +319,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             handleBulkTransport();
             //Salvaging
             //FieldRepairs
+            handleFieldRepairs();
             //OrdnanceExpertise
             //PolarizedArmor
             //ContainmentProcedures
@@ -306,11 +338,11 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         }
 
         private void handleCrewTraining() {
-            BaseSkillEffectDescription.OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_OP_THRESHOLD));
+            BaseSkillEffectDescription.OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_CREW_TRAINING_AND_FLUX_REGULATION_OP_THRESHOLD));
             CrewTraining.CR_PERCENT = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_CR_PERCENT));
             CrewTraining.PEAK_SECONDS = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CREW_TRAINING_PEAK_SECONDS));
 
-            writeLunaSettingToRealSetting(FIELD_SHARED_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_SHARED_CREW_TRAINING_AND_FLUX_REGULATION_OP_THRESHOLD);
             writeLunaSettingToRealSetting(FIELD_CREW_TRAINING_CR_PERCENT);
             writeLunaSettingToRealSetting(FIELD_CREW_TRAINING_PEAK_SECONDS);
         }
@@ -375,9 +407,25 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             writeLunaSettingToRealSetting(FIELD_BULK_TRANSPORT_BURN_BONUS);
         }
 
-        private void handleContainmentProcedures() {
-            BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
+        private void handleFieldRepairs() {
+            BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
+
             //TODO add other fields and saving
+            writeLunaSettingToRealSetting(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD);
+        }
+
+        private void handleContainmentProcedures() {
+            BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
+            ContainmentProcedures.CREW_LOSS_REDUCTION = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_CREW_LOSS_REDUCTION));
+            ContainmentProcedures.FUEL_SALVAGE_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_FUEL_SALVAGE_BONUS));
+            ContainmentProcedures.FUEL_USE_REDUCTION_MAX_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_PERCENT));
+            ContainmentProcedures.FUEL_USE_REDUCTION_MAX_FUEL = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_FUEL));
+
+            writeLunaSettingToRealSetting(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_CONTAINMENT_PROCEDURES_CREW_LOSS_REDUCTION);
+            writeLunaSettingToRealSetting(FIELD_CONTAINMENT_PROCEDURES_FUEL_SALVAGE_BONUS);
+            writeLunaSettingToRealSetting(FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_PERCENT);
+            writeLunaSettingToRealSetting(FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_FUEL);
         }
 
         private void handleDerelictOperations() {
