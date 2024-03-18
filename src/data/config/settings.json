@@ -103,6 +103,13 @@
 	"RKZ_skill_industry_BulkTransport_PersonnelCapacityThreshold":5000,
 	"RKZ_skill_industry_BulkTransport_BurnBonus":2,
 
+	"RKZ_skill_industry_FieldRepairs_MinHull":30,
+	"RKZ_skill_industry_FieldRepairs_MaxHull":40,
+	"RKZ_skill_industry_FieldRepairs_MinCR":30,
+	"RKZ_skill_industry_FieldRepairs_MaxCR":40,
+	"RKZ_skill_industry_FieldRepairs_RepairRateBonus":50,
+	"RKZ_skill_industry_FieldRepairs_InstaRepairPercent":25,
+
 	"RKZ_skill_industry_ContainmentProcedures_CrewLossReduction":50,
 	"RKZ_skill_industry_ContainmentProcedures_FuelSalvageBonus":25,
 	"RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent":25,

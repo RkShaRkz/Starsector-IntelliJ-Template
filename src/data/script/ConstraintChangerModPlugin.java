@@ -8,6 +8,8 @@ import lunalib.lunaSettings.LunaSettingsListener;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 public class ConstraintChangerModPlugin extends BaseModPlugin {
@@ -99,6 +101,12 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD = "constraintchanger_skill_industry_BulkTransport_PersonnelCapacityThreshold";
     public static final String FIELD_BULK_TRANSPORT_BURN_BONUS = "constraintchanger_skill_industry_BulkTransport_BurnBonus";
 
+    public static final String FIELD_FIELD_REPAIRS_MIN_HULL = "constraintchanger_skill_industry_FieldRepairs_MinHull";
+    public static final String FIELD_FIELD_REPAIRS_MAX_HULL = "constraintchanger_skill_industry_FieldRepairs_MaxHull";
+    public static final String FIELD_FIELD_REPAIRS_MIN_CR = "constraintchanger_skill_industry_FieldRepairs_MinCR";
+    public static final String FIELD_FIELD_REPAIRS_MAX_CR = "constraintchanger_skill_industry_FieldRepairs_MaxCR";
+    public static final String FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS = "constraintchanger_skill_industry_FieldRepairs_RepairRateBonus";
+    public static final String FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT = "constraintchanger_skill_industry_FieldRepairs_InstaRepairPercent";
 
     public static final String FIELD_CONTAINMENT_PROCEDURES_CREW_LOSS_REDUCTION = "constraintchanger_skill_industry_ContainmentProcedures_CrewLossReduction";
     public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_SALVAGE_BONUS = "constraintchanger_skill_industry_ContainmentProcedures_FuelSalvageBonus";
@@ -173,6 +181,13 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_MAX_PERCENTAGE, "RKZ_skill_industry_BulkTransport_PersonnelCapacityMaxPercent");
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_PERSONNEL_CAPACITY_THRESHOLD, "RKZ_skill_industry_BulkTransport_PersonnelCapacityThreshold");
         LunaToRealKeymap.put(FIELD_BULK_TRANSPORT_BURN_BONUS, "RKZ_skill_industry_BulkTransport_BurnBonus");
+
+        LunaToRealKeymap.put(FIELD_FIELD_REPAIRS_MIN_HULL, "RKZ_skill_industry_FieldRepairs_MinHull");
+        LunaToRealKeymap.put(FIELD_FIELD_REPAIRS_MAX_HULL, "RKZ_skill_industry_FieldRepairs_MaxHull");
+        LunaToRealKeymap.put(FIELD_FIELD_REPAIRS_MIN_CR, "RKZ_skill_industry_FieldRepairs_MinCR");
+        LunaToRealKeymap.put(FIELD_FIELD_REPAIRS_MAX_CR, "RKZ_skill_industry_FieldRepairs_MaxCR");
+        LunaToRealKeymap.put(FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS, "RKZ_skill_industry_FieldRepairs_RepairRateBonus");
+        LunaToRealKeymap.put(FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT, "RKZ_skill_industry_FieldRepairs_InstaRepairPercent");
 
         LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_CREW_LOSS_REDUCTION, "RKZ_skill_industry_ContainmentProcedures_CrewLossReduction");
         LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_FUEL_SALVAGE_BONUS, "RKZ_skill_industry_ContainmentProcedures_FuelSalvageBonus");
@@ -372,6 +387,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             writeLunaSettingToRealSetting(FIELD_PHASE_COIL_PEAK_TIME_BONUS);
             writeLunaSettingToRealSetting(FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT);
         }
+
         private void handleAutomatedShips() {
             // Automated ships need a bit more love
             // Since these two "real" settings are actually made up, we don't even need to save both of them
@@ -408,10 +424,30 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         }
 
         private void handleFieldRepairs() {
+            logger.info("----> handleFieldRepairs()");
             BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
-
-            //TODO add other fields and saving
+            // Since this can't just work, and I can't just make a method to which I can pass the "FieldRepairs.MIN_HULL" field
+            // but have to do the longer version instead, lets just try and do all of them in the same try/catch block and log
+//            FieldRepairs.MIN_HULL = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL));
+            try {
+                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL)));
+                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_HULL)));
+                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_CR)));
+                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_CR)));
+                modifyFinalField(FieldRepairs.class.getDeclaredField("REPAIR_RATE_BONUS"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS)));
+                modifyFinalField(FieldRepairs.class.getDeclaredField("INSTA_REPAIR_PERCENT"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT)));
+            } catch (NoSuchFieldException e) {
+//                throw new RuntimeException(e);
+                logger.error("handleFieldRepairs failed with "+e+" due to modifying one of the final fields");
+            }
             writeLunaSettingToRealSetting(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MIN_HULL);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_HULL);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MIN_CR);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_CR);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT);
+            logger.info("<---- handleFieldRepairs()");
         }
 
         private void handleContainmentProcedures() {
@@ -510,6 +546,89 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             }
 
             return retVal;
+        }
+    }
+
+    /*
+    public static void modifyFinalField(Class<?> clazz, String fieldName, float newValue) {
+        // Get the field
+        Field field = null;
+        try {
+            field = clazz.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            logger.error("modifyFinalField() failed due to " + e + " on field " + fieldName);
+            return;
+        }
+
+        // Ensure the field is accessible
+        field.setAccessible(true);
+
+        // Remove the final modifier
+        Field modifiersField = null;
+        try {
+            modifiersField = Field.class.getDeclaredField("modifiers");
+        } catch (NoSuchFieldException e) {
+            logger.error("modifyFinalField() failed due to " + e + " while trying to populate modifiersField of field " + fieldName);
+            return;
+        }
+
+        modifiersField.setAccessible(true);
+        int modifiers = field.getModifiers();
+        try {
+            modifiersField.setInt(field, modifiers & ~Modifier.FINAL);
+        } catch (IllegalAccessException e) {
+            logger.error("modifyFinalField() failed due to " + e + " on modifiersField of field " + fieldName);
+            return;
+        }
+
+        // Set the new value
+        try {
+            field.set(null, newValue);
+        } catch (IllegalAccessException e) {
+            logger.error("modifyFinalField() failed due to " + e + " while trying to set value " + newValue + " on field");
+            return;
+        }
+
+        // Restore the final modifier
+        try {
+            modifiersField.setInt(field, modifiers);
+        } catch (IllegalAccessException e) {
+            logger.error("modifyFinalField() failed due to " + e + " while trying to restore original modifiers on field");
+        }
+    } */
+
+    public static void modifyFinalField(Field field, float newValue) {
+        // Ensure the field is accessible
+        field.setAccessible(true);
+
+        // Remove the final modifier
+        Field modifiersField;
+        try {
+            modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            int modifiers = field.getModifiers();
+            modifiersField.setInt(field, modifiers & ~Modifier.FINAL);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            // The field doesn't have 'final' modifier, do nothing
+            logger.error("modifyFinalField() failed due to " + e + " while trying to unset 'final' from field " + field.getName());
+        }
+
+        // Set the new value
+        try {
+            field.set(null, newValue);
+        } catch (IllegalAccessException e) {
+            logger.error("modifyFinalField() failed due to " + e + " while trying to set new value (" + newValue + ") on field " + field.getName());
+        }
+
+        // Restore the final modifier
+        try {
+            modifiersField = Field.class.getDeclaredField("modifiers");
+            modifiersField.setAccessible(true);
+            int modifiers = field.getModifiers();
+            modifiersField.setInt(field, modifiers | Modifier.FINAL);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            // The field doesn't have 'modifiers' field, do nothing
+            logger.error("modifyFinalField() failed due to " + e + " while trying to re-set 'final' to field " + field.getName());
         }
     }
 }
