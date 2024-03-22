@@ -231,6 +231,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         @Override
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
+                logger.info("[SHARK] ----> settingsChanged()");
                 // Officers
                 handleOfficerTabFields();
                 // Combat
@@ -239,6 +240,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                 handleMiscTabFields();
                 // Skills
                 handleSkillsTabFields();
+                logger.info("[SHARK] <---- settingsChanged()");
             }
         }
 
@@ -272,6 +274,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         }
 
         private void handleSkillsTabFields() {
+            logger.info("[SHARK] ----> handleSkillsTabFields()");
             // Combat
             handleSkillsTabCombatSkillsFields();
 
@@ -283,6 +286,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
 
             // Industry
             handleSkillsTabIndustrySkillsFields();
+            logger.info("[SHARK] <---- handleSkillsTabFields()");
         }
 
         private void handleSkillsTabCombatSkillsFields() {
@@ -330,6 +334,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         }
 
         private void handleSkillsTabIndustrySkillsFields() {
+            logger.info("[SHARK] ----> handleSkillsTabIndustrySkillsFields()");
             //BulkTransport
             handleBulkTransport();
             //Salvaging
@@ -344,6 +349,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             //HullRestoration
             //DerelictOperations
             handleDerelictOperations();
+            logger.info("[SHARK] <---- handleSkillsTabIndustrySkillsFields()");
         }
 
         private void handleTacticalDrills() {
@@ -424,22 +430,36 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         }
 
         private void handleFieldRepairs() {
-            logger.info("----> handleFieldRepairs()");
+            logger.info("[SHARK] ----> handleFieldRepairs()");
             BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
+            logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 1");
             // Since this can't just work, and I can't just make a method to which I can pass the "FieldRepairs.MIN_HULL" field
             // but have to do the longer version instead, lets just try and do all of them in the same try/catch block and log
 //            FieldRepairs.MIN_HULL = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL));
+            //                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL)));
+//                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_HULL)));
+//                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_CR)));
+//                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_CR)));
+//                modifyFinalField(FieldRepairs.class.getDeclaredField("REPAIR_RATE_BONUS"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS)));
+//                modifyFinalField(FieldRepairs.class.getDeclaredField("INSTA_REPAIR_PERCENT"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT)));
             try {
-                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL)));
-                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_HULL)));
-                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_CR)));
-                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_CR)));
-                modifyFinalField(FieldRepairs.class.getDeclaredField("REPAIR_RATE_BONUS"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS)));
-                modifyFinalField(FieldRepairs.class.getDeclaredField("INSTA_REPAIR_PERCENT"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT)));
-            } catch (NoSuchFieldException e) {
-//                throw new RuntimeException(e);
-                logger.error("handleFieldRepairs failed with "+e+" due to modifying one of the final fields");
+                ReflectionUtils.INSTANCE.modifyFinalField("MIN_HULL", FieldRepairs.class, (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL)));
+                logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 2");
+                ReflectionUtils.INSTANCE.modifyFinalField("MAX_HULL", FieldRepairs.class, (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_HULL)));
+                logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 3");
+                ReflectionUtils.INSTANCE.modifyFinalField("MIN_CR", FieldRepairs.class, (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_CR)));
+                logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 4");
+                ReflectionUtils.INSTANCE.modifyFinalField("MAX_CR", FieldRepairs.class, (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_CR)));
+                logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 5");
+                ReflectionUtils.INSTANCE.modifyFinalField("REPAIR_RATE_BONUS", FieldRepairs.class, (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS)));
+                logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 6");
+                ReflectionUtils.INSTANCE.modifyFinalField("INSTA_REPAIR_PERCENT", FieldRepairs.class, (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT)));
+                logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 7");
+            } catch (Exception ex) {
+                logger.error("[SHARK] \t handleFieldRepairs()\tcaught exception "+ex);
+                logger.error(StacktraceUtils.unwindStacktrace(ex.getStackTrace()));
             }
+
             writeLunaSettingToRealSetting(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD);
             writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MIN_HULL);
             writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_HULL);
@@ -447,7 +467,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_CR);
             writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS);
             writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT);
-            logger.info("<---- handleFieldRepairs()");
+            logger.info("[SHARK] <---- handleFieldRepairs()");
         }
 
         private void handleContainmentProcedures() {
