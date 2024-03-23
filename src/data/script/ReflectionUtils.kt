@@ -3,8 +3,6 @@ package data.script
 import java.lang.invoke.MethodHandle
 import java.lang.invoke.MethodHandles
 import java.lang.invoke.MethodType
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 import java.net.URL
 import java.net.URLClassLoader
 
@@ -21,28 +19,80 @@ object ReflectionUtils {
     private val invokeMethodHandle = MethodHandles.lookup().findVirtual(methodClass, "invoke", MethodType.methodType(Any::class.java, Any::class.java, Array<Any>::class.java))
 
     //RKZ
-    private val getDeclaredFieldsHandle = MethodHandles.lookup().findVirtual(fieldClass, "getDeclaredFields", MethodType.methodType(Field::class.java, String::class.java))
-    private val getModifiersHandle = MethodHandles.lookup().findVirtual(fieldClass, "getModifiers", MethodType.methodType(Int::class.java))
-    private val setIntHandle = MethodHandles.lookup().findVirtual(fieldClass, "setInt", MethodType.methodType(Any::class.java, Int::class.java))
-    private val setFloatHandle = MethodHandles.lookup().findVirtual(fieldClass, "setFloat", MethodType.methodType(Any::class.java, Float::class.java))
+    private val fieldArrayClass = Class.forName("[Ljava.lang.reflect.Field;", false, Class::class.java.classLoader)
+    private val classClass = Class.forName("java.lang.Class", false, Class::class.java.classLoader)
+    private val getDeclaredFieldHandle = MethodHandles.lookup().findVirtual(classClass, "getDeclaredField", MethodType.methodType(fieldClass, String::class.java))
+    private val getDeclaredFieldsHandle = MethodHandles.lookup().findVirtual(classClass, "getDeclaredFields", MethodType.methodType(fieldArrayClass))
+
+    /**
+     * This one actually represents [java.lang.reflect.Field.getModifiers] but for sake of readability it's called getFieldModifiers
+     *
+     * Also, because [Class] and [java.lang.reflect.Method] also have a getModifiers() method, which should not be confused with this one.
+     */
+    private val getFieldModifiersHandle = MethodHandles.lookup().findVirtual(fieldClass, "getModifiers", MethodType.methodType(Int::class.java))
+    private val setIntHandle = MethodHandles.lookup().findVirtual(fieldClass, "setInt", MethodType.methodType(Void.TYPE, Any::class.java, Int::class.java))
+    private val setFloatHandle = MethodHandles.lookup().findVirtual(fieldClass, "setFloat", MethodType.methodType(Void.TYPE, Any::class.java, Float::class.java))
+
+    private val modifierClass = Class.forName("java.lang.reflect.Modifier", false, Class::class.java.classLoader)
+//    private val modifierToStringHandle = MethodHandles.lookup().findVirtual(modifierClass, "toString", MethodType.methodType(String::class.java, Int::class.java))
+    private val modifierToStringHandle = MethodHandles.lookup().findStatic(modifierClass, "toString", MethodType.methodType(String::class.java, Int::class.java))
+
+    /**
+     * As per [java.lang.reflect.Modifier.FINAL], this should return 16
+     *
+     * public static final int FINAL            = 0x00000010;
+     */
+    private val modifierFinalGetter = MethodHandles.lookup().findStaticGetter(modifierClass, "FINAL", Int::class.java)
+
+    fun getModifierFINALField() : Int {
+        ConstraintChangerModPlugin.logger.info("[SHARK] ----> getModifierFinalField()")
+        val retVal = modifierFinalGetter.invokeExact() as Int
+        ConstraintChangerModPlugin.logger.info("[SHARK] <---- getModifierFinalField() returning ${retVal}")
+        return retVal
+    }
 
     fun modifyFinalField(fieldName:String, clazz: Class<*>, newValue: Float) {
         ConstraintChangerModPlugin.logger.info("[SHARK] ----> modifyFinalField(fieldName=$fieldName, clazz=$clazz, newValue=$newValue)")
-        setOrUnsetFinal(fieldName, clazz, false);
-        setFloatHandle.invoke(clazz.getField(fieldName), newValue)
-        setOrUnsetFinal(fieldName, clazz, true);
+        setOrUnsetFinal(fieldName, clazz, false)
+//        setFloatHandle.invoke(clazz.getField(fieldName), newValue) //fails
+        setFloatHandle.invoke(clazz.getField(fieldName), clazz, newValue)
+        setOrUnsetFinal(fieldName, clazz, true)
         ConstraintChangerModPlugin.logger.info("[SHARK] <---- modifyFinalField()")
+    }
+
+    fun probeField(fieldName: String, clazz: Class<*>) {
+        ConstraintChangerModPlugin.logger.info("[SHARK] ----> probeField(fieldName=$fieldName, clazz=$clazz)")
+        var field: java.lang.reflect.Field? = null
+        try {
+            field = clazz.getField(fieldName)
+        } catch (e: Throwable) {
+            try {
+                field = clazz.getDeclaredField(fieldName)
+            } catch (e: Throwable) {
+                ConstraintChangerModPlugin.logger.error("[SHARK] Could not get field named $fieldName from class $clazz")
+            }
+        }
+
+        val mods = getFieldsModifiers(field!!)
+    }
+
+    fun getFieldsModifiers(field: java.lang.reflect.Field) : Int {
+        val fieldsModifiersField = field!!.javaClass.getDeclaredField("modifiers")
+        setFieldAccessibleHandle.invoke(fieldsModifiersField, true)
+        val modifiers = getFieldModifiersHandle.invoke(field) as Int
+
+        return modifiers
     }
 
     /**
      * Method that sets or unsets the FINAL modifier on some field.
      * @param fieldName field name on which to operate
      * @param clazz class on which to operate on
-     * @param setOrUnset [boolean] use 'true' to set or 'false' to unset
+     * @param setOrUnset [Boolean] use 'true' to set or 'false' to unset
      */
     fun setOrUnsetFinal(fieldName: String, clazz: Class<*>, setOrUnset: Boolean) {
         ConstraintChangerModPlugin.logger.info("[SHARK] ----> setOrUnsetFinal(fieldName=$fieldName, clazz=$clazz, setOrUnset=$setOrUnset)")
-        var field: Any? = null
+        var field: java.lang.reflect.Field? = null
         try {
             field = clazz.getField(fieldName)
         } catch (e: Throwable) {
@@ -54,15 +104,44 @@ object ReflectionUtils {
         }
 
         setFieldAccessibleHandle.invoke(field, true)
-        val fieldsModifiersField = getDeclaredFieldsHandle.invokeWithArguments(field, "modifiers")
+        // This doublebang is extremely unsafe, but ... why not. Any other nullguarding construct will only make this
+        // more complicated than it needs to be.
+        val fieldsModifiersField = field!!.javaClass.getDeclaredField("modifiers")
         setFieldAccessibleHandle.invoke(fieldsModifiersField, true)
-        val modifiers = getModifiersHandle.invoke(field) as Int
+//        val modifiers = getFieldModifiersHandle.invoke(field) as Int
+        var modifiers = getFieldModifiersHandle.invoke(field) as Int
 
-        setIntHandle.invoke(fieldsModifiersField, modifiers and if (setOrUnset) {
-            Modifier.FINAL
+        //TODO get rid of me
+//        val modsString1 = modifierToStringHandle.invoke(fieldsModifiersField)
+        val modsString1 = modifierToStringHandle.invoke(modifiers)
+        ConstraintChangerModPlugin.logger.info("[SHARK] setOrUnsetFinal()\t\tfield $fieldName is '$modsString1'")
+
+//        setIntHandle.invoke(fieldsModifiersField, field, modifiers and if (setOrUnset) {
+//            getModifierFINALField()
+//        } else {
+//            getModifierFINALField().inv()
+//        })
+        if (setOrUnset) {
+            val modsWithFinal = modifiers and getModifierFINALField()
+//            setIntHandle.invoke(fieldsModifiersField, field, modsWithFinal)
+            setIntHandle.invoke(field, fieldsModifiersField, modsWithFinal)
+//            field.javaClass.getDeclaredField("modifiers").setInt(fieldsModifiersField, modsWithFinal)     //throws java.lang.SecurityException: File access and reflection are not allowed to scripts. (java.lang.reflect.Field)
         } else {
-            Modifier.FINAL.inv()
-        })
+            val modsWithoutFinal = modifiers and getModifierFINALField().inv()
+//            setIntHandle.invoke(fieldsModifiersField, field, modsWithoutFinal)    //passes, but doesn't seem to take effect?
+            setIntHandle.invoke(fieldsModifiersField, field, modsWithoutFinal)
+//            field.javaClass.getDeclaredField("modifiers").setInt(fieldsModifiersField, modsWithoutFinal)  //throws java.lang.SecurityException: File access and reflection are not allowed to scripts. (java.lang.reflect.Field)
+        }
+
+
+
+        //TODO get rid of me
+//        val modsString2 = modifierToStringHandle.invoke(fieldsModifiersField)
+        modifiers = getFieldModifiersHandle.invoke(field) as Int
+        val modsString2 = modifierToStringHandle.invoke(modifiers)
+        ConstraintChangerModPlugin.logger.info("[SHARK] setOrUnsetFinal()\t\tfield $fieldName is '$modsString2'")
+
+        ConstraintChangerModPlugin.logger.info("[SHARK] <---- setOrUnsetFinal()")
     }
 
 
@@ -70,9 +149,9 @@ object ReflectionUtils {
      * Method that sets or unsets the FINAL modifier on some field.
      * @param fieldName field name on which to operate
      * @param instanceToModify instance on which to operate on
-     * @param setOrUnset [boolean] use 'true' to set or 'false' to unset
+     * @param setOrUnset [Boolean] use 'true' to set or 'false' to unset
      */
-    fun setOrUnsetFinal(fieldName: String, instanceToModify: Any?, setOrUnset: Boolean) {
+    fun setOrUnsetFinal2(fieldName: String, instanceToModify: Any?, setOrUnset: Boolean) {
         var field: Any? = null
         try {
 //            field = instanceToModify?.javaClass.getField(fieldName)
@@ -91,14 +170,17 @@ object ReflectionUtils {
         }
 
         setFieldAccessibleHandle.invoke(field, true)
-        val fieldsModifiersField = getDeclaredFieldsHandle.invokeWithArguments(field, "modifiers")
+//        val fieldsModifiersField = getDeclaredFieldsHandle.invokeWithArguments(field, "modifiers")
+        val fieldsModifiersField = getDeclaredFieldHandle.invokeWithArguments(field, "modifiers")
         setFieldAccessibleHandle.invoke(fieldsModifiersField, true)
-        val modifiers = getModifiersHandle.invoke(field) as Int
+        val modifiers = getFieldModifiersHandle.invoke(field) as Int
 
         setIntHandle.invoke(fieldsModifiersField, modifiers and if (setOrUnset) {
-            Modifier.FINAL
+//            Modifier.FINAL
+            getModifierFINALField()
         } else {
-            Modifier.FINAL.inv()
+//            Modifier.FINAL.inv()
+            getModifierFINALField()
         })//fieldsModifiersField.setInt
     }
 

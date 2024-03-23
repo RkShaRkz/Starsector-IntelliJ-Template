@@ -8,8 +8,6 @@ import lunalib.lunaSettings.LunaSettingsListener;
 import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 public class ConstraintChangerModPlugin extends BaseModPlugin {
@@ -400,7 +398,8 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             // figure out whether we're using dynamic, save both of the made up settings, but only save what really matters
             // to the real thing controlling the autoships threshold - into BaseSkillEffectDescription
             boolean useDynamicAutoshipOP = safeUnboxing(LunaSettings.getBoolean(MOD_ID, FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD));
-            writeLunaSettingToRealSetting(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD);
+            //writeLunaSettingToRealSetting(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD);
+            writeBooleanLunaSettingToRealSetting(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD);
             writeLunaSettingToRealSetting(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD);
             if (useDynamicAutoshipOP) {
                 // get default battle size, use 40% of that for automated points OP
@@ -431,8 +430,12 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
 
         private void handleFieldRepairs() {
             logger.info("[SHARK] ----> handleFieldRepairs()");
+
             BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
             logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 1");
+//            logger.info("[SHARK] \t checking something ... about to try and fetch the Modifier.FINAL");
+//            int deleteme = ReflectionUtils.INSTANCE.getModifierFINALField();
+//            logger.info("[SHARK] \t checking something \t Modifier.FINAL should be equal to 16: "+deleteme);
             // Since this can't just work, and I can't just make a method to which I can pass the "FieldRepairs.MIN_HULL" field
             // but have to do the longer version instead, lets just try and do all of them in the same try/catch block and log
 //            FieldRepairs.MIN_HULL = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL));
@@ -503,6 +506,40 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                     .setFloat(
                             convertLunaToRealKey(lunaKey),
                             (float) safeUnboxing(LunaSettings.getInt(MOD_ID, lunaKey))
+                    );
+        }
+
+        /**
+         * Method that fetches the <i>lunaKey</i> {@link LunaSettings} value, safely unboxes it via {@link #safeUnboxing(Float)}
+         * then finally overwrites the default starsector-data/settings.json key with the new value after getting the actual
+         * key with {@link #convertLunaToRealKey(String)}
+         *
+         * @param lunaKey Luna key to fetch, convert to real key, then overwrite the real key's value with the fetched one
+         */
+        private void writeFloatLunaSettingToRealSetting(String lunaKey) {
+
+            Global
+                    .getSettings()
+                    .setFloat(
+                            convertLunaToRealKey(lunaKey),
+                            safeUnboxing(LunaSettings.getFloat(MOD_ID, lunaKey))
+                    );
+        }
+
+        /**
+         * Method that fetches the <i>lunaKey</i> {@link LunaSettings} value, safely unboxes it via {@link #safeUnboxing(Integer)}
+         * then finally overwrites the default starsector-data/settings.json key with the new value after getting the actual
+         * key with {@link #convertLunaToRealKey(String)}
+         *
+         * @param lunaKey Luna key to fetch, convert to real key, then overwrite the real key's value with the fetched one
+         */
+        private void writeBooleanLunaSettingToRealSetting(String lunaKey) {
+
+            Global
+                    .getSettings()
+                    .setBoolean(
+                            convertLunaToRealKey(lunaKey),
+                            safeUnboxing(LunaSettings.getBoolean(MOD_ID, lunaKey))
                     );
         }
 
@@ -617,6 +654,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         }
     } */
 
+    /*
     public static void modifyFinalField(Field field, float newValue) {
         // Ensure the field is accessible
         field.setAccessible(true);
@@ -651,4 +689,5 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             logger.error("modifyFinalField() failed due to " + e + " while trying to re-set 'final' to field " + field.getName());
         }
     }
+     */
 }
