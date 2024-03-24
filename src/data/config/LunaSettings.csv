@@ -38,6 +38,11 @@ constraintchanger_skill_leadership_FighterUplink_CrewLossPercent,Fighter Uplink 
 constraintchanger_skill_leadership_FighterUplink_TargetLeadingBonus,Fighter Uplink - Target Leading Bonus,Int,50,,"[Fighter Uplink] Leadership Skill [Target Leading Bonus] Parameter Value (vanilla value is 50)",0,500,Skills
 constraintchanger_skill_leadership_FighterUplink_OfficerMultiplier,Fighter Uplink - Officer Multiplier,Double,1.5,,"[Fighter Uplink] Leadership Skill [Officer Multiplier] Parameter Value (vanilla value is 1.5)",0,100,Skills
 ,,,,,,,,
+constraintchanger_skill_technology_FluxRegulation_header,Flux Regulation divider,Header,Flux Regulation,,,,,Skills
+constraintchanger_skill_technology_FluxRegulation_BonusVents,Flux Regulation - Bonus Vents,Int,5,,[Flux Regulation] Technology Skill [Bonus Vents] Parameter Value (vanilla value is 5),0,50,Skills
+constraintchanger_skill_technology_FluxRegulation_BonusCapacitors,Flux Regulation - Bonus Capacitors,Int,5,,[Flux Regulation] Technology Skill [Bonus Capacitors] Parameter Value (vanilla value is 5),0,50,Skills
+constraintchanger_skill_technology_FluxRegulation_DissipationPercent,Flux Regulation - Dissipation Percent,Int,10,,[Flux Regulation] Technology Skill [Dissipation Percent] Parameter Value (vanilla value is 10),0,200,Skills
+constraintchanger_skill_technology_FluxRegulation_CapacityPercent,Flux Regulation - Capacity Percent,Int,10,,[Flux Regulation] Technology Skill [Capacity Percent] Parameter Value (vanilla value is 10),0,200,Skills
 constraintchanger_skill_technology_PhaseCoilTuning_header,Phase Coil Tuning divider,Header,Phase Coil Tuning,,,,,Skills
 constraintchanger_skill_technology_PhaseCoilTuning_OPThreshold,Phase Coil Tuning - OP Threshold,Int,40,,[Phase Coil Tuning] Technology Skill [OP Threshold] Parameter Value (vanilla value is 40),0,400,Skills
 constraintchanger_skill_technology_PhaseCoilTuning_SpeedBonus,Phase Coil Tuning - Speed Bonus,Int,50,,[Phase Coil Tuning] Technology Skill [Speed Bonus] Parameter Value (vanilla value is 50),0,500,Skills

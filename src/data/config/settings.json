@@ -86,6 +86,11 @@
 	"RKZ_skill_leadership_FighterUplink_and_CarrierGroup_FighterBays":8,
 
 	#TECHNOLOGY
+	"RKZ_skill_technology_FluxRegulation_VentsBonus":5,
+	"RKZ_skill_technology_FluxRegulation_CapacitorsBonus":5,
+	"RKZ_skill_technology_FluxRegulation_DissipationPercent":10.0,
+	"RKZ_skill_technology_FluxRegulation_CapacityPercent":10.0,
+
 	"RKZ_skill_technology_PhaseCoilTuning_OPThreshold":40,
 	"RKZ_skill_technology_PhaseCoilTuning_SpeedBonus":50,
 	"RKZ_skill_technology_PhaseCoilTuning_PeakTimeBonus":180,

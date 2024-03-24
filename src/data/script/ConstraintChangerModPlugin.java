@@ -77,6 +77,11 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     /**************************
      * TECHNOLOGY SKILLS FIELDS *
      **************************/
+    public static final String FIELD_FLUX_REGULATION_VENTS_BONUS = "constraintchanger_skill_technology_FluxRegulation_BonusVents";
+    public static final String FIELD_FLUX_REGULATION_CAPACITORS_BONUS = "constraintchanger_skill_technology_FluxRegulation_BonusCapacitors";
+    public static final String FIELD_FLUX_REGULATION_DISSIPATION_PERCENT = "constraintchanger_skill_technology_FluxRegulation_DissipationPercent";
+    public static final String FIELD_FLUX_REGULATION_CAPACITY_PERCENT = "constraintchanger_skill_technology_FluxRegulation_CapacityPercent";
+
     public static final String FIELD_PHASE_COIL_TUNING_OP_THRESHOLD = "constraintchanger_skill_technology_PhaseCoilTuning_OPThreshold";
     public static final String FIELD_PHASE_COIL_SPEED_BONUS = "constraintchanger_skill_technology_PhaseCoilTuning_SpeedBonus";
     public static final String FIELD_PHASE_COIL_PEAK_TIME_BONUS = "constraintchanger_skill_technology_PhaseCoilTuning_PeakTimeBonus";
@@ -164,6 +169,11 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_FIGHTER_UPLINK_OFFICER_MULT, "RKZ_skill_leadership_FighterUplink_OfficerMultiplier");
 
         // Technology
+        LunaToRealKeymap.put(FIELD_FLUX_REGULATION_VENTS_BONUS, "RKZ_skill_technology_FluxRegulation_VentsBonus");
+        LunaToRealKeymap.put(FIELD_FLUX_REGULATION_CAPACITORS_BONUS, "RKZ_skill_technology_FluxRegulation_CapacitorsBonus");
+        LunaToRealKeymap.put(FIELD_FLUX_REGULATION_DISSIPATION_PERCENT, "RKZ_skill_technology_FluxRegulation_DissipationPercent");
+        LunaToRealKeymap.put(FIELD_FLUX_REGULATION_CAPACITY_PERCENT, "RKZ_skill_technology_FluxRegulation_CapacityPercent");
+
         LunaToRealKeymap.put(FIELD_PHASE_COIL_TUNING_OP_THRESHOLD, "RKZ_skill_technology_PhaseCoilTuning_OPThreshold");
         LunaToRealKeymap.put(FIELD_PHASE_COIL_SPEED_BONUS, "RKZ_skill_technology_PhaseCoilTuning_SpeedBonus");
         LunaToRealKeymap.put(FIELD_PHASE_COIL_PEAK_TIME_BONUS, "RKZ_skill_technology_PhaseCoilTuning_PeakTimeBonus");
@@ -323,6 +333,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             //EnergyWeaponMastery
             //ElectronicWarfare
             //FluxRegulation
+            handleFluxRegulation();
             //PhaseCoil
             handlePhaseCoil();
             //NeuralLink - nope, will remain two ships only
@@ -378,6 +389,20 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             writeLunaSettingToRealSetting(FIELD_FIGHTER_UPLINK_CREW_LOSS_PERCENT);
             writeLunaSettingToRealSetting(FIELD_FIGHTER_UPLINK_TARGET_LEADING_BONUS);
             writeLunaSettingToRealSetting(FIELD_FIGHTER_UPLINK_OFFICER_MULT);
+        }
+
+        private void handleFluxRegulation() {
+            BaseSkillEffectDescription.OP_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_CREW_TRAINING_AND_FLUX_REGULATION_OP_THRESHOLD));
+            FluxRegulation.VENTS_BONUS = safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FLUX_REGULATION_VENTS_BONUS));
+            FluxRegulation.CAPACITORS_BONUS =  safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FLUX_REGULATION_CAPACITORS_BONUS));
+            FluxRegulation.DISSIPATION_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FLUX_REGULATION_DISSIPATION_PERCENT));
+            FluxRegulation.CAPACITY_PERCENT = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FLUX_REGULATION_CAPACITY_PERCENT));
+
+            writeLunaSettingToRealSetting(FIELD_SHARED_CREW_TRAINING_AND_FLUX_REGULATION_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_FLUX_REGULATION_VENTS_BONUS);
+            writeLunaSettingToRealSetting(FIELD_FLUX_REGULATION_CAPACITORS_BONUS);
+            writeLunaSettingToRealSetting(FIELD_FLUX_REGULATION_DISSIPATION_PERCENT);
+            writeLunaSettingToRealSetting(FIELD_FLUX_REGULATION_CAPACITY_PERCENT);
         }
 
         private void handlePhaseCoil() {
