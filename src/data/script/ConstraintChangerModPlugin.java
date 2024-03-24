@@ -85,7 +85,6 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_technology_AutomatedShips_useDynamicOpThreshold";
     public static final String FIELD_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_technology_AutomatedShips_OPThreshold";
 
-    public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_technology_DerelictOperations_DPCostReductionPerDmod";
 
     /**************************
      * INDUSTRY SKILLS FIELDS *
@@ -111,6 +110,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_PERCENT = "constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent";
     public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_FUEL = "constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel";
 
+    public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_industry_DerelictOperations_DPCostReductionPerDmod";
 
     /************************
      * SHARED SKILLS FIELDS *
