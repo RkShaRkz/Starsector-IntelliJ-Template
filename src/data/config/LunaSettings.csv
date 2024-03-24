@@ -55,7 +55,7 @@ constraintchanger_skill_industry_BulkTransport_FuelCapacityThreshold,Bulk Transp
 constraintchanger_skill_industry_BulkTransport_PersonnelCapacityMaxPercent,Bulk Transport - Cargo Capacity Max Percent,Int,50,,"[Bulk Transport] Industry Skill [Personnel Capacity Max Percent] Parameter Value (vanilla value is 50)",0,500,Skills
 constraintchanger_skill_industry_BulkTransport_PersonnelCapacityThreshold,Bulk Transport - Personnel Capacity Threshold,Int,5000,,"[Bulk Transport] Industry Skill [Personnel Capacity Threshold] Parameter Value (vanilla value is 5000)",-5000,50000,Skills
 constraintchanger_skill_industry_BulkTransport_BurnBonus,Bulk Transport - Burn Bonus,Int,2,,"[Bulk Transport] Industry Skill [Burn Bonus] Parameter Value (vanilla value is 2)",0,20,Skills
-constraintchanger_skill_industry_FieldRepairs_header,Field Repairs divider,Header,Field Repairs,,,,,Skills
+constraintchanger_skill_industry_FieldRepairs_header,Field Repairs divider,Header,Field Repairs - NONE OF THESE WORK AT THE MOMENT,,,,,Skills
 constraintchanger_skill_industry_FieldRepairs_MinHull,Field Repairs - Min Hull,Int,30,,"[Field Repairs] Industry Skill [Min Hull] Parameter Value (vanilla value is 30)",0,100,Skills
 constraintchanger_skill_industry_FieldRepairs_MaxHull,Field Repairs - Max Hull,Int,40,,"[Field Repairs] Industry Skill [Max Hull] Parameter Value (vanilla value is 40)",0,100,Skills
 constraintchanger_skill_industry_FieldRepairs_MinCR,Field Repairs - Min CR,Int,30,,"[Field Repairs] Industry Skill [Min CR] Parameter Value (vanilla value is 30)",0,100,Skills

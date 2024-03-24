@@ -432,19 +432,33 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             logger.info("[SHARK] ----> handleFieldRepairs()");
 
             BaseSkillEffectDescription.OP_ALL_THRESHOLD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD));
-            logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 1");
-//            logger.info("[SHARK] \t checking something ... about to try and fetch the Modifier.FINAL");
-//            int deleteme = ReflectionUtils.INSTANCE.getModifierFINALField();
-//            logger.info("[SHARK] \t checking something \t Modifier.FINAL should be equal to 16: "+deleteme);
+//            logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 1");
+
             // Since this can't just work, and I can't just make a method to which I can pass the "FieldRepairs.MIN_HULL" field
             // but have to do the longer version instead, lets just try and do all of them in the same try/catch block and log
-//            FieldRepairs.MIN_HULL = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL));
-            //                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL)));
+//                FieldRepairs.MIN_HULL = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL));
+//                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL)));
 //                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_HULL"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_HULL)));
 //                modifyFinalField(FieldRepairs.class.getDeclaredField("MIN_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_CR)));
 //                modifyFinalField(FieldRepairs.class.getDeclaredField("MAX_CR"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MAX_CR)));
 //                modifyFinalField(FieldRepairs.class.getDeclaredField("REPAIR_RATE_BONUS"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS)));
 //                modifyFinalField(FieldRepairs.class.getDeclaredField("INSTA_REPAIR_PERCENT"), (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT)));
+
+            // This method does the reflection part, which also doesn't quite work and is breaking the LunaListener
+//            handleFieldRepairsNonWorkingPart();
+
+            writeLunaSettingToRealSetting(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MIN_HULL);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_HULL);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MIN_CR);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_CR);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS);
+            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT);
+            logger.info("[SHARK] <---- handleFieldRepairs()");
+        }
+
+        private void handleFieldRepairsNonWorkingPart() {
+            logger.info("[SHARK] ----> handleFieldRepairsNonWorkingPart()");
             try {
                 ReflectionUtils.INSTANCE.modifyFinalField("MIN_HULL", FieldRepairs.class, (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_FIELD_REPAIRS_MIN_HULL)));
                 logger.info("[SHARK] \t handleFieldRepairs()\tcheckpoint 2");
@@ -462,15 +476,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
                 logger.error("[SHARK] \t handleFieldRepairs()\tcaught exception "+ex);
                 logger.error(StacktraceUtils.unwindStacktrace(ex.getStackTrace()));
             }
-
-            writeLunaSettingToRealSetting(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD);
-            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MIN_HULL);
-            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_HULL);
-            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MIN_CR);
-            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_MAX_CR);
-            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_REPAIR_RATE_BONUS);
-            writeLunaSettingToRealSetting(FIELD_FIELD_REPAIRS_INSTA_REPAIR_PERCENT);
-            logger.info("[SHARK] <---- handleFieldRepairs()");
+            logger.info("[SHARK] <---- handleFieldRepairsNonWorkingPart()()");
         }
 
         private void handleContainmentProcedures() {
