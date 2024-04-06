@@ -17,6 +17,8 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final boolean HAVE_LUNALIB = Global.getSettings().getModManager().isModEnabled("lunalib");
     public static final String MOD_ID = "Shark_ConstraintChanger";
 
+    private static final MyLunaSettingsListener LunaSettingsListenerInstance = new MyLunaSettingsListener();
+
     /**************************
      * OFFICER LUNAKEYS BELOW *
      **************************/
@@ -218,7 +220,12 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
 //        logger.info(">>>> Settings JSON: \n" + Global.getSettings().getSettingsJSON());
 
         if (HAVE_LUNALIB) {
-            LunaSettings.addSettingsListener(new MyLunaSettinsListener());
+            LunaSettings.addSettingsListener(LunaSettingsListenerInstance);
+
+            // Force a refresh of settings, since some stuff from Game's "Settings" aren't
+            // updated (overwritten) until a change happens and they actually get overwritten
+            // by stuff saved in LunaSettings
+            LunaSettingsListenerInstance.settingsChanged(MOD_ID);
         }
     }
 
@@ -234,7 +241,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
      *
      * Then, the corresponding starsector-core's settings.json keys are also updated (overwritten) with the new values.
      */
-    private static class MyLunaSettinsListener implements LunaSettingsListener {
+    private static class MyLunaSettingsListener implements LunaSettingsListener {
 
         @Override
         public void settingsChanged(@NotNull String modId) {
