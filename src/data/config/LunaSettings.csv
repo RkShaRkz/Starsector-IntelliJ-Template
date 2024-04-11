@@ -10,11 +10,11 @@ constraintchanger_officerMercMaxLevel,Max Level of Mercenary Officers,Int,8,,Max
 constraintchanger_officerMercPayMult,Mercenary Officers' pay multiplier,Int,2,,Merc Officers' hiring bonus and salary (vanilla value is 2),1,10,Officers
 constraintchanger_officerMercContractDur,Mercenary Officers' contract duration,Int,730,,Minimum days before Merc Officers will try to leave (vanilla value is 730),30,1460,Officers
 ,,,,,,,,
-constraintchanger_maxShipsInFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in Fleet (vanilla value is 30),20,90,Combat
-constraintchanger_maxShipsInAIFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in AI's Fleet (vanilla value is 30),20,90,Combat
-constraintchanger_minBattleSize,Minimum Battle Size,Int,100,,Minimum battle size changable in game's Settings (vanilla value is 200),50,400,Combat
-constraintchanger_defaultBattleSize,Default Battle Size,Int,400,,Default battle size changable in game's Settings (vanilla value is 400),50,1200,Combat
-constraintchanger_maxBattleSize,Maximum Battle Size,Int,800,,Maximum battle size changable in game's Settings (vanilla value is 400),400,1200,Combat
+constraintchanger_maxShipsInFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in Fleet (vanilla value is 30),20,150,Combat
+constraintchanger_maxShipsInAIFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in AI's Fleet (vanilla value is 30),20,150,Combat
+constraintchanger_minBattleSize,Minimum Battle Size,Int,100,,Minimum battle size changable in game's Settings (vanilla value is 200),50,2000,Combat
+constraintchanger_defaultBattleSize,Default Battle Size,Int,400,,Default battle size changable in game's Settings (vanilla value is 400),50,4000,Combat
+constraintchanger_maxBattleSize,Maximum Battle Size,Int,800,,Maximum battle size changable in game's Settings (vanilla value is 400),400,4000,Combat
 ,,,,,,,,
 constraintchanger_campaignSpeedupMult,Campaign speedup multiplier,Int,4,,Campaign speedup multiplier - setting to a larger value may cause framerate drops when time is sped up (vanilla value is 2),2,10,Misc
 constraintchanger_combatzoom_header,Combat Zoom divider,Header,Combat Zoom,,,,,Misc
