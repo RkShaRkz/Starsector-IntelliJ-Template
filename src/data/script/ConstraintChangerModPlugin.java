@@ -640,6 +640,11 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             return retVal;
         }
 
+        /**
+         * Identical as {@link #safeUnboxing(Integer)} but for {@link Boolean}s
+         * @param object {@link Boolean} object to check and safely unbox and convert to <b>boolean</b>
+         * @return false if the <b>object</b> was null, <b>object</b>'s value if it was non-null
+         */
         private boolean safeUnboxing(Boolean object) {
             boolean retVal;
             if (object == null) {
@@ -651,6 +656,11 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             return retVal;
         }
 
+        /**
+         * Identical as {@link #safeUnboxing(Integer)} but for {@link Float}s
+         * @param object {@link Float} object to check and safely unbox and convert to <b>boolean</b>
+         * @return 0 if the <b>object</b> was null, <b>object</b>'s value if it was non-null
+         */
         private float safeUnboxing(Float object) {
             float retVal;
             if (object == null) {
@@ -662,100 +672,5 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             return retVal;
         }
 
-        private double safeUnboxing(Double object) {
-            double retVal;
-            if (object == null) {
-                retVal = 0;
-            } else {
-                retVal = object;
-            }
-
-            return retVal;
-        }
     }
-
-    /*
-    public static void modifyFinalField(Class<?> clazz, String fieldName, float newValue) {
-        // Get the field
-        Field field = null;
-        try {
-            field = clazz.getDeclaredField(fieldName);
-        } catch (NoSuchFieldException e) {
-            logger.error("modifyFinalField() failed due to " + e + " on field " + fieldName);
-            return;
-        }
-
-        // Ensure the field is accessible
-        field.setAccessible(true);
-
-        // Remove the final modifier
-        Field modifiersField = null;
-        try {
-            modifiersField = Field.class.getDeclaredField("modifiers");
-        } catch (NoSuchFieldException e) {
-            logger.error("modifyFinalField() failed due to " + e + " while trying to populate modifiersField of field " + fieldName);
-            return;
-        }
-
-        modifiersField.setAccessible(true);
-        int modifiers = field.getModifiers();
-        try {
-            modifiersField.setInt(field, modifiers & ~Modifier.FINAL);
-        } catch (IllegalAccessException e) {
-            logger.error("modifyFinalField() failed due to " + e + " on modifiersField of field " + fieldName);
-            return;
-        }
-
-        // Set the new value
-        try {
-            field.set(null, newValue);
-        } catch (IllegalAccessException e) {
-            logger.error("modifyFinalField() failed due to " + e + " while trying to set value " + newValue + " on field");
-            return;
-        }
-
-        // Restore the final modifier
-        try {
-            modifiersField.setInt(field, modifiers);
-        } catch (IllegalAccessException e) {
-            logger.error("modifyFinalField() failed due to " + e + " while trying to restore original modifiers on field");
-        }
-    } */
-
-    /*
-    public static void modifyFinalField(Field field, float newValue) {
-        // Ensure the field is accessible
-        field.setAccessible(true);
-
-        // Remove the final modifier
-        Field modifiersField;
-        try {
-            modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            int modifiers = field.getModifiers();
-            modifiersField.setInt(field, modifiers & ~Modifier.FINAL);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            // The field doesn't have 'final' modifier, do nothing
-            logger.error("modifyFinalField() failed due to " + e + " while trying to unset 'final' from field " + field.getName());
-        }
-
-        // Set the new value
-        try {
-            field.set(null, newValue);
-        } catch (IllegalAccessException e) {
-            logger.error("modifyFinalField() failed due to " + e + " while trying to set new value (" + newValue + ") on field " + field.getName());
-        }
-
-        // Restore the final modifier
-        try {
-            modifiersField = Field.class.getDeclaredField("modifiers");
-            modifiersField.setAccessible(true);
-            int modifiers = field.getModifiers();
-            modifiersField.setInt(field, modifiers | Modifier.FINAL);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            // The field doesn't have 'modifiers' field, do nothing
-            logger.error("modifyFinalField() failed due to " + e + " while trying to re-set 'final' to field " + field.getName());
-        }
-    }
-     */
 }
