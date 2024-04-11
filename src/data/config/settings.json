@@ -124,7 +124,10 @@
 	"RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent":25,
 	"RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel":25,
 
-	"RKZ_skill_industry_DerelictOperations_DPCostReductionPerDmod":6,
+	"RKZ_skill_industry_DerelictOperations_DPCostReductionPerDMod":6,
+	"RKZ_skill_industry_DerelictOperations_MaxDMods":5,
+	"RKZ_skill_industry_DerelictOperations_MinusCRPerDMod":0,
+	"RKZ_skill_industry_DerelictOperations_ExtraDMods":4,
 
 	# industry - shared
 	"RKZ_skill_industry_FieldRepairs_and_ContainmentProcedures_OPThreshold":240,

@@ -121,7 +121,11 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_PERCENT = "constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent";
     public static final String FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_FUEL = "constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel";
 
-    public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_industry_DerelictOperations_DPCostReductionPerDmod";
+
+    public static final String FIELD_DERELICT_OPERATIONS_MAX_DMODS = "constraintchanger_skill_industry_DerelictOperations_MaxDMods";
+    public static final String FIELD_DERELICT_OPERATIONS_MINUS_CR_PER_DMOD = "constraintchanger_skill_industry_DerelictOperations_MinusCRPerDMod";
+    public static final String FIELD_DERELICT_OPERATIONS_EXTRA_DMODS = "constraintchanger_skill_industry_DerelictOperations_ExtraDMods";
+    public static final String FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD = "constraintchanger_skill_industry_DerelictOperations_DPCostReductionPerDMod";
 
     /************************
      * SHARED SKILLS FIELDS *
@@ -212,7 +216,10 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_PERCENT, "RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent");
         LunaToRealKeymap.put(FIELD_CONTAINMENT_PROCEDURES_FUEL_USE_REDUCTION_MAX_FUEL, "RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel");
 
-        LunaToRealKeymap.put(FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD, "RKZ_skill_industry_DerelictOperations_DPCostReductionPerDmod");
+        LunaToRealKeymap.put(FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD, "RKZ_skill_industry_DerelictOperations_DPCostReductionPerDMod");
+        LunaToRealKeymap.put(FIELD_DERELICT_OPERATIONS_MAX_DMODS, "RKZ_skill_industry_DerelictOperations_MaxDMods");
+        LunaToRealKeymap.put(FIELD_DERELICT_OPERATIONS_MINUS_CR_PER_DMOD, "RKZ_skill_industry_DerelictOperations_MinusCRPerDMod");
+        LunaToRealKeymap.put(FIELD_DERELICT_OPERATIONS_EXTRA_DMODS, "RKZ_skill_industry_DerelictOperations_ExtraDMods");
 
         // Shared
         LunaToRealKeymap.put(FIELD_SHARED_FIELD_REPAIRS_AND_CONTAINMENT_PROCEDURES_OP_THRESHOLD, "RKZ_skill_industry_FieldRepairs_and_ContainmentProcedures_OPThreshold");
@@ -546,7 +553,14 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
 
         private void handleDerelictOperations() {
             DerelictContingent.MINUS_DP_PERCENT_PER_DMOD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD));
-            //TODO add other fields and saving
+            DerelictContingent.MAX_DMODS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DERELICT_OPERATIONS_MAX_DMODS));
+            DerelictContingent.MINUS_CR_PER_DMOD = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DERELICT_OPERATIONS_MINUS_CR_PER_DMOD));
+            DerelictContingent.EXTRA_DMODS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_DERELICT_OPERATIONS_EXTRA_DMODS));
+
+            writeLunaSettingToRealSetting(FIELD_DERELICT_OPERATIONS_DP_COST_REDUCTION_PER_DMOD);
+            writeLunaSettingToRealSetting(FIELD_DERELICT_OPERATIONS_MAX_DMODS);
+            writeLunaSettingToRealSetting(FIELD_DERELICT_OPERATIONS_MINUS_CR_PER_DMOD);
+            writeLunaSettingToRealSetting(FIELD_DERELICT_OPERATIONS_EXTRA_DMODS);
         }
 
         /**
