@@ -96,6 +96,10 @@
 	"RKZ_skill_technology_PhaseCoilTuning_PeakTimeBonus":180,
 	"RKZ_skill_technology_PhaseCoilTuning_SensorBonusPercent":100,
 
+	"RKZ_skill_technology_CyberneticAugmentation_MaxEliteSkillsBonus":1,
+	"RKZ_skill_technology_CyberneticAugmentation_ECCMBonus":5,
+	"RKZ_skill_technology_CyberneticAugmentation_BonusPerEliteSkill":1.0,
+
 	"RKZ_skill_technology_AutomatedShips_useDynamicOpThreshold":true, # was false since I made it up
 	"RKZ_skill_technology_AutomatedShips_OPThreshold":200, # was 120
 

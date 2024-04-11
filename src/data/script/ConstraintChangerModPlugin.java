@@ -89,6 +89,10 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
     public static final String FIELD_PHASE_COIL_PEAK_TIME_BONUS = "constraintchanger_skill_technology_PhaseCoilTuning_PeakTimeBonus";
     public static final String FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT = "constraintchanger_skill_technology_PhaseCoilTuning_SensorBonusPercent";
 
+    public static final String FIELD_CYBERNETIC_AUGMENTATION_MAX_ELITE_BONUS_SKILLS = "constraintchanger_skill_technology_CyberneticAugmentation_MaxEliteBonusSkills";
+    public static final String FIELD_CYBERNETIC_AUGMENTATION_ECCM_BONUS = "constraintchanger_skill_technology_CyberneticAugmentation_ECCMBonus";
+    public static final String FIELD_CYBERNETIC_AUGMENTATION_BONUS_PER_ELITE_SKILL = "constraintchanger_skill_technology_CyberneticAugmentation_BonusPerEliteSkill";
+
     public static final String FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_technology_AutomatedShips_useDynamicOpThreshold";
     public static final String FIELD_AUTOMATED_SHIPS_OP_THRESHOLD = "constraintchanger_skill_technology_AutomatedShips_OPThreshold";
 
@@ -180,6 +184,10 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
         LunaToRealKeymap.put(FIELD_PHASE_COIL_SPEED_BONUS, "RKZ_skill_technology_PhaseCoilTuning_SpeedBonus");
         LunaToRealKeymap.put(FIELD_PHASE_COIL_PEAK_TIME_BONUS, "RKZ_skill_technology_PhaseCoilTuning_PeakTimeBonus");
         LunaToRealKeymap.put(FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT, "RKZ_skill_technology_PhaseCoilTuning_SensorBonusPercent");
+
+        LunaToRealKeymap.put(FIELD_CYBERNETIC_AUGMENTATION_MAX_ELITE_BONUS_SKILLS, "RKZ_skill_technology_CyberneticAugmentation_MaxEliteSkillsBonus");
+        LunaToRealKeymap.put(FIELD_CYBERNETIC_AUGMENTATION_ECCM_BONUS, "RKZ_skill_technology_CyberneticAugmentation_ECCMBonus");
+        LunaToRealKeymap.put(FIELD_CYBERNETIC_AUGMENTATION_BONUS_PER_ELITE_SKILL, "RKZ_skill_technology_CyberneticAugmentation_BonusPerEliteSkill");
 
         LunaToRealKeymap.put(FIELD_USE_DYNAMIC_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_useDynamicOpThreshold");
         LunaToRealKeymap.put(FIELD_AUTOMATED_SHIPS_OP_THRESHOLD, "RKZ_skill_technology_AutomatedShips_OPThreshold");
@@ -345,6 +353,7 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             handlePhaseCoil();
             //NeuralLink - nope, will remain two ships only
             //CyberneticAugmentation
+            handleCyberneticAugmentation();
             //AutomatedShips
             handleAutomatedShips();
         }
@@ -422,6 +431,16 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
             writeLunaSettingToRealSetting(FIELD_PHASE_COIL_SPEED_BONUS);
             writeLunaSettingToRealSetting(FIELD_PHASE_COIL_PEAK_TIME_BONUS);
             writeLunaSettingToRealSetting(FIELD_PHASE_COIL_SENSOR_BONUS_PERCENT);
+        }
+
+        private void handleCyberneticAugmentation() {
+            CyberneticAugmentation.MAX_ELITE_SKILLS_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CYBERNETIC_AUGMENTATION_MAX_ELITE_BONUS_SKILLS));
+            CyberneticAugmentation.ECCM_BONUS = (float) safeUnboxing(LunaSettings.getInt(MOD_ID, FIELD_CYBERNETIC_AUGMENTATION_ECCM_BONUS));
+            CyberneticAugmentation.BONUS_PER_ELITE_SKILL = safeUnboxing(LunaSettings.getFloat(MOD_ID, FIELD_CYBERNETIC_AUGMENTATION_BONUS_PER_ELITE_SKILL));
+
+            writeLunaSettingToRealSetting(FIELD_CYBERNETIC_AUGMENTATION_MAX_ELITE_BONUS_SKILLS);
+            writeLunaSettingToRealSetting(FIELD_CYBERNETIC_AUGMENTATION_ECCM_BONUS);
+            writeFloatLunaSettingToRealSetting(FIELD_CYBERNETIC_AUGMENTATION_BONUS_PER_ELITE_SKILL);
         }
 
         private void handleAutomatedShips() {
@@ -634,6 +653,17 @@ public class ConstraintChangerModPlugin extends BaseModPlugin {
 
         private float safeUnboxing(Float object) {
             float retVal;
+            if (object == null) {
+                retVal = 0;
+            } else {
+                retVal = object;
+            }
+
+            return retVal;
+        }
+
+        private double safeUnboxing(Double object) {
+            double retVal;
             if (object == null) {
                 retVal = 0;
             } else {
