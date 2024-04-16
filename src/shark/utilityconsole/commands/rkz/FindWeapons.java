@@ -88,13 +88,13 @@ public class FindWeapons implements BaseCommand {
 
         // And identical thing for damage types - beware of energy
         if (containsDamageTypes(args)) {
-            // First, check for ambiguous case where a weapon type can be either "type = ..." or some other expression
-            // findweapons { ballistic, mounttype = missile }
-            // in case we find more than one weapon type in the input string, we cannot differentiate
+            // First, check for ambiguous case where a damage type can be either "damagetype = kinetic" or just "kinetic"
+            // findweapons { ballistic, mounttype = missile, damagetype = he }
+            // in case we find more than one damage type in the input string, we cannot differentiate
             // whether it should be replaced with an ordinal or a whole expression (since the expression will break the original intent)
             // and in that case, insist on clarifying
             //
-            // otherwise, just replace with "type = <ordinal>" expression
+            // otherwise, just replace with "damagetype = <ordinal>" expression
             int countedDamageTypes = countDamageTypes(args);
             int countedDamageTypeExpectingKeywords = countDamageTypeExpectingKeywords(args);
             if (countedDamageTypes > 1 && countedDamageTypes != countedDamageTypeExpectingKeywords) {

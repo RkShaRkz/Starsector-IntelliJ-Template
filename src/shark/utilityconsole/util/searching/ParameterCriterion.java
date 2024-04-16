@@ -430,25 +430,25 @@ public class ParameterCriterion {
                         retVal = weapon.getMaxAmmo();
                         break;
                     case TYPE:
-                        retVal = weapon.getType().ordinal(); //TODO what to do here?
+                        retVal = weapon.getType().ordinal();
                         break;
                     case DAMAGE_TYPE:
-                        retVal = weapon.getDamageType().ordinal(); //TODO same thing
+                        retVal = weapon.getDamageType().ordinal();
                         break;
                     case TURN_RATE:
                         retVal = Math.round(weapon.getTurnRate());
                         break;
                     case SIZE:
-                        retVal = weapon.getSize().ordinal(); //TODO similar to hullsize
+                        retVal = weapon.getSize().ordinal();
                         break;
                     case RARITY:
-                        retVal = Math.round(weapon.getRarity()); //FIXME i think this is a bug
+                        retVal = Math.round(weapon.getRarity());
                         break;
                     case BEAM:
                         retVal = weapon.isBeam() ? 1 : 0;
                         break;
                     case MOUNT_TYPE:
-                        retVal = weapon.getMountType().ordinal(); //TODO again
+                        retVal = weapon.getMountType().ordinal();
                         break;
                 }
             }
