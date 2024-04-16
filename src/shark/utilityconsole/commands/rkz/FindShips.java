@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
 import shark.utilityconsole.util.CommonUtil;
+import shark.utilityconsole.util.FormatUtil;
 import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
@@ -235,7 +236,7 @@ public class FindShips implements BaseCommand {
 
     private boolean isShipParameterSymbol(String symbol) {
         /**
-         * CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE
+         * CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS
          */
         boolean retVal = false;
         retVal = symbol.equalsIgnoreCase("CARGO")
@@ -245,7 +246,9 @@ public class FindShips implements BaseCommand {
                 || symbol.equalsIgnoreCase("ARMOR")
                 || symbol.equalsIgnoreCase("FLUX_CAPACITY") || symbol.equalsIgnoreCase("FLUX-CAPACITY") || symbol.equalsIgnoreCase("FLUXCAPACITY")
                 || symbol.equalsIgnoreCase("FLUX_DISSIPATION") || symbol.equalsIgnoreCase("FLUX-DISSIPATION") || symbol.equalsIgnoreCase("FLUXDISSIPATION")
+                || symbol.equalsIgnoreCase("ORDNANCE_POINTS") || symbol.equalsIgnoreCase("ORDNANCE-POINTS") || symbol.equalsIgnoreCase("ORDNANCEPOINTS") || symbol.equalsIgnoreCase("OP")
                 || symbol.equalsIgnoreCase("SIZE");
+
 
         return retVal;
     }
@@ -273,6 +276,8 @@ public class FindShips implements BaseCommand {
             retVal = FLUX_CAPACITY;
         } else if (symbol.equalsIgnoreCase("FLUX_DISSIPATION") || symbol.equalsIgnoreCase("FLUX-DISSIPATION") || symbol.equalsIgnoreCase("FLUXDISSIPATION")) {
             retVal = FLUX_DISSIPATION;
+        } else if (symbol.equalsIgnoreCase("ORDNANCE_POINTS") || symbol.equalsIgnoreCase("ORDNANCE-POINTS") || symbol.equalsIgnoreCase("ORDNANCEPOINTS") || symbol.equalsIgnoreCase("OP")) {
+            retVal = ORDNANCE_POINTS;
         } else if (symbol.equalsIgnoreCase("SIZE")) {
             retVal = SIZE;
         } else {
@@ -381,8 +386,8 @@ public class FindShips implements BaseCommand {
 
     public void stringifyShipIntoStringBuilder(StringBuilder sb, ShipHullSpecAPI ship) {
         sb
-                .append("Hull name: ").append(String.format("%32s", ship.getHullName()))
-                .append("\t\t\tHull ID: ").append(String.format("%64s", ship.getHullId()))
+                .append("Hull name: ").append(FormatUtil.formatName(ship.getHullName()))
+                .append("\t\t\tHull ID: ").append(FormatUtil.formatHullId(ship.getHullId()))
                 .append("\n");
     }
 
@@ -406,7 +411,7 @@ public class FindShips implements BaseCommand {
         ArrayList<String> symbolList = new ArrayList<String>(Arrays.asList(symbols));
         // sanity-check - is it even a valid symbol? e.g. flightbay is an invalid symbol that causes NPEs somehow.
         if (!isValidSymbol(symbolList.get(0).trim())) {
-            Console.showMessage("Invalid token "+symbolList.get(0));
+            Console.showMessage("Invalid token " + symbolList.get(0));
             return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
         }
 

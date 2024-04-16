@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.Console;
 import shark.utilityconsole.util.CommonUtil;
+import shark.utilityconsole.util.FormatUtil;
 
 import java.util.List;
 
@@ -37,9 +38,9 @@ public class ListShips implements BaseCommand {
 
     private String processFleetMember(FleetMemberAPI ship) {
         StringBuilder retVal = new StringBuilder()
-                .append("ID: ").append(String.format("%8s", ship.getId()))
-                .append("\t\tHull ID: ").append(String.format("%64s", ship.getHullId()))
-                .append("\t\tName: ").append(String.format("%32s", ship.getShipName()))
+                .append("ID: ").append(FormatUtil.formatId(ship.getId()))
+                .append("\t\tHull ID: ").append(FormatUtil.formatHullId(ship.getHullId()))
+                .append("\t\tName: ").append(FormatUtil.formatName(ship.getShipName()))
                 .append("\n");
 
         return retVal.toString();

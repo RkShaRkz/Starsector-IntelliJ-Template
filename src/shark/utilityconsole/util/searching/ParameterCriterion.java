@@ -43,7 +43,7 @@ public class ParameterCriterion {
         }
 
         public enum ShipParameter {
-            CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE
+            CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS
         }
 
         public enum WeaponParameter {
@@ -231,6 +231,12 @@ public class ParameterCriterion {
                         // Kind of a hack, but earlier we replaced the "frigate" with 2 so it'll work out. I think.
                         retVal = matchesCriteriaQuantity(ship.getHullSize().ordinal());
                         break;
+                    case ORDNANCE_POINTS:
+                        retVal = matchesCriteriaQuantity(ship.getOrdnancePoints(null));
+                        break;
+                    default:
+                        Console.showMessage("Unsupported ShipParameter received in ParameterCriterion::matches()! Received: "+actualData.getParameter());
+                        break;
                 }
             }
             break;
@@ -370,6 +376,12 @@ public class ParameterCriterion {
                     case SIZE:
                         // Ugh, not great, but lets also establish sorting order from biggest to smallest
                         retVal = ship.getHullSize().ordinal();
+                        break;
+                    case ORDNANCE_POINTS:
+                        retVal = ship.getOrdnancePoints(null);
+                        break;
+                    default:
+                        Console.showMessage("Unsupported ShipParameter received in ParameterCriterion::countMatches()! Received: "+actualData.getParameter());
                         break;
                 }
 
