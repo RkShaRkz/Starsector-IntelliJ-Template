@@ -3,6 +3,7 @@ package shark.utilityconsole.util.searching;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import org.lazywizard.console.Console;
 
 public class ParameterCriterion {
@@ -18,6 +19,12 @@ public class ParameterCriterion {
         // The idea is, depending on the criteria used, to sort from highest to lowest.
         // We can establish ordering based on how many matches each of these results have.
         return Integer.compare(countMatches(ship1), countMatches(ship2));
+    }
+
+    public int compareResults(WeaponSpecAPI weapon1, WeaponSpecAPI weapon2) {
+        // The idea is, depending on the criteria used, to sort from highest to lowest.
+        // We can establish ordering based on how many matches each of these results have.
+        return Integer.compare(countMatches(weapon1), countMatches(weapon2));
     }
 
     public static class CriteriaParameter {
@@ -93,6 +100,18 @@ public class ParameterCriterion {
             }
         }
 
+        public static class WeaponParameterCriteriaData extends CriteriaData {
+            private final WeaponParameter parameter;
+
+            public WeaponParameterCriteriaData(WeaponParameter parameter) {
+                this.parameter = parameter;
+            }
+
+            public WeaponParameter getParameter() {
+                return parameter;
+            }
+        }
+
         public CriteriaParameter(Criteria criteria, CriteriaData data) {
             this.criteria = criteria;
             this.criteriaData = data;
@@ -122,9 +141,15 @@ public class ParameterCriterion {
                         Console.showMessage("Invalid CriteriaData passed for SHIP_PARAMETER CriteriaParameter");
                     }
                     break;
+                case WEAPON_PARAMETER:
+                    // The 'data' will surely be WeaponParameterCriteriaData, so cast it first
+                    if (!(data instanceof WeaponParameterCriteriaData)) {
+                        Console.showMessage("Invalid CriteriaData passed for WEAPON_PARAMETER CriteriaParameter");
+                    }
+                    break;
 
                 default: // we don't want to throw
-                    Console.showMessage("Unsupported criteria used! Received "+criteria);
+                    Console.showMessage("Unsupported criteria used! Received " + criteria);
             }
         }
     }
@@ -211,7 +236,79 @@ public class ParameterCriterion {
             break;
 
             case WEAPON_PARAMETER: {
-                //TODO
+                // We can't have these for ships
+            }
+            break;
+        }
+
+        return retVal;
+    }
+
+    public boolean matches(WeaponSpecAPI weapon) {
+        boolean retVal = false;
+
+        switch (this.criteriaParameter.criteria) {
+            case WEAPON: {
+                CriteriaParameter.WeaponCriteriaData actualData = (CriteriaParameter.WeaponCriteriaData) criteriaParameter.criteriaData;
+                int matches = 0;
+
+                if (weapon.getType() == actualData.getType()) {
+                    matches++;
+                }
+
+                // Now, make sure they match the necessary quantity as well
+                retVal = matchesCriteriaQuantity(matches);
+            }
+            break;
+
+            case WEAPON_WITH_SIZE: {
+                CriteriaParameter.WeaponAndSizeCriteriaData actualData = (CriteriaParameter.WeaponAndSizeCriteriaData) criteriaParameter.criteriaData;
+                int matches = 0;
+
+                if ((weapon.getType() == actualData.getType()) && (weapon.getSize() == actualData.getSize())) {
+                    matches++;
+                }
+
+                // Now, make sure they match the necessary quantity as well
+                retVal = matchesCriteriaQuantity(matches);
+            }
+            break;
+
+            case SHIP_PARAMETER:
+                // We can't have these for weapons
+                break;
+
+            case WEAPON_PARAMETER: {
+                CriteriaParameter.WeaponParameterCriteriaData actualData = (CriteriaParameter.WeaponParameterCriteriaData) criteriaParameter.criteriaData;
+                switch (actualData.getParameter()) {
+                    case RANGE:
+                        retVal = matchesCriteriaQuantity(Math.round(weapon.getMaxRange()));
+                        break;
+                    case AMMO:
+                        retVal = matchesCriteriaQuantity(weapon.getMaxAmmo());
+                        break;
+                    case TYPE:
+                        retVal = matchesCriteriaQuantity(weapon.getType().ordinal());
+                        break;
+                    case DAMAGE_TYPE:
+                        retVal = matchesCriteriaQuantity(weapon.getDamageType().ordinal());
+                        break;
+                    case TURN_RATE:
+                        retVal = matchesCriteriaQuantity(Math.round(weapon.getTurnRate()));
+                        break;
+                    case SIZE:
+                        retVal = matchesCriteriaQuantity(weapon.getSize().ordinal());
+                        break;
+                    case RARITY:
+                        retVal = matchesCriteriaQuantity(Math.round(weapon.getRarity())); //TODO bug smell
+                        break;
+                    case BEAM:
+                        retVal = matchesCriteriaQuantity(weapon.isBeam() ? 1 : 0);
+                        break;
+                    case MOUNT_TYPE:
+                        retVal = matchesCriteriaQuantity(weapon.getMountType().ordinal());
+                        break;
+                }
             }
             break;
         }
@@ -278,6 +375,70 @@ public class ParameterCriterion {
 
 
                 break;
+            }
+        }
+
+        return retVal;
+    }
+
+    public int countMatches(WeaponSpecAPI weapon) {
+        int retVal = 0;
+        switch (this.criteriaParameter.criteria) {
+            case WEAPON: {
+                CriteriaParameter.WeaponCriteriaData actualData = (CriteriaParameter.WeaponCriteriaData) criteriaParameter.criteriaData;
+                // Iterate through all of ship's weapons and make sure they match the criteria
+                if (weapon.getType() == actualData.getType()) {
+                    retVal++;
+                }
+
+                break;
+            }
+            case WEAPON_WITH_SIZE: {
+                CriteriaParameter.WeaponAndSizeCriteriaData actualData = (CriteriaParameter.WeaponAndSizeCriteriaData) criteriaParameter.criteriaData;
+                // Iterate through all of ship's weapons and make sure they match the criteria
+                if (weapon.getType() == actualData.getType() && weapon.getSize() == actualData.getSize()) {
+                    retVal++;
+                }
+
+                break;
+            }
+            case SHIP_PARAMETER:
+                // We simply can't have any of these for weapons
+                // Ex: we can't look for a weapon that has X ballistic slots and Y large missile slots
+                // Ex: we can't look for weapons that satisfy a 'cargo > 500' condition
+                break;
+
+            case WEAPON_PARAMETER: {
+                CriteriaParameter.WeaponParameterCriteriaData actualData = (CriteriaParameter.WeaponParameterCriteriaData) criteriaParameter.criteriaData;
+                switch (actualData.getParameter()) {
+                    case RANGE:
+                        retVal = Math.round(weapon.getMaxRange());
+                        break;
+                    case AMMO:
+                        retVal = weapon.getMaxAmmo();
+                        break;
+                    case TYPE:
+                        retVal = weapon.getType().ordinal(); //TODO what to do here?
+                        break;
+                    case DAMAGE_TYPE:
+                        retVal = weapon.getDamageType().ordinal(); //TODO same thing
+                        break;
+                    case TURN_RATE:
+                        retVal = Math.round(weapon.getTurnRate());
+                        break;
+                    case SIZE:
+                        retVal = weapon.getSize().ordinal(); //TODO similar to hullsize
+                        break;
+                    case RARITY:
+                        retVal = Math.round(weapon.getRarity()); //FIXME i think this is a bug
+                        break;
+                    case BEAM:
+                        retVal = weapon.isBeam() ? 1 : 0;
+                        break;
+                    case MOUNT_TYPE:
+                        retVal = weapon.getMountType().ordinal(); //TODO again
+                        break;
+                }
             }
         }
 
