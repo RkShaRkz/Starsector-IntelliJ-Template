@@ -6,6 +6,7 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.sun.javafx.beans.annotations.NonNull;
 import org.lazywizard.console.BaseCommand;
 import shark.utilityconsole.util.searching.ParameterCriterion;
@@ -57,7 +58,7 @@ public class CommonUtil {
     }
 
     /**
-     * Listener for {@link #findShips(SearchCriteria)}
+     * Listener for {@link #findShips(SearchCriteria, FindShipsListener)}
      */
     public interface FindShipsListener {
         /**
@@ -85,5 +86,31 @@ public class CommonUtil {
         }
 
         listener.onShipsFound(filteredResults, shipSpecs.size());
+    }
+
+    /**
+     * Listener for {@link #findShips(SearchCriteria, FindShipsListener)}
+     */
+    public interface FindWeaponsListener {
+        /**
+         * Called when the searching has been done
+         * @param foundWeapons List containing weapons that matched the {@link SearchCriteria}
+         * @param queriedWeapons number of weapons that were queried for meeting the criteria
+         */
+        void onWeaponsFound(List<WeaponSpecAPI> foundWeapons, int queriedWeapons);
+    }
+
+    public static void findWeapons(@NonNull SearchCriteria searchCriteria, @NonNull FindWeaponsListener listener ) {
+        List<WeaponSpecAPI> weaponSpecs = Global.getSettings().getAllWeaponSpecs();
+        List<WeaponSpecAPI> filteredResults = new ArrayList<>();
+
+        // We will go through all ship hull specifications, and add all the ones that pass requirements to a filtered list
+        for (WeaponSpecAPI weapon : weaponSpecs) {
+            if (searchCriteria.matches(weapon)) {
+                filteredResults.add(weapon);
+            }
+        }
+
+        listener.onWeaponsFound(filteredResults, weaponSpecs.size());
     }
 }
