@@ -74,6 +74,9 @@ public class FindWeapons implements BaseCommand {
                 // Like with size, check if we contain anything expecting a weapon type and just replace with ordinals
                 // or otherwise replace with a "type = <ordinal>" expression
                 if (containsWeaponTypeExpectingKeyword(args) && countedWeaponTypes == countedWeaponTypeExpectingKeywords) {
+                // Because "type" is a weapon-type expecting word, and is a substring of "damagetype"
+                // using just "{ missile, damagetype = whatever }" will pass as having 1 expecting keyword and one weapon type
+                // some hackery will have to be made
                     // hopefully has "type <weapontype>" so just replace the weapontype with ordinal
                     args = replaceWeaponTypesWithOrdinals(args);
                 } else {
@@ -105,8 +108,11 @@ public class FindWeapons implements BaseCommand {
                     // hopefully has "damagetype <type>" so just replace the damagetype with ordinal
                     args = replaceDamageTypesWithOrdinals(args);
                 } else {
-                    // replace the damage type with a "damagetype = <ordinal>" expression
-                    args = replaceDamageTypeWithExpression(args);
+                    // replace the damage type with a "damagetype = <ordinal>" expression *only if it's not an expression already*
+                    String noSpacesCopy = args.replaceAll("\\s+", "");
+                    if ( !(noSpacesCopy.contains("damagetype=") || noSpacesCopy.contains("damage-type=") || noSpacesCopy.contains("damage_type=")) ) {
+                        args = replaceDamageTypeWithExpression(args);
+                    }
                 }
             }
         }
@@ -443,6 +449,8 @@ public class FindWeapons implements BaseCommand {
             // So this whole thing needs to be done in-place, and each occurance needs to be deleted
             String[] keywords = {"mounttype", "mount-type", "mount_type", "type"};
             String copy = new String(fullInputString);
+            // Since "damage-type", "damagetype", "damage_type" contain "type", lets get rid of all of them first
+            copy = copy.replaceAll("damage-type", "").replaceAll("damagetype", "").replaceAll("damage_type", "");
             for (String word : keywords) {
                 int lastIndex = 0;
                 while (lastIndex != -1) {
@@ -493,7 +501,7 @@ public class FindWeapons implements BaseCommand {
 
     public int countDamageTypes(String fullInputString) {
         int retVal = 0;
-        if (containsWeaponTypes(fullInputString)) {
+        if (containsDamageTypes(fullInputString)) {
 //            retVal += countOccurrences(fullInputString.toLowerCase(), "kinetic");
 //            retVal += countOccurrences(fullInputString.toLowerCase(), "highexplosive");
 //            retVal += countOccurrences(fullInputString.toLowerCase(), "high-explosive");
