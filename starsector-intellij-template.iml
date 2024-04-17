@@ -29,5 +29,6 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="KotlinJavaRuntime" level="project" />
   </component>
 </module>
