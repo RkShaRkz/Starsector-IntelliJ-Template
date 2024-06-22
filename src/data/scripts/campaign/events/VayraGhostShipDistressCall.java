@@ -89,10 +89,11 @@ public class VayraGhostShipDistressCall implements EveryFrameScript {
             String faction = factions.pick();
             variantId = pickVariant(faction, new Random(),
                     ShipRoles.COMBAT_LARGE,
+                    2,
                     ShipRoles.COMBAT_CAPITAL,
-                    ShipRoles.COMBAT_CAPITAL,
+                    2,
                     ShipRoles.CARRIER_MEDIUM,
-                    ShipRoles.CARRIER_LARGE
+                    1
             );
             ShipVariantAPI test = Global.getSettings().getVariant(variantId);
             if (test != null && test.getHullSpec().getMinCrew() >= MIN_CREW_FOR_GHOST_SHIP) {
