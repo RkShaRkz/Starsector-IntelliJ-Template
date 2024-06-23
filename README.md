@@ -1,3 +1,23 @@
+# Vayra Merged modpack mod
+
+v3.3.3
+
+This branch represents a fake repo for just the vayra-merged mod. The tl;dr is - vayra's mods aren't bad, but from the point when it got broken into three different mods, all three of them were leaking dependencies to each other and were referencing files which weren't available anywhere in the sourcecodes but were present in *some* of the JARs, so they were reverse-engineered and placed where they needed to be.
+
+The re-merged modpack is a decent foundation to keep on building on top of it. Just think of it as a 'static' build of the whole thing.
+
+## Contribution guideline
+
+- fork the repo
+- switch to `vayra-merged-mod` branch
+- pull another feature branch from there, produce code, commit and push the branch to your repo
+- make a PR against `vayra-merged-mod` branch
+
+## Releases and hotfixes will be done per git-flow guidelines.
+
+
+
+
 # Starsector IntelliJ Mod Template
 
 v1.0.1
