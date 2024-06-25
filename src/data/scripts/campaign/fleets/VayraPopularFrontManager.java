@@ -15,7 +15,6 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.MarketCMD;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import data.scripts.VayraTags;
 import data.scripts.campaign.colonies.VayraColonialManager;
 import org.apache.log4j.Logger;
 
@@ -24,7 +23,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static data.scripts.VayraMergedModPlugin.*;
-import static data.scripts.VayraTags.E;
 
 public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerHostileActListener {
 
@@ -62,7 +60,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
 
     @Override
     public void advance(float amount) {
-        if (!POPULAR_FRONT_ENABLED && !VayraTags.readSpecial()) {
+        if (!POPULAR_FRONT_ENABLED) {
             return;
         }
 
@@ -96,7 +94,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
                 if (test != null && test.getMarket() != null) {
                     interstellarStation = test.getMarket();
                     log.info("found preexisting interstellaire, setting existing to this one");
-                } else if (VAYRA_DEBUG || VayraTags.readSpecial() || Global.getSector().getClock().getCycle() >= POPULAR_FRONT_TIMEOUT) {
+                } else if (VAYRA_DEBUG || Global.getSector().getClock().getCycle() >= POPULAR_FRONT_TIMEOUT) {
                     log.info("didn't find interstellaire, creating one");
                     makeStation();
                 }
@@ -118,14 +116,6 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
                 ALLIES.add(faction); // other inclusions/exclusions should take care of themselves since the factions won't exist at all if the mods are disabled
                 // this would be a real lonely popular front if you don't have Kadur, JP, SRA, or DME active
                 log.info("added " + id + " to list of socialist allies");
-            }
-        }
-
-        for (String id : E) {
-            FactionAPI faction = Global.getSector().getFaction(id);
-            if (faction != null && !ENEMIES.contains(faction)) {
-                ENEMIES.add(faction);
-                log.info("added " + id + " to list of fascist enemies");
             }
         }
     }
