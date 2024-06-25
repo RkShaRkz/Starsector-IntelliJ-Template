@@ -23,7 +23,6 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.VayraMergedModPlugin;
-import data.scripts.VayraTags;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,8 +34,6 @@ import java.util.*;
 
 import static com.fs.starfarer.api.impl.campaign.procgen.themes.MiscellaneousThemeGenerator.PLANETARY_SHIELD_PLANET_KEY;
 import static data.scripts.VayraMergedModPlugin.*;
-import static data.scripts.VayraTags.E;
-import static data.scripts.VayraTags.readSpecial;
 
 public class VayraColonialManager implements EveryFrameScript {
 
@@ -111,7 +108,6 @@ public class VayraColonialManager implements EveryFrameScript {
             colonialFaction.setRelationship(Factions.DERELICT, -1f);
             colonialFaction.setRelationship("blade_breakers", -1f);
             colonialFaction.setRelationship("ae_ixbattlegroup", -1f);
-            colonialFaction.setRelationship(VayraTags.E.get(0), -1f);
             List<String> others = new ArrayList<>();
             for (String id : possibleColonyFactions) {
                 if (!id.equals(colonialFactionID)) {
@@ -156,7 +152,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
         checkIfAnyShouldBeVisible();
 
-        if (!COLONIAL_FACTIONS_ENABLED && !VayraTags.readSpecial()) {
+        if (!COLONIAL_FACTIONS_ENABLED) {
             return;
         }
 
@@ -193,33 +189,6 @@ public class VayraColonialManager implements EveryFrameScript {
                     pickNextUpgrade(market);
                 }
                 // for (Industry industry : market.getIndustries()) industry.advance(amount);
-            }
-        }
-        if (readSpecial()) {
-            String x = E.get(0);
-            float i = 1;
-            float m = 0.75f * i;
-            float z = i * 120;
-            float y = z * m * i;
-            if (t == null) {
-                t = new IntervalUtil(y, z);
-            }
-            float d = days * i;
-            t.advance(d);
-            FactionAPI o = Global.getSector().getFaction(x);
-            if (t.intervalElapsed() && o != null) {
-                WeightedRandomPicker<FactionAPI> f = new WeightedRandomPicker<>();
-                List<FactionAPI> a = Global.getSector().getAllFactions();
-                RepLevel v = RepLevel.VENGEFUL;
-                for (FactionAPI e : a) {
-                    if (e.getRelationshipLevel(x) != v) {
-                        f.add(e);
-                    }
-                }
-                if (f.isEmpty()) {
-                } else {
-                    f.pick().setRelationship(x, v);
-                }
             }
         }
 
@@ -343,7 +312,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
         // setup stuff
         Float specialChance = COLONIAL_SPECIAL_CHANCE;
-        if (VayraTags.readSpecial() && market.getFactionId().equals("communist_clouds")) {
+        if (market.getFactionId().equals("communist_clouds")) {
             specialChance *= 2f;
         }
         if (VAYRA_DEBUG) {
@@ -820,7 +789,7 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     private float pickExpeditionFP(FactionAPI faction) {
-        return VayraTags.readSpecial() && faction.getId().equals("communist_clouds") ? BASE_FLEET_POINTS * 3f : BASE_FLEET_POINTS;
+        return faction.getId().equals("communist_clouds") ? BASE_FLEET_POINTS * 3f : BASE_FLEET_POINTS;
     }
 
     private boolean checkIfReady() {
@@ -993,7 +962,6 @@ public class VayraColonialManager implements EveryFrameScript {
         for (FactionAPI other : Global.getSector().getAllFactions()) {
             faction.setRelationship(other.getId(), remnant.getRelationship(other.getId()));
         }
-        faction.setRelationship(VayraTags.E.get(0), -1f);
         faction.setRelationship(Factions.REMNANTS, 1f);
         faction.setRelationship(Factions.TRITACHYON, -1f);
 

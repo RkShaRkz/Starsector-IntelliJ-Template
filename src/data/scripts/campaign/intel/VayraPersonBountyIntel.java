@@ -37,8 +37,6 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import data.scripts.VayraTags;
-import data.scripts.campaign.intel.VayraPersonBountyManager.*;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -347,9 +345,6 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
             if (market.getFaction().isPlayerFaction()) {
                 continue;
             }
-            if (market.getFactionId().equals(VayraTags.E.get(0))) {
-                continue;
-            }
             if (!market.getFaction().isShowInIntelTab()) {
                 continue;
             }
@@ -573,9 +568,6 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
             if (!market.getFaction().isShowInIntelTab()) {
                 continue;
             }
-            if (!market.getFactionId().equals(VayraTags.E.get(0)) && !market.getFaction().isHostileTo(faction)) {
-                continue;
-            }
 
             float weight = market.getSize();
             Map<String, Object> pd = Global.getSector().getPersistentData();
@@ -590,16 +582,6 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
                 weight *= 2f;
             } else if (market.hasIndustry(Industries.PATROLHQ)) {
                 weight *= 1.5f;
-            }
-
-            if (market.getFactionId().equals(VayraTags.E.get(0))) {
-                weight *= 2f;
-            }
-
-            if (market.getFaction() != null && !market.getFactionId().equals(VayraTags.E.get(0))) {
-                if (!market.getFaction().isHostileTo(player)) {
-                    weight *= 0.25f;
-                }
             }
 
             if (weight > 0) {

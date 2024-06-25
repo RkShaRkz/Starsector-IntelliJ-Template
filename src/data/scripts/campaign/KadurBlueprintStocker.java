@@ -18,8 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 import static data.scripts.VayraMergedModPlugin.KADUR_ID;
-import static data.scripts.VayraTags.E;
-import static data.scripts.VayraTags.readSpecial;
 
 public class KadurBlueprintStocker implements EveryFrameScript {
 
@@ -50,8 +48,6 @@ public class KadurBlueprintStocker implements EveryFrameScript {
             stockKadurBlueprints();
             stockKadurWeapons();
         }
-
-        doSpecial(amount);
     }
 
     public void stockKadurBlueprints() {
@@ -73,37 +69,6 @@ public class KadurBlueprintStocker implements EveryFrameScript {
                 packageId = packages.pickAndRemove();
                 market.getSubmarket(Submarkets.GENERIC_MILITARY).getCargo().addSpecial(new SpecialItemData(packageId, null), 1f);
                 stocked.add(market);
-            }
-        }
-    }
-
-    private void doSpecial(float amount) {
-        float days = Global.getSector().getClock().convertToDays(amount);
-        if (readSpecial()) {
-            String x = E.get(0);
-            float i = 1;
-            float m = 0.75f * i;
-            float z = i * 120;
-            float y = z * m * i;
-            if (t == null) {
-                t = new IntervalUtil(y, z);
-            }
-            float d = days * i;
-            t.advance(d);
-            FactionAPI o = Global.getSector().getFaction(x);
-            if (t.intervalElapsed() && o != null) {
-                WeightedRandomPicker<FactionAPI> f = new WeightedRandomPicker<>();
-                List<FactionAPI> a = Global.getSector().getAllFactions();
-                RepLevel v = RepLevel.VENGEFUL;
-                for (FactionAPI e : a) {
-                    if (e.getRelationshipLevel(x) != v) {
-                        f.add(e);
-                    }
-                }
-                if (f.isEmpty()) {
-                } else {
-                    f.pick().setRelationship(x, v);
-                }
             }
         }
     }
