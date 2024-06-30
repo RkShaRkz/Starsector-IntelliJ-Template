@@ -123,12 +123,12 @@ Stormhawk Elite Pilots,CHM_stormhawk,,,Stormhawk Republic,,,,,TRUE,,0,0,0,0,data
 ,,,,,,,,,,,,,,,,,,
 # new merged stuff,,,,,,,,,,,,,,,,,,
 # MODULAR,,,,,,,,,,,,,,,,,,
-Collapsed Cargo Holds,vayra_collapsedcargo,0,,,"defensive, special, req_spaceport","Defenses, Logistics, Requires Dock",2000,,,,8,15,20,40,data.scripts.hullmods.vayra_collapsedcargo,"Collapses the ship's cargo holds and welds them together for additional protection. Increases the ship's armor by %s, with no loss of mobility. The amount of effective protection that can be gained in this manner limits bonus armor to %s at most.
+Collapsed Cargo Holds,vayra_collapsedcargo,0,,Vayra,"defensive, special, req_spaceport","Defenses, Logistics, Requires Dock",2000,,,,8,15,20,40,data.scripts.hullmods.vayra_collapsedcargo,"Collapses the ship's cargo holds and welds them together for additional protection. Increases the ship's armor by %s, with no loss of mobility. The amount of effective protection that can be gained in this manner limits bonus armor to %s at most.
 
 Reduces available cargo space by %s percent, as some storage can still be crammed into the resulting internal cavities between jury-rigged structural reinforcement beams. Increased stresses of combat-speed acceleration on the new, denser hull plating reduces peak combat performance time by %s percent.
 
 Costs %s OP when installed on a civilian-class vessel without any military-grade sensors, flux-management infrastructure, or targeting equipment to get in the way.",Collapses cargo holds for additional armor.,graphics/icons/markets/shipbreaking.png
-Collapsed Cargo Holds,vayra_collapsedcargo_free,,,,"defensive, special, req_spaceport, civOnly","Defenses, Logistics, Requires Dock",,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_collapsedcargo,"Collapses the ship's cargo holds and welds them together for additional protection. Increases the ship's armor by %s, with no loss of mobility. The amount of effective protection that can be gained in this manner limits bonus armor to %s at most.
+Collapsed Cargo Holds,vayra_collapsedcargo_free,,,Vayra,"defensive, special, req_spaceport, civOnly","Defenses, Logistics, Requires Dock",,,TRUE,,0,0,0,0,data.scripts.hullmods.vayra_collapsedcargo,"Collapses the ship's cargo holds and welds them together for additional protection. Increases the ship's armor by %s, with no loss of mobility. The amount of effective protection that can be gained in this manner limits bonus armor to %s at most.
 
 Reduces available cargo space by %s percent, as some storage can still be crammed into the resulting internal cavities between jury-rigged structural reinforcement beams. Increased stresses of combat-speed acceleration on the new, denser hull plating reduces peak combat performance time by %s percent.
 
