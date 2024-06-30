@@ -35,7 +35,8 @@
   ],
   "builtInMods": [
     "automated",
-    "advancedcore"
+    "advancedcore",
+    "rugged",
   ],
   "center": [
     120,
