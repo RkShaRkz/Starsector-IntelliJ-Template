@@ -22,7 +22,8 @@
     "armoredweapons",
     "autorepair",
     "fluxbreakers",
-    "insulatedengine"
+    "insulatedengine",
+    "rugged",
   ],
   "center": [
     33,

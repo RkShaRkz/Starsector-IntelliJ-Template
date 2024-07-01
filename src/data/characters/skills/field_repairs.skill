@@ -1,10 +1,10 @@
 {
-	"id":"field_repairs",
 	"effectGroups":[
 		{
-			"name":"Level 2",
+			"requiredSkillLevel":1,
+			"effectBasedOnLevel":false,
 			"effects":[
-				{"type":"HULLMOD_UNLOCK", "hullmods":{"vayra_collapsedcargo":2}},
+				{"type":"HULLMOD_UNLOCK", "hullmods":{"vayra_collapsedcargo":1}},
 			]
 		},
 	],

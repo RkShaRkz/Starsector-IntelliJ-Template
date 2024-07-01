@@ -87,6 +87,9 @@
   "spriteName": "graphics/ships/vayra_razorback.png",
   "style": "LOW_TECH",
   "viewOffset": 0,
+  "builtInMods": [
+    "rugged",
+  ],
   "weaponSlots": [
     {
       "angle": 0,

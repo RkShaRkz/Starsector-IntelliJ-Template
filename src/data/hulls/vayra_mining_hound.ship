@@ -36,7 +36,8 @@
   "builtInMods": [
     "shielded_holds",
     "vayra_mining_tools",
-    "repair_gantry"
+    "repair_gantry",
+    "rugged",
   ],
   "center": [
     31,
