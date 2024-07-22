@@ -7,8 +7,10 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShieldAPI.ShieldType;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class vayra_priority_flux extends BaseHullMod {
 
@@ -20,7 +22,7 @@ public class vayra_priority_flux extends BaseHullMod {
     public static String WEAPON_SPRITE = "graphics/icons/hullsys/ammo_feeder.png";
 
     // excluded hullmods
-    private static final ArrayList<String> EXCLUDED_HULLMODS = new ArrayList<>(Arrays.asList(
+    private static final ArrayList<String> EXCLUDED_HULLMODS = new ArrayList<>(Collections.singletonList(
             HullMods.SAFETYOVERRIDES));
 
     // conditional stat modifiers
@@ -42,7 +44,7 @@ public class vayra_priority_flux extends BaseHullMod {
 
     @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
-        
+
         // remove excluded mods, play a sound if we do
         ArrayList<String> deleteHullmods = new ArrayList<>();
         for (String excluded : EXCLUDED_HULLMODS) {

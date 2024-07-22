@@ -1,13 +1,10 @@
 package data.scripts.hullmods;
 
-import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.DamageType;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipCommand;
 import com.fs.starfarer.api.combat.ShipEngineControllerAPI;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI.ShipTypeHints;
+
 import java.util.List;
 
 // DarkRevenant made this and i'm using it under the Ship and Weapon Pack license
@@ -77,7 +74,7 @@ public class vayra_modular_engines extends BaseHullMod {
                     }
                 }
             }
-            
+
             float enginePerformance = Math.max(1f, workingEngines / originalEngines);
             parent.getMutableStats().getAcceleration().modifyMult("vayra_modular_engines", enginePerformance);
             parent.getMutableStats().getDeceleration().modifyMult("vayra_modular_engines", enginePerformance);

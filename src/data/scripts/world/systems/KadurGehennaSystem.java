@@ -1,20 +1,9 @@
 package data.scripts.world.systems;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.PlanetAPI;
-import com.fs.starfarer.api.campaign.JumpPointAPI;
-import com.fs.starfarer.api.campaign.SectorAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.SectorGeneratorPlugin;
-import com.fs.starfarer.api.campaign.SpecialItemData;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Conditions;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.Items;
-import com.fs.starfarer.api.impl.campaign.ids.Terrain;
-import com.fs.starfarer.api.impl.campaign.ids.StarTypes;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.procgen.StarAge;
 import com.fs.starfarer.api.impl.campaign.procgen.StarGenDataSpec;
@@ -24,12 +13,13 @@ import com.fs.starfarer.api.impl.campaign.terrain.MagneticFieldTerrainPlugin;
 import com.fs.starfarer.api.impl.campaign.terrain.StarCoronaTerrainPlugin;
 import com.fs.starfarer.api.impl.campaign.terrain.StarCoronaTerrainPlugin.CoronaParams;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.KadurModPlugin.KADUR_ID;
-import static data.scripts.KadurModPlugin.addAccretionDisk;
-import static data.scripts.KadurModPlugin.addMarketplace;
-import java.awt.Color;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+
+import static data.scripts.VayraMergedModPlugin.*;
 
 public class KadurGehennaSystem implements SectorGeneratorPlugin {
 
@@ -73,16 +63,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                         0f,
                         Math.max(starData.getCrLossMult(), 25f)));
         eventHorizon.setCircularOrbit(star, 0, 0, 100);
-        //Remove when alex actually fixes it but this pushes AI fleets away out of the event horizon
-        SectorEntityToken eventHorizon2 = system.addTerrain(Terrain.EVENT_HORIZON,
-                        new CoronaParams(
-                                star.getRadius() + corona/1.5f,
-                                (star.getRadius() + corona/1.5f) / 2f,
-                                star,
-                                -(starData.getSolarWind()+1),
-                                0f,
-                                0f));
-        eventHorizon2.setCircularOrbit(star, 0, 0, 100);
+
         // accretion disk
         addAccretionDisk(star, "River of Souls");
 
@@ -103,7 +84,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
         gehennaI.getMarket().addCondition(Conditions.EXTREME_WEATHER);
         gehennaI.getMarket().addCondition(Conditions.VERY_HOT);
         gehennaI.getMarket().addCondition(Conditions.HIGH_GRAVITY);
-        gehennaI.getMarket().addCondition(Conditions.DARK);
+        gehennaI.getMarket().addCondition(Conditions.POOR_LIGHT);
         gehennaI.getMarket().addCondition(Conditions.IRRADIATED);
         gehennaI.getMarket().addCondition(Conditions.VOLATILES_PLENTIFUL);
 
@@ -136,7 +117,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
         // in Angra Mainyu's L3, shielded from it (does that make sense? maybe not lol) by the event horizon
         SectorEntityToken vayra_gehenna_perdition = system.addCustomEntity("vayra_gehenna_perdition", "Perdition Outpost", "station_pirate_type", "pirates");
         vayra_gehenna_perdition.setInteractionImage("illustrations", "facility_explosion");
-        vayra_gehenna_perdition.setCircularOrbitPointingDown(star, 0 + 180, 1800, 66);
+        vayra_gehenna_perdition.setCircularOrbitPointingDown(star, 180, 1800, 66);
         vayra_gehenna_perdition.setCustomDescriptionId("vayra_gehenna_perdition");
 
         MarketAPI vayra_gehenna_perditionmarket = addMarketplace("pirates", vayra_gehenna_perdition, null,
@@ -144,20 +125,18 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                 3, // size of the market
                 new ArrayList<>(
                         Arrays.asList( // list of market_conditions ids
-                                /*"decivilized",
-                                "meteor_impacts",*/
-                                Conditions.DECIVILIZED_SUBPOP,
-                                Conditions.METEOR_IMPACTS,
+                                "decivilized",
+                                "meteor_impacts",
                                 Conditions.ORE_MODERATE,
                                 Conditions.RARE_ORE_SPARSE,
-                                Conditions.DARK,
                                 Industries.POPULATION,
                                 Industries.MINING,
                                 Industries.GROUNDDEFENSES,
                                 Industries.SPACEPORT,
                                 Industries.PATROLHQ,
-                                //Industries.WAYSTATION,
-                                Industries.ORBITALSTATION)),
+                                Industries.WAYSTATION,
+                                Industries.ORBITALSTATION,
+                                "poor_light")),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.SUBMARKET_BLACK,
@@ -169,7 +148,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
 
         // inner system jump point  (initial position in degrees, distance in pixels, orbit speed in days)
         JumpPointAPI jumpPoint = Global.getFactory().createJumpPoint("gehenna_inner_jump", "Road to Perdition");
-        jumpPoint.setCircularOrbit(star, 0 - 60, 2000, 66);
+        jumpPoint.setCircularOrbit(star, -60, 2000, 66);
         jumpPoint.setRelatedPlanet(gehennaI);
         jumpPoint.setStandardWormholeToHyperspaceVisual();
         system.addEntity(jumpPoint);
@@ -235,21 +214,20 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                 6, // size of the market
                 new ArrayList<>(
                         Arrays.asList( // list of market_conditions ids
-                                /*"organized_crime",
+                                "organized_crime",
                                 "dissident",
                                 "trade_center",
-                                "headquarters",*/
-                                Conditions.DARK,
+                                "headquarters",
                                 Industries.POPULATION,
                                 Industries.REFINING,
-                                Industries.LIGHTINDUSTRY,
                                 Industries.MEGAPORT,
                                 Industries.HEAVYBATTERIES,
+                                Industries.LIGHTINDUSTRY,
                                 Industries.ORBITALWORKS,
                                 Industries.MILITARYBASE,
-                                //Industries.WAYSTATION,
-                                Industries.STARFORTRESS)),
-                                //"dark")),
+                                Industries.WAYSTATION,
+                                Industries.STARFORTRESS,
+                                "dark")),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.GENERIC_MILITARY,
@@ -259,14 +237,6 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 true); // freeport
-        if (Global.getSettings().getModManager().isModEnabled("IndEvo") && Global.getSettings().getBoolean("PirateHaven") && Global.getSettings().getIndustrySpec("IndEvo_pirateHaven") != null) {
-            vayra_gehenna_tortugamarket.addIndustry("IndEvo_pirateHaven");
-            if (vayra_gehenna_tortugamarket.getIndustry(Industries.REFINING) != null) {vayra_gehenna_tortugamarket.removeIndustry(Industries.REFINING, null, false);}
-            if (vayra_gehenna_tortugamarket.getIndustry(Industries.LIGHTINDUSTRY) != null) {vayra_gehenna_tortugamarket.removeIndustry(Industries.LIGHTINDUSTRY, null, false);}
-        }
-        if (Global.getSettings().getModManager().isModEnabled("IndEvo") && Global.getSettings().getBoolean("dryDock") && Global.getSettings().getIndustrySpec("dryDock") != null) {
-            vayra_gehenna_tortugamarket.addIndustry("IndEvo_dryDock");
-        }
 
         // fuck nebulas but he3re's one anyway hope it doesn't put one over the black hole or soemthing dumbb
         StarSystemGenerator.addSystemwideNebula(system, StarAge.OLD);
@@ -295,8 +265,8 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                 5, // size of the market
                 new ArrayList<>(
                         Arrays.asList( // list of market_condition and/or industry ids
-                                /*"headquarters",
-                                "stealth_minefields",*/
+                                "headquarters",
+                                "stealth_minefields",
                                 "vayra_kadur_refugees",
                                 "vayra_kadur_majority",
                                 "kadur_hardened_populace",
@@ -320,12 +290,9 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 false); // freeport
-        if (Global.getSettings().getModManager().isModEnabled("IndEvo") && Global.getSettings().getBoolean("dryDock")) {
-            vayra_refugestationmarket.addIndustry("IndEvo_dryDock");
-        }
-        vayra_refugestationmarket.getMemoryWithoutUpdate().set("$nex_npc_no_invade", true, 730f); //2 year grace period
+
         // can't figure out how to add items inside my addmarketplace, too complicated, just brute force it separately
-        vayra_refugestationmarket.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Arrays.asList(Items.PRISTINE_NANOFORGE)));
+        vayra_refugestationmarket.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Collections.singletonList(Items.PRISTINE_NANOFORGE)));
 
         // blueprints added to military market       
         vayra_refugestationmarket.getSubmarket(Submarkets.GENERIC_MILITARY).getCargo().addSpecial(new SpecialItemData("kadur_missile_package", null), 1f);

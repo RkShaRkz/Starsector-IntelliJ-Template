@@ -4,14 +4,18 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.InteractionDialogAPI;
 import com.fs.starfarer.api.campaign.TextPanelAPI;
-import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.characters.FullName.Gender;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.impl.campaign.intel.bar.PortsideBarData;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
 import com.fs.starfarer.api.util.Misc;
-import static com.fs.starfarer.api.util.Misc.random;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.KadurModPlugin.KADUR_ID;
+
+import java.util.Map;
+
+import static com.fs.starfarer.api.util.Misc.random;
+import static data.scripts.VayraMergedModPlugin.KADUR_ID;
 import static java.lang.Math.random;
 
 public class KadurRaiderBaseBarEvent extends VayraRaiderBaseBarEvent {
@@ -31,7 +35,8 @@ public class KadurRaiderBaseBarEvent extends VayraRaiderBaseBarEvent {
     transient protected String pronouner;
     transient protected String maskmat;
 
-    public void addPromptAndOption(InteractionDialogAPI dialog) {
+    @Override
+    public void addPromptAndOption(InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap) {
 
         WeightedRandomPicker<Gender> genders = new WeightedRandomPicker<>(random);
         genders.add(Gender.FEMALE, 1f);
@@ -83,7 +88,8 @@ public class KadurRaiderBaseBarEvent extends VayraRaiderBaseBarEvent {
                 this);
     }
 
-    public void init(InteractionDialogAPI dialog) {
+    @Override
+    public void init(InteractionDialogAPI dialog, Map<String, MemoryAPI> memoryMap) {
         this.dialog = dialog;
 
         FactionAPI faction = Global.getSector().getFaction(KADUR_ID);

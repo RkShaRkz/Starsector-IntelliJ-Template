@@ -11,13 +11,13 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.KadurModPlugin.KADUR_ID;
-import static data.scripts.VayraTags.E;
-import static data.scripts.VayraTags.readSpecial;
+import org.apache.log4j.Logger;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.log4j.Logger;
+
+import static data.scripts.VayraMergedModPlugin.KADUR_ID;
 
 public class KadurBlueprintStocker implements EveryFrameScript {
 
@@ -44,17 +44,15 @@ public class KadurBlueprintStocker implements EveryFrameScript {
         float days = Global.getSector().getClock().convertToDays(amount);
         timer.advance(days);
         if (timer.intervalElapsed()) {
-            log.info(String.format("Interval elapsed, calling stocking methods"));
+            log.info("Interval elapsed, calling stocking methods");
             stockKadurBlueprints();
             stockKadurWeapons();
         }
-
-        doSpecial(amount);
     }
 
     public void stockKadurBlueprints() {
         List<MarketAPI> markets = Misc.getFactionMarkets(Global.getSector().getFaction(KADUR_ID));
-        log.info(String.format("Starting stockKadurBlueprints scan"));
+        log.info("Starting stockKadurBlueprints scan");
 
         for (MarketAPI market : markets) {
             if (market != null && market.hasSubmarket(Submarkets.GENERIC_MILITARY) && !stocked.contains(market)) {
@@ -75,46 +73,15 @@ public class KadurBlueprintStocker implements EveryFrameScript {
         }
     }
 
-    private void doSpecial(float amount) {
-        float days = Global.getSector().getClock().convertToDays(amount);
-        if (readSpecial()) {
-            String x = E.get(0);
-            float i = 1;
-            float m = 0.75f * i;
-            float z = i * 120;
-            float y = z * m * i;
-            if (t == null) {
-                t = new IntervalUtil(y, z);
-            }
-            float d = days * i;
-            t.advance(d);
-            FactionAPI o = Global.getSector().getFaction(x);
-            if (t.intervalElapsed() && o != null) {
-                WeightedRandomPicker<FactionAPI> f = new WeightedRandomPicker<>();
-                List<FactionAPI> a = Global.getSector().getAllFactions();
-                RepLevel v = RepLevel.VENGEFUL;
-                for (FactionAPI e : a) {
-                    if (e.getRelationshipLevel(x) != v) {
-                        f.add(e);
-                    }
-                }
-                if (f.isEmpty()) {
-                } else {
-                    f.pick().setRelationship(x, v);
-                }
-            }
-        }
-    }
-
     private void stockKadurWeapons() {
         FactionAPI kadur = Global.getSector().getFaction(KADUR_ID);
         List<MarketAPI> markets = Misc.getFactionMarkets(kadur);
-        log.info(String.format("Starting stockKadurWeapons scan"));
-        
+        log.info("Starting stockKadurWeapons scan");
+
         WeightedRandomPicker<String> smalls = new WeightedRandomPicker<>();
         WeightedRandomPicker<String> mediums = new WeightedRandomPicker<>();
         WeightedRandomPicker<String> larges = new WeightedRandomPicker<>();
-        
+
         for (String wid : kadur.getKnownWeapons()) {
             WeaponSpecAPI weapon = Global.getSettings().getWeaponSpec(wid);
             switch (weapon.getSize()) {

@@ -1,19 +1,13 @@
 package data.scripts.weapons;
 
-import java.awt.Color;
-
-import org.lwjgl.util.vector.Vector2f;
-
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.OnHitEffectPlugin;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.listeners.ApplyDamageResultAPI;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import java.util.List;
 import org.lazywizard.lazylib.combat.CombatUtils;
+import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.List;
 
 public class VayraShockwebOnHitEffect implements OnHitEffectPlugin {
 

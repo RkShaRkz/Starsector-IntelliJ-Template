@@ -2,29 +2,20 @@
 package data.scripts.plugins;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.ViewportAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
-import com.fs.starfarer.api.util.Misc;
-import static data.scripts.KadurModPlugin.VAYRA_DEBUG;
-import org.lazywizard.lazylib.VectorUtils;
-import org.lwjgl.util.vector.Vector2f;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import org.apache.log4j.Logger;
 import org.lazywizard.lazylib.FastTrig;
+import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.entities.SimpleEntity;
+import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.List;
+import java.util.*;
+
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 // HEY IDIOT NEXT TIME YOU THINK ABOUT CONSOLIDATING THIS
 // REMEMBER IT HAS TO HAVE ALL THIS WEIRD SHIT IN IT
@@ -32,9 +23,11 @@ import org.lazywizard.lazylib.combat.entities.SimpleEntity;
 public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
 
     private static final Set<String> SPLINTERPROJ_ID = new HashSet<>(1);
+
     static {
         SPLINTERPROJ_ID.add("vayra_splintergun_shot");
     }
+
     public boolean secondShot = false;
 
     private static final Color COLOR = new Color(33, 103, 109, 150);
@@ -49,7 +42,7 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
 
     private static final float MUZZLE_OFFSET = 27f; // y offset of muzzles
     private static final float BARREL_OFFSET = 3.5f; // x offset of each barrel (+/-)
-    
+
     public static Logger log = Global.getLogger(VayraSplinterPlugin.class);
 
     @Override
@@ -64,11 +57,11 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
     private static Vector2f translatePolar(Vector2f center, float radius, float angle) {
         float radians = (float) Math.toRadians(angle);
         return new Vector2f(
-            (float) FastTrig.cos(radians) * radius + (center == null ? 0f : center.x),
-            (float) FastTrig.sin(radians) * radius + (center == null ? 0f : center.y)
+                (float) FastTrig.cos(radians) * radius + (center == null ? 0f : center.x),
+                (float) FastTrig.sin(radians) * radius + (center == null ? 0f : center.y)
         );
     }
-    
+
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
         if (engine == null || engine.isPaused()) {
@@ -96,13 +89,13 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
                     y -= BARREL_OFFSET;
                     secondShot = true;
                 }
-                
+
                 Vector2f offset = new Vector2f(x, y);
                 Vector2f loc = VectorUtils.rotateAroundPivot(offset, weapon.getLocation(), angle);
                 // Vector2f muzzleFlashOffset = translatePolar(weaponLoc, MUZZLE_OFFSET, angle - BARREL_OFFSET);
                 // Vector2f loc, Vector2f vel, Color color, float size, float maxDuration
                 engine.spawnExplosion(loc, source.getVelocity(), COLOR, 20f, 0.25f);
-                
+
                 for (int p = 0; p < 15; p++) {
                     float partSize = (float) (3f + (Math.random() * 12f));
                     float partSpeed = (float) (150f + (Math.random() * 100f));
@@ -111,11 +104,11 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
                     // Vector2f loc, Vector2f vel, float size, float brightness, float duration, Color color
                     engine.addHitParticle(loc, partVel, partSize, 1.5f, 0.420f, COLOR);
                 }
-                        
+
                 // ShipAPI ship, WeaponAPI weapon, String weaponId, Vector2f point, float angle, Vector2f shipVelocity
                 engine.spawnProjectile(source, weapon, spec, loc, angle, source.getVelocity());
             }
-        }                
+        }
     }
 
     public static void addSplinter(Map<String, Object> data, ShipAPI ship) {
@@ -124,14 +117,14 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
         } else if (!(Global.getCombatEngine().getCustomData().get("KadurSplinterPlugin") instanceof VayraSplinterPlugin)) {
             return;
         }
-        
+
         VayraSplinterPlugin plugin = (VayraSplinterPlugin) Global.getCombatEngine().getCustomData().get("KadurSplinterPlugin");
-        
+
         plugin.addData(data, ship);
     }
-    
+
     private void addData(Map<String, Object> data, ShipAPI ship) {
-                
+
         data.put("targetship", targetShipCounter);
         targets.put(targetShipCounter, ship);
         targetShipCounter = targetShipCounter + 1f;
@@ -141,7 +134,7 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
         if (targetShipCounter > 69420f) {
             targetShipCounter = 0f;
         }
-        
+
         if (VAYRA_DEBUG) {
             log.info(String.format("stuck a splinter in fucko [%s]", ship.getHullSpec().getHullName()));
         }
@@ -281,7 +274,7 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
     }
 
     private void explode(Map<String, Object> spike, ShipAPI ship) {
-        if (ship != null && ship.isAlive()) {
+        if (ship != null) {
             if (VAYRA_DEBUG) {
                 log.info(String.format("this splinter blowing up right now deals [%s] damage to [%s]", spike.get("explosiondmg"), ship.getHullSpec().getHullName()));
             }
@@ -292,11 +285,10 @@ public class VayraSplinterPlugin extends BaseEveryFrameCombatPlugin {
             explosionLoc = VectorUtils.rotateAroundPivot(explosionLoc, new Vector2f(0f, 0f), ship.getFacing(), new Vector2f(0f, 0f));
             explosionLoc.x += ship.getLocation().x;
             explosionLoc.y += ship.getLocation().y;
-            engine.applyDamage(ship, explosionLoc, damage, DamageType.HIGH_EXPLOSIVE, 0, true, false, spike.get("source"), false); //set to true since we have our own sound playing?
+            engine.applyDamage(ship, explosionLoc, damage, DamageType.HIGH_EXPLOSIVE, 0, true, false, spike.get("source"), true);
             // Vector2f loc, Vector2f vel, Color color, float size, float maxDuration
             engine.spawnExplosion(explosionLoc, new Vector2f(0f, 0f), COLOR, (float) (Math.pow(damage, 0.33) * 25f), (float) (Math.pow(damage, 0.33) / 10f));
             Global.getSoundPlayer().playSound("vayra_needlercrit", 1f, 1f, explosionLoc, new Vector2f(0f, 0f));
-            
         }
     }
 }

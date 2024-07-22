@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -21,13 +22,13 @@ public class vayra_targeting_core extends BaseHullMod {
             HullMods.INTEGRATED_TARGETING_UNIT));
 
     // range bonus
-    public static float RANGE_BONUS = 50f; // multiplier for weapon range
+    public static float RANGE_BONUS = 1.5f; // multiplier for weapon range
 
     // handles applying stat bonuses
     @Override
     public void applyEffectsBeforeShipCreation(ShipAPI.HullSize hullSize, MutableShipStatsAPI stats, String id) {
-        stats.getBallisticWeaponRangeBonus().modifyPercent(id, RANGE_BONUS);
-        stats.getEnergyWeaponRangeBonus().modifyPercent(id, RANGE_BONUS);
+        stats.getBallisticWeaponRangeBonus().modifyMult(id, RANGE_BONUS);
+        stats.getEnergyWeaponRangeBonus().modifyMult(id, RANGE_BONUS);
     }
 
     // handles removing excluded hullmods
@@ -50,7 +51,7 @@ public class vayra_targeting_core extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) (RANGE_BONUS) + "%";
+            return (int) ((RANGE_BONUS - 1f) * 100) + "%";
         }
         return null;
     }
