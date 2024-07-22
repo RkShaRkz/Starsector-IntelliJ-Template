@@ -705,7 +705,9 @@ public class VayraColonialManager implements EveryFrameScript {
             float dist = Misc.getDistanceLY(sourceLoc, destLoc);
 
             for (PlanetAPI planet : system.getPlanets()) {
-                Misc.initConditionMarket(planet);
+                if (planet.getMarket() == null) {
+                    Misc.initConditionMarket(planet);
+                }
                 if (planet.isStar()) {
                     continue;
                 }
