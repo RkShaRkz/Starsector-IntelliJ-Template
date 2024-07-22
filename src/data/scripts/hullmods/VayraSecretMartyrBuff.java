@@ -2,14 +2,17 @@ package data.scripts.hullmods;
 // now partially nickescript (bastardized by me, any mistakes are my own, etc)
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.BaseHullMod;
+import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.ShieldAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
-import org.lazywizard.lazylib.MathUtils;
-
-import java.awt.*;
+import java.awt.Color;
 import java.util.EnumSet;
+import org.lazywizard.lazylib.MathUtils;
 
 // i guess this also handles shield flickering now lol
 public class VayraSecretMartyrBuff extends BaseHullMod {
@@ -34,7 +37,7 @@ public class VayraSecretMartyrBuff extends BaseHullMod {
     private static final String BUFF_ID = "vayra_forever_war_buff";
     private final String FOREVER_WAR_ICON = Global.getSettings().getSpriteName("vayra_forever_war_icon", "1");
     private final String FOREVER_WAR_TEXT = "For hate's sake, I spit my last breath at thee";
-    private static final float BUFF_THRESHOLD = 0.3f;
+    private static final float BUFF_THRESHOLD = 0.33f;
     private static final float BUFF_MAX_BONUS_MULT = 0.5f;
     private static final float BUFF_BONUS_SPEED = 10f;
     private static final Color BUFF_ENGINE_COLOR = new Color(33, 106, 109, 255);
@@ -45,10 +48,10 @@ public class VayraSecretMartyrBuff extends BaseHullMod {
         if (ship == null) {
             return;
         }
+
         String buffId = BUFF_ID + ship.getId();
         MutableShipStatsAPI stats = ship.getMutableStats();
-        float effectLevel = MathUtils.clamp(1f - (BUFF_THRESHOLD / ship.getHullLevel()), 0f, 1f);
-
+        
         // shield flicker stuff
         ShieldAPI shield = ship.getShield();
         if (shield == null
@@ -72,7 +75,7 @@ public class VayraSecretMartyrBuff extends BaseHullMod {
 
         // "you shoulda seen the other guy" stuff
         if (!ship.isHulk() && ship.getHullLevel() <= BUFF_THRESHOLD) {
-
+            float effectLevel = MathUtils.clamp(1f - (ship.getHullLevel()*3), 0f, 1f);
             float buffMult = 1f + (BUFF_MAX_BONUS_MULT * effectLevel);
 
             // buffs		
@@ -86,8 +89,8 @@ public class VayraSecretMartyrBuff extends BaseHullMod {
             ship.getEngineController().fadeToOtherColor(this, BUFF_ENGINE_COLOR, null, effectLevel, effectLevel);
             ship.getEngineController().extendFlame(this, effectLevel, effectLevel, effectLevel);
             ship.setWeaponGlow(effectLevel, BUFF_GLOW_COLOR, EnumSet.of(WeaponAPI.WeaponType.BALLISTIC));
-            ship.setJitter(this, BUFF_GLOW_COLOR, effectLevel, 3, 5f);
-            ship.setJitterUnder(this, BUFF_GLOW_COLOR, effectLevel, 7, 10f);
+            ship.setJitter(this, BUFF_GLOW_COLOR, effectLevel*0.2f, 3, 5f);
+            ship.setJitterUnder(this, BUFF_GLOW_COLOR, effectLevel*0.2f, 7, 10f);
 
             if (ship == Global.getCombatEngine().getPlayerShip()) {
                 Global.getCombatEngine().maintainStatusForPlayerShip(buffId, FOREVER_WAR_ICON, "Martyr's Blessing", FOREVER_WAR_TEXT, false);
@@ -100,9 +103,9 @@ public class VayraSecretMartyrBuff extends BaseHullMod {
             stats.getDeceleration().unmodify(buffId);
             stats.getFluxDissipation().unmodify(buffId);
             stats.getBallisticRoFMult().unmodify(buffId);
-            stats.getEngineMalfunctionChance().unmodify(buffId);
-            stats.getWeaponMalfunctionChance().unmodify(buffId);
-            stats.getCriticalMalfunctionChance().unmodify(buffId);
+            //stats.getEngineMalfunctionChance().unmodify(buffId);
+            //stats.getWeaponMalfunctionChance().unmodify(buffId);
+            //stats.getCriticalMalfunctionChance().unmodify(buffId);
             ship.getEngineController().fadeToOtherColor(this, BUFF_ENGINE_COLOR, null, 0f, 0f);
             ship.getEngineController().extendFlame(this, 0f, 0f, 0f);
             ship.setWeaponGlow(0f, BUFF_GLOW_COLOR, EnumSet.of(WeaponAPI.WeaponType.BALLISTIC));
@@ -118,15 +121,15 @@ public class VayraSecretMartyrBuff extends BaseHullMod {
         private float currentFlickerDuration = 0f;
 
         void tick(float amount, ShipAPI ship) {
-
+            
             ShieldAPI shield = ship.getShield();
-
+            
             // trigger new flickers, and advance existing ones
             currentFlickerDuration -= amount;
-
+            
             amount *= 1f + ((FLICKER_FLUX_MULT - 1f) * ship.getFluxLevel());
             triggerInterval.advance(amount);
-
+            
             if (triggerInterval.intervalElapsed()) {
                 currentFlickerDuration = MathUtils.getRandomNumberInRange(FLICKER_MIN_DURATION, FLICKER_MAX_DURATION);
             }

@@ -1,31 +1,42 @@
 package data.scripts.world.systems;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.*;
+import com.fs.starfarer.api.campaign.PlanetAPI;
+import com.fs.starfarer.api.campaign.JumpPointAPI;
+import com.fs.starfarer.api.campaign.SectorAPI;
+import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.SectorGeneratorPlugin;
+import com.fs.starfarer.api.campaign.SpecialItemData;
+import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
-import com.fs.starfarer.api.impl.campaign.ids.*;
+import com.fs.starfarer.api.impl.campaign.ids.Conditions;
+import com.fs.starfarer.api.impl.campaign.ids.Entities;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.impl.campaign.ids.Industries;
+import com.fs.starfarer.api.impl.campaign.ids.Items;
+import com.fs.starfarer.api.impl.campaign.ids.Terrain;
+import com.fs.starfarer.api.impl.campaign.ids.StarTypes;
+import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial;
-import com.fs.starfarer.api.impl.campaign.terrain.AsteroidFieldTerrainPlugin.AsteroidFieldParams;
-import com.fs.starfarer.api.impl.campaign.terrain.BaseRingTerrain.RingParams;
 import com.fs.starfarer.api.impl.campaign.terrain.DebrisFieldTerrainPlugin.DebrisFieldParams;
 import com.fs.starfarer.api.impl.campaign.terrain.DebrisFieldTerrainPlugin.DebrisFieldSource;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
+import com.fs.starfarer.api.impl.campaign.terrain.AsteroidFieldTerrainPlugin.AsteroidFieldParams;
+import com.fs.starfarer.api.impl.campaign.terrain.BaseRingTerrain.RingParams;
 import com.fs.starfarer.api.impl.campaign.terrain.MagneticFieldTerrainPlugin.MagneticFieldParams;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-
-import java.awt.*;
+import static data.scripts.KadurModPlugin.KADUR_ID;
+import static data.scripts.KadurModPlugin.addMarketplace;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static data.scripts.VayraMergedModPlugin.KADUR_ID;
-import static data.scripts.VayraMergedModPlugin.addMarketplace;
 
 public class KadurMirageSystem implements SectorGeneratorPlugin {
 
@@ -46,9 +57,9 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
      * @return
      */
     private SectorEntityToken addDerelictShip(StarSystemAPI system,
-                                              String variantId,
-                                              ShipRecoverySpecial.ShipCondition condition,
-                                              boolean recoverable) {
+            String variantId,
+            ShipRecoverySpecial.ShipCondition condition,
+            boolean recoverable) {
         DerelictShipEntityPlugin.DerelictShipData params = new DerelictShipEntityPlugin.DerelictShipData(new ShipRecoverySpecial.PerShipData(variantId, condition), false);
         SectorEntityToken ship = BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, params);
         ship.setDiscoverable(true);
@@ -116,11 +127,16 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                     3, // size of the market
                     new ArrayList<>(
                             Arrays.asList( // list of market_conditions ids
-                                    "volatiles_diffuse",
+                                    /*"volatiles_diffuse",
                                     "tectonic_activity",
                                     "very_hot",
                                     "ore_moderate",
-                                    "rare_ore_moderate",
+                                    "rare_ore_moderate",*/
+                                    Conditions.TECTONIC_ACTIVITY,
+                                    Conditions.VERY_HOT,
+                                    Conditions.ORE_MODERATE,
+                                    Conditions.RARE_ORE_MODERATE,
+                                    Conditions.TOXIC_ATMOSPHERE,
                                     Industries.POPULATION,
                                     Industries.SPACEPORT,
                                     Industries.MINING)),
@@ -167,26 +183,31 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
 
         MarketAPI mirageIImarket = addMarketplace("hegemony", mirageII, null,
                 "Oasis", // name of the market
-                8, // size of the market
+                7, // size of the market (reduced to 7)
                 new ArrayList<>(
                         Arrays.asList( // list of conditions.IDs and Industries.IDs
-                                "habitable",
+                                /*"habitable",
                                 "organics_common",
                                 "regional_capital",
                                 "mild_climate",
-                                "farmland_rich",
+                                "farmland_rich",*/
                                 "vayra_kadur_refugees",
                                 "vayra_kadur_majority",
+                                Conditions.HABITABLE,
+                                Conditions.MILD_CLIMATE,
+                                Conditions.ORGANICS_COMMON,
+                                Conditions.FARMLAND_RICH,
+                                Conditions.DECIVILIZED_SUBPOP,
                                 Industries.POPULATION,
                                 Industries.FARMING,
                                 Industries.SPACEPORT,
                                 Industries.STARFORTRESS,
                                 Industries.GROUNDDEFENSES,
-                                Industries.HEAVYINDUSTRY,
+                                //Industries.HEAVYINDUSTRY, Hegemony doesn't need it? Kadur doesn't need it?
                                 Industries.MILITARYBASE,
-                                Industries.WAYSTATION,
-                                Industries.MINING,
-                                "dissident")),
+                                //Industries.WAYSTATION, not needed.
+                                Industries.MINING)),
+                                //"dissident")),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.GENERIC_MILITARY,
@@ -196,10 +217,17 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 false); // freeport
-
+        if (mirageIImarket.getIndustry(Industries.FARMING) != null) {mirageIImarket.getIndustry(Industries.FARMING).setSpecialItem(new SpecialItemData(Items.SOIL_NANITES, null));}
         // nex storyline compatibility
         mirageIImarket.getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
-
+        mirageIImarket.getMemoryWithoutUpdate().set("$nex_colony_growth_limit", 8); //Might not work rn, but may work in the future?
+        // indevo compatibility
+        if (Global.getSettings().getModManager().isModEnabled("IndEvo") && Global.getSettings().getIndustrySpec("IndEvo_Megachurch") != null) {
+            mirageIImarket.getMemoryWithoutUpdate().set("$IndEvo_alternateWonderVisual", true);
+            mirageIImarket.getMemoryWithoutUpdate().set("$IndEvo_hasAwardedSP", true);
+            //mirageIImarket.getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+            mirageIImarket.addIndustry("IndEvo_Megachurch");
+        }
         // L4 relay  (initial position in degrees, distance in pixels, orbit speed in days)
         SectorEntityToken relay = system.addCustomEntity("mirage_relay", // unique id
                 "Mirage Relay", // name - if null, defaultName from custom_entities.json will be used
@@ -225,7 +253,8 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         mirageIII.getMarket().addCondition(Conditions.RARE_ORE_ABUNDANT);
         mirageIII.getMarket().addCondition(Conditions.FARMLAND_POOR);
         mirageIII.getMarket().addCondition(Conditions.TOXIC_ATMOSPHERE);
-        mirageIII.getMarket().addCondition("vayra_fake_ruins");
+        mirageIII.getMarket().addCondition(Conditions.RUINS_VAST);
+        //mirageIII.getMarket().addCondition("vayra_fake_ruins");
         mirageIII.getMarket().addCondition("vayra_virus_bomb");
         mirageIII.getMarket().addCondition("vayra_tomb_world");
         mirageIII.getMarket().setSurveyLevel(MarketAPI.SurveyLevel.FULL);
@@ -236,6 +265,8 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         mirageIII.getSpec().setCloudRotation(10f);
         mirageIII.getSpec().setAtmosphereColor(new Color(210, 255, 138, 180));
         mirageIII.applySpecChanges();
+         
+        mirageIII.getMarket().getMemoryWithoutUpdate().set("$core_techMiningMult", 0.95f); //Someone already scouted it! WHO
         // nex storyline compatibility
         mirageIII.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
 
@@ -244,6 +275,9 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         Misc.initConditionMarket(mirageIIIA);
         mirageIIIA.getMarket().addCondition(Conditions.NO_ATMOSPHERE);
         mirageIIIA.getMarket().addCondition(Conditions.METEOR_IMPACTS);
+        mirageIIIA.getMarket().addCondition(Conditions.DECIVILIZED);
+        // nex storyline compatibility
+        mirageIIIA.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
 
         // Pirates hang out in the wreckage over Kadur
         SectorEntityToken vayra_kadur_toxx = system.addCustomEntity("vayra_kadur_toxx", "Fort Toxx", "station_sporeship_derelict", "pirates");
@@ -257,10 +291,11 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 new ArrayList<>(
                         Arrays.asList( // list of market_conditions ids
                                 "vayra_space_wreck",
+                                Industries.ORBITALSTATION,
                                 Industries.HEAVYINDUSTRY,
                                 Industries.POPULATION,
-                                Industries.SPACEPORT,
-                                "no_atmosphere")),
+                                Industries.SPACEPORT
+                                /*"no_atmosphere"*/)),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.SUBMARKET_BLACK,
@@ -269,7 +304,9 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 true); // freeport
-
+        // nex storyline compatibility
+        //vayra_kadur_toxxmarket.getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+        vayra_kadur_toxxmarket.getMemoryWithoutUpdate().set("$nex_colony_growth_limit", 4); //Might not work rn, but may work in the future?
         // There's a whooole bunch of shit up here and it's real dangerous, higher XP/difficulty than normal for salvage
         DebrisFieldParams params = new DebrisFieldParams(
                 666f, // field radius - should not go above 1000 for performance reasons
@@ -287,7 +324,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         SectorEntityToken toxxCamel = addDerelictShip(system, "vayra_camel_shotgun", ShipRecoverySpecial.ShipCondition.AVERAGE, true);
         toxxCamel.setCircularOrbit(mirageIII, 69, 240, 69f);
 
-        SectorEntityToken toxxFalchion = addDerelictShip(system, "vayra_falchion_assault", ShipRecoverySpecial.ShipCondition.BATTERED, (Math.random() > 0.75f));
+        SectorEntityToken toxxFalchion = addDerelictShip(system, "vayra_falchion_crystal", ShipRecoverySpecial.ShipCondition.BATTERED, (Math.random() > 0.75f));
         toxxFalchion.setCircularOrbit(mirageIII, 150, 160, 69f);
 
         SectorEntityToken toxxSphinx = addDerelictShip(system, "vayra_sphinx_artillery", ShipRecoverySpecial.ShipCondition.WRECKED, false);
@@ -311,9 +348,18 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         PlanetAPI mirageIVB = system.addPlanet("mirageIVB", mirageIV, "Jalid", "frozen3", 60, 60, 1352, 28);
         Misc.initConditionMarket(mirageIVB);
         mirageIVB.getMarket().addCondition(Conditions.POOR_LIGHT);
+        mirageIVB.getMarket().addCondition(Conditions.VERY_COLD);
+        mirageIVB.getMarket().addCondition(Conditions.NO_ATMOSPHERE);
+        mirageIVB.getMarket().addCondition(Conditions.ORE_MODERATE);
+        mirageIVB.getMarket().addCondition(Conditions.VOLATILES_TRACE);
+        mirageIVB.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
         PlanetAPI mirageIVD = system.addPlanet("mirageIVD", mirageIV, "Barda", "cryovolcanic", 220, 80, 2192, 36);
         Misc.initConditionMarket(mirageIVD);
         mirageIVD.getMarket().addCondition(Conditions.POOR_LIGHT);
+        mirageIVD.getMarket().addCondition(Conditions.VERY_COLD);
+        mirageIVD.getMarket().addCondition(Conditions.VOLATILES_DIFFUSE);
+        mirageIVD.getMarket().addCondition(Conditions.NO_ATMOSPHERE);
+        mirageIVD.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
         mirageIV.setFaction("tritachyon");
         mirageIV.setInteractionImage("illustrations", "vacuum_colony");
         mirageIV.setCustomDescriptionId("vayra_yakchal");
@@ -323,18 +369,23 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 4, // size of the market
                 new ArrayList<>(
                         Arrays.asList( // list of market_conditions ids
-                                "outpost",
+                                /*"outpost",
                                 "ice",
                                 "cold",
                                 "volatiles_abundant",
                                 "vayra_ice_fuel",
-                                "poor_light",
+                                "poor_light",*/
+                                Conditions.VERY_COLD,
+                                Conditions.POOR_LIGHT,
+                                Conditions.VOLATILES_ABUNDANT,
+                                Conditions.HIGH_GRAVITY,
+                                "vayra_ice_fuel",
                                 Industries.POPULATION,
                                 Industries.SPACEPORT,
                                 Industries.FUELPROD,
                                 Industries.MINING,
                                 Industries.WAYSTATION,
-                                "high_gravity")),
+                                Industries.PATROLHQ)),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.SUBMARKET_BLACK,
@@ -343,6 +394,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 true); // freeport
+        mirageIVmarket.getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
 
         system.addRingBand(mirageIV, "misc", "rings_dust0", 1024f, 3, Color.white, 1024f, 1375, 1150f, Terrain.RING, "Yakchal's Embrace");
         system.addRingBand(mirageIV, "misc", "rings_dust0", 256f, 3, Color.yellow, 256f, 800, 70f);
@@ -427,14 +479,15 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                                 "vayra_kadur_refugees",
                                 "vayra_kadur_majority",
                                 "kadur_hardened_populace",
-                                "no_atmosphere",
+                                "vayra_caliph",
+                                //"no_atmosphere",
                                 Industries.WAYSTATION,
                                 Industries.POPULATION,
                                 Industries.SPACEPORT,
                                 Industries.PATROLHQ,
                                 Industries.HEAVYINDUSTRY,
                                 Industries.LIGHTINDUSTRY,
-                                "dark",
+                                Conditions.DARK,
                                 "vayra_qamarheadquarters")),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
@@ -445,7 +498,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 false); // freeport
-
+        vayra_kadur_revenantmarket.getMemoryWithoutUpdate().set("$nex_npc_no_invade", true, 365f); //1 year grace period
         vayra_kadur_revenantmarket.getSubmarket(Submarkets.GENERIC_MILITARY).getCargo().addSpecial(new SpecialItemData("kadur_support_package", null), 1f);
 
         SectorEntityToken revHyena = addDerelictShip(system, "vayra_hyena_rod", ShipRecoverySpecial.ShipCondition.AVERAGE, true);
