@@ -13,6 +13,27 @@ The re-merged modpack is a decent foundation to keep on building on top of it. J
 - pull another feature branch from there, produce code, commit and push the branch to your repo
 - make a PR against `vayra-merged-mod` branch
 
+More on the contribution itself, idea is to aim for small PRs, 300-400 lines changed. 500 max. I give myself pass on this rule alot, but then again I wrote it and I reviewed it during development and before merging it in.
+1) Keep changes small, on-topic and "rounded". E.g. do one folder per commit, please avoid the "here's all my changes in one commit" types of commits, for either all your work or a single feature.
+2) Try to aim for single-feature-per-branch workflow. If the feature encompases more than just one topic, initialize a "base-branch", then cover each topic (or 300-400ish lines) in a PR, aim that PR at the "base-branch", we review it, merge it into the base branch, then when all of these smaller (stacked) PRs are merged-in into the "base-branch", it can just be cleanly merged-in into the vayra-merged-mod branch as the CRs for it have been already done.
+3) aim for 300-400ish lines PRs. i'm not going to pass them if they're huge, they're just a bit bigger pain to review, that's all. but this one isn't as problematic point really. just please try to honor it.
+4) here are ([my formatter rules](https://raw.githubusercontent.com/RkShaRkz/Starsector-IntelliJ-Template/vayra-merged-mod/My%20Formatter%20Ruleset.editorconfig)). we should use the same rules to minimize the number of useless changes.
+5) as always. PR only when it's in a almost-usable shape and it builds fine (and hopefully runs fine too). the sooner you PR and we start the CR process, the less time we spend banging it into shape to look decent and be mergable. yes, i'm sorry, there is no code style guide either but trust me, the sooner the PR is brought up (even during actual building of the feature) - the better.
+6) Some examples of 'decent' code style can be seen in these two PRs
+([Find Ships PR](https://github.com/RkShaRkz/Starsector-IntelliJ-Template/pull/1))
+([Find Weapons PR](https://github.com/RkShaRkz/Starsector-IntelliJ-Template/pull/2))
+Yes, those two are somewhat oxymoronic because they're both like +1000 lines PRs, but again - look at the first line. 
+7) you can also use slashes for branch names.
+my-feature-base-branch/topic
+my-feature-base-branch/topic/change-one
+my-feature-base-branch/topic/change-two
+my-feature-base-branch/topic/change-three
+
+are all valid branch names, can auto-complete via tab, and are even grouped ideologically. your pick for branch names though. we don't have jira, so descriptive (or self-describing) names work fine with me. but i'm not gonna reject your PR based on a branch name alone
+8) private methods don't need javadoc. all other methods **must** have javadoc. it's also advised and encouraged to have javadoc on private methods too but your choice.
+9) things are developed as per ([git flow](https://nvie.com/posts/a-successful-git-branching-model/)) way of doing things. `vayra-merged-mod` is to be considered both `master` and `develop` branch. there is no `develop` branch. the individual PRs are the `develop` branch.
+
+
 ## Releases and hotfixes will be done per git-flow guidelines.
 
 
