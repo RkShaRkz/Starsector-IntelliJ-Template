@@ -11,8 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VayraBeamWidthFucker implements EveryFrameWeaponEffectPlugin {
-
-
+    
+    
     private final float oscillationTimePrim = 0.1f;
     private final float oscillationTimeSec = 0.2f;
 
@@ -68,10 +68,10 @@ public class VayraBeamWidthFucker implements EveryFrameWeaponEffectPlugin {
             }
 
             //Figures out which oscillation phase the beam should be in: has two parts, with different oscillation frequencies
-            float radCountPrim = counter * 2f * (float) Math.PI / oscillationTimePrim;
-            float radCountSec = counter * 2f * (float) Math.PI / oscillationTimeSec;
-            float oscillationPhasePrim = ((float) FastTrig.sin(radCountPrim) * 0.4f) + 0.6f;
-            float oscillationPhaseSec = ((float) FastTrig.sin(radCountSec) * 0.2f) + 0.8f;
+            float radCountPrim = counter * 2f * (float)Math.PI  / oscillationTimePrim;
+            float radCountSec = counter * 2f * (float)Math.PI / oscillationTimeSec;
+            float oscillationPhasePrim = ((float)FastTrig.sin(radCountPrim) * 0.4f) + 0.6f;
+            float oscillationPhaseSec = ((float)FastTrig.sin(radCountSec) * 0.2f) + 0.8f;
 
             //Then, we calculate how the visuals of the beam should be modified, depending on oscillation phase
             float visMult = oscillationPhasePrim * oscillationPhaseSec;

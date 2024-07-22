@@ -1,9 +1,11 @@
 package data.scripts.campaign.fleets;
 
+import java.util.Random;
+
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.BattleAPI;
-import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
 import com.fs.starfarer.api.campaign.CampaignFleetAPI;
+import com.fs.starfarer.api.campaign.CampaignEventListener.FleetDespawnReason;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.econ.CommodityOnMarketAPI;
 import com.fs.starfarer.api.campaign.econ.Industry;
@@ -11,16 +13,20 @@ import com.fs.starfarer.api.campaign.listeners.FleetEventListener;
 import com.fs.starfarer.api.campaign.rules.MemoryAPI;
 import com.fs.starfarer.api.impl.campaign.econ.impl.BaseIndustry;
 import com.fs.starfarer.api.impl.campaign.econ.impl.MilitaryBase.PatrolFleetData;
-import com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.PatrolType;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetFactoryV3;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.impl.campaign.fleets.PatrolAssignmentAIV4;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager;
+import com.fs.starfarer.api.impl.campaign.fleets.FleetFactory.PatrolType;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.OptionalFleetData;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteData;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteFleetSpawner;
 import com.fs.starfarer.api.impl.campaign.fleets.RouteManager.RouteSegment;
-import com.fs.starfarer.api.impl.campaign.ids.*;
+import com.fs.starfarer.api.impl.campaign.ids.Commodities;
+import com.fs.starfarer.api.impl.campaign.ids.Industries;
+import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
+import com.fs.starfarer.api.impl.campaign.ids.Ranks;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
@@ -28,12 +34,10 @@ import com.fs.starfarer.api.util.Pair;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import org.apache.log4j.Logger;
 
-import java.util.Random;
-
 public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpawner, FleetEventListener {
-
+    
     public static Logger log = Global.getLogger(KadurLoyalistSpawner.class);
-
+    
     public static final String FACTION = "kadur_remnant";
     public static final String FLEET_FACTION = "kadur_theocracy";
 
@@ -167,7 +171,7 @@ public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpaw
     @Override
     public void advance(float amount) {
         super.advance(amount);
-
+        
         if (Global.getSector().getEconomy().isSimMode()) {
             return;
         }
@@ -175,7 +179,7 @@ public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpaw
         if (!isFunctional()) {
             return;
         }
-
+       
         float days = Global.getSector().getClock().convertToDays(amount);
 
         float spawnRate = 1f;
@@ -195,7 +199,7 @@ public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpaw
         tracker.advance(days * spawnRate + extraTime);
 
         if (tracker.intervalElapsed()) {
-
+            
             int newLevel = 0;
             if (market.hasIndustry(Industries.PATROLHQ) && !market.getIndustry(Industries.PATROLHQ).isDisrupted()) {
                 newLevel += 1;
@@ -207,7 +211,7 @@ public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpaw
                 newLevel += 3;
             }
             level = newLevel;
-
+        
             String sid = getRouteSourceId();
 
             int light = getCount(PatrolType.FAST);
@@ -337,7 +341,7 @@ public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpaw
         }
 
         FactionAPI pickedFaction = Global.getSector().getFaction(FLEET_FACTION);
-
+        
         FleetParamsV3 params = new FleetParamsV3(
                 null,
                 null, // loc in hyper; don't need if have market
@@ -360,7 +364,7 @@ public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpaw
         if (fleet == null || fleet.isEmpty()) {
             return null;
         }
-
+        
         if (!fleet.getFaction().getId().equals(FACTION)) {
             fleet.setFaction(FACTION, true);
             fleet.setNoFactionInName(true);
@@ -403,7 +407,7 @@ public class KadurLoyalistSpawner extends BaseIndustry implements RouteFleetSpaw
         if (custom.spawnFP <= 0) {
             custom.spawnFP = fleet.getFleetPoints();
         }
-
+        
         return fleet;
     }
 

@@ -2,16 +2,19 @@
 package data.scripts.weapons;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.DamageType;
+import com.fs.starfarer.api.combat.EveryFrameWeaponEffectPlugin;
+import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.plugins.MagicFakeBeamPlugin;
+import java.awt.Color;
 import org.apache.log4j.Logger;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.entities.SimpleEntity;
 import org.lwjgl.util.vector.Vector2f;
-
-import java.awt.*;
 
 public class VayraTargetingBeamEffect implements EveryFrameWeaponEffectPlugin {
 
@@ -107,23 +110,23 @@ public class VayraTargetingBeamEffect implements EveryFrameWeaponEffectPlugin {
 
     private void spawnArc(CombatEngineAPI engine, WeaponAPI weapon, float charge) {
 
-        ShipAPI ship = weapon.getShip();
-        Vector2f loc = weapon.getLocation();
-        Vector2f point = MathUtils.getRandomPointInCone(loc, 135f, ship.getFacing() - 15f, ship.getFacing() + 15f);
+            ShipAPI ship = weapon.getShip();
+            Vector2f loc = weapon.getLocation();
+            Vector2f point = MathUtils.getRandomPointInCone(loc, 135f, ship.getFacing() - 15f, ship.getFacing() + 15f);
 
-        engine.spawnEmpArcPierceShields(
-                ship,
-                weapon.getLocation(),
-                weapon.getShip(),
-                new SimpleEntity(point),
-                DamageType.OTHER,
-                0f,
-                0f,
-                69420f,
-                "tachyon_lance_emp_impact",
-                charge * 20f,
-                weapon.getSpec().getGlowColor().brighter(),
-                weapon.getSpec().getGlowColor()
-        );
-    }
+            engine.spawnEmpArcPierceShields(
+                    ship,
+                    weapon.getLocation(),
+                    weapon.getShip(),
+                    new SimpleEntity(point),
+                    DamageType.OTHER,
+                    0f,
+                    0f,
+                    69420f,
+                    "tachyon_lance_emp_impact",
+                    charge * 20f,
+                    weapon.getSpec().getGlowColor().brighter(),
+                    weapon.getSpec().getGlowColor()
+            );
+        }
 }
