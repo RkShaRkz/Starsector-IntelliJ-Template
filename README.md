@@ -1,6 +1,6 @@
 # Vayra Merged modpack mod
 
-v3.3.7
+v3.3.8
 
 This branch represents a fake repo for just the vayra-merged mod. The tl;dr is - vayra's mods aren't bad, but from the point when it got broken into three different mods, all three of them were leaking dependencies to each other and were referencing files which weren't available anywhere in the sourcecodes but were present in *some* of the JARs, so they were reverse-engineered and placed where they needed to be.
 
