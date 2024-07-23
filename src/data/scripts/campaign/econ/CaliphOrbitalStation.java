@@ -65,7 +65,7 @@ public class CaliphOrbitalStation extends OrbitalStation implements FleetEventLi
             float opad = 10f;
 
             float cr = getCR();
-            tooltip.addPara("Caliph combat readiness: %s", opad, h, "" + Math.round(cr * 100f) + "%");
+            tooltip.addPara("Caliph combat readiness: %s", opad, h, Math.round(cr * 100f) + "%");
 
             addStabilityPostDemandSection(tooltip, hasDemand, mode);
 

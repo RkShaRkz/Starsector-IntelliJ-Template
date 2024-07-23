@@ -72,7 +72,7 @@ public class VayraGuardianIFF extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) 5f + "%";
+            return (int) 5f + "%";
         }
         return null;
     }
@@ -84,7 +84,7 @@ public class VayraGuardianIFF extends BaseHullMod {
         } else if ((Global.getSettings().getModManager().isModEnabled("better_deserving_smods") ? Global.getSettings().getBoolean("BuiltInSMod") && ship.getHullSpec().isBuiltInMod("vayra_kadur_iff") : ship.getHullSpec().isBuiltInMod("vayra_kadur_iff")) || ship.getVariant().getSMods().contains("vayra_kadur_iff")) {
             tooltip.addSectionHeading("S-mod bonus", Misc.getStoryOptionColor(), Misc.getStoryDarkColor(), Alignment.MID, 10f);
             tooltip.addPara("All stat bonuses increased to %s.", 10f, Misc.getPositiveHighlightColor(), Misc.getHighlightColor(), "10%");
-        } else if (!isForModSpec) {
+        } else {
             tooltip.addSectionHeading("S-mod bonus", Misc.getStoryOptionColor(), Misc.getStoryDarkColor(), Alignment.MID, 10f);
             tooltip.addPara("All stat bonuses increased to %s.", 10f, Misc.getGrayColor(), Misc.getHighlightColor(), "10%");
         }

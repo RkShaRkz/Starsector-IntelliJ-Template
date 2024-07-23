@@ -196,3 +196,7 @@ nbdist/
 .idea/vcs.xml
 
 .idea/csv-editor.xml
+.idea/libraries/starfarer_api.xml
+.idea/misc.xml
+.run/Run Starsector.run.xml
+jars/VayraMerged.jar

@@ -10,13 +10,13 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
 import com.fs.starfarer.api.characters.ImportantPeopleAPI;
 import com.fs.starfarer.api.characters.PersonAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.MissileAIPlugin;
-import com.fs.starfarer.api.combat.MissileAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
 import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.BarEventManager;
 import com.fs.starfarer.api.impl.campaign.intel.deciv.DecivTracker;
+import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
+import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial;
 import com.fs.starfarer.api.impl.campaign.terrain.BaseRingTerrain;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
@@ -147,6 +147,63 @@ public class VayraMergedModPlugin extends BaseModPlugin {
                 setExerelinActive(factionId, COLONIAL_FACTIONS_ENABLED);
             }
         }
+        //Mayasuran Navy
+        if (!Global.getSettings().getModManager().isModEnabled("Mayasuran Navy")) {
+            try {
+                if (Global.getSettings().getFighterWingSpec("vayra_phalanx_m_wing") != null) {
+                    Global.getSettings().getFighterWingSpec("vayra_phalanx_m_wing").getTags().remove("fighter4");
+                    Global.getSettings().getFighterWingSpec("vayra_phalanx_m_wing").getTags().remove("fighter");
+                    Global.getSettings().getFighterWingSpec("vayra_phalanx_m_wing").addTag(Tags.NO_DROP);
+                    Global.getSettings().getFighterWingSpec("vayra_phalanx_m_wing").addTag(Items.TAG_NO_DEALER);
+                    Global.getSettings().getFighterWingSpec("vayra_phalanx_m_wing").addTag(Tags.NO_SELL);
+                }
+            } catch (Exception ex) {
+            }
+            try {
+                if (Global.getSettings().getHullSpec("vayra_phalanx_m") != null) {
+                    Global.getSettings().getHullSpec("vayra_phalanx_m").getHints().add(ShipHullSpecAPI.ShipTypeHints.HIDE_IN_CODEX);
+                }
+            } catch (Exception ex) {
+            }
+            try {
+                if (Global.getSettings().getFighterWingSpec("vayra_hoplite_m_wing") != null) {
+                    Global.getSettings().getFighterWingSpec("vayra_hoplite_m_wing").getTags().remove("bomber3");
+                    Global.getSettings().getFighterWingSpec("vayra_hoplite_m_wing").getTags().remove("bomber");
+                    Global.getSettings().getFighterWingSpec("vayra_hoplite_m_wing").addTag(Tags.NO_DROP);
+                    Global.getSettings().getFighterWingSpec("vayra_hoplite_m_wing").addTag(Items.TAG_NO_DEALER);
+                    Global.getSettings().getFighterWingSpec("vayra_hoplite_m_wing").addTag(Tags.NO_SELL);
+                }
+            } catch (Exception ex) {
+            }
+            try {
+                if (Global.getSettings().getHullSpec("vayra_hoplite_m") != null) {
+                    Global.getSettings().getHullSpec("vayra_hoplite_m").getHints().add(ShipHullSpecAPI.ShipTypeHints.HIDE_IN_CODEX);
+                }
+            } catch (Exception ex) {
+            }
+        }
+
+        try {
+            if (Global.getSettings().getVariant("vayra_caliph_revenant") != null) {
+                Global.getSettings().getVariant("vayra_caliph_revenant").addTag(Tags.SHIP_CAN_NOT_SCUTTLE);
+                Global.getSettings().getVariant("vayra_caliph_revenant").addTag(Tags.SHIP_UNIQUE_SIGNATURE);
+            }
+        } catch (Exception ex) {
+        }
+        try {
+            if (Global.getSettings().getVariant("vayra_caliph_revenant_Hull") != null) {
+                Global.getSettings().getVariant("vayra_caliph_revenant_Hull").addTag(Tags.SHIP_CAN_NOT_SCUTTLE);
+                Global.getSettings().getVariant("vayra_caliph_revenant_Hull").addTag(Tags.SHIP_UNIQUE_SIGNATURE);
+            }
+        } catch (Exception ex) {
+        }
+        try {
+            if (Global.getSettings().getVariant("vayra_caliph_revenant_station") != null) {
+                Global.getSettings().getVariant("vayra_caliph_revenant_station").addTag(Tags.SHIP_CAN_NOT_SCUTTLE);
+                Global.getSettings().getVariant("vayra_caliph_revenant_station").addTag(Tags.SHIP_UNIQUE_SIGNATURE);
+            }
+        } catch (Exception ex) {
+        }
     }
 
     @Override
@@ -203,6 +260,99 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             distress.loadEvents();
         } else {
             logger.warn("VayraDistressCallManager.getInstance() returned null");
+        }
+        if (Global.getSector().getMemoryWithoutUpdate().get("$vayra_missions_generated") == null) {
+            Global.getSector().getMemoryWithoutUpdate().set("$vayra_missions_generated", true);
+            StarSystemAPI system = Global.getSector().getStarSystem("Mirage");
+            if (system != null && system.getEntityById("vayra_mirage_star") != null) {
+                for (Object object : Global.getSector().getStarSystem("Mirage").getEntities(CampaignTerrainAPI.class)) {
+                    //K1 && K2 Mission Rewards
+                    if (object instanceof SectorEntityToken) {
+                        SectorEntityToken asteroidsociety = (SectorEntityToken) object;
+                        if (asteroidsociety.getCircularOrbitRadius() == 12500 && asteroidsociety.getCircularOrbitPeriod() == 778) {
+                            DerelictShipEntityPlugin.DerelictShipData paramsk1 = new DerelictShipEntityPlugin.DerelictShipData(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("falcon_xiv_Hull"), ShipRecoverySpecial.ShipCondition.WRECKED, "HSS Left Hook", Factions.HEGEMONY, 0f), false);
+                            SectorEntityToken K1 = BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, paramsk1);
+                            K1.setDiscoverable(true);
+                            K1.setDiscoveryXP(250f);
+                            K1.setCircularOrbit(asteroidsociety, 270, 200, 15); //L4 Asteroid.
+                            K1.setSalvageXP(250f);
+                            K1.getMemoryWithoutUpdate().set("$vayra_k1_eventRef", true);
+                            ShipRecoverySpecial.ShipRecoverySpecialData data = new ShipRecoverySpecial.ShipRecoverySpecialData(null);
+                            data.addShip(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("falcon_xiv_Hull"), ShipRecoverySpecial.ShipCondition.WRECKED, "HSS Left Hook", Factions.INDEPENDENT, 0f));
+                            Misc.setSalvageSpecial(K1, data);
+                            DerelictShipEntityPlugin.DerelictShipData paramsk2 = new DerelictShipEntityPlugin.DerelictShipData(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("vayra_eagle_k_Hull"), ShipRecoverySpecial.ShipCondition.BATTERED, "KHS Babylonian Raven", "kadur_remnant", 0f), false);
+                            SectorEntityToken K2 = BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, paramsk2);
+                            K2.setCircularOrbit(asteroidsociety, 90, 300, 15);
+                            K2.setDiscoverable(true);
+                            K2.setDiscoveryXP(250f);
+                            K2.setSalvageXP(250f);
+                            K2.getMemoryWithoutUpdate().set("$vayra_k2_eventRef", true);
+                            ShipRecoverySpecial.ShipRecoverySpecialData data2 = new ShipRecoverySpecial.ShipRecoverySpecialData(null);
+                            data2.addShip(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("vayra_eagle_k_Hull"), ShipRecoverySpecial.ShipCondition.BATTERED, "KHS Babylonian Raven", "kadur_remnant", 0f));
+                            Misc.setSalvageSpecial(K2, data2);
+                            break;
+                        }
+                    }
+                }
+                //K3
+                if (system.getEntityById("mirage_ii_jump") != null) {
+                    DerelictShipEntityPlugin.DerelictShipData paramsk3 = new DerelictShipEntityPlugin.DerelictShipData(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("vayra_seraph_standard"), ShipRecoverySpecial.ShipCondition.WRECKED, "KHS Holy Sword", "kadur_remnant", 0f), false);
+                    SectorEntityToken K3 = BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, paramsk3);
+                    K3.setDiscoverable(true);
+                    K3.setDiscoveryXP(250f);
+                    K3.setCircularOrbit(system.getEntityById("mirage_ii_jump"), 270, 200, 15); //Mirage Jump Point of course...
+                    K3.setSalvageXP(250f);
+                    K3.getMemoryWithoutUpdate().set("$vayra_k3_eventRef", true);
+                    ShipRecoverySpecial.ShipRecoverySpecialData data = new ShipRecoverySpecial.ShipRecoverySpecialData(null);
+                    data.addShip(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("vayra_seraph_standard"), ShipRecoverySpecial.ShipCondition.WRECKED, "KHS Holy Sword", "kadur_remnant", 0f));
+                    Misc.setSalvageSpecial(K3, data);
+                }
+                //K4
+                if (system.getEntityById("mirage_relay") != null) {
+                    DerelictShipEntityPlugin.DerelictShipData paramsk4 = new DerelictShipEntityPlugin.DerelictShipData(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("vayra_targe_crystal"), ShipRecoverySpecial.ShipCondition.WRECKED, "KHS Ceto", "kadur_remnant", 0f), false);
+                    SectorEntityToken K4 = BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, paramsk4);
+                    K4.setDiscoverable(true);
+                    K4.setDiscoveryXP(250f);
+                    K4.setCircularOrbit(system.getEntityById("mirage_relay"), 270, 200, 15); //Mirage Relay of course...
+                    K4.setSalvageXP(250f);
+                    K4.getMemoryWithoutUpdate().set("$vayra_k4_eventRef", true);
+                    ShipRecoverySpecial.ShipRecoverySpecialData data = new ShipRecoverySpecial.ShipRecoverySpecialData(null);
+                    data.addShip(new ShipRecoverySpecial.PerShipData(Global.getSettings().getVariant("vayra_targe_crystal"), ShipRecoverySpecial.ShipCondition.WRECKED, "KHS Ceto", "kadur_remnant", 0f));
+                    Misc.setSalvageSpecial(K4, data);
+                }
+                //K5 and K6
+                if (Global.getSettings().getMissionScore("vayra_k006") > 0) {
+                    Global.getSector().getEntityById("vayra_kadur_revenant").getMarket().getMemoryWithoutUpdate().set("$nex_recentlyCapturedByPlayer", true, 365f);
+                }
+                if (Global.getSettings().getMissionScore("vayra_k005") > 0) {
+                    Global.getSector().getEntityById("vayra_refugestation").getMarket().getMemoryWithoutUpdate().set("$nex_recentlyCapturedByPlayer", true, 365f);
+                }
+                //K7 (if player start with Caliph, disable the HVB)
+                if (newGame) {
+                    if ("vayra_caliph".equals(Global.getSector().getPlayerFleet().getFlagship().getHullSpec().getBaseHullId())) {
+                        //HVB Handling...
+                        if (Global.getSettings().getModManager().isModEnabled("vayrasector")) {
+                            List<String> spentBounties = (List<String>) Global.getSector().getMemory().get("$vayra_uniqueBountiesSpent");
+                            if (spentBounties == null) {
+                                spentBounties = new ArrayList<>();
+                                Global.getSector().getMemory().set("$vayra_uniqueBountiesSpent", spentBounties);
+                                logger.info("unique spentBounties was null, adding empty list");
+                            } else {
+                                logger.info("unique spentBounties contains: " + spentBounties);
+                            }
+                            logger.info("spending unique bounty " + "vayra_caliph_bounty");
+                            if (!spentBounties.contains("vayra_caliph_bounty")) {
+                                spentBounties.add("vayra_caliph_bounty");
+                                logger.info("unique spentBounties contains: " + spentBounties);
+                            } else {
+                                logger.warn("unique spentBounties already contains " + "vayra_caliph_bounty");
+                            }
+                        }
+                        //MagicBounties Handling...
+                        Global.getSector().getMemoryWithoutUpdate().set("$HVB_vayra_caliph_bounty_succeeded", true);
+                    }
+                }
+            }
         }
     }
 

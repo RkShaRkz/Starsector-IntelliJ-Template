@@ -6,7 +6,7 @@ import com.fs.starfarer.api.impl.campaign.econ.BaseHazardCondition;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 
-public class vayra_virus_bomb extends BaseHazardCondition {
+public class vayraVirusBomb extends BaseHazardCondition {
     //Sleepy parasitic spores... from Tartiflette
     private final int PRODUCTION_MALUS = -1;
 
