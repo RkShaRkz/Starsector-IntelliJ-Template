@@ -353,3 +353,93 @@ The communication terminates abruptly.",cutCommLink:Cut the comm link,
 greetingKadurNeutral,OpenCommLink,"$faction.id == kadur_remnant
 $faction.neutralToPlayer","$menuState = fleetConvMain 0
 FireAll PopulateOptions","The binary star and world-crescent of the Kadur Remnant flashes on your screen for a moment while a recorded hymn plays over the comm, before being replaced by the masked face of the Kadur $personRank: ""Fair travels, pilgrim. May the Watchers look well upon you.""",,
+,,,,,,
+aiCores_turnInOptionSelKadur,DialogOptionSelected,"$option == aiCores_startTurnIn
+$faction.id == kadur_remnant",FireAll PopulateCoresTurnInOptions,"""You were right to bring these to me. I shall contact the War-Prophet to take possession of these abominations so that they may be properly cleansed.""",,
+,,,,,,
+kadur_nex_NGCPickStartingShips,ExerelinNGCStep3,"$playerFaction == kadur_remnant
+!$kadur_remnant_ChangeMind
+$corvusMode","AddText ""Our home annihilated. Our people once divided now stand in unison against all of Persea, for united we stand, divided we fall. You are a recent convert to the Kadur faith tasked with leading a strike force against a largely hostile sector.""
+SetTextHighlightColors ""208,174,185,255"" ""255,213,133,255"" bad
+SetTextHighlights divided unison Persea
+$kadur_remnant_ChangeMind = true 0",,,
+,,,,,,
+# Kadur Remnant commission (technically illegal),,,,,,
+CMSNTextRejectHostile_kadur,CMSNTextRejectHostile,$faction.id == kadur_remnant,,"""Is this some kind of joke? If you are truly whom you claim to be, you've been branded a public enemy of the Kadur faith.""",,
+CMSNTextHasOther_kadur,CMSNTextHasOther,$faction.id == kadur_remnant,,"""You're already commissioned by $theOtherCommissionFaction. The heart holds but one faith; until you resigned that commission, it would be quite unthinkable to convert to our faith.""",,
+CMSNTextUnsuited_kadur,CMSNTextUnsuited,$faction.id == kadur_remnant,,"""I am sorry, but you are not worthy of converting to our faith.""",,
+CMSNTextSuitedPart1_kadur,CMSNTextSuitedPart1,$faction.id == kadur_remnant,,"""Hmm, yes, you have proven your faith through good works.
+
+Accepting a commission is a serious matter. You will be required to fight enemies of the Watchers wherever they may be found.
+
+Your commission may be resigned at any time, though it would be the a very poor sign of faith in the Watchers' eyes.""",,
+CMSNTextSuitedPart2_kadur,CMSNTextSuitedPart2,$faction.id == kadur_remnant,,"""Will you accept this righteous mantle with the blessings of our Watchers?""",,
+CMSNTextWelcomePart1_kadur,CMSNTextWelcomePart1,$faction.id == kadur_remnant,,"""Praise be to the Watchers! I am blessed to be the first to welcome you to this righteous faith.""",,
+CMSNTextWelcomePart2_kadur,CMSNTextWelcomePart2,$faction.id == kadur_remnant,,"""I shall not detain you from your holy work, but please do not hesitate to ask if there is anything I can do for you.""",,
+CMSNResignCancelled_kadur,CMSNResignCancelled,$faction.id == kadur_remnant,,"""A wise choice. Our spirits are tested in this work we do, and sometimes our faith falters. But remember always that the light of Ludd illuminates the righteous path, however dim it may seem in times of great difficulty.""",,
+,,,,,,
+,,,,,,
+vayra_k1_openDialog,PopulateSalvageOptions1,"vayra_HasMissionScore vayra_k001 1 score:1000
+$vayra_k1_eventRef != null",SetOptionColor salExplore highlight,,,
+vayra_k1_openDialogWarning,PopulateSalvageOptions1,"!vayra_HasMissionScore  vayra_k001 1 score:1000
+$vayra_k1_eventRef != null","AddTextSmall ""It is recommended to complete K1 Paladin's Vigil before proceeding, but you do you."" gray
+SetTextHighlights K1 Paladin's Vigil",,,
+vayra_k1_salvage,DialogOptionSelected,"$option == salExplore
+vayra_HasMissionScore vayra_k001 1 score:1000
+$vayra_k1_eventRef != null",,Salvage crews begin the recovery process and find a lot more than expected from a wreck like this.,vayra_k1_continue:Continue,
+vayra_k1_continueLoot,DialogOptionSelected,$option == vayra_k1_continue,"vayra_k1
+AddStoryPoints 1
+$vayra_k1_eventRef = null","Through a closer examination, the ship is miraculously in a pristine condition. ",0:salExplore:Continue,
+,,,,,,
+vayra_k2_openDialog,PopulateSalvageOptions1,"vayra_HasMissionScore vayra_k002 1 score:1000
+$vayra_k2_eventRef != null",SetOptionColor salExplore highlight,,,
+vayra_k2_openDialogWarning,PopulateSalvageOptions1,"!vayra_HasMissionScore  vayra_k002 1 score:1000
+$vayra_k2_eventRef != null","AddTextSmall ""It is recommended to complete K2 Tactical Retreat before proceeding, but you do you."" gray
+SetTextHighlights K2 Tactical Retreat",,,
+vayra_k2_salvage,DialogOptionSelected,"$option == salExplore
+vayra_HasMissionScore vayra_k002 1 score:1000
+$vayra_k2_eventRef != null",,Salvage crews begin the recovery process and find a lot more than expected from a wreck like this.,vayra_k2_continue:Continue,
+vayra_k2_continueLoot,DialogOptionSelected,$option == vayra_k2_continue,"vayra_k2
+AddStoryPoints 1
+$vayra_k2_eventRef = null","Through a closer examination, the ship is miraculously in a pristine condition. ",0:salExplore:Continue,
+,,,,,,
+vayra_k3_openDialog,PopulateSalvageOptions1,"vayra_HasMissionScore vayra_k003 1 score:1000
+$vayra_k3_eventRef != null",SetOptionColor salExplore highlight,,,
+vayra_k3_openDialogWarning,PopulateSalvageOptions1,"!vayra_HasMissionScore  vayra_k003 1 score:1000
+$vayra_k3_eventRef != null","AddTextSmall ""It is recommended to complete K3 Defenders of the Faith before proceeding, but you do you."" gray
+SetTextHighlights K3 Defenders of the Faith",,,
+vayra_k3_salvage,DialogOptionSelected,"$option == salExplore
+vayra_HasMissionScore vayra_k003 1 score:1000
+$vayra_k3_eventRef != null",,Salvage crews begin the recovery process and find a lot more than expected from a wreck like this.,vayra_k3_continue:Continue,
+vayra_k3_continueLoot,DialogOptionSelected,$option == vayra_k3_continue,"vayra_k3
+AddStoryPoints 1
+$vayra_k3_eventRef = null","Through a closer examination, the ship is miraculously in a good condition. ",0:salExplore:Continue,
+,,,,,,
+vayra_k4_openDialog,PopulateSalvageOptions1,"vayra_HasMissionScore vayra_k004 1 score:1000
+$vayra_k4_eventRef != null",SetOptionColor salExplore highlight,,,
+vayra_k4_openDialogWarning,PopulateSalvageOptions1,"!vayra_HasMissionScore  vayra_k004 1 score:1000
+$vayra_k4_eventRef != null","AddTextSmall ""It is recommended to complete K4 Operation Godslayer before proceeding, but you do you."" gray
+SetTextHighlights K4 Operation Godslayer",,,
+vayra_k4_salvage,DialogOptionSelected,"$option == salExplore
+vayra_HasMissionScore vayra_k004 1 score:1000
+$vayra_k4_eventRef != null",,Salvage crews begin the recovery process and find a lot more than expected from a wreck like this.,vayra_k4_continue:Continue,
+vayra_k4_continueLoot,DialogOptionSelected,$option == vayra_k4_continue,"vayra_k4
+AddStoryPoints 1
+$vayra_k4_eventRef = null","Through a closer examination, the ship is miraculously in a good condition. ",0:salExplore:Continue,
+,,,,,,
+vayra_k5_kadur_nex_buyColonyOptionEnable_Gehenna,Nex_BuyColonyDisableCheck,"vayra_HasMissionScore vayra_k005 1 score:1000
+$market.id == vayra_refugestationmarket
+$faction.id == kadur_remnant
+Commission hasFactionCommission score:10","SetEnabled nex_buyColony true 
+SetTooltip nex_buyColony ""You may purchase governorship here because you have completed K5 Operation Breadbasket.""
+SetTooltipHighlightColors nex_buyColony hColor hColor hColor
+SetTooltipHighlights nex_buyColony K5 Operation Breadbasket",,,
+vayra_k6_kadur_nex_buyColonyOptionEnable_Mirage,Nex_BuyColonyDisableCheck,"vayra_HasMissionScore vayra_k006 1 score:1000
+$market.id == vayra_kadur_revenantmarket
+$faction.id == kadur_remnant
+Commission hasFactionCommission score:10","SetEnabled nex_buyColony true 
+SetTooltip nex_buyColony ""You may purchase governorship here because you have completed K6 Exodus.""
+SetTooltipHighlightColors nex_buyColony hColor hColor
+SetTooltipHighlights nex_buyColony K6 Exodus",,,
+,,,,,,
+vayra_kadur_addStart,ExerelinNGCIntroPage,vayra_HasMissionScore vayra_k007 1 score:1000,vayra_k7,,,

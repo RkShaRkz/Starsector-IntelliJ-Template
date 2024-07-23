@@ -10,6 +10,7 @@
 	"explosionColor":[255,165,50,255],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":200, # purely visual
 	"maxFlightTime":5,
+	"noDebrisWhenDestroyed":true,
 	"engineSpec":{
 				  "turnAcc":120,
 				  "turnRate":60,
@@ -56,6 +57,9 @@
 					"spreadSpeedRange":100,
 					"projectileRange":250, # only needed if not a missile
 					"projectileSpec":"vayra_light_fission",
+					"debrisSmall":1,
+					"debrisMedium":0,
+					"debrisLarge":0,
 					"smokeSpec":{"particleSizeMin":16.0,
 								 "particleSizeRange":20.0,
 								 "cloudParticleCount":16,

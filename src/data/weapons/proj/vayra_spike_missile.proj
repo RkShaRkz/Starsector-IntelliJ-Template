@@ -10,6 +10,7 @@
 	"collisionClass":"MISSILE_NO_FF",
 	"explosionColor":[100,100,255,255],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":75, # purely visual
+	"noDebrisWhenDestroyed":true,
 	"engineSpec":{"turnAcc":240,
 				  "turnRate":120,
 				  "acc":1800,
@@ -51,6 +52,9 @@
 					"spreadSpeed":200,
 					"spreadSpeedRange":50,
 					"projectileSpec":"vayra_spike_missile_payload",
+					"debrisSmall":1,
+					"debrisMedium":0,
+					"debrisLarge":0,
 					"smokeSpec":{"particleSizeMin":15.0,
 								 "particleSizeRange":15.0,
 								 "cloudParticleCount":8,

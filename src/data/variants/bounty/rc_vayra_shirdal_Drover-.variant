@@ -1,6 +1,6 @@
 {
     "displayName": "Thunder",
-    "fluxCapacitors": 3,
+    "fluxCapacitors": 0,
     "fluxVents": 0,
     "hullId": "vayra_shirdal",
 	"goalVariant": true,
@@ -28,7 +28,7 @@
         {
             "autofire": true,
             "mode": "LINKED",
-            "weapons": {"WS0004": "flak"}
+            "weapons": {"WS0004": "shredder"}
         },
         {
             "autofire": true,

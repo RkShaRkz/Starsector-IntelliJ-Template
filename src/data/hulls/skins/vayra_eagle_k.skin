@@ -4,6 +4,8 @@
   "tags":["kadur", "kadur_warship_bp"],
   "tech":"Kadur Theocracy",
   "ordnancePoints":140,
+  "suppliesToRecover":18, #0.96 changes
+  "suppliesPerMonth":18, #0.96 changes
   "builtInMods": [
     "vayra_forever_war",
 	"vayra_garbage_shields"

@@ -130,5 +130,6 @@
     7
   ],
   "turretSprite": "graphics/weapons/vayra_needler_turret_base.png",
-  "type": "BALLISTIC"
+  "type": "BALLISTIC",
+  "mountTypeOverride":"COMPOSITE",
 }

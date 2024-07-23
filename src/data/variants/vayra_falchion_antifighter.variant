@@ -1,7 +1,7 @@
 {
   "displayName": "Antifighter",
-  "fluxCapacitors": 0,
-  "fluxVents": 18,
+  "fluxCapacitors": 4,
+  "fluxVents": 20,
   "goalVariant": true,
   "hullId": "vayra_falchion",
   "hullMods": [

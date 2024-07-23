@@ -14,3 +14,6 @@ You input the go-codes and command your crew to battle stations. The blips on yo
 You are the purifying light of the Watchers' gaze and the last hope for revenge of a dying people. While you live, the Theocracy has not yet fallen. You will destroy these faithless thinking machines and live to strike against the enemies of the Kadur again, and again, and again.
 
 Until there is nothing left of them but dust.
+
+***
+Campaign Reward (Nexerlin-exclusive): You may start as the flagship in this mission in the Nexerelin's Grand Start. This will disable the bounty if started as so.

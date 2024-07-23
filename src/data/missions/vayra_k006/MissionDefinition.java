@@ -1,25 +1,37 @@
 package data.missions.vayra_k006;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.characters.FullName;
+import com.fs.starfarer.api.characters.MutableCharacterStatsAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
+import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
+import com.fs.starfarer.api.combat.BattleCreationContext;
+import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.DamageType;
+import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.fleet.FleetGoal;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.fleet.FleetMemberType;
+import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
+import com.fs.starfarer.api.impl.campaign.ids.Skills;
 import com.fs.starfarer.api.impl.combat.EscapeRevealPlugin;
 import com.fs.starfarer.api.input.InputEventAPI;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.mission.MissionDefinitionAPI;
 import com.fs.starfarer.api.mission.MissionDefinitionPlugin;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
-import org.lazywizard.lazylib.combat.CombatUtils;
-import org.lwjgl.util.vector.Vector2f;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
+import org.lazywizard.lazylib.combat.AIUtils;
+import org.lazywizard.lazylib.combat.CombatUtils;
+import org.lwjgl.util.vector.Vector2f;
 
 @SuppressWarnings("unchecked")
 public class MissionDefinition implements MissionDefinitionPlugin {
@@ -33,37 +45,44 @@ public class MissionDefinition implements MissionDefinitionPlugin {
 
         // Set a small blurb for each fleet that shows up on the mission detail and
         // mission results screens to identify each side.
-        api.setFleetTagline(FleetSide.PLAYER, "Kadur defense auxiliaries, Oasis parish");
+        api.setFleetTagline(FleetSide.PLAYER, "Surviving Kadur defense auxiliaries rallying with Oasis parish");
         api.setFleetTagline(FleetSide.ENEMY, "Hegemony Ground Assault Force with incoming heavy backup");
 
         // These show up as items in the bulleted list under 
         // "Tactical Objectives" on the mission detail screen
-        api.addBriefingItem("The KHS-001 Hand of God must survive");
+        api.addBriefingItem("The KHS-001 Hand of God must survive.");
         api.addBriefingItem("Save as many personnel transports as you can");
         api.addBriefingItem("All other ships are expendable");
 
         // ships in fleets
-        api.addToFleet(FleetSide.PLAYER, "vayra_ziz_support", FleetMemberType.SHIP, true);
-        api.addToFleet(FleetSide.PLAYER, "vayra_sphinx_assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_eagle_k_line", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_falcon_k_torpedo", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_archimandrite_artillery", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_targe_cs", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_sunbird_fs", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_shirdal_disabler", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_falchion_antifighter", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_camel_assault", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_buzzard_fs", FleetMemberType.SHIP, false);
-        api.addToFleet(FleetSide.PLAYER, "vayra_hyena_rod", FleetMemberType.SHIP, false);
+        api.addToFleet(FleetSide.PLAYER, "vayra_ziz_support", FleetMemberType.SHIP, true).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 4, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 2, new Random()));;
+        api.addToFleet(FleetSide.PLAYER, "vayra_sphinx_assault", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 4, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 2, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_eagle_k_line", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 3, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 2, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_falcon_k_torpedo", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 3, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 2, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_archimandrite_artillery", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 3, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_targe_cs", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_sunbird_fs", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_shirdal_disabler", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_falchion_antifighter", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 1, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 0, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_camel_assault", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 1, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 0, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_buzzard_fs", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 1, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 0, new Random()));
+        api.addToFleet(FleetSide.PLAYER, "vayra_hyena_rod", FleetMemberType.SHIP, false).setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("kadur_remnant"), 1, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 0, new Random()));
         api.addToFleet(FleetSide.PLAYER, "vayra_mendicant_refugee", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "vayra_mendicant_refugee", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.PLAYER, "vayra_mendicant_refugee", FleetMemberType.SHIP, false);
 
         FleetMemberAPI caliph = api.addToFleet(FleetSide.PLAYER, "vayra_caliph_revenant", FleetMemberType.SHIP, "KHS-001 Hand of God", false);
         caliph.getRepairTracker().setMothballed(true);
+        PersonAPI officer = Global.getSettings().createPerson();
+        officer.setPortraitSprite(OfficerManagerEvent.pickPortrait(Global.getSector().getFaction("kadur_remnant"), (new Random().nextFloat() >= 0.5f) ? FullName.Gender.MALE : FullName.Gender.FEMALE));
+        officer.getStats().setLevel(2);
+        officer.getStats().setSkillLevel(Skills.COMBAT_ENDURANCE, 2); //self-repair important...
+        officer.getStats().setSkillLevel(Skills.HELMSMANSHIP, 1); //easier difficulty to speed it up
+        caliph.setCaptain(officer);
         api.defeatOnShipLoss("KHS-001 Hand of God");
         boolean vsp = Global.getSettings().getModManager().isModEnabled("vayrashippack");
-
+        api.getDefaultCommander(FleetSide.ENEMY).getStats().setSkillLevel(Skills.SUPPORT_DOCTRINE, 1);
+        api.addToFleet(FleetSide.ENEMY, "onslaught_Outdated", FleetMemberType.SHIP, true);
         api.addToFleet(FleetSide.ENEMY, "falcon_xiv_Elite", FleetMemberType.SHIP, true);
         api.addToFleet(FleetSide.ENEMY, "enforcer_XIV_Elite", FleetMemberType.SHIP, false);
         api.addToFleet(FleetSide.ENEMY, "enforcer_Escort", FleetMemberType.SHIP, false);
@@ -113,15 +132,45 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         api.addPlugin(new EscapeRevealPlugin(context));
 
         // Add custom plugin
+        api.addPlugin(new BaseEveryFrameCombatPlugin() {
+			public void init(CombatEngineAPI engine) {
+			}
+			public void advance(float amount, List events) {
+                            if (Global.getCombatEngine().isPaused()) {
+                                return;
+                            }
+                            for (ShipAPI ship : Global.getCombatEngine().getShips()) {
+                                if (ship.getCustomData().get("poopystinky") == null) {
+                                    if (ship.getCaptain() != null && ship.getOwner() == 0 && ship.getCaptain().getStats().getSkillsCopy().size() > 4) {
+                                        String text = "";
+                                        for (int u = 4; u < ship.getCaptain().getStats().getSkillsCopy().size(); u++) {
+											if (u < ship.getCaptain().getStats().getSkillsCopy().size()-1) {text = text+(((MutableCharacterStatsAPI.SkillLevelAPI) ship.getCaptain().getStats().getSkillsCopy().get(u)).getLevel() > 1 ?  ((MutableCharacterStatsAPI.SkillLevelAPI) ship.getCaptain().getStats().getSkillsCopy().get(u)).getSkill().getName()+"+, " :  ((MutableCharacterStatsAPI.SkillLevelAPI) ship.getCaptain().getStats().getSkillsCopy().get(u)).getSkill().getName()+", ");} else {text = text+(((MutableCharacterStatsAPI.SkillLevelAPI) ship.getCaptain().getStats().getSkillsCopy().get(u)).getLevel() > 1 ? ((MutableCharacterStatsAPI.SkillLevelAPI) ship.getCaptain().getStats().getSkillsCopy().get(u)).getSkill().getName()+"+." :  ((MutableCharacterStatsAPI.SkillLevelAPI) ship.getCaptain().getStats().getSkillsCopy().get(u)).getSkill().getName()+".");}
+                                        }
+									if (ship.getFleetMember() != null) {
+									//Global.getCombatEngine().getCombatUI().addMessage(1, ship.getFleetMember(), Misc.getPositiveHighlightColor(), ship.getName(), Misc.getTextColor(), "", Global.getSettings().getColor("standardTextColor"), "is skilled in "+text); We censor this because there is important dialogue going on!
+                                                                        }
+                                    }
+                                    ship.setCurrentCR(ship.getCurrentCR()+ship.getMutableStats().getMaxCombatReadiness().getModifiedValue()); //Properly adds the max CR, for some reason it cannot be caught as FleetMemberAPI or this would have been easier...
+                                    ship.setCRAtDeployment(ship.getCRAtDeployment()+ship.getMutableStats().getMaxCombatReadiness().getModifiedValue()); //This only affects the "score" result of said mission, but the algorithm is mostly 100% since you have to basically LOSE ships to lose score. I don't think this needs setting, but eh couldn't help but tried.
+                                    ship.setCustomData("poopystinky", true); //Fires once per ship.
+                                }
+                            }
+                        }
+		});
         api.addPlugin(new Plugin());
     }
+    
 
     public final static class Plugin extends BaseEveryFrameCombatPlugin {
 
         private static boolean runOnce = false;
         private static int wave = 0;
+        private static int dda = 0;
+        private static int caa = 0;
+        private static int bba = 0;
+        private static boolean reinforcementarrived = false;
 
-        private static final IntervalUtil TIMER = new IntervalUtil(40f, 60f);
+        private static final IntervalUtil TIMER = new IntervalUtil(30f, 50f);
 
         private static final Vector2f BOT_LEFT = new Vector2f();
         private static final Vector2f BOT_RIGHT = new Vector2f();
@@ -139,10 +188,14 @@ public class MissionDefinition implements MissionDefinitionPlugin {
         private static final WeightedRandomPicker<String> BB = new WeightedRandomPicker<>();
         private static final WeightedRandomPicker<String> CIV = new WeightedRandomPicker<>();
         private static final WeightedRandomPicker<String> CIV_NAME = new WeightedRandomPicker<>();
+        private static final WeightedRandomPicker<String> refugeequote = new WeightedRandomPicker<>();
+        private static final WeightedRandomPicker<String> qamarquote = new WeightedRandomPicker<>();
+        private static final WeightedRandomPicker<String> hegemonyquote = new WeightedRandomPicker<>();
 
         @Override
         public void init(CombatEngineAPI engine) {
             runOnce = false;
+            reinforcementarrived = false;
             wave = 0;
 
             BOT_LEFT.set(-(engine.getMapWidth() / 2f), -(engine.getMapHeight() / 2f));
@@ -194,7 +247,7 @@ public class MissionDefinition implements MissionDefinitionPlugin {
             CA.add("heron_Attack", 0.5f);
             CA.add("heron_Strike", 0.5f);
 
-            BB.add("onslaught_xiv_Elite", 0.5f);
+            BB.add("onslaught_xiv_Elite", 0.25f);
             BB.add("onslaught_Standard", 0.5f);
             BB.add("onslaught_Outdated", 0.5f);
 
@@ -203,6 +256,19 @@ public class MissionDefinition implements MissionDefinitionPlugin {
             CIV.add("nebula_Standard");
             CIV.add("starliner_Standard");
             CIV.add("vayra_mendicant_refugee");
+
+            refugeequote.add("Watchers keep us safe!");
+            refugeequote.add("Please help us!");
+            refugeequote.add("What.. has happened to our warriors in the sky?");
+
+            qamarquote.add("We were once all sons and daughters of Kadur. \n I offer my service of vengeance on those who destroyed our home.");
+            qamarquote.add("What they have done is unforgiveable. \n I will overlook our differences for our people. For Kadur!");
+
+            hegemonyquote.add("More hostiles coming our way!");
+            hegemonyquote.add("Brace yourself, they're coming!");
+            hegemonyquote.add("How much more can we take.. more are coming!");
+            hegemonyquote.add("On our tail, they're coming after us!");
+            hegemonyquote.add("More hostiles ahead! Keep the Caliph alive!");
 
             boolean swp = Global.getSettings().getModManager().isModEnabled("swp");
 
@@ -286,14 +352,20 @@ public class MissionDefinition implements MissionDefinitionPlugin {
                                 weapon.disable(true);
                             }
                         }
+                        ship.setHeavyDHullOverlay();
+                        ship.setCurrentCR(0f);
+                        ship.setCRAtDeployment(0f);
                     }
                 }
+                Global.getCombatEngine().getCombatUI().addMessage(1, Global.getCombatEngine().getPlayerShip().getFleetMember(), Misc.getPositiveHighlightColor(), Global.getCombatEngine().getPlayerShip().getName(), Misc.getTextColor(), ":", Global.getSettings().getColor("standardTextColor"), "This is Archmandrite Umayya to all Kadur vessels. Rally at the Hand of God's coordinates. \n This is not over. We will fight another day, but we must evacuate now.");
             }
 
             if (TIMER.intervalElapsed()) {
                 Global.getSoundPlayer().playUISound("cr_allied_critical", 0.77f, 10f);
                 wave++;
                 Vector2f botMid = new Vector2f(0f, -(engine.getMapHeight() / 2f));
+                if (wave % 2f == 1f) { //no more survivors after this.
+                Global.getCombatEngine().getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(true);
                 ShipAPI civ = CombatUtils.spawnShipOrWingDirectly(
                         CIV.pick(),
                         FleetMemberType.SHIP,
@@ -305,34 +377,131 @@ public class MissionDefinition implements MissionDefinitionPlugin {
                 civ.setAlly(true);
                 civ.setRetreating(true, true);
                 civ.setControlsLocked(true);
-                for (Vector2f loc : LOCS) {
-                    if (wave % 2f == 0f) {
-                        List<String> toSpawn = new ArrayList<>();
-                        for (int i = 0; i < wave; i++) {
+                Global.getCombatEngine().getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(false);
+                Global.getCombatEngine().getCombatUI().addMessage(1, civ.getFleetMember(), Misc.getHighlightColor(), civ.getName(), Misc.getTextColor(), ":", Global.getSettings().getColor("standardTextColor"), refugeequote.pick());}
+                MID_LEFT.set(-(engine.getMapWidth() / 2f), 0f);
+                MID_RIGHT.set((engine.getMapWidth() / 2f), 0f);
+                if (wave > 5 && !reinforcementarrived) {
+                    reinforcementarrived = true;
+                    Global.getCombatEngine().getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(true);
+                    ShipAPI ally1 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_camel_qamar_assault",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.75f,
+                            new Vector2f(-(engine.getMapWidth() / 2f), 300f),
+                            0f);
+                    ally1.setOriginalOwner(0);
+                    ally1.setOwner(0);
+                    ally1.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+                    ShipAPI ally2 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_camel_qamar_missile",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.75f,
+                            new Vector2f(-(engine.getMapWidth() / 2f), 600f),
+                            0f);
+                    ally2.setOriginalOwner(0);
+                    ally2.setOwner(0);
+                    ally2.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+                    ShipAPI ally3 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_camel_qamar_torpedo",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.75f,
+                            new Vector2f(-(engine.getMapWidth() / 2f), 900f),
+                            0f);
+                    ally3.setOriginalOwner(0);
+                    ally3.setOwner(0);
+                    ally3.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+                    ShipAPI ally4 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_mendicant_qamar_assault",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.75f,
+                            new Vector2f((engine.getMapWidth() / 2f), 300f),
+                            180f);
+                    ally4.setOriginalOwner(0);
+                    ally4.setOwner(0);
+                    ally4.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+                    ShipAPI ally5 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_mendicant_qamar_missile",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.75f,
+                            new Vector2f((engine.getMapWidth() / 2f), 600f),
+                            180f);
+                    ally5.setOriginalOwner(0);
+                    ally5.setOwner(0);
+                    ally5.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+                    ShipAPI ally6 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_mendicant_qamar_strike",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.75f,
+                            new Vector2f((engine.getMapWidth() / 2f), 900f),
+                            180f);
+                    ally6.setOriginalOwner(0);
+                    ally6.setOwner(0);
+                    ally6.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 2, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 1, new Random()));
+                    ShipAPI ally7 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_prophet_qamar_retribution",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.85f,
+                            new Vector2f(-(engine.getMapWidth() / 2f), 1200f),
+                            0f);
+                    ally7.setOriginalOwner(0);
+                    ally7.setOwner(0);
+                    ally7.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 4, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 3, new Random()));
+                    ShipAPI ally8 = CombatUtils.spawnShipOrWingDirectly(
+                            "vayra_prophet_qamar_retribution",
+                            FleetMemberType.SHIP,
+                            FleetSide.PLAYER,
+                            0.85f,
+                            new Vector2f((engine.getMapWidth() / 2f), 1200f),
+                            180f);
+                    ally8.setOriginalOwner(0);
+                    ally8.setOwner(0);
+                    ally8.setCaptain(OfficerManagerEvent.createOfficer(Global.getSector().getFaction("qamar_insurgency"), 4, OfficerManagerEvent.SkillPickPreference.YES_ENERGY_NO_BALLISTIC_YES_MISSILE_NO_DEFENSE, true, null, true, true, 2, new Random()));
+                    Global.getCombatEngine().getFleetManager(FleetSide.PLAYER).setSuppressDeploymentMessages(false);
+                    Global.getCombatEngine().getCombatUI().addMessage(1, ally7.getFleetMember(), Misc.getHighlightColor(), ally7.getName(), Misc.getTextColor(), ":", Global.getSettings().getColor("standardTextColor"), qamarquote.pick());
+                }
+                boolean doonce = false;
+                if (Global.getCombatEngine().getShips().size() <= 80) { //Prevents spam, but players can probably exploit their way... eh whatever.
+                    for (Vector2f loc : LOCS) {
+                        if (wave % 2f == 0f) {
+                            List<String> toSpawn = new ArrayList<>();
+                            //for (int i = 0; i < wave; i++) { This caused the weird duplication of ships to basically... overwhelm you.
                             for (int ff = 0; ff < wave / 2; ff++) {
                                 toSpawn.add(FF.pick());
                             }
-                            for (int dd = 0; dd < wave / 3; dd++) {
+                            if (dda < 9) for (int dd = 0; dd < wave / 3; dd++) { //Spawn 9 destroyers
                                 toSpawn.add(DD.pick());
+                                dda++;
                             }
-                            for (int ca = 0; ca < wave / 4; ca++) {
+                            if (caa < 6) {for (int ca = 0; ca < wave / 4; ca++) { //Spawn 6 cruisers
                                 toSpawn.add(CA.pick());
-                            }
-                            for (int bb = 0; bb < wave / 5; bb++) {
+                                caa++;
+                            }}
+                            if (bba < 3) {for (int bb = 0; bb < wave / 5; bb++) { //Spawn 3 capitals
                                 toSpawn.add(BB.pick());
+                                bba++;
+                            }}
+                            //}
+                            for (String var : toSpawn) {
+                                Vector2f point = MathUtils.getRandomPointInCircle(loc, 2000f);
+                                ShipAPI enemy = CombatUtils.spawnShipOrWingDirectly(
+                                        var,
+                                        FleetMemberType.SHIP,
+                                        FleetSide.ENEMY,
+                                        0.5f,
+                                        point,
+                                        VectorUtils.getAngle(point, engine.getPlayerShip().getLocation()));
+                                enemy.setOriginalOwner(1);
+                                enemy.setOwner(1);
                             }
-                        }
-                        for (String var : toSpawn) {
-                            Vector2f point = MathUtils.getRandomPointInCircle(loc, 2000f);
-                            ShipAPI enemy = CombatUtils.spawnShipOrWingDirectly(
-                                    var,
-                                    FleetMemberType.SHIP,
-                                    FleetSide.ENEMY,
-                                    0.6f,
-                                    point,
-                                    VectorUtils.getAngle(point, engine.getPlayerShip().getLocation()));
-                            enemy.setOriginalOwner(1);
-                            enemy.setOwner(1);
+                        if (Global.getCombatEngine().getPlayerShip() != null && Global.getCombatEngine().getPlayerShip().getFleetMember() != null && !doonce) {Global.getCombatEngine().getCombatUI().addMessage(1, Global.getCombatEngine().getPlayerShip().getFleetMember(), Misc.getPositiveHighlightColor(), Global.getCombatEngine().getPlayerShip().getName(), Misc.getTextColor(), ":", Global.getSettings().getColor("standardTextColor"), hegemonyquote.pick());doonce = true;}
                         }
                     }
                 }

@@ -1,7 +1,7 @@
 {
   "displayName": "Shotgun",
-  "fluxCapacitors": 4,
-  "fluxVents": 4,
+  "fluxCapacitors": 5,
+  "fluxVents": 5,
   "goalVariant": true,
   "hullId": "vayra_hyena",
   "hullMods": [

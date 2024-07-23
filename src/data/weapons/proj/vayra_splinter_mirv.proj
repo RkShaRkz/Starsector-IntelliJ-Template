@@ -9,6 +9,7 @@
 	"collisionClass":"MISSILE_NO_FF",
 	"explosionColor":[77,241,255,185],  # purely visual, will get a white additively blended core on top of this color
 	"explosionRadius":350, # purely visual
+	"noDebrisWhenDestroyed":true,
 	"maxFlightTime":7,
 	"flameoutTime":3, # total time from flameout to full fadeout
 	"armingTime":0.5,
@@ -46,7 +47,7 @@
 					"damage":60,
 					"emp":0,
 					"damageType":HIGH_EXPLOSIVE,
-					"hitpoints":75,
+					"hitpoints":200,
 					"evenSpread":true,
 					"arc":110,
 					"spreadInaccuracy":45,
@@ -54,6 +55,9 @@
 					"spreadSpeedRange":200,
 					"projectileRange":600, # only needed if not a missile
 					"projectileSpec":"vayra_splintergun_shot_copy",
+					"debrisSmall":0,
+					"debrisMedium":0,
+					"debrisLarge":0,
 					"smokeSpec":{"particleSizeMin":8.0,
 								 "particleSizeRange":12.0,
 								 "cloudParticleCount":12,

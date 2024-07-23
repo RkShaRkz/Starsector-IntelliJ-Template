@@ -62,5 +62,6 @@
     -5
   ],
   "turretSprite": "graphics/weapons/vayra_sling_both.png",
-  "type": "BALLISTIC"
+  "type": "BALLISTIC",
+  "mountTypeOverride":"COMPOSITE",
 }

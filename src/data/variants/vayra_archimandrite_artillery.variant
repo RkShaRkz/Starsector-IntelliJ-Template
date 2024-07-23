@@ -1,6 +1,6 @@
 {
   "displayName": "Artillery",
-  "fluxCapacitors": 13,
+  "fluxCapacitors": 15,
   "fluxVents": 20,
   "goalVariant": true,
   "hullId": "vayra_archimandrite",

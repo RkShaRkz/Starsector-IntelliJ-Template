@@ -1,7 +1,7 @@
 {
   "displayName": "Artillery",
   "fluxCapacitors": 0,
-  "fluxVents": 27,
+  "fluxVents": 28,
   "goalVariant": true,
   "hullId": "vayra_golem",
   "hullMods": [],

@@ -1,7 +1,7 @@
 {
   "displayName": "Torpedo",
   "fluxCapacitors": 0,
-  "fluxVents": 9,
+  "fluxVents": 11,
   "goalVariant": true,
   "hullId": "vayra_falcon_k",
   "hullMods": [

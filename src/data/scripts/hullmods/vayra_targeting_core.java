@@ -51,7 +51,7 @@ public class vayra_targeting_core extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) (RANGE_BONUS) + "%";
+            return (int) (RANGE_BONUS) + "%";
         }
         return null;
     }

@@ -1,7 +1,7 @@
 {
   "displayName": "Overdriven",
   "fluxCapacitors": 0,
-  "fluxVents": 3,
+  "fluxVents": 6,
   "goalVariant": true,
   "hullId": "vayra_camel",
   "hullMods": [

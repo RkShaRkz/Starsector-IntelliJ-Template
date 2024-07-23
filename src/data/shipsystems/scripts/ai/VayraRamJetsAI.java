@@ -1,22 +1,27 @@
 package data.shipsystems.scripts.ai;
 
-import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.CombatAssignmentType;
+import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.CombatEntityAPI;
 import com.fs.starfarer.api.combat.CombatFleetManagerAPI.AssignmentInfo;
+import com.fs.starfarer.api.combat.DamagingProjectileAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.combat.ShipSystemAIScript;
+import com.fs.starfarer.api.combat.ShipSystemAPI;
+import com.fs.starfarer.api.combat.ShipwideAIFlags;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.fleet.FleetGoal;
 import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.IntervalUtil;
+import static data.shipsystems.scripts.vayra_RamJetsStats.RAM_JET_SPEED;
+import java.util.ArrayList;
+import java.util.List;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.VectorUtils;
 import org.lazywizard.lazylib.combat.AIUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.util.vector.Vector2f;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static data.shipsystems.scripts.vayra_RamJetsStats.RAM_JET_SPEED;
 
 public class VayraRamJetsAI implements ShipSystemAIScript {
 
@@ -106,19 +111,19 @@ public class VayraRamJetsAI implements ShipSystemAIScript {
                 if (hasTakenHullDamage && hullDamage >= WOUNDED_DAMAGE_THRESHOLD) {
                     safe = false;
                 }
-
+                
             } else if (test instanceof ShipAPI) {
                 ShipAPI other = (ShipAPI) test;
                 HullSize size = ship.getHullSize();
                 HullSize otherSize = other.getHullSize();
-
+                
                 if (otherSize.compareTo(size) >= 1) {
                     safe = false;
                 }
                 if (hasTakenHullDamage && otherSize.compareTo(size) >= 0) {
                     safe = false;
                 }
-
+                
             }
         }
 
@@ -143,14 +148,14 @@ public class VayraRamJetsAI implements ShipSystemAIScript {
         if (!AIUtils.canUseSystemThisFrame(ship)) {
             return;
         }
-
+        
         // don't use if unsafe
         if (!nothingCanStopMe(ship)) {
             return;
         }
 
         // setup variables
-        boolean useMe = false;
+        //boolean useMe = false;
         Vector2f targetLocation = null;
         AssignmentInfo assignment = engine.getFleetManager(ship.getOwner()).getTaskManager(ship.isAlly()).getAssignmentFor(ship);
         float speed = RAM_JET_SPEED;
@@ -177,32 +182,38 @@ public class VayraRamJetsAI implements ShipSystemAIScript {
         } else if (target != null && target.getOwner() != ship.getOwner()) {
             targetLocation = AIUtils.getBestInterceptPoint(ship.getLocation(), ship.getVelocity().length() + speed, target.getLocation(), target.getVelocity());
         }
-
+        /* EMERGENCY */
+        if ((ship.getFluxTracker().getFluxLevel() >= 0.9f || ship.getHullLevel() <= 0.33f) && flags.hasFlag(AIFlags.HAS_INCOMING_DAMAGE)) {
+            ship.useSystem();
+            return;
+        }
+        
+        int use = 0;
         if (targetLocation == null) {
             return;
         } else if (rightDirection(ship, targetLocation)) {
-            useMe = true;
+            use++;//useMe = true;
         }
 
         for (AIFlags f : TOWARDS) {
             if (flags.hasFlag(f) && rightDirection(ship, targetLocation)) {
-                useMe = true;
+                use++;//useMe = true;
             }
         }
 
         for (AIFlags f : AWAY) {
             if (flags.hasFlag(f) && !rightDirection(ship, targetLocation)) {
-                useMe = true;
+                use++;//useMe = true;
             }
         }
 
         for (AIFlags f : CON) {
             if (flags.hasFlag(f)) {
-                useMe = false;
+                use--;//useMe = false;
             }
         }
 
-        if (useMe) {
+        if (/*useMe*/use > 0) {
             ship.useSystem();
         }
 

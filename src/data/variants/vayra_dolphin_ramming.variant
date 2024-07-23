@@ -6,7 +6,10 @@
   "hullId": "vayra_dolphin",
   "hullMods": [
     "insulatedengine",
-    "reinforcedhull"
+    "reinforcedhull",
+	"heavyarmor",
+	"blast_doors",
+	"armoredweapons"
   ],
   "permaMods": [],
   "variantId": "vayra_dolphin_ramming",

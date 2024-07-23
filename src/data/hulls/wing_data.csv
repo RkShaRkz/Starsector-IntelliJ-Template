@@ -33,7 +33,7 @@ vayra_dervish_wing,vayra_dervish_fighter,"mid, kadur, interceptor3, interceptor,
 vayra_phalanx_wing,vayra_phalanx_fighter,"mid, kadur, fighter4, fighter, kadur_warship_bp",2,,6,8,V,4000,500,,3,FIGHTER,Heavy Fighter,12,7500,2 Fighter
 vayra_neferi_wing,vayra_neferi_fighter,"mid, kadur, fighter2, interceptor, kadur_support_bp",2,,7,10,V,8000,500,900,2,FIGHTER,Heavy Interceptor,15,8000,2 Fighter
 vayra_ghulam_wing,vayra_ghulam_fighter,"mid, kadur, fighter2, fighter, kadur_support_bp, kadur_qamar",2,0.75,8,15,CLAW,6000,500,500,2,FIGHTER,Assault Fighter,20,12000,2 Fighter
-vayra_immortal_wing,vayra_immortal_fighter,"mid, kadur, fighter2, fighter, kadur_warship_bp, kadur_theocracy",3,0.5,14,26,V,4000,500,-400,1,FIGHTER,Assault Corvette,45,30000,2 Fighter
+vayra_immortal_wing,vayra_immortal_fighter,"mid, kadur, fighter2, fighter, kadur_warship_bp, kadur_theocracy",3,0.5,14,26,V,4000,500,-400,1,FIGHTER,Assault Corvette,30,30000,2 Fighter
 ,,,,,,,,,,,,,,,,
 vayra_dirk_wing,vayra_dirk_fighter,"mid, kadur, support2, fighter, kadur_support_bp",2,,10,7,BOX,2000,500,,4,SUPPORT,Support Fighter,10,7500,3 Support
 vayra_arquebusier_wing,vayra_arquebusier_fighter,"mid, kadur, support3, fighter, kadur_support_bp",2,0.75,13,13,BOX,2000,500,,2,SUPPORT,Support Gunship,20,15000,3 Support

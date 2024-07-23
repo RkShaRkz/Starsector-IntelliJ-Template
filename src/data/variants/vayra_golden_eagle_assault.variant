@@ -1,7 +1,7 @@
 {
   "displayName": "Assault",
-  "fluxCapacitors": 10,
-  "fluxVents": 27,
+  "fluxCapacitors": 13,
+  "fluxVents": 30,
   "goalVariant": true,
   "hullId": "vayra_golden_eagle",
   "hullMods": [

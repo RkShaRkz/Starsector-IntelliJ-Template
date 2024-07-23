@@ -55,11 +55,11 @@ public class vayra_RamJetsStats extends BaseShipSystemScript {
                 if (fighter.getOwner() == ship.getOwner()) {
                     continue;
                 }
-                if (fighter.getEngineController().isFlamedOut() || fighter.getEngineController().isFlamingOut()) {
+                if (ship.getMass() > fighter.getMass() && (!fighter.getEngineController().isFlamedOut() || fighter.getEngineController().isFlamingOut())) {
                     fighter.getEngineController().forceFlameout();
                 }
                 
-                float force = FIGHTER_EFFECT_FORCE * amount;
+                float force = /*FIGHTER_EFFECT_FORCE */ ship.getMass() * amount;
                 CombatUtils.applyForce(fighter, VectorUtils.getAngle(fighter.getLocation(), ship.getLocation()), force);
                 
             }

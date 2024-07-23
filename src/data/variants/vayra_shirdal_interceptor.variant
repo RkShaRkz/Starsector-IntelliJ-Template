@@ -1,7 +1,7 @@
 {
   "displayName": "Interceptor",
   "fluxCapacitors": 0,
-  "fluxVents": 7,
+  "fluxVents": 10,
   "goalVariant": true,
   "hullId": "vayra_shirdal",
   "hullMods": [

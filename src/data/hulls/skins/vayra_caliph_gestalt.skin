@@ -1,0 +1,12 @@
+{
+	"baseHullId":"vayra_caliph",
+	"skinHullId":"vayra_caliph_gestalt",
+	"hullName":"Caliph (Gestalt)",
+	"descriptionId":"vayra_caliph",
+	"descriptionPrefix":"This derelict spacecraft has been repurposed as a base of command for its inhabitants. Its engine appears to have been severely damaged beyond immediate repair.",
+	"addHints":["STATION","UNBOARDABLE"],
+	"restoreToBaseHull":false,
+	#"removeWeaponSlots":["SECTION_ENGINE_LEFT","SECTION_ENGINE_RIGHT"], 		# ids
+	"systemId":"",
+	"builtInMods":["degraded_engines","degraded_drive_field","faulty_grid","additional_berthing"],
+}

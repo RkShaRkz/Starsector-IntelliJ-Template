@@ -17,6 +17,9 @@
   "noShieldImpactSounds": false,
   "projectileSpecId": "vayra_spike_torpedo",
   "renderAboveAllWeapons": 0,
+  "renderHints": [
+    RENDER_LOADED_MISSILES
+  ],
   "size": "MEDIUM",
   "smokeSpec": {
     "blowbackDuration": 2,

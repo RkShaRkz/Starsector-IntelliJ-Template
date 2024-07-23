@@ -3,7 +3,7 @@
   "hullId": "vayra_archimandrite",
   "displayName": "Shockweb",
   "goalVariant": true,
-  "fluxCapacitors": 1,
+  "fluxCapacitors": 4,
   "fluxVents": 20,
   "quality": 0,
   "permaMods": [],

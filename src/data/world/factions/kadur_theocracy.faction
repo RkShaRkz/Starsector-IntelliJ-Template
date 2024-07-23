@@ -76,6 +76,7 @@
 	"knownWeapons":{
         "tags":["kadur","kadur_theocracy"],
         "weapons":[
+			"pdburst",
         ],
     },
 	"priorityWeapons":{
@@ -86,6 +87,7 @@
 	"knownHullMods":{
 		"tags":["base_bp","midline_bp","kadur","kadur_theocracy"],
 		"hullMods":[
+		"converted_hangar"
 		],
 	},
 	"illegalCommodities":[

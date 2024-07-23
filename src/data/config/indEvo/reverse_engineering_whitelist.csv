@@ -1,0 +1,28 @@
+id
+# NOTES
+# Ship IDs entered here will be allowed by the Engineering hub (Reverse Engineering ship hulls)
+# Ships that would break the game (Balance/Technical/Lore) if the player could produce them via blueprint should not be on this list.
+
+vayra_mendicant
+vayra_hyena
+vayra_buzzard
+vayra_camel
+vayra_dolphin
+vayra_falchion
+vayra_archimandrite
+vayra_targe
+vayra_sunbird
+vayra_shirdal
+vayra_sirocco
+vayra_rukh
+vayra_golden_eagle
+vayra_golem
+vayra_sphinx
+vayra_ziz
+vayra_seraph
+vayra_prophet
+vayra_camel_qamar
+vayra_falchion_p
+vayra_eagle_k
+vayra_falcon_k
+vayra_camel_p

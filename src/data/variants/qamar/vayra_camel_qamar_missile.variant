@@ -4,7 +4,7 @@
   "displayName": "Torpedo Support",
   "goalVariant": true,
   "fluxCapacitors": 10,
-  "fluxVents": 1,
+  "fluxVents": 3,
   "quality": 0,
   "permaMods": [],
   "hullMods": [

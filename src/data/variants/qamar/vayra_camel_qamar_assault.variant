@@ -3,7 +3,7 @@
   "hullId": "vayra_camel_qamar",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 2,
+  "fluxCapacitors": 6,
   "fluxVents": 10,
   "quality": 0,
   "permaMods": [],

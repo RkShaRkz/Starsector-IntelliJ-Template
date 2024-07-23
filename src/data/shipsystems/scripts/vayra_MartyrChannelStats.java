@@ -9,6 +9,7 @@ import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
+import com.fs.starfarer.api.util.Misc;
 import java.util.HashMap;
 import java.util.Map;
 import org.lazywizard.lazylib.MathUtils;
@@ -30,6 +31,7 @@ public class vayra_MartyrChannelStats extends BaseShipSystemScript {
     public static final Color JITTER_COLOR = new Color(33, 106, 109, 255);
     
     private boolean useful;
+    private float buffLevel;
     
     @Override
     public void apply(MutableShipStatsAPI stats, String id, ShipSystemStatsScript.State state, float effectLevel) {
@@ -45,6 +47,7 @@ public class vayra_MartyrChannelStats extends BaseShipSystemScript {
         }
         
         useful = false;
+        buffLevel = 0;
         
         for (ShipAPI fighter : getFighters(ship)) {
 
@@ -141,8 +144,7 @@ public class vayra_MartyrChannelStats extends BaseShipSystemScript {
                 continue;
             }
             MutableShipStatsAPI fStats = fighter.getMutableStats();
-            fStats.getArmorDamageTakenMult().unmodify(MARTYR_CHANNEL_BUFF_ID + fighter.getOwner());
-            fStats.getHullDamageTakenMult().unmodify(MARTYR_CHANNEL_BUFF_ID + fighter.getOwner());
+            fStats.getDamageToFighters().unmodifyPercent(MARTYR_CHANNEL_BUFF_ID);
             fStats.getAcceleration().unmodify(MARTYR_CHANNEL_BUFF_ID + fighter.getOwner());
             fStats.getDeceleration().unmodify(MARTYR_CHANNEL_BUFF_ID + fighter.getOwner());
             fStats.getTurnAcceleration().unmodify(MARTYR_CHANNEL_BUFF_ID + fighter.getOwner());
@@ -154,6 +156,9 @@ public class vayra_MartyrChannelStats extends BaseShipSystemScript {
     @Override
     public ShipSystemStatsScript.StatusData getStatusData(int index, ShipSystemStatsScript.State state, float effectLevel) {
         if (useful) {
+            if (index == 2) {
+                return new ShipSystemStatsScript.StatusData(Misc.getRoundedValue(buffLevel*100)+"% bonus", false);
+            }
             if (index == 1) {
                 return new ShipSystemStatsScript.StatusData("outnumbered? i like those odds", false);
             }
@@ -162,10 +167,10 @@ public class vayra_MartyrChannelStats extends BaseShipSystemScript {
             }
         } else {
             if (index == 1) {
-                return new ShipSystemStatsScript.StatusData("what's the point? we outnumber them", false);
+                return new ShipSystemStatsScript.StatusData("what's the point? we outnumber them", true);
             }
             if (index == 0) {
-                return new ShipSystemStatsScript.StatusData("mommy told me to always fight fair", false);
+                return new ShipSystemStatsScript.StatusData("mommy told me to always fight fair", true);
             }
         }
         return null;

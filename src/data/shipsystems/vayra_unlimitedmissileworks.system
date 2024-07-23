@@ -7,6 +7,7 @@
 	
 	"weaponTypes":[MISSILE],
 	"minFractionToReload":0.75,
+	"weaponGlowColor":[255,0,0,255],
 	
 	"useSound":"system_forgevats",
 	"outOfUsesSound":"gun_out_of_ammo",

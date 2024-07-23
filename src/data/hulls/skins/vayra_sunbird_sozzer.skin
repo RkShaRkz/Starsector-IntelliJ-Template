@@ -12,7 +12,7 @@
   ],
   "removeBuiltInMods":["eccm"], 		# hullmod ids
   "removeBuiltInWings": [
-    "vayra_termite_wing"
+    "vayra_sunbird_builtin_wing"
   ],
   "builtInWings": [
     "vayra_pirate_harpoondrone_wing"

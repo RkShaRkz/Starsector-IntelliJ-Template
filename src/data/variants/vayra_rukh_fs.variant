@@ -3,8 +3,8 @@
   "hullId": "vayra_rukh",
   "displayName": "Fire Support",
   "goalVariant": true,
-  "fluxCapacitors": 0,
-  "fluxVents": 19,
+  "fluxCapacitors": 5,
+  "fluxVents": 20,
   "quality": 0,
   "permaMods": [],
   "hullMods": [

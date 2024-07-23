@@ -3,7 +3,7 @@
   "hullId": "vayra_camel",
   "displayName": "Shotgun",
   "goalVariant": true,
-  "fluxCapacitors": 2,
+  "fluxCapacitors": 5,
   "fluxVents": 10,
   "quality": 0,
   "permaMods": [],

@@ -13,6 +13,7 @@
 	"maxFlightTime":2,
 	"fadeTime":0.33,
 	"noEngineGlowTime":3,
+	"noDebrisWhenDestroyed":true,
 	"engineSpec":{"turnAcc":1312,
 				  "turnRate":45, 
 				  "acc":666,

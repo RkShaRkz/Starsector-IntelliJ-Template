@@ -1,0 +1,20 @@
+{
+	"industries":{
+		"vayra_kadurholyfleet":{
+			"tags":["resistBombard"],
+			"strengthMult":1.4,
+			"troopCounts":{
+				"marine":0.25,
+				"heavy":0.25,
+			},
+		},
+		"vayra_qamarheadquarters":{
+			"tags":["resistBombard"],
+			"strengthMult":1.2,
+			"troopCounts":{
+				"marine":0.2,
+				"heavy":0.1,
+			},	
+		},
+	},
+}

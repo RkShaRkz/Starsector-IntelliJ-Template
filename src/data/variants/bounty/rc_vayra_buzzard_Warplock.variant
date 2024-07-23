@@ -1,7 +1,7 @@
 {
     "displayName": "Warplock",
-    "fluxCapacitors": 8,
-    "fluxVents": 4,
+    "fluxCapacitors": 10,
+    "fluxVents": 5,
     "hullId": "vayra_buzzard",
 	"goalVariant": true,
     "hullMods": ["vayra_secret_buff_hullmod"],

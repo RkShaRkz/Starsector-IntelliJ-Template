@@ -14,3 +14,5 @@ Alerted by the lack of communication from the now-lost vessels, the Hegemony com
 You are Cardinal Avengant Osman Abbas III, commanding the Kadur counterattack through the jump point into hyperspace. Your flagship - the KHS Holy Sword - is one of the mightiest vessels the Kadur Theocracy is able to construct, with excellent performance against the ponderous heavy vessels and unshielded strike craft of the Hegemony. As the thunderous recoil of its cannons shakes your bridge, you grip the edge of your command console with grim intent. Your bridge crew stands at their stations, brass and ivory masks impassive as they regard the forces arrayed against you and the longscan beeps urgently, warning of the oncoming hostile fleet proper. Your cleric-adjutant turns to you expectantly, ready to relay your orders.
 
 You have only one to give: 'Destroy the invaders. The Theocracy must be defended. Watchers protect us.'
+***
+Campaign Reward: Check the Mirage jump point.

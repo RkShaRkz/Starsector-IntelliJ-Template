@@ -23,7 +23,8 @@
 	"WS0006":{
 		"mount": "HARDPOINT",
 		"size": "MEDIUM",
-		"type": "MISSILE"
+		"type": "MISSILE",
+		"arc": 10,
 		}
 	},  
 }

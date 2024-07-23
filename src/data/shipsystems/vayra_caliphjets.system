@@ -4,7 +4,7 @@
     "aiType":"CUSTOM",
     "aiScript":"data.shipsystems.scripts.ai.VayraRamJetsAI",
 	
-	"statsScript":"data.shipsystems.scripts.vayra_RamJetsStats",
+	"statsScript":"data.shipsystems.scripts.VayraCaliphJetsStats",
 	
 	"jitterUnderColor":[255,165,90,155],
 	"jitterUnderCopies":10,

@@ -1,7 +1,7 @@
 {
   "displayName": "Crystalline",
   "fluxCapacitors": 0,
-  "fluxVents": 13,
+  "fluxVents": 15,
   "goalVariant": true,
   "hullId": "vayra_falchion",
   "hullMods": [

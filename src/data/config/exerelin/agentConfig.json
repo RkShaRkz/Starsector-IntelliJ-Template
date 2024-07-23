@@ -1,0 +1,10 @@
+{
+	"industrySuccessMods":{
+		"vayra_kadurholyfleet":-0.25,
+		"vayra_qamarheadquarters":-0.4,
+	},
+	"industryDetectionMods":{
+		"vayra_kadurholyfleet":0.5,
+		"vayra_qamarheadquarters":1,
+	},
+}

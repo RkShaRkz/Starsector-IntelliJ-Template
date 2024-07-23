@@ -1,6 +1,6 @@
 {
   "displayName": "Artillery",
-  "fluxCapacitors": 5,
+  "fluxCapacitors": 13,
   "fluxVents": 30,
   "goalVariant": true,
   "hullId": "vayra_sphinx",

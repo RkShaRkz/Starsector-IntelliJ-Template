@@ -11,7 +11,8 @@
         "fluxbreakers",
         "fluxdistributor",
         "stabilizedshieldemitter",
-        "pointdefenseai"
+        "pointdefenseai",
+		"targetingunit"
   ],
   "weaponGroups": [
         {

@@ -3,7 +3,7 @@
   "hullId": "vayra_sphinx",
   "displayName": "Assault",
   "goalVariant": true,
-  "fluxCapacitors": 21,
+  "fluxCapacitors": 26,
   "fluxVents": 30,
   "quality": 0,
   "permaMods": [],

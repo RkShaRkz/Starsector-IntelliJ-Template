@@ -1,7 +1,7 @@
 {
   "displayName": "Crusade",
-  "fluxCapacitors": 0,
-  "fluxVents": 49,
+  "fluxCapacitors": 8,
+  "fluxVents": 50,
   "goalVariant": true,
   "hullId": "vayra_seraph",
   "hullMods": [

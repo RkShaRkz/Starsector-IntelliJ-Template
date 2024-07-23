@@ -1,7 +1,7 @@
 {
   "displayName": "Reckoning",
-  "fluxCapacitors": 0,
-  "fluxVents": 45,
+  "fluxCapacitors": 3,
+  "fluxVents": 50,
   "goalVariant": true,
   "hullId": "vayra_prophet",
   "hullMods": [

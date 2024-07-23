@@ -3,8 +3,10 @@ package data.shipsystems.scripts;
 import java.awt.Color;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ShipwideAIFlags;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
+import com.fs.starfarer.api.util.Misc;
 
 public class vayra_FluxOverdriveStats extends BaseShipSystemScript {
 
@@ -40,6 +42,7 @@ public class vayra_FluxOverdriveStats extends BaseShipSystemScript {
             stats.getTurnAcceleration().modifyFlat(id, TURN_BONUS * 2f * effectLevel);
             stats.getMaxTurnRate().modifyFlat(id, TURN_BONUS * effectLevel);
             stats.getFluxDissipation().modifyMult(id, 1f + (FLUX_BONUS * effectLevel));
+            if (ship.getHullLevel() >= 0.25f) ship.getAIFlags().setFlag(ShipwideAIFlags.AIFlags.DO_NOT_BACK_OFF, 1f);
         }
     }
 
@@ -75,7 +78,7 @@ public class vayra_FluxOverdriveStats extends BaseShipSystemScript {
     public StatusData getStatusData(int index, State state, float effectLevel) {
 
         if (index == 2) {
-         	return new StatusData("+" + (int) SPEED_BONUS + " top speed", false);
+         	return new StatusData("+" + Misc.getRoundedValue(SPEED_BONUS * effectLevel) + " top speed", false);
         } 
         if (index == 1) {
             return new StatusData("+" + (int) ((100f * FLUX_BONUS) * effectLevel) + "% flux dissipation", false);

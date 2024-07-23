@@ -4,18 +4,26 @@
     "morality":"good",
     "alignments":{
         "corporate":-1,
-        "technocratic":-1,
-        "militarist":-0.1,
+        "technocratic":-0.5,
+        "militarist":-0.2,
         "diplomatic":0.5,
         "ideological":0.8,
     },
 	
-	"diplomacyTraits":["pacifist", "stalwart", "selfrighteous", "hates_ai", "envious", "irredentist"],
+	#"diplomacyTraits":["pacifist", "stalwart", "selfrighteous", "hates_ai", "envious", "irredentist"], no thank you!
+	"diplomacyTraits":["stalwart", "selfrighteous", "hates_ai", "lowprofile", "irredentist"],
 	
-    "maxRelationships":{ "hegemony":-0.6 },
-    "diplomacyPositiveChance":{ "hegemony":0.75 },
+    #"maxRelationships":{ "hegemony":-0.6 }, this always causes conflict, let's hold off on it
+	"maxRelationships":{ "hegemony":-0.4},
+    "diplomacyPositiveChance":{ "hegemony":0.5 }, #from 0.75
     "diplomacyNegativeChance":{ "hegemony":1.5 },
-	
+	"dispositions":{
+		"hegemony":-75,
+		"luddic_church": -30,
+		"luddic_path": -50,
+		"tritachyon":-25
+	},
+	"useConfigRelationshipsInNonRandomSector":true,
     "startRelationships":{
 		"shadow_industry":0.45,	# longtime kadur trade partner and maybe the only good guys in the sector
 		"blackrock_driveyards":0.45,	# longtime kadur trade partner, they are kinda bad ppl tho
@@ -29,6 +37,7 @@
 		"independent":-0.2,	# who are you? we don't trust you
 		"scavengers":-0.2,	# who are you? we don't trust you
 		"asp_syndicate":-0.2,	# the theocracy's tradepartners, but they broke contact after the regime change...
+		"default": -0.2, #aka this is how you do it
 		# assume if your mod faction isn't listed they should be suspicious too	
 		# i just didn't want to clutter too much... heh	
 		# Tyrador	
@@ -75,7 +84,7 @@
 		"COPS":-1,	# ACAB
 		"new_galactic_order":-1,	# NAZI NERDS FUCK OFF
     },
-    "miningVariantsOrWings":["vayra_sirocco_a", "vayra_sirocco_cs", "vayra_sirocco_f", "vayra_sirocco_m"],
+    "miningVariantsOrWings":["vayra_sirocco_logistics"],
 	
     "baseFleetCostMultiplier":1.0,
     "spawnMarketShare":0.2,

@@ -1,6 +1,6 @@
 {
   "displayName": "Inquisition",
-  "fluxCapacitors": 2,
+  "fluxCapacitors": 12,
   "fluxVents": 50,
   "goalVariant": true,
   "hullId": "vayra_seraph",

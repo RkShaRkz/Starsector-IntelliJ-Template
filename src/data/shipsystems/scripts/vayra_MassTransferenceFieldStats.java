@@ -1,33 +1,37 @@
 package data.shipsystems.scripts;
 
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.*;
+import com.fs.starfarer.api.combat.CombatEngineAPI;
+import com.fs.starfarer.api.combat.DamageType;
+import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.ViewportAPI;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
-import org.lazywizard.lazylib.MathUtils;
-import org.lazywizard.lazylib.VectorUtils;
+import static com.fs.starfarer.api.plugins.ShipSystemStatsScript.State.ACTIVE;
+import static data.scripts.KadurModPlugin.Rotate;
+import java.io.IOException;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static com.fs.starfarer.api.plugins.ShipSystemStatsScript.State.ACTIVE;
-import static data.scripts.VayraMergedModPlugin.Rotate;
 import static org.lwjgl.opengl.GL11.*;
+import java.util.HashMap;
+import java.util.Map;
+import org.lazywizard.lazylib.MathUtils;
+import org.lazywizard.lazylib.VectorUtils;
 
 public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
 
     /////////////////////CONFIG/////////////////////
     // effect radius, both visual and mechanical
-    public static final float EFFECT_RADIUS = 2000f;
-
+    public static final float EFFECT_RADIUS = 1800f;
+    
     public static final String KADUR_IFF_HULLMOD = "vayra_kadur_iff";
 
     // sprite path - necessary if loaded here and not in settings.json
@@ -42,7 +46,7 @@ public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
     // debuffs to fighters under effect
     public static final float DAMAGE_INCREASE_PERCENT = 25;
     public static final float MANEUVERABILITY_DECREASE_PERCENT = 50;
-    public static final float SPEED_DECREASE_PERCENT = 25;
+    public static final float SPEED_DECREASE_PERCENT = 50;
     // EMP arc to affected fighters every X seconds
     // does energy and EMP damage, both equal to MIN_DAMAGE + (MAX_DAMAGE * random())
     public static final float ARC_TIMER = 5f;
@@ -84,13 +88,29 @@ public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
 
         if (effectLevel <= 0.001f) {
             effectTimer = 0f;
+            for (ShipAPI fighter : fighters.keySet()) {
+                if (fighter.isHulk()) {
+                    continue;
+                }
+                if (!fighter.isFighter()) {
+                    continue;
+                }
+                MutableShipStatsAPI fStats = fighter.getMutableStats();
+                fStats.getArmorDamageTakenMult().unmodify(id);
+                fStats.getHullDamageTakenMult().unmodify(id);
+                fStats.getAcceleration().unmodify(id);
+                fStats.getDeceleration().unmodify(id);
+                fStats.getTurnAcceleration().unmodify(id);
+                fStats.getMaxTurnRate().unmodify(id);
+                fStats.getMaxSpeed().unmodify(id);
+            }
             fighters.clear();
             return;
         }
 
         final Vector2f loc = ship.getLocation();
         final ViewportAPI view = Global.getCombatEngine().getViewport();
-        if (view.isNearViewport(loc, EFFECT_RADIUS)) {
+        if (view.isNearViewport(loc, ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS))) {
             glPushAttrib(GL_ENABLE_BIT);
             glMatrixMode(GL_PROJECTION);
             glPushMatrix();
@@ -98,11 +118,12 @@ public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
             glOrtho(0.0, Display.getWidth(), 0.0, Display.getHeight(), -1.0, 1.0);
             glEnable(GL_TEXTURE_2D);
             glEnable(GL_BLEND);
-            final float radius = (EFFECT_RADIUS * 2f * effectLevel) / view.getViewMult();
+            float scale = Global.getSettings().getScreenScaleMult();
+            float radius = (ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS) * 2f * effectLevel) * scale / view.getViewMult();
             sprite.setSize(radius, radius);
             sprite.setColor(COLOR);
             sprite.setAlphaMult(effectLevel * 0.5f);
-            sprite.renderAtCenter(view.convertWorldXtoScreenX(loc.x), view.convertWorldYtoScreenY(loc.y));
+            sprite.renderAtCenter(view.convertWorldXtoScreenX(loc.x) * scale, view.convertWorldYtoScreenY(loc.y) * scale);
             sprite.setAngle(rotation);
             glPopMatrix();
             glPopAttrib();
@@ -125,7 +146,7 @@ public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
             speed = (float) (100f + (Math.random() * 200f));
             brightness = (float) (1f + (Math.random() * 1f));
             duration = (float) (0.4f + (Math.random() * 0.6f));
-            location = MathUtils.getRandomPointInCircle(ship.getLocation(), EFFECT_RADIUS);
+            location = MathUtils.getRandomPointInCircle(ship.getLocation(), ship.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS));
             velocity = MathUtils.getPointOnCircumference(location, speed, VectorUtils.getAngle(location, ship.getLocation()));
             engine.addSmoothParticle(location, velocity, size, brightness, duration, COLOR.brighter());
         }
@@ -210,7 +231,7 @@ public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
     private List<ShipAPI> getOtherFightersWithinRange(ShipAPI carrier, float effectLevel) {
         List<ShipAPI> result = new ArrayList<>();
 
-        for (ShipAPI fighter : CombatUtils.getShipsWithinRange(carrier.getLocation(), EFFECT_RADIUS * effectLevel)) {
+        for (ShipAPI fighter : CombatUtils.getShipsWithinRange(carrier.getLocation(), carrier.getMutableStats().getSystemRangeBonus().computeEffective(EFFECT_RADIUS) * effectLevel)) {
             if (!fighter.isFighter()) {
                 continue;
             }
@@ -232,7 +253,7 @@ public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
     }
 
     // apparently this doesn't get called b/c i set the script to run while idle
-    @Override
+    /*@Override
     public void unapply(MutableShipStatsAPI stats, String id) {
         for (ShipAPI fighter : Global.getCombatEngine().getShips()) {
             if (fighter.isHulk()) {
@@ -250,7 +271,7 @@ public class vayra_MassTransferenceFieldStats extends BaseShipSystemScript {
             fStats.getMaxTurnRate().unmodify(id);
             fStats.getMaxSpeed().unmodify(id);
         }
-    }
+    }*/
 
     // status data for player
     @Override

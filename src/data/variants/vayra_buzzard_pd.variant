@@ -1,7 +1,7 @@
 {
   "displayName": "Point Defense",
   "fluxCapacitors": 0,
-  "fluxVents": 5,
+  "fluxVents": 8,
   "goalVariant": true,
   "hullId": "vayra_buzzard",
   "hullMods": [],

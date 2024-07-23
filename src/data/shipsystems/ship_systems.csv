@@ -29,5 +29,5 @@ Martyr Channel,vayra_martyrchannel,,,,,,,,,,0.5,10,0.5,10,,,,,,,,,,,graphics/ico
 Flare Launcher,vayra_caliphflares,,,,,,,,2,0.05,,,,0.5,,,,,,,,,,,graphics/icons/hullsys/flare_launcher.png
 Mass-Displacement Shunt Drive,vayra_phaseshunt,,,,,,,,2,0.1,0.25,,0.25,0,,TRUE,,TRUE,,,,,TRUE,,graphics/icons/hullsys/vayra_phaseshunt.png
 Capital Shunt Drive,vayra_phaseshunt_capital,,,,,,0.2,,2,0.05,0.25,,0.25,0,,TRUE,,TRUE,,,,,TRUE,,graphics/icons/hullsys/vayra_phaseshunt.png
-Weapons Drive Redirect,vayra_weaponsdrive,,,,,,,,,,1,2,1,12,,,,,,,TRUE,TRUE,TRUE,,graphics/icons/hullsys/ammo_feeder.png
-Unlimited Missile Works,vayra_unlimitedmissileworks,,,0.11875,,,,,1,0.015,8,0,0,0,,TRUE,,,TRUE,,,,TRUE,TRUE,graphics/icons/hullsys/missile_autoforge.png
+Weapons Drive Redirect,vayra_weaponsdrive,,,,,,,,2,0.07,1,1.5,1,0,,,,,,,TRUE,TRUE,TRUE,,graphics/icons/hullsys/ammo_feeder.png
+Unlimited Missile Works,vayra_unlimitedmissileworks,,,0.11875,,,,,1,0.015,1,6,1,0,,TRUE,,,TRUE,,,,TRUE,TRUE,graphics/icons/hullsys/missile_autoforge.png

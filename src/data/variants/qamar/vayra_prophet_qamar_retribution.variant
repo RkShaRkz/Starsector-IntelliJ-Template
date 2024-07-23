@@ -1,0 +1,85 @@
+{
+    "displayName": "Retribution",
+    "fluxCapacitors": 28,
+    "fluxVents": 50,
+    "hullId": "vayra_prophet_qamar",
+    "hullMods": [],
+    "permaMods": [],
+    "sMods": [],
+    "variantId": "vayra_prophet_qamar_retribution",
+    "weaponGroups": [
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {"WS0005": "vayra_spike_battery"}
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS0028": "vayra_jericho_sml",
+                "WS0029": "vayra_jericho_sml",
+                "WS0030": "vayra_jericho_sml",
+                "WS0031": "vayra_jericho_sml",
+                "WS0032": "vayra_jericho_sml",
+                "WS0033": "vayra_jericho_sml"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0002": "vayra_jahannam",
+                "WS0003": "vayra_jahannam"
+            }
+        },
+        {
+            "autofire": false,
+            "mode": "ALTERNATING",
+            "weapons": {
+                "WS0004": "vayra_joachim",
+                "WS0007": "vayra_joachim"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0010": "vayra_ercannon",
+                "WS0011": "vayra_ercannon",
+                "WS0025": "vayra_ercannon",
+                "WS0026": "vayra_ercannon"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0012": "vayra_ercannon",
+                "WS0014": "vayra_ercannon"
+            }
+        },
+        {
+            "autofire": true,
+            "mode": "LINKED",
+            "weapons": {
+                "WS0001": "vayra_microimpulsor",
+                "WS0006": "vayra_microimpulsor",
+                "WS0008": "vayra_microimpulsor",
+                "WS0009": "vayra_microimpulsor",
+                "WS0013": "vayra_microimpulsor",
+                "WS0015": "vayra_microimpulsor",
+                "WS0016": "vayra_microimpulsor",
+                "WS0017": "vayra_microimpulsor",
+                "WS0018": "vayra_microimpulsor",
+                "WS0019": "vayra_microimpulsor",
+                "WS0020": "vayra_microimpulsor",
+                "WS0021": "vayra_microimpulsor",
+                "WS0022": "vayra_microimpulsor",
+                "WS0023": "vayra_microimpulsor",
+                "WS0024": "vayra_dual_ciws_beam",
+                "WS0027": "vayra_dual_ciws_beam"
+            }
+        }
+    ]
+}

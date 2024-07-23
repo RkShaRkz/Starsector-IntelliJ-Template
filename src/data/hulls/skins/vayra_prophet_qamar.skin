@@ -1,0 +1,138 @@
+{
+	"baseHullId":"vayra_prophet",
+	"skinHullId":"vayra_prophet_qamar",
+	"hullName":"Prophet (Q)",
+	"restoreToBaseHull": false,
+	"descriptionId":"vayra_prophet",  # optional
+	"descriptionPrefix":"This ship is one of the original vessels brought with the Qamar Insurgency in their long exile from Kadur, heavily modified over the cycles to fit their fleet doctrine of aggressive hit-and-run tactics.",
+	"tags":["kadur_qamar"],
+	"addHints":[HIDE_IN_CODEX],
+	"tech":"Qamar Insurgency",
+	"spriteName":"graphics/ships/vayra_prophet_qamar.png",
+	"baseValueMult":1.5,
+	"removeWeaponSlots":[], 		# ids
+	"removeEngineSlots":[], 		# indices, as engine slots have no id in the .ship file
+	"removeBuiltInMods":[], 		# hullmod ids
+	"removeBuiltInWeapons":[], 		# weapon slot ids
+	"builtInMods":["fluxbreakers","auxiliarythrusters"],
+    "weaponSlotChanges":{
+		"WS0013":{
+		  "type": "ENERGY",
+		},
+		"WS0015":{
+		  "type": "ENERGY",
+		},
+		"WS0025":{
+		  "type": "HYBRID",
+		},
+		"WS0026":{
+		  "type": "HYBRID",
+		},
+		"WS0004":{
+		  "type": "ENERGY",
+		  "arc": 145, #160
+		  "angle": -30, #-45
+		},
+		"WS0007":{
+		  "type": "ENERGY",
+		  "arc": 145, #160
+		  "angle": 30, #45
+		},
+		"WS0002":{
+		  "type": "HYBRID",
+		},
+		"WS0003":{
+		  "type": "HYBRID",
+		},
+		"WS0001":{
+		  "type": "ENERGY",
+		},
+		"WS0006":{
+		  "type": "ENERGY",
+		},
+		"WS0008":{
+		  "type": "ENERGY",
+		},
+		"WS0009":{
+		  "type": "ENERGY",
+		},
+		"WS0010":{
+		  "type": "HYBRID",
+		},
+		"WS0011":{
+		  "type": "HYBRID",
+		},
+		"WS0012":{
+		  "type": "HYBRID",
+		},
+		"WS0014":{
+		  "type": "HYBRID",
+		},
+		"WS0016":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0017":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0018":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0019":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0020":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0021":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0022":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0023":{
+		  #"type": "ENERGY",
+		  "type": "BUILT_IN",
+		},
+		"WS0024":{
+		  "type": "HYBRID",
+		},
+		"WS0027":{
+		  "type": "HYBRID",
+		},
+		"WS0031":{
+            "type": "SYNERGY"
+		},
+		"WS0032":{
+            "type": "SYNERGY"
+		},
+		"WS0028":{
+            "type": "SYNERGY"
+		},
+		"WS0029":{
+            "type": "SYNERGY"
+		},
+		"WS0030":{
+            "type": "SYNERGY"
+		},
+		"WS0033":{
+            "type": "SYNERGY"
+		}
+	}, 
+    "builtInWeapons":{
+		"WS0023":"vayra_microimpulsor",
+		"WS0022":"vayra_microimpulsor",
+		"WS0021":"vayra_microimpulsor",
+		"WS0020":"vayra_microimpulsor",
+		"WS0019":"vayra_microimpulsor",
+		"WS0018":"vayra_microimpulsor",
+		"WS0017":"vayra_microimpulsor",
+		"WS0016":"vayra_microimpulsor"
+    },  
+}
