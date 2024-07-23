@@ -21,28 +21,17 @@ public class VayraAntiFighterAI implements MissileAIPlugin, GuidedMissileAI {
     private final int SEARCH_CONE = 360;          // Arc to look for targets in (360 = ignore)
     private final int MAX_SEARCH_RANGE = 2000;  // range in which the missile seek a target in game units.
     private final boolean FAILSAFE = false;     // should the missile fall back to the closest enemy when no target is found within the search parameters
-    private float PRECISION_RANGE = 200f;          // range under which the missile start to get progressively more precise in game units.
     private final boolean LEADING = true;         // Is the missile lead the target or tailchase it?
-
-    // Leading loss without ECCM hullmod. The higher, the less accurate the leading calculation will be.
-    //   1: perfect leading with and without ECCM
-    //   2: half precision without ECCM
-    //   3: a third as precise without ECCM. Default
-    //   4, 5, 6 etc : 1/4th, 1/5th, 1/6th etc precision.
-    private float ECCM = 2;   // A VALUE BELOW 1 WILL PREVENT THE MISSILE FROM EVER HITTING ITS TARGET!
-
     private final int fighters = 1;                       //Target class priorities, 0 = ignore
     private final int frigates = 0;                       //Target class priorities, 0 = ignore
     private final int destroyers = 0;                     //Target class priorities, 0 = ignore
     private final int cruisers = 0;                       //Target class priorities, 0 = ignore
     private final int capitals = 0;                       //Target class priorities, 0 = ignore
-
     // Does the missile try to correct it's velocity vector as fast as possible or just point to the desired direction and drift a bit?
     //  Requires a projectile with a decent turn rate and around twice that in turn acceleration
-    //  Useful for slow torpedoes with low forward acceleration, or ultra precise anti-fighter missiles.     
+    //  Useful for slow torpedoes with low forward acceleration, or ultra precise anti-fighter missiles.
     private final boolean OVERSTEER = true;  // REQUIRES NO OVERSHOT ANGLE!
-
-    //Does the missile find a random target or aways tries to hit the ship's one?    
+    //Does the missile find a random target or aways tries to hit the ship's one?
     /*
      *  NO_RANDOM,
      * If the launching ship has a valid target within arc, the missile will pursue it.
@@ -62,15 +51,21 @@ public class VayraAntiFighterAI implements MissileAIPlugin, GuidedMissileAI {
      *
      */
     private final MagicTargeting.targetSeeking seeking = MagicTargeting.targetSeeking.LOCAL_RANDOM;
+    private final float MAX_SPEED; // max speed of the missile after modifiers.
+    private final float OFFSET; // Random starting offset for the waving.
 
     //////////////////////
     //    VARIABLES     //
     //////////////////////
-
-    private final float MAX_SPEED; // max speed of the missile after modifiers.
-    private final float OFFSET; // Random starting offset for the waving.
-    private CombatEngineAPI engine;
     private final MissileAPI MISSILE;
+    private float PRECISION_RANGE = 200f;          // range under which the missile start to get progressively more precise in game units.
+    // Leading loss without ECCM hullmod. The higher, the less accurate the leading calculation will be.
+    //   1: perfect leading with and without ECCM
+    //   2: half precision without ECCM
+    //   3: a third as precise without ECCM. Default
+    //   4, 5, 6 etc : 1/4th, 1/5th, 1/6th etc precision.
+    private float ECCM = 2;   // A VALUE BELOW 1 WILL PREVENT THE MISSILE FROM EVER HITTING ITS TARGET!
+    private CombatEngineAPI engine;
     private CombatEntityAPI target;
     private Vector2f lead = new Vector2f();
     private boolean launch = true;
@@ -98,10 +93,6 @@ public class VayraAntiFighterAI implements MissileAIPlugin, GuidedMissileAI {
             this.engine = Global.getCombatEngine();
         }
 
-        //skip the AI if the game is paused, the missile is engineless or fading
-        if (Global.getCombatEngine().isPaused() || MISSILE.isFading() || MISSILE.isFizzling()) {
-            return;
-        }
 
         //assigning a target if there is none or it got destroyed
         if (target == null
