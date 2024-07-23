@@ -586,8 +586,13 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         if (upgrade != null && market.hasIndustry(upgrade)) {
-            market.getIndustry(upgrade).startUpgrading();
-            log.info(String.format("upgrading %s on %s", upgrade, market.getName()));
+            Industry ind = market.getIndustry(upgrade);
+            if (ind != null) {
+                ind.startUpgrading();
+                log.info(String.format("upgrading %s on %s", upgrade, market.getName()));
+            } else {
+                log.error(String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName()));
+            }
             return;
         }
 
