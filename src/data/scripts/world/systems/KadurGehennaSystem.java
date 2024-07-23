@@ -18,7 +18,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static data.scripts.KadurModPlugin.*;
+import static data.scripts.VayraMergedModPlugin.*;
 
 public class KadurGehennaSystem implements SectorGeneratorPlugin {
 

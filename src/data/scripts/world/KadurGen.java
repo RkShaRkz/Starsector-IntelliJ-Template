@@ -7,7 +7,7 @@ import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import data.scripts.world.systems.KadurGehennaSystem;
 import data.scripts.world.systems.KadurMirageSystem;
 
-import static data.scripts.KadurModPlugin.KADUR_ID;
+import static data.scripts.VayraMergedModPlugin.MOD_ID;
 
 @SuppressWarnings("unchecked")
 public class KadurGen implements SectorGeneratorPlugin {
@@ -18,9 +18,9 @@ public class KadurGen implements SectorGeneratorPlugin {
         new KadurMirageSystem().generate(sector);
         new KadurGehennaSystem().generate(sector);
 
-        SharedData.getData().getPersonBountyEventData().addParticipatingFaction(KADUR_ID);
+        SharedData.getData().getPersonBountyEventData().addParticipatingFaction(MOD_ID);
 
-        FactionAPI kadur_remnant = sector.getFaction(KADUR_ID);
+        FactionAPI kadur_remnant = sector.getFaction(MOD_ID);
 
         // friends
         kadur_remnant.setRelationship("shadow_industry", 0.45f);              // longtime kadur trade partner and maybe the only good guys in the sector

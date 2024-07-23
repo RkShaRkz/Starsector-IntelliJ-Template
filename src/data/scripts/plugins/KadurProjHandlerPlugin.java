@@ -65,11 +65,11 @@ public class KadurProjHandlerPlugin extends BaseEveryFrameCombatPlugin {
     // boomerang shield reload range
     private static final float SHIELD_RELOAD_RANGE = 33f; // shield must get at least this close to its fighter to disappear
 
-    private Map<DamagingProjectileAPI, Float> canisters = new HashMap<>();
-    private Map<DamagingProjectileAPI, IntervalUtil> scatterBlasts = new HashMap<>();
-    private Map<DamagingProjectileAPI, List<CombatEntityAPI>> capacitiveRodTargets = new HashMap<>();
-    private Map<DamagingProjectileAPI, Integer> spikeTorpedoes = new HashMap<>();
-    private List<DamagingProjectileAPI> boomerangShields = new ArrayList<>();
+    private final Map<DamagingProjectileAPI, Float> canisters = new HashMap<>();
+    private final Map<DamagingProjectileAPI, IntervalUtil> scatterBlasts = new HashMap<>();
+    private final Map<DamagingProjectileAPI, List<CombatEntityAPI>> capacitiveRodTargets = new HashMap<>();
+    private final Map<DamagingProjectileAPI, Integer> spikeTorpedoes = new HashMap<>();
+    private final List<DamagingProjectileAPI> boomerangShields = new ArrayList<>();
 
     //////////////////////////////BITS//////////////////////////////
     public static final Color KADUR_TEAL = new Color(33, 103, 109, 150);

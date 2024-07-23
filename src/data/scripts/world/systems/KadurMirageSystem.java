@@ -24,8 +24,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static data.scripts.KadurModPlugin.KADUR_ID;
-import static data.scripts.KadurModPlugin.addMarketplace;
+import static data.scripts.VayraMergedModPlugin.MOD_ID;
+import static data.scripts.VayraMergedModPlugin.addMarketplace;
 
 public class KadurMirageSystem implements SectorGeneratorPlugin {
 
@@ -210,7 +210,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
             mirageIImarket.getIndustry(Industries.FARMING).setSpecialItem(new SpecialItemData(Items.SOIL_NANITES, null));
         }
         // nex storyline compatibility
-        mirageIImarket.getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+        mirageIImarket.getMemoryWithoutUpdate().set("$startingFactionId", MOD_ID);
         mirageIImarket.getMemoryWithoutUpdate().set("$nex_colony_growth_limit", 8); //Might not work rn, but may work in the future?
         // indevo compatibility
         if (Global.getSettings().getModManager().isModEnabled("IndEvo") && Global.getSettings().getIndustrySpec("IndEvo_Megachurch") != null) {
@@ -259,7 +259,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
 
         mirageIII.getMarket().getMemoryWithoutUpdate().set("$core_techMiningMult", 0.95f); //Someone already scouted it! WHO
         // nex storyline compatibility
-        mirageIII.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+        mirageIII.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", MOD_ID);
 
         // Qamar, the useless moon, former home of the Exiles and Insurgency
         PlanetAPI mirageIIIA = system.addPlanet("mirageIIIA", mirageIII, "Qamar", "barren-bombarded", 180, 60, 470, 35);
@@ -268,7 +268,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         mirageIIIA.getMarket().addCondition(Conditions.METEOR_IMPACTS);
         mirageIIIA.getMarket().addCondition(Conditions.DECIVILIZED);
         // nex storyline compatibility
-        mirageIIIA.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+        mirageIIIA.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", MOD_ID);
 
         // Pirates hang out in the wreckage over Kadur
         SectorEntityToken vayra_kadur_toxx = system.addCustomEntity("vayra_kadur_toxx", "Fort Toxx", "station_sporeship_derelict", "pirates");
@@ -343,14 +343,14 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         mirageIVB.getMarket().addCondition(Conditions.NO_ATMOSPHERE);
         mirageIVB.getMarket().addCondition(Conditions.ORE_MODERATE);
         mirageIVB.getMarket().addCondition(Conditions.VOLATILES_TRACE);
-        mirageIVB.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+        mirageIVB.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", MOD_ID);
         PlanetAPI mirageIVD = system.addPlanet("mirageIVD", mirageIV, "Barda", "cryovolcanic", 220, 80, 2192, 36);
         Misc.initConditionMarket(mirageIVD);
         mirageIVD.getMarket().addCondition(Conditions.POOR_LIGHT);
         mirageIVD.getMarket().addCondition(Conditions.VERY_COLD);
         mirageIVD.getMarket().addCondition(Conditions.VOLATILES_DIFFUSE);
         mirageIVD.getMarket().addCondition(Conditions.NO_ATMOSPHERE);
-        mirageIVD.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+        mirageIVD.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", MOD_ID);
         mirageIV.setFaction("tritachyon");
         mirageIV.setInteractionImage("illustrations", "vacuum_colony");
         mirageIV.setCustomDescriptionId("vayra_yakchal");
@@ -385,7 +385,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 true); // freeport
-        mirageIVmarket.getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
+        mirageIVmarket.getMemoryWithoutUpdate().set("$startingFactionId", MOD_ID);
 
         system.addRingBand(mirageIV, "misc", "rings_dust0", 1024f, 3, Color.white, 1024f, 1375, 1150f, Terrain.RING, "Yakchal's Embrace");
         system.addRingBand(mirageIV, "misc", "rings_dust0", 256f, 3, Color.yellow, 256f, 800, 70f);
@@ -456,12 +456,12 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         gestaltNames.add("Coldsteel the Hedgehog", 1f);
         String gestaltName = gestaltNames.pick();
 
-        SectorEntityToken vayra_kadur_revenant = system.addCustomEntity("vayra_kadur_revenant", gestaltName, "station_side06", KADUR_ID);
+        SectorEntityToken vayra_kadur_revenant = system.addCustomEntity("vayra_kadur_revenant", gestaltName, "station_side06", MOD_ID);
         vayra_kadur_revenant.setInteractionImage("illustrations", "vayra_revenant_gestalt_caliph");
         vayra_kadur_revenant.setCircularOrbitPointingDown(star, 240 + 180, YAKCHAL_ORBIT, 778);
         vayra_kadur_revenant.setCustomDescriptionId("vayra_kadur_revenant");
 
-        MarketAPI vayra_kadur_revenantmarket = addMarketplace(KADUR_ID, vayra_kadur_revenant, null,
+        MarketAPI vayra_kadur_revenantmarket = addMarketplace(MOD_ID, vayra_kadur_revenant, null,
                 gestaltName, // name of the market
                 5, // size of the market
                 new ArrayList<>(

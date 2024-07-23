@@ -15,7 +15,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-import static data.scripts.KadurModPlugin.VAYRA_DEBUG;
+import static data.scripts.VayraMergedModPlugin.VAYRA_DEBUG;
 
 // HEY IDIOT NEXT TIME YOU THINK ABOUT CONSOLIDATING THIS
 // REMEMBER IT HAS TO HAVE ALL THIS WEIRD SHIT IN IT
