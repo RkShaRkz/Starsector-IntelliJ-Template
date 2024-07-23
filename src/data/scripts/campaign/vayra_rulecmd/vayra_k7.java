@@ -7,6 +7,7 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.util.Misc;
 import exerelin.utilities.NexConfig;
 import exerelin.utilities.NexFactionConfig;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

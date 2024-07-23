@@ -1,33 +1,25 @@
 package data.scripts.hullmods;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseHullMod;
-import com.fs.starfarer.api.combat.BeamAPI;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.CombatEntityAPI;
-import com.fs.starfarer.api.combat.DamageAPI;
-import com.fs.starfarer.api.combat.DamageType;
-import com.fs.starfarer.api.combat.DamagingProjectileAPI;
-import com.fs.starfarer.api.combat.MutableShipStatsAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.ShipCommand;
-import com.fs.starfarer.api.combat.ShipHullSpecAPI;
 import com.fs.starfarer.api.combat.ShipwideAIFlags.AIFlags;
 import com.fs.starfarer.api.combat.listeners.DamageTakenModifier;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.KadurModPlugin.VAYRA_DEBUG;
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import org.apache.log4j.Logger;
 import org.lazywizard.lazylib.CollisionUtils;
 import org.lazywizard.lazylib.MathUtils;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lazywizard.lazylib.combat.entities.SimpleEntity;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static data.scripts.KadurModPlugin.VAYRA_DEBUG;
 
 public class vayra_modular_shields extends BaseHullMod {
 
@@ -126,7 +118,7 @@ public class vayra_modular_shields extends BaseHullMod {
             Global.getSoundPlayer().playUISound(ERROR_SOUND, 1f, 1f);
         }
     }
-    
+
 
     @Override
     public void advanceInCombat(ShipAPI ship, float amount) {
@@ -134,14 +126,14 @@ public class vayra_modular_shields extends BaseHullMod {
         // setup stuff
         //CombatEngineAPI engine = Global.getCombatEngine();
         //LocalData localData = getLocalData(engine);
-        
+
         // change this ship's shield color according to flux level
         Color color;
         if (ship.getShield() != null) {
             color = Misc.interpolateColor(ZERO_FLUX_COLOR, FULL_FLUX_COLOR, Math.min(ship.getFluxLevel(), 1f));
             ship.getShield().setInnerColor(color);
         }
-        
+
         if (ship.getParentStation() != null) {
             if (ship.getParentStation().isHoldFire()) {
                 ship.giveCommand(ShipCommand.HOLD_FIRE, null, 0);
@@ -167,7 +159,9 @@ public class vayra_modular_shields extends BaseHullMod {
         if (ship.getHullSpec() != null) {
             switch (ship.getHullSpec().getHullId()) {
                 case SHIELD_PART_ID: {
-                    if (!ship.hasListenerOfClass(EXP3doEveryOtherPartStuff.class)) {ship.addListener(new EXP3doEveryOtherPartStuff());}
+                    if (!ship.hasListenerOfClass(EXP3doEveryOtherPartStuff.class)) {
+                        ship.addListener(new EXP3doEveryOtherPartStuff());
+                    }
                     doShieldEmitterStuff(ship);
                     break;
                 } // handle generator
@@ -176,93 +170,108 @@ public class vayra_modular_shields extends BaseHullMod {
                     break;
                 } // handle damage reduction and visuals for everything else
                 default: {
-                    if (!ship.hasListenerOfClass(EXPdoEveryOtherPartStuff.class)) {ship.addListener(new EXPdoEveryOtherPartStuff());}
+                    if (!ship.hasListenerOfClass(EXPdoEveryOtherPartStuff.class)) {
+                        ship.addListener(new EXPdoEveryOtherPartStuff());
+                    }
                     //doEveryOtherPartStuff(ship, amount, engine, localData); just in case
                     EXP2doEveryOtherPartStuff(ship, amount);
-                    if (ship.getParentStation() != null && !ship.getCustomData().containsKey("vayra_apply_dmod") && ship.getParentStation().getHullSpec().getHints().contains(ShipHullSpecAPI.ShipTypeHints.STATION)) {if (ship.getHullSpec().getHullId().equals("vayra_caliph_leftengine") || ship.getHullSpec().getHullId().equals("vayra_caliph_rightengine")) {ship.setHitpoints(ship.getHitpoints()/4f);ship.setHeavyDHullOverlay();}else {ship.setHeavyDHullOverlay();}ship.setCustomData("vayra_apply_dmod", true);}
+                    if (ship.getParentStation() != null && !ship.getCustomData().containsKey("vayra_apply_dmod") && ship.getParentStation().getHullSpec().getHints().contains(ShipHullSpecAPI.ShipTypeHints.STATION)) {
+                        if (ship.getHullSpec().getHullId().equals("vayra_caliph_leftengine") || ship.getHullSpec().getHullId().equals("vayra_caliph_rightengine")) {
+                            ship.setHitpoints(ship.getHitpoints() / 4f);
+                            ship.setHeavyDHullOverlay();
+                        } else {
+                            ship.setHeavyDHullOverlay();
+                        }
+                        ship.setCustomData("vayra_apply_dmod", true);
+                    }
                     break;
                 }
             }
         }
-        
+
     }
-    
+
     //Reapers have this annoying tendency to always make the emitter blow up!
     public static class EXP3doEveryOtherPartStuff implements DamageTakenModifier {
-            
-            @Override
-            public String modifyDamageTaken(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
-                if (!shieldHit) damage.getModifier().modifyMult("vayra_modular_shields", 0.02f);
-                return null;
-            }
+
+        @Override
+        public String modifyDamageTaken(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
+            if (!shieldHit) damage.getModifier().modifyMult("vayra_modular_shields", 0.02f);
+            return null;
         }
-    
+    }
+
     public static class EXPdoEveryOtherPartStuff implements DamageTakenModifier {
-            @Override
-            public String modifyDamageTaken(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
-                Color color;
+        @Override
+        public String modifyDamageTaken(Object param, CombatEntityAPI target, DamageAPI damage, Vector2f point, boolean shieldHit) {
+            Color color;
 
-                    // find the generator 
-                    ShipAPI ship;
-                    if (target instanceof ShipAPI) {ship = (ShipAPI) target;} else {return null;}
-                    ShipAPI generator = (ShipAPI) ship.getCustomData().get(STORED_GENERATORS_KEY); //ShipAPI generator = localData.storedGenerators.get(ship);
-                    if (generator == null) {
-                        for (ShipAPI check : CombatUtils.getShipsWithinRange(target.getLocation(), 1000)) {
-                            if (check.getHullSpec() != null
-                                    && check.getHullSpec().getHullId() != null
-                                    && check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID)
-                                    && (ship.equals(check.getParentStation())
-                                    || (ship.getParentStation() != null
-                                    && ship.getParentStation().equals(check.getParentStation())))) {
-                                generator = check;
-                                ship.setCustomData(STORED_GENERATORS_KEY, generator);//localData.storedGenerators.put(ship, generator);
-                            }
-                        }
-                    }
-                    if (generator != null && generator.isAlive() && !generator.getFluxTracker().isOverloaded()) {
-
-                        // change the color according to the GENERATOR'S flux level for everything else
-                        float genFlux = generator.getFluxLevel();
-                        color = Misc.interpolateColor(ZERO_FLUX_COLOR, FULL_FLUX_COLOR, genFlux);
-                        
-                        if (param instanceof DamagingProjectileAPI) {
-                            DamagingProjectileAPI proj = (DamagingProjectileAPI) param;
-                            triggerShield(
-                                        ship,
-                                        proj.getSource(),
-                                        proj.getLocation(),
-                                        proj.getDamageAmount(),
-                                        proj.getDamageType(),
-                                        generator,
-                                        color,
-                                        true);
-                            if (VAYRA_DEBUG) {
-                                    log.info(String.format("%s triggering skinshield for %s %s damage",
-                                            proj.getWeapon().getId(), proj.getBaseDamageAmount(), proj.getDamageType().name()));
-                            }
-                        } else if (param instanceof BeamAPI) {
-                            BeamAPI beam = (BeamAPI) param;
-                            triggerShield(
-                                        ship,
-                                        beam.getSource(),
-                                        beam.getTo(),
-                                        beam.getDamage().getDamage() / 10f,
-                                        beam.getDamage().getType(),
-                                        generator,
-                                        color,
-                                        beam.getDamage().isForceHardFlux()); //can't be false since HSA can enable it now :));
-
-                                if (VAYRA_DEBUG) {
-                                    log.info(String.format("%s triggering skinshield for %s %s damage",
-                                            beam.getWeapon().getId(), beam.getDamage().getDamage() / 10f, beam.getDamage().getType().name()));
-                                }
-                        }
-                        damage.getModifier().modifyMult("vayra_modular_shields", generator.getFluxTracker().isOverloadedOrVenting() ? 1f : Math.max(0.1f, generator.getFluxTracker().getFluxLevel()*0.9f));
-                        
-                    }
+            // find the generator
+            ShipAPI ship;
+            if (target instanceof ShipAPI) {
+                ship = (ShipAPI) target;
+            } else {
                 return null;
             }
+            ShipAPI generator = (ShipAPI) ship.getCustomData().get(STORED_GENERATORS_KEY); //ShipAPI generator = localData.storedGenerators.get(ship);
+            if (generator == null) {
+                for (ShipAPI check : CombatUtils.getShipsWithinRange(target.getLocation(), 1000)) {
+                    if (check.getHullSpec() != null
+                            && check.getHullSpec().getHullId() != null
+                            && check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID)
+                            && (ship.equals(check.getParentStation())
+                            || (ship.getParentStation() != null
+                            && ship.getParentStation().equals(check.getParentStation())))) {
+                        generator = check;
+                        ship.setCustomData(STORED_GENERATORS_KEY, generator);//localData.storedGenerators.put(ship, generator);
+                    }
+                }
+            }
+            if (generator != null && generator.isAlive() && !generator.getFluxTracker().isOverloaded()) {
+
+                // change the color according to the GENERATOR'S flux level for everything else
+                float genFlux = generator.getFluxLevel();
+                color = Misc.interpolateColor(ZERO_FLUX_COLOR, FULL_FLUX_COLOR, genFlux);
+
+                if (param instanceof DamagingProjectileAPI) {
+                    DamagingProjectileAPI proj = (DamagingProjectileAPI) param;
+                    triggerShield(
+                            ship,
+                            proj.getSource(),
+                            proj.getLocation(),
+                            proj.getDamageAmount(),
+                            proj.getDamageType(),
+                            generator,
+                            color,
+                            true);
+                    if (VAYRA_DEBUG) {
+                        log.info(String.format("%s triggering skinshield for %s %s damage",
+                                proj.getWeapon().getId(), proj.getBaseDamageAmount(), proj.getDamageType().name()));
+                    }
+                } else if (param instanceof BeamAPI) {
+                    BeamAPI beam = (BeamAPI) param;
+                    triggerShield(
+                            ship,
+                            beam.getSource(),
+                            beam.getTo(),
+                            beam.getDamage().getDamage() / 10f,
+                            beam.getDamage().getType(),
+                            generator,
+                            color,
+                            beam.getDamage().isForceHardFlux()); //can't be false since HSA can enable it now :));
+
+                    if (VAYRA_DEBUG) {
+                        log.info(String.format("%s triggering skinshield for %s %s damage",
+                                beam.getWeapon().getId(), beam.getDamage().getDamage() / 10f, beam.getDamage().getType().name()));
+                    }
+                }
+                damage.getModifier().modifyMult("vayra_modular_shields", generator.getFluxTracker().isOverloadedOrVenting() ? 1f : Math.max(0.1f, generator.getFluxTracker().getFluxLevel() * 0.9f));
+
+            }
+            return null;
         }
+    }
+
     private void EXP2doEveryOtherPartStuff(ShipAPI ship, float amount) {
         Color color;
 
@@ -458,5 +467,5 @@ public class vayra_modular_shields extends BaseHullMod {
             }
         }
     }
-    
+
 }

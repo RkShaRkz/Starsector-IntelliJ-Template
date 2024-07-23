@@ -8,6 +8,7 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.listeners.FighterOPCostModifier;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -57,20 +58,24 @@ public class vayra_caliph_core extends BaseHullMod {
         stats.getBeamPDWeaponRangeBonus().modifyPercent(id, -RANGE_BONUS);
 
         stats.getSightRadiusMod().modifyFlat(id, VISION_BONUS);
-        
+
         stats.getAutofireAimAccuracy().modifyFlat(id, AUTOFIRE_PENALTY);
 
         //stats.getMaxRecoilMult().modifyPercent(id, RECOIL_PENALTY);
         //stats.getRecoilPerShotMult().modifyPercent(id, RECOIL_PENALTY);
-        
+
         stats.getDamageToFighters().modifyPercent(id, ANTIFTR_BONUS);
         if (stats.getVariant().hasHullMod("converted_hangar")) {
-            if (stats.getVariant().hasHullMod("vayra_slow_autoforge")) {stats.getNumFighterBays().modifyFlat(id, 1f);}
-            if ((stats.getVariant().hasHullMod("vayra_slow_autoforge") && stats.getVariant().hasHullMod("vayra_modular_engines")) || !stats.getVariant().hasHullMod("vayra_modular_engines")) {stats.addListener(new ConvertedHangarScript());}
+            if (stats.getVariant().hasHullMod("vayra_slow_autoforge")) {
+                stats.getNumFighterBays().modifyFlat(id, 1f);
+            }
+            if ((stats.getVariant().hasHullMod("vayra_slow_autoforge") && stats.getVariant().hasHullMod("vayra_modular_engines")) || !stats.getVariant().hasHullMod("vayra_modular_engines")) {
+                stats.addListener(new ConvertedHangarScript());
+            }
         }
-        
+
     }
-    
+
     // handles removing excluded hullmods
     @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
@@ -86,17 +91,20 @@ public class vayra_caliph_core extends BaseHullMod {
             Global.getSoundPlayer().playUISound(ERROR_SOUND, 1f, 1f);
         }
     }
+
     public static class ConvertedHangarScript implements FighterOPCostModifier {
-            
-            @Override
-                        public int getFighterOPCost(MutableShipStatsAPI stats, FighterWingSpecAPI fighter, int currCost) {
-				if (fighter != null && fighter.hasTag("kadur")) {return (int) fighter.getOpCost(null)/2;}
-                                return currCost;
-			}
+
+        @Override
+        public int getFighterOPCost(MutableShipStatsAPI stats, FighterWingSpecAPI fighter, int currCost) {
+            if (fighter != null && fighter.hasTag("kadur")) {
+                return (int) fighter.getOpCost(null) / 2;
+            }
+            return currCost;
         }
-    
+    }
+
     @Override
     public boolean affectsOPCosts() {
-	return true;
+        return true;
     }
 }

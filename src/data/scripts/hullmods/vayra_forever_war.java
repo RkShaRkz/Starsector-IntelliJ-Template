@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +26,7 @@ public class vayra_forever_war extends BaseHullMod {
         HULL.put(HullSize.CRUISER, 2000f);
         HULL.put(HullSize.CAPITAL_SHIP, 4000f);
     }
+
     private static final Map<HullSize, Float> ARMOR = new HashMap<>();
 
     static {
@@ -34,6 +36,7 @@ public class vayra_forever_war extends BaseHullMod {
         ARMOR.put(HullSize.CRUISER, 200f);
         ARMOR.put(HullSize.CAPITAL_SHIP, 250f);
     }
+
     private static final float SPEED = 10f;
     private static final float MANEUVERABILITY = 0.5f;
     private static final Map<HullSize, Float> FUEL_CAP = new HashMap<>();
@@ -45,6 +48,7 @@ public class vayra_forever_war extends BaseHullMod {
         FUEL_CAP.put(HullSize.CRUISER, 60f);
         FUEL_CAP.put(HullSize.CAPITAL_SHIP, 150f);
     }
+
     private static final Map<HullSize, Float> FUEL_EFF = new HashMap<>();
 
     static {
@@ -92,7 +96,7 @@ public class vayra_forever_war extends BaseHullMod {
         stats.getFuelMod().modifyFlat(id, FUEL_CAP.get(hullSize));
         stats.getFuelUseMod().modifyFlat(id, FUEL_EFF.get(hullSize));
         stats.getOverloadTimeMod().modifyMult(id, OVERLOAD_REDUCTION);
-        
+
         if (stats.getVariant() != null && !stats.getVariant().hasHullMod(SECRET_BUFF_HULLMOD)) {
             stats.getVariant().addPermaMod(SECRET_BUFF_HULLMOD);
         }
@@ -102,11 +106,11 @@ public class vayra_forever_war extends BaseHullMod {
     public boolean isApplicableToShip(ShipAPI ship) {
         return true;
     }
-    
+
     public void addPostDescriptionSection(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
         float opad = 10f;
         tooltip.addSectionHeading("Interactions with low hull", Alignment.MID, opad);
-	tooltip.addPara("This ship is given a Martyr's Blessing, gaining additional speed, flux dissipation, and ballistic rate-of-fire as the ship begins to give way.", opad);
+        tooltip.addPara("This ship is given a Martyr's Blessing, gaining additional speed, flux dissipation, and ballistic rate-of-fire as the ship begins to give way.", opad);
     }
 
 }

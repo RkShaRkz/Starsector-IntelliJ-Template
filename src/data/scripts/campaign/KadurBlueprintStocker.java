@@ -11,13 +11,15 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.KadurModPlugin.KADUR_ID;
-import static data.scripts.VayraTags.E;
-import static data.scripts.VayraTags.readSpecial;
+import org.apache.log4j.Logger;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.log4j.Logger;
+
+import static data.scripts.KadurModPlugin.KADUR_ID;
+import static data.scripts.VayraTags.E;
+import static data.scripts.VayraTags.readSpecial;
 
 public class KadurBlueprintStocker implements EveryFrameScript {
 
@@ -110,11 +112,11 @@ public class KadurBlueprintStocker implements EveryFrameScript {
         FactionAPI kadur = Global.getSector().getFaction(KADUR_ID);
         List<MarketAPI> markets = Misc.getFactionMarkets(kadur);
         log.info(String.format("Starting stockKadurWeapons scan"));
-        
+
         WeightedRandomPicker<String> smalls = new WeightedRandomPicker<>();
         WeightedRandomPicker<String> mediums = new WeightedRandomPicker<>();
         WeightedRandomPicker<String> larges = new WeightedRandomPicker<>();
-        
+
         for (String wid : kadur.getKnownWeapons()) {
             WeaponSpecAPI weapon = Global.getSettings().getWeaponSpec(wid);
             switch (weapon.getSize()) {

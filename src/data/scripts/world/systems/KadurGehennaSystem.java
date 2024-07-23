@@ -1,20 +1,9 @@
 package data.scripts.world.systems;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.PlanetAPI;
-import com.fs.starfarer.api.campaign.JumpPointAPI;
-import com.fs.starfarer.api.campaign.SectorAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.SectorGeneratorPlugin;
-import com.fs.starfarer.api.campaign.SpecialItemData;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.impl.campaign.ids.Conditions;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.Items;
-import com.fs.starfarer.api.impl.campaign.ids.Terrain;
-import com.fs.starfarer.api.impl.campaign.ids.StarTypes;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.procgen.StarAge;
 import com.fs.starfarer.api.impl.campaign.procgen.StarGenDataSpec;
@@ -24,12 +13,12 @@ import com.fs.starfarer.api.impl.campaign.terrain.MagneticFieldTerrainPlugin;
 import com.fs.starfarer.api.impl.campaign.terrain.StarCoronaTerrainPlugin;
 import com.fs.starfarer.api.impl.campaign.terrain.StarCoronaTerrainPlugin.CoronaParams;
 import com.fs.starfarer.api.util.Misc;
-import static data.scripts.KadurModPlugin.KADUR_ID;
-import static data.scripts.KadurModPlugin.addAccretionDisk;
-import static data.scripts.KadurModPlugin.addMarketplace;
-import java.awt.Color;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static data.scripts.KadurModPlugin.*;
 
 public class KadurGehennaSystem implements SectorGeneratorPlugin {
 
@@ -75,13 +64,13 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
         eventHorizon.setCircularOrbit(star, 0, 0, 100);
         //Remove when alex actually fixes it but this pushes AI fleets away out of the event horizon
         SectorEntityToken eventHorizon2 = system.addTerrain(Terrain.EVENT_HORIZON,
-                        new CoronaParams(
-                                star.getRadius() + corona/1.5f,
-                                (star.getRadius() + corona/1.5f) / 2f,
-                                star,
-                                -(starData.getSolarWind()+1),
-                                0f,
-                                0f));
+                new CoronaParams(
+                        star.getRadius() + corona / 1.5f,
+                        (star.getRadius() + corona / 1.5f) / 2f,
+                        star,
+                        -(starData.getSolarWind() + 1),
+                        0f,
+                        0f));
         eventHorizon2.setCircularOrbit(star, 0, 0, 100);
         // accretion disk
         addAccretionDisk(star, "River of Souls");
@@ -249,7 +238,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                                 Industries.MILITARYBASE,
                                 //Industries.WAYSTATION,
                                 Industries.STARFORTRESS)),
-                                //"dark")),
+                //"dark")),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.GENERIC_MILITARY,
@@ -261,8 +250,12 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
                 true); // freeport
         if (Global.getSettings().getModManager().isModEnabled("IndEvo") && Global.getSettings().getBoolean("PirateHaven") && Global.getSettings().getIndustrySpec("IndEvo_pirateHaven") != null) {
             vayra_gehenna_tortugamarket.addIndustry("IndEvo_pirateHaven");
-            if (vayra_gehenna_tortugamarket.getIndustry(Industries.REFINING) != null) {vayra_gehenna_tortugamarket.removeIndustry(Industries.REFINING, null, false);}
-            if (vayra_gehenna_tortugamarket.getIndustry(Industries.LIGHTINDUSTRY) != null) {vayra_gehenna_tortugamarket.removeIndustry(Industries.LIGHTINDUSTRY, null, false);}
+            if (vayra_gehenna_tortugamarket.getIndustry(Industries.REFINING) != null) {
+                vayra_gehenna_tortugamarket.removeIndustry(Industries.REFINING, null, false);
+            }
+            if (vayra_gehenna_tortugamarket.getIndustry(Industries.LIGHTINDUSTRY) != null) {
+                vayra_gehenna_tortugamarket.removeIndustry(Industries.LIGHTINDUSTRY, null, false);
+            }
         }
         if (Global.getSettings().getModManager().isModEnabled("IndEvo") && Global.getSettings().getBoolean("dryDock") && Global.getSettings().getIndustrySpec("dryDock") != null) {
             vayra_gehenna_tortugamarket.addIndustry("IndEvo_dryDock");

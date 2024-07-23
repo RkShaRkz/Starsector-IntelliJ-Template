@@ -1,42 +1,31 @@
 package data.scripts.world.systems;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.PlanetAPI;
-import com.fs.starfarer.api.campaign.JumpPointAPI;
-import com.fs.starfarer.api.campaign.SectorAPI;
-import com.fs.starfarer.api.campaign.SectorEntityToken;
-import com.fs.starfarer.api.campaign.SectorGeneratorPlugin;
-import com.fs.starfarer.api.campaign.SpecialItemData;
-import com.fs.starfarer.api.campaign.StarSystemAPI;
+import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.MarketConditionAPI;
 import com.fs.starfarer.api.impl.campaign.DerelictShipEntityPlugin;
-import com.fs.starfarer.api.impl.campaign.ids.Conditions;
-import com.fs.starfarer.api.impl.campaign.ids.Entities;
-import com.fs.starfarer.api.impl.campaign.ids.Factions;
-import com.fs.starfarer.api.impl.campaign.ids.Industries;
-import com.fs.starfarer.api.impl.campaign.ids.Items;
-import com.fs.starfarer.api.impl.campaign.ids.Terrain;
-import com.fs.starfarer.api.impl.campaign.ids.StarTypes;
-import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
+import com.fs.starfarer.api.impl.campaign.ids.*;
 import com.fs.starfarer.api.impl.campaign.procgen.NebulaEditor;
 import com.fs.starfarer.api.impl.campaign.procgen.StarSystemGenerator;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.SalvageSpecialAssigner;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial;
+import com.fs.starfarer.api.impl.campaign.terrain.AsteroidFieldTerrainPlugin.AsteroidFieldParams;
+import com.fs.starfarer.api.impl.campaign.terrain.BaseRingTerrain.RingParams;
 import com.fs.starfarer.api.impl.campaign.terrain.DebrisFieldTerrainPlugin.DebrisFieldParams;
 import com.fs.starfarer.api.impl.campaign.terrain.DebrisFieldTerrainPlugin.DebrisFieldSource;
 import com.fs.starfarer.api.impl.campaign.terrain.HyperspaceTerrainPlugin;
-import com.fs.starfarer.api.impl.campaign.terrain.AsteroidFieldTerrainPlugin.AsteroidFieldParams;
-import com.fs.starfarer.api.impl.campaign.terrain.BaseRingTerrain.RingParams;
 import com.fs.starfarer.api.impl.campaign.terrain.MagneticFieldTerrainPlugin.MagneticFieldParams;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
-import static data.scripts.KadurModPlugin.KADUR_ID;
-import static data.scripts.KadurModPlugin.addMarketplace;
-import java.awt.Color;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import static data.scripts.KadurModPlugin.KADUR_ID;
+import static data.scripts.KadurModPlugin.addMarketplace;
 
 public class KadurMirageSystem implements SectorGeneratorPlugin {
 
@@ -57,9 +46,9 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
      * @return
      */
     private SectorEntityToken addDerelictShip(StarSystemAPI system,
-            String variantId,
-            ShipRecoverySpecial.ShipCondition condition,
-            boolean recoverable) {
+                                              String variantId,
+                                              ShipRecoverySpecial.ShipCondition condition,
+                                              boolean recoverable) {
         DerelictShipEntityPlugin.DerelictShipData params = new DerelictShipEntityPlugin.DerelictShipData(new ShipRecoverySpecial.PerShipData(variantId, condition), false);
         SectorEntityToken ship = BaseThemeGenerator.addSalvageEntity(system, Entities.WRECK, Factions.NEUTRAL, params);
         ship.setDiscoverable(true);
@@ -207,7 +196,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                                 Industries.MILITARYBASE,
                                 //Industries.WAYSTATION, not needed.
                                 Industries.MINING)),
-                                //"dissident")),
+                //"dissident")),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.GENERIC_MILITARY,
@@ -217,7 +206,9 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 true, // with junk and chatter?
                 false, // pirate mode? (i.e. hidden)
                 false); // freeport
-        if (mirageIImarket.getIndustry(Industries.FARMING) != null) {mirageIImarket.getIndustry(Industries.FARMING).setSpecialItem(new SpecialItemData(Items.SOIL_NANITES, null));}
+        if (mirageIImarket.getIndustry(Industries.FARMING) != null) {
+            mirageIImarket.getIndustry(Industries.FARMING).setSpecialItem(new SpecialItemData(Items.SOIL_NANITES, null));
+        }
         // nex storyline compatibility
         mirageIImarket.getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
         mirageIImarket.getMemoryWithoutUpdate().set("$nex_colony_growth_limit", 8); //Might not work rn, but may work in the future?
@@ -265,7 +256,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         mirageIII.getSpec().setCloudRotation(10f);
         mirageIII.getSpec().setAtmosphereColor(new Color(210, 255, 138, 180));
         mirageIII.applySpecChanges();
-         
+
         mirageIII.getMarket().getMemoryWithoutUpdate().set("$core_techMiningMult", 0.95f); //Someone already scouted it! WHO
         // nex storyline compatibility
         mirageIII.getMarket().getMemoryWithoutUpdate().set("$startingFactionId", KADUR_ID);
