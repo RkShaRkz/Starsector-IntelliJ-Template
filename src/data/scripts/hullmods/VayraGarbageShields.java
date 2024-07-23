@@ -69,13 +69,13 @@ public class VayraGarbageShields extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize) {
         if (index == 0) {
-            return "" + (int) ((1f - ARC_MULT) * 100) + "%";
+            return (int) ((1f - ARC_MULT) * 100) + "%";
         }
         if (index == 1) {
-            return "" + (int) ((EFF_MULT - 1f) * 100) + "%";
+            return (int) ((EFF_MULT - 1f) * 100) + "%";
         }
         if (index == 2) {
-            return "" + (int) ((UPKEEP_MULT - 1f) * 100) + "%";
+            return (int) ((UPKEEP_MULT - 1f) * 100) + "%";
         }
         return null;
     }

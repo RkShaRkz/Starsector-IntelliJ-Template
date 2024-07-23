@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static data.scripts.VayraMergedModPlugin.MOD_ID;
+import static data.scripts.VayraMergedModPlugin.KADUR_ID;
 
 public class KadurBlueprintStocker implements EveryFrameScript {
 
@@ -51,7 +51,7 @@ public class KadurBlueprintStocker implements EveryFrameScript {
     }
 
     public void stockKadurBlueprints() {
-        List<MarketAPI> markets = Misc.getFactionMarkets(Global.getSector().getFaction(MOD_ID));
+        List<MarketAPI> markets = Misc.getFactionMarkets(Global.getSector().getFaction(KADUR_ID));
         log.info("Starting stockKadurBlueprints scan");
 
         for (MarketAPI market : markets) {
@@ -74,7 +74,7 @@ public class KadurBlueprintStocker implements EveryFrameScript {
     }
 
     private void stockKadurWeapons() {
-        FactionAPI kadur = Global.getSector().getFaction(MOD_ID);
+        FactionAPI kadur = Global.getSector().getFaction(KADUR_ID);
         List<MarketAPI> markets = Misc.getFactionMarkets(kadur);
         log.info("Starting stockKadurWeapons scan");
 
