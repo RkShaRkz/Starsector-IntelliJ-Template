@@ -16,7 +16,9 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.campaign.colonies.VayraColonialManager;
+import data.util.LoggerLogLevel;
 import org.apache.log4j.Logger;
+import org.lazywizard.console.Console;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,12 +43,15 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
 
     private final IntervalUtil timer = new IntervalUtil(30f, 60f);
     public MarketAPI interstellarStation = null;
+
     public static final String STATION_ID = "interstellar_station";
 
     public static int POPULAR_FRONT_STAGE = 0;
 
     public static List<FactionAPI> ALLIES = new ArrayList<>();
     public static List<FactionAPI> ENEMIES = new ArrayList<>();
+
+    public static boolean LOG_TO_CONSOLE = false;
 
     @Override
     public boolean isDone() {
@@ -93,13 +98,13 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
                 SectorEntityToken test = Global.getSector().getEntityById(STATION_ID);
                 if (test != null && test.getMarket() != null) {
                     interstellarStation = test.getMarket();
-                    log.info("found preexisting interstellaire, setting existing to this one");
+                    log(LoggerLogLevel.INFO, "found preexisting interstellaire, setting existing to this one");
                 } else if (VAYRA_DEBUG || Global.getSector().getClock().getCycle() >= POPULAR_FRONT_TIMEOUT) {
-                    log.info("didn't find interstellaire, creating one");
+                    log(LoggerLogLevel.INFO"didn't find interstellaire, creating one");
                     makeStation();
                 }
             } else {
-                log.info("progressing existing interstellaire");
+                log(LoggerLogLevel.INFO, "progressing existing interstellaire");
                 POPULAR_FRONT_STAGE++;
                 VayraColonialManager manager = VayraColonialManager.getInstance();
                 if (manager != null) {
@@ -115,7 +120,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             if (faction != null && !ALLIES.contains(faction)) {
                 ALLIES.add(faction); // other inclusions/exclusions should take care of themselves since the factions won't exist at all if the mods are disabled
                 // this would be a real lonely popular front if you don't have Kadur, JP, SRA, or DME active
-                log.info("added " + id + " to list of socialist allies");
+                log(LoggerLogLevel.INFO, "added " + id + " to list of socialist allies");
             }
         }
     }
@@ -215,32 +220,32 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
         // new generation method (piggyback off colony shit):
         VayraColonialManager manager = VayraColonialManager.getInstance();
         if (manager == null) {
-            log.error("can't find VayraColonialManager");
+            log(LoggerLogLevel.ERROR,"can't find VayraColonialManager");
             return;
         }
         FactionAPI faction = Global.getSector().getFaction(JOINT_FACTION);
         if (faction == null) {
-            log.error("can't find communist_clouds");
+            log(LoggerLogLevel.ERROR,"can't find communist_clouds");
             return;
         }
         MarketAPI target = manager.pickTarget(manager.pickSource(faction), faction);
         if (target == null) {
-            log.error("can't find a place to put l'interstellaire");
+            log(LoggerLogLevel.ERROR,"can't find a place to put l'interstellaire");
             return;
         }
         LocationAPI loc = target.getContainingLocation();
         if (loc == null) {
-            log.error("can't find the place that the place to put l'interstellaire is in");
+            log(LoggerLogLevel.ERROR,"can't find the place that the place to put l'interstellaire is in");
             return;
         }
         SectorEntityToken newInterstellarStation = loc.addCustomEntity(STATION_ID, "L'Interstellaire", "station_side07", JOINT_FACTION);
         if (newInterstellarStation == null) {
-            log.error("can't find l'interstellaire after making it");
+            log(LoggerLogLevel.ERROR,"can't find l'interstellaire after making it");
             return;
         }
         SectorEntityToken entity = target.getPrimaryEntity();
         if (entity == null) {
-            log.error("can't find the thing l'interstellaire is supposed to orbit, eat shit");
+            log(LoggerLogLevel.ERROR,"can't find the thing l'interstellaire is supposed to orbit, eat shit");
             return;
         }
         float orbitDist = 333f;
@@ -283,7 +288,8 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
                                 Submarkets.SUBMARKET_STORAGE)),
                 true, // with junk and chatter?
                 true, // pirate mode? (i.e. hidden)
-                true); // free port
+                true  // free port
+        );
     }
 
     @Override
@@ -311,6 +317,46 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             if (Misc.getFactionMarkets(market.getFaction()).size() <= 0 && market.getFaction().isShowInIntelTab()) {
                 market.getFaction().setShowInIntelTab(false);
             }
+        }
+    }
+
+
+    public void log(LoggerLogLevel logLevel, String logMessage) {
+        switch (logLevel) {
+            case FATAL: {
+                log.fatal(logMessage);
+                if (LOG_TO_CONSOLE) Console.showMessage("[FATAL] " + logMessage);
+            }
+            break;
+
+            case ERROR: {
+                log.error(logMessage);
+                if (LOG_TO_CONSOLE) Console.showMessage("[ERROR] " + logMessage);
+            }
+            break;
+
+            case WARN: {
+                log.warn(logMessage);
+                if (LOG_TO_CONSOLE) Console.showMessage("[WARN] " + logMessage);
+            }
+            break;
+
+            case DEBUG: {
+                log.debug(logMessage);
+                if (LOG_TO_CONSOLE) Console.showMessage("[DEBUG] " + logMessage);
+            }
+            break;
+
+            case INFO: {
+                log.info(logMessage);
+                if (LOG_TO_CONSOLE) Console.showMessage("[INFO] " + logMessage);
+            }
+            break;
+
+            case NONE: {
+                // it does nothing but occupying ordinal 0
+            }
+            break;
         }
     }
 }
