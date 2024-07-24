@@ -100,7 +100,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
                     interstellarStation = test.getMarket();
                     log(LoggerLogLevel.INFO, "found preexisting interstellaire, setting existing to this one");
                 } else if (VAYRA_DEBUG || Global.getSector().getClock().getCycle() >= POPULAR_FRONT_TIMEOUT) {
-                    log(LoggerLogLevel.INFO"didn't find interstellaire, creating one");
+                    log(LoggerLogLevel.INFO,"didn't find interstellaire, creating one");
                     makeStation();
                 }
             } else {
