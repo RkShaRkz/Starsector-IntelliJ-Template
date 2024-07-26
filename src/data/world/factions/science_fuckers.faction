@@ -185,7 +185,7 @@
 		"commanderSkillsShuffleProbability":0,
 		"commanderSkills":[
 			"electronic_warfare",
-			"fighter_doctrine",
+			"carrier_group",
 			"officer_management",
 			"coordinated_maneuvers",
 		],
