@@ -318,7 +318,6 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
             skillDesc = "having a high number of skilled subordinates";
         } else if (person.getStats().getSkillLevel(Skills.ELECTRONIC_WARFARE) > 0) {
             skillDesc = "being proficient in electronic warfare";
-//        } else if (person.getStats().getSkillLevel(Skills.FIGHTER_DOCTRINE) > 0) {
         } else if (person.getStats().getSkillLevel(Skills.CARRIER_GROUP) > 0) {
             skillDesc = "a noteworthy level of skill in running carrier operations";
         } else if (person.getStats().getSkillLevel(Skills.COORDINATED_MANEUVERS) > 0) {
