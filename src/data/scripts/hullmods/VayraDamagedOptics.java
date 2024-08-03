@@ -38,9 +38,16 @@ public class VayraDamagedOptics extends BaseHullMod {
             if (w.isBeam() && w.isFiring()) {
                 for (int i = 0; i < w.getSpec().getTurretAngleOffsets().size(); i++) {
                     float move = (float) ((Math.random() * beamWaver) + (Math.random() * -beamWaver));
-                    w.getSpec().getHardpointAngleOffsets().set(i, move);
-                    w.getSpec().getTurretAngleOffsets().set(i, move);
-                    w.getSpec().getHiddenAngleOffsets().set(i, move);
+                    if (i < w.getSpec().getHardpointAngleOffsets().size()) {
+                        w.getSpec().getHardpointAngleOffsets().set(i, move);
+                    }
+                    if (i < w.getSpec().getTurretAngleOffsets().size()) {
+                        // Unnecessary since we're already using this as our loop condition but why not
+                        w.getSpec().getTurretAngleOffsets().set(i, move);
+                    }
+                    if (i< w.getSpec().getHiddenAngleOffsets().size()) {
+                        w.getSpec().getHiddenAngleOffsets().set(i, move);
+                    }
                 }
             }
         }
