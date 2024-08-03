@@ -73,7 +73,8 @@ public class VayraPersonBountyManager extends BaseEventManager {
 
     private void checkForFuckedUpParticipants() {
         checkedForFuckedUpParticipants = true;
-        for (Iterator<String> iter = getSharedData().getParticipatingFactions().iterator(); iter.hasNext(); ) {
+        List<String> participatingFactionsCopy = new ArrayList<String>(getSharedData().getParticipatingFactions());
+        for (Iterator<String> iter = participatingFactionsCopy.iterator(); iter.hasNext(); ) {
             String factionId = iter.next();
             if (Global.getSector().getFaction(factionId) == null) {
                 Global.getSector().getCampaignUI().addMessage(factionId + " is an invalid bounty participant, please yell at its mod author", Color.red);
