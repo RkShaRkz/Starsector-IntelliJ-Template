@@ -31,26 +31,50 @@ public class VayraDamagedOptics extends BaseHullMod {
             return;
         }
 
-        float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float beamWaver = BEAM_WAVER * effect;
-
         for (WeaponAPI w : ship.getAllWeapons()) {
             if (w.isBeam() && w.isFiring()) {
+                float[] moveArray = generateMoveArray(ship, w);
                 for (int i = 0; i < w.getSpec().getTurretAngleOffsets().size(); i++) {
-                    float move = (float) ((Math.random() * beamWaver) + (Math.random() * -beamWaver));
-                    if (i < w.getSpec().getHardpointAngleOffsets().size()) {
-                        w.getSpec().getHardpointAngleOffsets().set(i, move);
-                    }
-                    if (i < w.getSpec().getTurretAngleOffsets().size()) {
-                        // Unnecessary since we're already using this as our loop condition but why not
-                        w.getSpec().getTurretAngleOffsets().set(i, move);
-                    }
-                    if (i< w.getSpec().getHiddenAngleOffsets().size()) {
-                        w.getSpec().getHiddenAngleOffsets().set(i, move);
-                    }
+                    w.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
+                }
+                for (int i = 0; i < w.getSpec().getHardpointAngleOffsets().size(); i++) {
+                    w.getSpec().getHardpointAngleOffsets().set(i, moveArray[i]);
+                }
+                for (int i = 0; i < w.getSpec().getHiddenAngleOffsets().size(); i++) {
+                    w.getSpec().getHiddenAngleOffsets().set(i, moveArray[i]);
                 }
             }
         }
+    }
+
+    private float[] generateMoveArray(ShipAPI ship, WeaponAPI weapon) {
+        float beamWaver = getBeamWaverValue(ship);
+        // First, figure out how many items we have
+        int size = 0;
+        size = Math.max(size, weapon.getSpec().getTurretAngleOffsets().size());
+        size = Math.max(size, weapon.getSpec().getHardpointAngleOffsets().size());
+        size = Math.max(size, weapon.getSpec().getHiddenAngleOffsets().size());
+
+        // now that we know how large the random array should be, lets create it
+        float[] retVal = new float[size];
+        for (int i = 0; i < size; i++) {
+            retVal[i] =  (float) ((Math.random() * beamWaver) + (Math.random() * -beamWaver));
+        }
+
+        return retVal;
+    }
+
+    private float getBeamWaverValue(ShipAPI ship) {
+        MutableShipStatsAPI stats = ship.getMutableStats();
+        CombatEngineAPI engine = Global.getCombatEngine();
+
+        if (stats == null || engine == null || engine.isPaused()) {
+            return 0f;
+        }
+
+        float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
+
+        return BEAM_WAVER * effect;
     }
 
     @Override
