@@ -97,4 +97,13 @@ public class PersonBountyEventDataRepository {
     public synchronized void removeParticipatingFaction(String factionId) {
         getPersonBountyEventData().removeParticipatingFaction(factionId);
     }
+
+    /**
+     * Shortcut for {@link PersonBountyEventData#isParticipating(String)}
+     * @param factionId which faction ID to check for participation
+     * @return whether that faction ID is participating or not
+     */
+    public synchronized boolean isParticipating(String factionId) {
+        return getPersonBountyEventData().isParticipating(factionId);
+    }
 }
