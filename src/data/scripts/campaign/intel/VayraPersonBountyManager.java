@@ -10,6 +10,7 @@ import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel;
 import com.fs.starfarer.api.impl.campaign.intel.PersonBountyManager;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.domain.PersonBountyEventDataRepository;
 import data.scripts.VayraMergedModPlugin.*;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -73,15 +74,21 @@ public class VayraPersonBountyManager extends BaseEventManager {
 
     private synchronized void checkForFuckedUpParticipants() {
         checkedForFuckedUpParticipants = true;
-        for (Iterator<String> iter = getSharedData().getParticipatingFactions().iterator(); iter.hasNext(); ) {
-            String factionId = iter.next();
+        // We're going to use a roundabout way of removing things from participating factions...
+        ArrayList<String> factionsToRemove = new ArrayList<>();
+        for (String factionId : PersonBountyEventDataRepository.getInstance().getParticipatingFactions()) {
             if (Global.getSector().getFaction(factionId) == null) {
                 Global.getSector().getCampaignUI().addMessage(factionId + " is an invalid bounty participant, please yell at its mod author", Color.red);
                 Global.getSector().getCampaignUI().addMessage(factionId + " bounties will not function until they fix it", Color.red);
                 Global.getSector().getCampaignUI().addMessage("i could have crashed the game right here, i SHOULD have crashed the game right here", Color.red);
                 Global.getSector().getCampaignUI().addMessage("god knows you'd fuckin' deserve it", Color.red);
-                iter.remove();
+                Global.getSector().getCampaignUI().addMessage("Calm down Vayra...", Color.green);
+                factionsToRemove.add(factionId);
             }
+        }
+        // Now remove all of them one by one
+        for (String factionId : factionsToRemove) {
+            PersonBountyEventDataRepository.getInstance().removeParticipatingFaction(factionId);
         }
     }
 
@@ -283,7 +290,7 @@ public class VayraPersonBountyManager extends BaseEventManager {
         }
 
         if (!getSharedData().isParticipating(Factions.PIRATES)) {
-            SharedData.getData().getPersonBountyEventData().addParticipatingFaction(Factions.PIRATES);
+            PersonBountyEventDataRepository.getInstance().addParticipatingFaction(Factions.PIRATES);
         }
 
         super.advance(amount);

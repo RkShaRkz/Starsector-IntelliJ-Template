@@ -11,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.util.Misc;
+import data.domain.PersonBountyEventDataRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -35,7 +36,7 @@ public class NGCKadurPatherStartScript extends BaseCommandPlugin {
 
                 //SectorAPI sector = Global.getSector();
 
-                SharedData.getData().getPersonBountyEventData().addParticipatingFaction(Factions.LUDDIC_PATH);
+                PersonBountyEventDataRepository.getInstance().addParticipatingFaction(Factions.LUDDIC_PATH);
 
                 String parentId = Factions.LUDDIC_PATH;
                 FactionAPI player = Global.getSector().getFaction(Factions.PLAYER);

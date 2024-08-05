@@ -37,6 +37,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.domain.PersonBountyEventDataRepository;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -115,7 +116,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
     }
 
     public static synchronized PersonBountyEventData getSharedData() {
-        return SharedData.getData().getPersonBountyEventData();
+        return PersonBountyEventDataRepository.getInstance().getPersonBountyEventData();
     }
 
     public VayraPersonBountyIntel() {
@@ -411,7 +412,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
                 } else {
                     WeightedRandomPicker<FactionAPI> factions = new WeightedRandomPicker<>();
-                    for (String facId : SharedData.getData().getPersonBountyEventData().getParticipatingFactions()) {
+                    for (String facId : PersonBountyEventDataRepository.getInstance().getParticipatingFactions()) {
                         FactionAPI fac = Global.getSector().getFaction(facId);
                         if (fac.isShowInIntelTab() && faction.isAtWorst(fac, RepLevel.FAVORABLE)) {
                             factions.add(fac, faction.getRelationship(facId));

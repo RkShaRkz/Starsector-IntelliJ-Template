@@ -4,6 +4,7 @@ import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
 import com.fs.starfarer.api.campaign.SectorGeneratorPlugin;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
+import data.domain.PersonBountyEventDataRepository;
 import data.scripts.world.systems.KadurGehennaSystem;
 import data.scripts.world.systems.KadurMirageSystem;
 
@@ -18,7 +19,7 @@ public class KadurGen implements SectorGeneratorPlugin {
         new KadurMirageSystem().generate(sector);
         new KadurGehennaSystem().generate(sector);
 
-        SharedData.getData().getPersonBountyEventData().addParticipatingFaction(KADUR_ID);
+        PersonBountyEventDataRepository.getInstance().addParticipatingFaction(KADUR_ID);
 
         FactionAPI kadur_remnant = sector.getFaction(KADUR_ID);
 
