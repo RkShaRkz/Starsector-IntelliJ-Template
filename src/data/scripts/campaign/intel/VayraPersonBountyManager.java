@@ -71,7 +71,7 @@ public class VayraPersonBountyManager extends BaseEventManager {
         Global.getSector().getMemoryWithoutUpdate().set(KEY, this);
     }
 
-    private void checkForFuckedUpParticipants() {
+    private synchronized void checkForFuckedUpParticipants() {
         checkedForFuckedUpParticipants = true;
         for (Iterator<String> iter = getSharedData().getParticipatingFactions().iterator(); iter.hasNext(); ) {
             String factionId = iter.next();
@@ -276,7 +276,7 @@ public class VayraPersonBountyManager extends BaseEventManager {
                 log.info("Re-adding the vanilla bounty manager, alas");
             }
             if (getSharedData().isParticipating(Factions.PIRATES)) {
-                SharedData.getData().getPersonBountyEventData().getParticipatingFactions().remove(Factions.PIRATES);
+                getSharedData().getParticipatingFactions().remove(Factions.PIRATES);
                 log.info("Fucking off for now, since player is a bootlicker and hates freedom");
             }
             return;
