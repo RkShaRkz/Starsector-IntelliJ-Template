@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class PersonBountyEventDataRepository {
 
-    private List<String> factionsCOWlist;
+    private volatile List<String> factionsCOWlist;
 
     private static volatile PersonBountyEventDataRepository instance;
 
