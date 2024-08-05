@@ -45,6 +45,8 @@ public class PersonBountyEventDataRepository {
     /**
      * Replacement for {@link SharedData#getPersonBountyEventData()} and subsequent {@link PersonBountyEventData#getParticipatingFactions()}
      * underlying list
+     * <p>
+     * <b>NOTE: do not modify this list directly or through it's iterator, use the provided methods for that</b>
      * @return unmodifiable CopyOnWriteArrayList wrapping the underlying list provided by the game
      */
     public synchronized List<String> getParticipatingFactions() {
