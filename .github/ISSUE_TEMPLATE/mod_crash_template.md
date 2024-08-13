@@ -1,8 +1,8 @@
 ---
-name: Mod Issue Report
-about: Report an issue related to a mod
-title: "[Issue] <Descriptive title>"
-labels: bug
+name: Mod Crash Report
+about: Report a crash related to a mod
+title: "[Crash] <Descriptive title>"
+labels: crash
 assignees: ''
 ---
 
@@ -16,13 +16,8 @@ assignees: ''
 
 ???
 
-### What did you expect to happen?
-<!-- Describe what you expected to happen. -->
-
-???
-
-### What actually happened?
-<!-- Describe what actually happened. -->
+### What were you doing when it happened?
+<!-- Describe the actions you were performing when the crash occurred. -->
 
 ???
 
