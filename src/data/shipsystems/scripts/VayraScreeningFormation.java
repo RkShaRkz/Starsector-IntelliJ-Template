@@ -7,8 +7,10 @@ import com.fs.starfarer.api.combat.ShieldAPI.ShieldType;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.impl.combat.BaseShipSystemScript;
 import com.fs.starfarer.api.plugins.ShipSystemStatsScript;
+
+import java.awt.*;
+
 import static data.scripts.VayraMergedModPlugin.getFighters;
-import java.awt.Color;
 
 public class VayraScreeningFormation extends BaseShipSystemScript {
 
@@ -99,18 +101,34 @@ public class VayraScreeningFormation extends BaseShipSystemScript {
     @Override
     public ShipSystemStatsScript.StatusData getStatusData(int index, ShipSystemStatsScript.State state, float effectLevel) {
         ShipSystemStatsScript.StatusData retVal;
-        switch(index) {
+        switch (index) {
             case 0:
                 retVal = new ShipSystemStatsScript.StatusData("-75% engagement range", false);
                 break;
             case 1:
-                retVal = new ShipSystemStatsScript.StatusData("-" + (int) (DAMAGE_TAKEN_MULT * effectLevel * 100f) + "% damage taken by fighters", false);
+                retVal = new ShipSystemStatsScript.StatusData("-" + (int) (DAMAGE_TAKEN_MULT * effectLevel * 100f) + "% shield damage taken by fighters", false);
                 break;
             case 2:
-                retVal = new ShipSystemStatsScript.StatusData("+" + (int) (DAMAGE_BONUS_PERCENT * effectLevel) + "% fighter damage dealt to fighters and missiles", false);
+                retVal = new ShipSystemStatsScript.StatusData("-" + (int) (DAMAGE_TAKEN_MULT * effectLevel * 100f) + "% armor damage taken by fighters", false);
                 break;
+            case 3:
+                retVal = new ShipSystemStatsScript.StatusData("-" + (int) (DAMAGE_TAKEN_MULT * effectLevel * 100f) + "% hull damage taken by fighters", false);
+                break;
+            case 4:
+                retVal = new ShipSystemStatsScript.StatusData("-" + (int) (DAMAGE_TAKEN_MULT * effectLevel * 100f) + "% EMP damage taken by fighters", false);
+                break;
+            case 5:
+                retVal = new ShipSystemStatsScript.StatusData("Changes fighters' shield color and increases it's arc to 360", false);
+                break;
+            case 6:
+                retVal = new ShipSystemStatsScript.StatusData("+" + (int) (DAMAGE_BONUS_PERCENT * effectLevel) + "% fighter damage dealt to fighters", false);
+                break;
+            case 7:
+                retVal = new ShipSystemStatsScript.StatusData("+" + (int) (DAMAGE_BONUS_PERCENT * effectLevel) + "% fighter damage dealt to missiles", false);
+                break;
+
             default:
-                throw new IllegalArgumentException("Please add code for value "+index+" in VayraScreeningFormation.java");
+                throw new IllegalArgumentException("Please add code for value " + index + " in VayraScreeningFormation.java");
         }
         return retVal;
     }
