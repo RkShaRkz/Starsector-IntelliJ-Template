@@ -122,22 +122,73 @@ public class VayraColonialManager implements EveryFrameScript {
             colonialFaction.setRelationship(colonialFactionID, 1f);
         }
 
-        Global.getSector().getFaction("warhawk_republic").setRelationship(Factions.HEGEMONY, -1f);
-        Global.getSector().getFaction("science_fuckers").setRelationship(Factions.REMNANTS, 0f);
-        Global.getSector().getFaction("communist_clouds").setRelationship(Factions.INDEPENDENT, RepLevel.HOSTILE);
-        Global.getSector().getFaction("communist_clouds").setRelationship(Factions.LUDDIC_PATH, RepLevel.HOSTILE);
-        Global.getSector().getFaction("communist_clouds").setRelationship(Factions.DIKTAT, -1f);
-        Global.getSector().getFaction("communist_clouds").setRelationship("tahlan_legioinfernalis", -1f);
-        Global.getSector().getFaction("ashen_keepers").setRelationship(Factions.LUDDIC_CHURCH, -0.6f);
-        Global.getSector().getFaction("ashen_keepers").setRelationship(Factions.LUDDIC_PATH, -1f);
-        Global.getSector().getFaction("ashen_keepers").setRelationship(Factions.TRITACHYON, RepLevel.WELCOMING);
+        safeChangeRelationshipForFaction("warhawk_republic", new RelationshipDataWithFloatReputation(Factions.HEGEMONY, -1f));
+        safeChangeRelationshipForFaction("science_fuckers", new RelationshipDataWithFloatReputation(Factions.REMNANTS, 0f));
+        safeChangeRelationshipForFaction("communist_clouds", new RelationshipDataWithRepLevelReputation(Factions.INDEPENDENT, RepLevel.HOSTILE));
+        safeChangeRelationshipForFaction("communist_clouds", new RelationshipDataWithRepLevelReputation(Factions.LUDDIC_PATH, RepLevel.HOSTILE));
+        safeChangeRelationshipForFaction("communist_clouds", new RelationshipDataWithFloatReputation(Factions.DIKTAT, -1f));
+        safeChangeRelationshipForFaction("communist_clouds", new RelationshipDataWithFloatReputation("tahlan_legioinfernalis", -1f));
+        safeChangeRelationshipForFaction("ashen_keepers", new RelationshipDataWithFloatReputation(Factions.LUDDIC_CHURCH, -0.6f));
+        safeChangeRelationshipForFaction("ashen_keepers", new RelationshipDataWithFloatReputation(Factions.LUDDIC_PATH, -1f));
+        safeChangeRelationshipForFaction("ashen_keepers", new RelationshipDataWithRepLevelReputation(Factions.TRITACHYON, RepLevel.WELCOMING));
 
         if (!EXERELIN_LOADED) {
-            Global.getSector().getFaction("ashen_keepers").setRelationship(Factions.PLAYER, 0f);
-            if (Global.getSector().getFaction("communist_clouds").getRelationship(Factions.PLAYER) <= -RepLevel.getT2()) {
-                Global.getSector().getFaction("communist_clouds").setRelationship(Factions.PLAYER, RepLevel.INHOSPITABLE);
+            safeChangeRelationshipForFaction("ashen_keepers", new RelationshipDataWithFloatReputation(Factions.PLAYER, 0f));
+            if (safeGetRelationshipForFactionToFaction("communist_clouds", Factions.PLAYER) <= -RepLevel.getT2()) {
+                safeChangeRelationshipForFaction("communist_clouds", new RelationshipDataWithRepLevelReputation(Factions.PLAYER, RepLevel.INHOSPITABLE));
             }
         }
+    }
+
+    /**
+     * Safely and null-safely change the relationship for a faction {@code factionId} to the new relationship using the
+     * {@link RelationshipData} intermediary containing both the faction ID and the relationship value to change to.
+     * @param factionID the faction ID whose relationship is to be changed
+     * @param newRelationship the new relationship towards the faction ID
+     * @return whether the faction was found and successfully changed the relationship
+     */
+    private boolean safeChangeRelationshipForFaction(String factionID, RelationshipData newRelationship) {
+        boolean retVal = false;
+
+        FactionAPI testFaction = Global.getSector().getFaction(factionID);
+        if (testFaction != null) {
+            switch (newRelationship.getReputation().getHolderType()) {
+                case FLOAT: {
+                    testFaction.setRelationship(newRelationship.getFactionId(), newRelationship.getReputation().getFloatReputation());
+                    retVal = true;
+                }
+                break;
+
+                case REP_LEVEL: {
+                    testFaction.setRelationship(newRelationship.getFactionId(), newRelationship.getReputation().getRepLevelReputation());
+                    retVal = true;
+                }
+                break;
+
+                default:
+                    throw new IllegalStateException("ReputationHolderType "+newRelationship.getReputation().getHolderType()+" encountered! Please add support for it!");
+            }
+        }
+
+        return retVal;
+    }
+
+    /**
+     * Safely and null-safely get relationship between {@code fromFactionID} and {@code toFactionID} and return that.
+     * In case the {@link Global#getSector()} and subsequent {@link SectorAPI#getFaction(String)} return null, the method
+     * will return <b>0.0</b>, assuming a neutral relationship between the non-existant <i>fromFaction</i> to anything.
+     *
+     * @param fromFactionID the faction ID of the from-faction whose relationship we want to query
+     * @param toFactionID the faction ID of the to-faction whose relationship we want to query
+     * @return the relationship between <i>fromFaction</i> towards <i>toFaction</i>
+     */
+    private float safeGetRelationshipForFactionToFaction(String fromFactionID, String toFactionID) {
+        FactionAPI testFaction = Global.getSector().getFaction(fromFactionID);
+        if (testFaction != null) {
+            return testFaction.getRelationship(toFactionID);
+        }
+
+        return 0f;
     }
 
     public static VayraColonialManager getInstance() {
@@ -1228,4 +1279,88 @@ public class VayraColonialManager implements EveryFrameScript {
             }
         }
     }
+}
+
+interface RelationshipData {
+    String getFactionId();
+    ReputationHolder getReputation();
+}
+
+class RelationshipDataWithFloatReputation implements RelationshipData {
+    protected final String factionId;
+    protected final float reputation;
+
+    public RelationshipDataWithFloatReputation(String factionId, float reputation) {
+        this.factionId = factionId;
+        this.reputation = reputation;
+    }
+
+    @Override
+    public String getFactionId() {
+        return factionId;
+    }
+
+    @Override
+    public ReputationHolder getReputation() {
+        return new ReputationHolder(reputation);
+    }
+}
+
+class RelationshipDataWithRepLevelReputation implements RelationshipData {
+    protected final String factionId;
+    protected final RepLevel reputation;
+
+    public RelationshipDataWithRepLevelReputation(String factionId, RepLevel reputation) {
+        this.factionId = factionId;
+        this.reputation = reputation;
+    }
+
+    @Override
+    public String getFactionId() {
+        return factionId;
+    }
+
+    @Override
+    public ReputationHolder getReputation() {
+        return new ReputationHolder(reputation);
+    }
+}
+
+class ReputationHolder {
+    private final Float floatReputation;
+    private final RepLevel repLevelReputation;
+
+    private final ReputationHolderType holderType;
+
+    public ReputationHolder(float reputation) {
+        this.floatReputation = reputation;
+        this.repLevelReputation = null;
+        this.holderType = ReputationHolderType.FLOAT;
+    }
+
+    public ReputationHolder(RepLevel reputation) {
+        this.floatReputation = null;
+        this.repLevelReputation = reputation;
+        this.holderType = ReputationHolderType.REP_LEVEL;
+    }
+
+    public ReputationHolderType getHolderType() { return holderType; }
+
+    public float getFloatReputation() {
+        if (floatReputation != null) {
+            return floatReputation;
+        }
+
+        return 0f;
+    }
+
+    public RepLevel getRepLevelReputation() {
+        if (repLevelReputation != null) {
+            return repLevelReputation;
+        }
+
+        return RepLevel.NEUTRAL;
+    }
+
+    static enum ReputationHolderType { FLOAT, REP_LEVEL }
 }
