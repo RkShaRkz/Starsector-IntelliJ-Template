@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.lazywizard.console.Console;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.io.IOException;
@@ -79,6 +80,9 @@ public class VayraColonialManager implements EveryFrameScript {
     public Map<String, Float> colonialPrefMinDist = new HashMap<>();
     public Map<String, Float> colonialPrefMaxDist = new HashMap<>();
 
+    private String AOTD_MOD_ID = "aotd_vok";
+    public boolean AOTD_ENABLED = Global.getSettings().getModManager().isModEnabled(AOTD_MOD_ID);
+
     static {
         COLONIAL_MONEY_BUILDINGS.put(Industries.TECHMINING, 5f); // 5f is the magic weight that means it requires resources
         COLONIAL_MONEY_BUILDINGS.put(Industries.MINING, 5f); // 5f is the magic weight that means it requires resources
@@ -91,6 +95,9 @@ public class VayraColonialManager implements EveryFrameScript {
 
     public static final float INDUSTRY_CORE_ESCAPE_CHANCE = 0.5f;
     public static final float ADMIN_CORE_ESCAPE_CHANCE = 1f;
+
+    private static final boolean SPAM_LOG_ENABLED = true;
+    private static final boolean SPAM_LOG_SPAMS_CONSOLE = false;
 
     public VayraColonialManager() {
 
@@ -200,7 +207,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
     @Override
     public void advance(float amount) {
-
+        spamLog("--> VayraColonialManager::advance()");
         checkIfAnyShouldBeVisible();
 
         if (!COLONIAL_FACTIONS_ENABLED) {
@@ -231,6 +238,7 @@ public class VayraColonialManager implements EveryFrameScript {
             useItems();
         }
 
+        spamLog("VayraColonialManager::advance()\tcoloniesActive: "+stringifyColonyList());
         if (!coloniesActive.isEmpty()) {
             for (MarketAPI market : coloniesActive) {
                 market.advance(amount);
@@ -244,6 +252,7 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         if (upgradeTimer.intervalElapsed()) {
+            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tcoloniesActive size: "+coloniesActive.size());
             if (!coloniesActive.isEmpty()) {
                 for (MarketAPI market : coloniesActive) {
                     pickNextUpgrade(market);
@@ -267,10 +276,14 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         if (colonyTimer.intervalElapsed()) {
+            spamLog("VayraColonialManager::advance()\tCOLONY SECTION");
             if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= colonyChance) {
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tstarting to spawn colony...");
                 FactionAPI colonyFaction = pickFaction();
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tpicked faction: "+((colonyFaction != null) ? colonyFaction.getId() : "null")+", faction name: "+((colonyFaction != null) ? colonyFaction.getDisplayName() : "null"));
                 if (colonyFaction == null) {
                     log.info("Not starting a colonial expedition -- everyone is at the global colony cap");
+                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because colonyFaction == null condition");
                     return;
                 }
                 // and this is where we create the colonial expedition! ohgodsomuchwork
@@ -278,27 +291,49 @@ public class VayraColonialManager implements EveryFrameScript {
                 if (source == null) {
                     log.info(String.format("We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving"
                             + " up instead", colonyFaction.getDisplayNameLongWithArticle(), Global.getSector().getFaction(colonialParents.get(colonyFaction.getId()))));
+                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because source == null condition");
                     return;
                 }
                 MarketAPI target = pickTarget(source, colonyFaction);
                 if (target == null) {
                     log.info("We were gonna colonize a planet, but target returned null so we're giving up instead");
+                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because target == null condition");
                     return;
                 }
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\ttarget.isPlanetConditionMarketingOnly ? "+target.isPlanetConditionMarketOnly());
                 if (!target.isPlanetConditionMarketOnly()) {
                     log.info(String.format("We were gonna colonize %s, but it's not a planetary condition only market "
                             + "(already taken?) so we're giving up instead", target.getName()));
+                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because !target.isPlanetConditionMarketOnly() condition");
                 }
                 float fleetPoints = pickExpeditionFP(colonyFaction);
                 log.info(String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
                 try {
                     VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
                     planetsTargetedForColonies.add(target);
+                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tadded planet as target for colony\ttarget name: "+target.getName()+", target star system: "+target.getStarSystem());
                 } catch (NullPointerException ex) {
                     log.info(String.format("Expedition picked %s in %s as a target, but that causes an error -- i thought i fixed this...", target.getName(), target.getStarSystem()));
                 }
             }
         }
+    }
+
+    public String stringifyColonyList() {
+        StringBuffer sb = new StringBuffer();
+        for (Iterator<MarketAPI> iter = coloniesActive.iterator(); iter.hasNext();  ) {
+            MarketAPI colony = iter.next();
+            sb
+                    .append("Faction ID: ")
+                    .append(colony.getFactionId())
+                    .append(", ");
+        }
+        // rewind last two letters if non-empty
+        if (sb.length() > 2) {
+            sb.setLength(sb.length() - 2);
+        }
+
+        return sb.toString();
     }
 
     public static Set<String> loadColonyFactionList() {
@@ -636,27 +671,29 @@ public class VayraColonialManager implements EveryFrameScript {
             }
         }
 
-        if (upgrade != null && market.hasIndustry(upgrade)) {
-            Industry ind = market.getIndustry(upgrade);
-            if (ind != null) {
-                ind.startUpgrading();
-                log.info(String.format("upgrading %s on %s", upgrade, market.getName()));
-            } else {
-                log.error(String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName()));
+        if (!AOTD_ENABLED) {
+            if (upgrade != null && market.hasIndustry(upgrade)) {
+                Industry ind = market.getIndustry(upgrade);
+                if (ind != null) {
+                    ind.startUpgrading();
+                    log.info(String.format("upgrading %s on %s", upgrade, market.getName()));
+                } else {
+                    log.error(String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName()));
+                }
+                return;
             }
-            return;
-        }
 
-        if (industry == null) {
-            log.info(String.format("tried to build something new on %s but industry was null", market.getName()));
-            log.info(String.format("upgrade was supposed to be %s ... if that's not null then you're upgrading TOO FAST", upgrade));
-            return;
-        }
+            if (industry == null) {
+                log.info(String.format("tried to build something new on %s but industry was null", market.getName()));
+                log.info(String.format("upgrade was supposed to be %s ... if that's not null then you're upgrading TOO FAST", upgrade));
+                return;
+            }
 
-        if (!market.hasIndustry(industry) && market.getIndustries().size() < 12) {
-            market.addIndustry(industry);
-            market.getIndustry(industry).startBuilding();
-            log.info(String.format("building %s on %s", industry, market.getName()));
+            if (!market.hasIndustry(industry) && market.getIndustries().size() < 12) {
+                market.addIndustry(industry);
+                market.getIndustry(industry).startBuilding();
+                log.info(String.format("building %s on %s", industry, market.getName()));
+            }
         }
     }
 
@@ -1276,6 +1313,16 @@ public class VayraColonialManager implements EveryFrameScript {
                         log.info("no cores left over, alas");
                     }
                 }
+            }
+        }
+    }
+
+    private void spamLog(String logMessage) {
+        if (SPAM_LOG_ENABLED) {
+            if (SPAM_LOG_SPAMS_CONSOLE) {
+                Console.showMessage(logMessage);
+            } else {
+                log.info(logMessage);
             }
         }
     }
