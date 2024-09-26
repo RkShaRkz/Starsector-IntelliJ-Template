@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static data.scripts.util.MiscUtils.getMaximumWeaponSpecAngleOffsetsSize;
+
 public class VayraJoachimEffect implements EveryFrameWeaponEffectPlugin {
 
     public static Logger log = Global.getLogger(VayraJoachimEffect.class);
@@ -64,10 +66,7 @@ public class VayraJoachimEffect implements EveryFrameWeaponEffectPlugin {
      */
     private float[] generateMoveArray(WeaponAPI weapon) {
         // First, figure out how many items we have
-        int size = 0;
-        size = Math.max(size, weapon.getSpec().getTurretAngleOffsets().size());
-        size = Math.max(size, weapon.getSpec().getHardpointAngleOffsets().size());
-        size = Math.max(size, weapon.getSpec().getHiddenAngleOffsets().size());
+        int size = getMaximumWeaponSpecAngleOffsetsSize(weapon);
 
         // now that we know how large the random array should be, lets create it
         float[] retVal = new float[size];
@@ -78,6 +77,8 @@ public class VayraJoachimEffect implements EveryFrameWeaponEffectPlugin {
         return retVal;
     }
 
+
+
     @Override
     public void advance(float amount, CombatEngineAPI engine, WeaponAPI weapon) {
         // Don't run if we are paused, or our weapon is null
@@ -86,15 +87,17 @@ public class VayraJoachimEffect implements EveryFrameWeaponEffectPlugin {
         }
 
         if (restart) {
-            //TODO consider unifying these loops in just one, so that they all move in-sync rather than in-order
-            for (int i = 0; i < weapon.getSpec().getTurretAngleOffsets().size(); i++) {
-                weapon.getSpec().getHardpointAngleOffsets().set(i, safeGetFromArrayList(BASE_ANGLES, i));
-            }
-            for (int i = 0; i < weapon.getSpec().getHardpointAngleOffsets().size(); i++) {
-                weapon.getSpec().getHardpointAngleOffsets().set(i, safeGetFromArrayList(BASE_ANGLES, i));
-            }
-            for (int i = 0; i < weapon.getSpec().getHiddenAngleOffsets().size(); i++) {
-                weapon.getSpec().getHiddenAngleOffsets().set(i, safeGetFromArrayList(BASE_ANGLES, i));
+            int maxOffsetSize = getMaximumWeaponSpecAngleOffsetsSize(weapon);
+            for (int i = 0; i < maxOffsetSize; i++) {
+                if (i < weapon.getSpec().getTurretAngleOffsets().size()) {
+                    weapon.getSpec().getTurretAngleOffsets().set(i, safeGetFromArrayList(BASE_ANGLES, i));
+                }
+                if (i < weapon.getSpec().getHardpointAngleOffsets().size()) {
+                    weapon.getSpec().getHardpointAngleOffsets().set(i, safeGetFromArrayList(BASE_ANGLES, i));
+                }
+                if (i < weapon.getSpec().getHiddenAngleOffsets().size()) {
+                    weapon.getSpec().getHiddenAngleOffsets().set(i, safeGetFromArrayList(BASE_ANGLES, i));
+                }
             }
         }
 
@@ -104,15 +107,17 @@ public class VayraJoachimEffect implements EveryFrameWeaponEffectPlugin {
 
             // sweep the beam
             float[] moveArray = generateMoveArray(weapon);
-            //TODO consider unifying these loops in just one, so that they all move in-sync rather than in-order
-            for (int i = 0; i < weapon.getSpec().getTurretAngleOffsets().size(); i++) {
-                weapon.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
-            }
-            for (int i = 0; i < weapon.getSpec().getHardpointAngleOffsets().size(); i++) {
-                weapon.getSpec().getHardpointAngleOffsets().set(i, moveArray[i]);
-            }
-            for (int i = 0; i < weapon.getSpec().getHiddenAngleOffsets().size(); i++) {
-                weapon.getSpec().getHiddenAngleOffsets().set(i, moveArray[i]);
+            int maxOffsetSize = getMaximumWeaponSpecAngleOffsetsSize(weapon);
+            for (int i = 0; i < maxOffsetSize; i++) {
+                if (i < weapon.getSpec().getTurretAngleOffsets().size()) {
+                    weapon.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
+                }
+                if (i < weapon.getSpec().getHardpointAngleOffsets().size()) {
+                    weapon.getSpec().getHardpointAngleOffsets().set(i, moveArray[i]);
+                }
+                if (i < weapon.getSpec().getHiddenAngleOffsets().size()) {
+                    weapon.getSpec().getHiddenAngleOffsets().set(i, moveArray[i]);
+                }
             }
 
             // spawn particles
