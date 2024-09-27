@@ -6,6 +6,8 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 
+import static data.scripts.util.MiscUtils.getMaximumWeaponSpecAngleOffsetsSize;
+
 public class VayraDamagedOptics extends BaseHullMod {
 
     public static final float BEAM_RANGE_MULT = 0.75f;
@@ -34,14 +36,17 @@ public class VayraDamagedOptics extends BaseHullMod {
         for (WeaponAPI w : ship.getAllWeapons()) {
             if (w.isBeam() && w.isFiring()) {
                 float[] moveArray = generateMoveArray(ship, w);
-                for (int i = 0; i < w.getSpec().getTurretAngleOffsets().size(); i++) {
-                    w.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
-                }
-                for (int i = 0; i < w.getSpec().getHardpointAngleOffsets().size(); i++) {
-                    w.getSpec().getHardpointAngleOffsets().set(i, moveArray[i]);
-                }
-                for (int i = 0; i < w.getSpec().getHiddenAngleOffsets().size(); i++) {
-                    w.getSpec().getHiddenAngleOffsets().set(i, moveArray[i]);
+                int maxOffsetSize = getMaximumWeaponSpecAngleOffsetsSize(w);
+                for (int i = 0; i < maxOffsetSize; i++) {
+                    if (i < w.getSpec().getTurretAngleOffsets().size()) {
+                        w.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
+                    }
+                    if (i < w.getSpec().getHardpointAngleOffsets().size()) {
+                        w.getSpec().getHardpointAngleOffsets().set(i, moveArray[i]);
+                    }
+                    if (i < w.getSpec().getHiddenAngleOffsets().size()) {
+                        w.getSpec().getHiddenAngleOffsets().set(i, moveArray[i]);
+                    }
                 }
             }
         }
@@ -50,10 +55,7 @@ public class VayraDamagedOptics extends BaseHullMod {
     private float[] generateMoveArray(ShipAPI ship, WeaponAPI weapon) {
         float beamWaver = getBeamWaverValue(ship);
         // First, figure out how many items we have
-        int size = 0;
-        size = Math.max(size, weapon.getSpec().getTurretAngleOffsets().size());
-        size = Math.max(size, weapon.getSpec().getHardpointAngleOffsets().size());
-        size = Math.max(size, weapon.getSpec().getHiddenAngleOffsets().size());
+        int size = getMaximumWeaponSpecAngleOffsetsSize(weapon);
 
         // now that we know how large the random array should be, lets create it
         float[] retVal = new float[size];
