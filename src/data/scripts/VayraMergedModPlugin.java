@@ -41,7 +41,10 @@ import exerelin.campaign.SectorManager;
 import exerelin.campaign.fleets.InvasionFleetManager;
 import exerelin.utilities.NexConfig;
 import exerelin.utilities.NexFactionConfig;
+import lunalib.lunaSettings.LunaSettings;
+import lunalib.lunaSettings.LunaSettingsListener;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -114,6 +117,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static boolean EXERELIN_LOADED;
     public static Set<String> EXERELIN_ACTIVE = new HashSet<>();
 
+    public static final boolean HAVE_LUNALIB = Global.getSettings().getModManager().isModEnabled("lunalib");
+    private static final MyLunaSettingsListener LunaSettingsListenerInstance = new MyLunaSettingsListener();
+
     @Override
     public void onApplicationLoad() throws Exception {
 
@@ -146,6 +152,13 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             for (String factionId : VayraColonialManager.loadColonyFactionList()) {
                 setExerelinActive(factionId, COLONIAL_FACTIONS_ENABLED);
             }
+        }
+
+        if (HAVE_LUNALIB) {
+            LunaSettings.addSettingsListener(LunaSettingsListenerInstance);
+
+            // Force a refresh of settings
+            LunaSettingsListenerInstance.settingsChanged(MOD_ID);
         }
     }
 
@@ -701,5 +714,42 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
 
         return sb.toString();
+    }
+
+    private static class MyLunaSettingsListener implements LunaSettingsListener {
+
+        private static class LunaConstants {
+            public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
+        }
+
+        @Override
+        public void settingsChanged(@NotNull String modId) {
+            if (modId.equalsIgnoreCase(MOD_ID)) {
+                boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_INTERSTELLAIRE_UPGRADES));
+                VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
+            }
+        }
+
+        private int safeUnboxing(Integer object) {
+            int retVal;
+            if (object == null) {
+                retVal = 0;
+            } else {
+                retVal = object;
+            }
+
+            return retVal;
+        }
+
+        private boolean safeUnboxing(Boolean object) {
+            boolean retVal;
+            if (object == null) {
+                retVal = false;
+            } else {
+                retVal = object;
+            }
+
+            return retVal;
+        }
     }
 }

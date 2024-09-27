@@ -99,6 +99,8 @@ public class VayraColonialManager implements EveryFrameScript {
     private static final boolean SPAM_LOG_ENABLED = true;
     private static final boolean SPAM_LOG_SPAMS_CONSOLE = false;
 
+    public static boolean UPGRADES_DISABLED = false;
+
     public VayraColonialManager() {
 
         possibleColonyFactions = loadColonyFactionList();
@@ -672,28 +674,37 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         if (!AOTD_ENABLED) {
-            if (upgrade != null && market.hasIndustry(upgrade)) {
-                Industry ind = market.getIndustry(upgrade);
-                if (ind != null) {
-                    ind.startUpgrading();
-                    log.info(String.format("upgrading %s on %s", upgrade, market.getName()));
-                } else {
-                    log.error(String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName()));
+            if (!UPGRADES_DISABLED) {
+                // Upgrades are enabled (well, not disabled) so do the normal happy path
+                if (upgrade != null && market.hasIndustry(upgrade)) {
+                    Industry ind = market.getIndustry(upgrade);
+                    if (ind != null) {
+                        ind.startUpgrading();
+                        log.info(String.format("upgrading %s on %s", upgrade, market.getName()));
+                    } else {
+                        log.error(String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName()));
+                    }
+                    return;
                 }
-                return;
-            }
 
-            if (industry == null) {
-                log.info(String.format("tried to build something new on %s but industry was null", market.getName()));
-                log.info(String.format("upgrade was supposed to be %s ... if that's not null then you're upgrading TOO FAST", upgrade));
-                return;
-            }
+                if (industry == null) {
+                    log.info(String.format("tried to build something new on %s but industry was null", market.getName()));
+                    log.info(String.format("upgrade was supposed to be %s ... if that's not null then you're upgrading TOO FAST", upgrade));
+                    return;
+                }
 
-            if (!market.hasIndustry(industry) && market.getIndustries().size() < 12) {
-                market.addIndustry(industry);
-                market.getIndustry(industry).startBuilding();
-                log.info(String.format("building %s on %s", industry, market.getName()));
+                if (!market.hasIndustry(industry) && market.getIndustries().size() < 12) {
+                    market.addIndustry(industry);
+                    market.getIndustry(industry).startBuilding();
+                    log.info(String.format("building %s on %s", industry, market.getName()));
+                }
+            } else {
+                // Upgrades disabled by user
+                log.info("Not performing l'interstellaire upgrades because it's been turned off in luna settings");
             }
+        } else {
+            // Upgrades disabled to avoid crashing with AOTD
+            log.info("Not performing l'interstellaire upgrades because AOTD is turned on");
         }
     }
 
