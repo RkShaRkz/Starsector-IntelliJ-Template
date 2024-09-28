@@ -149,7 +149,7 @@
 
 		"commanderSkillsShuffleProbability":0,
 		"commanderSkills":[
-			"fighter_doctrine",
+			"carrier_group",
 			"officer_management",
 			"coordinated_maneuvers",
 			"electronic_warfare",
