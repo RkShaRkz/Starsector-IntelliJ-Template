@@ -29,6 +29,8 @@ public class VayraForceInterstellaire implements BaseCommand {
             VayraPopularFrontManager.LOG_TO_CONSOLE = true;
         }
 
+        VayraPopularFrontManager.FORCE_SPAWN.compareAndSet(false, true);
+
         SectorEntityToken test = Global.getSector().getEntityById(VayraPopularFrontManager.STATION_ID);
         if (test == null) {
             Console.showMessage("Interstellaire doesn't exist yet");
