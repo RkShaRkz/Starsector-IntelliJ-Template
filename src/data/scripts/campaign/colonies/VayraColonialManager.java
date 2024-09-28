@@ -16,7 +16,6 @@ import com.fs.starfarer.api.impl.campaign.AICoreAdminPluginImpl;
 import com.fs.starfarer.api.impl.campaign.econ.ResourceDepositsCondition;
 import com.fs.starfarer.api.impl.campaign.events.OfficerManagerEvent;
 import com.fs.starfarer.api.impl.campaign.ids.*;
-import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.loading.Description;
 import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
@@ -943,7 +942,7 @@ public class VayraColonialManager implements EveryFrameScript {
                 log.info(String.format("Removing %s from the intel and bounty lists... good riddance", test.getDisplayNameLongWithArticle()));
                 inactiveColonyFactions.add(factionId);
                 test.setShowInIntelTab(false);
-                PersonBountyEventDataRepository.getInstance().getParticipatingFactions().remove(factionId);
+                PersonBountyEventDataRepository.getInstance().removeParticipatingFaction(factionId);
                 VayraMergedModPlugin.setExerelinActive(factionId, false);
             }
         }

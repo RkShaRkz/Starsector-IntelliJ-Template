@@ -114,7 +114,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         this.elapsedDays = elapsedDays;
     }
 
-    public static synchronized PersonBountyEventData getPersonBountyEventDataFromRepository() {
+    public synchronized PersonBountyEventData getPersonBountyEventDataFromRepository() {
         return PersonBountyEventDataRepository.getInstance().getPersonBountyEventData();
     }
 

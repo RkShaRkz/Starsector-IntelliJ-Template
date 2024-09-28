@@ -16,6 +16,7 @@ import com.fs.starfarer.api.impl.campaign.ids.FleetTypes;
 import com.fs.starfarer.api.impl.campaign.ids.MemFlags;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.domain.PersonBountyEventDataRepository;
 import data.scripts.campaign.intel.VayraPersonBountyManager.RareBountyFlagshipData;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel.PlayerBountyData;
 import org.apache.log4j.Logger;
@@ -24,7 +25,6 @@ import org.lwjgl.util.vector.Vector2f;
 import java.util.Random;
 
 import static data.scripts.VayraMergedModPlugin.*;
-import static data.scripts.campaign.intel.VayraPersonBountyIntel.getPersonBountyEventDataFromRepository;
 
 public class VayraPlayerBountyHunter implements EveryFrameScript {
 
@@ -151,8 +151,10 @@ public class VayraPlayerBountyHunter implements EveryFrameScript {
         postedByFaction = first;
 
         for (FactionAPI hunterFaction : Global.getSector().getAllFactions()) {
-            if (getPersonBountyEventDataFromRepository().isParticipating(hunterFaction.getId()) && (hunterFaction.equals(first)
-                    || (hunterFaction.getRelToPlayer().isAtBest(RepLevel.NEUTRAL) && hunterFaction.getRelationshipLevel(first).isAtWorst(RepLevel.NEUTRAL)))) {
+            boolean isHunterFactionParticipating = PersonBountyEventDataRepository.getInstance().isParticipating(hunterFaction.getId());
+            boolean hunterFactionEqualsFirst = hunterFaction.equals(first);
+            boolean hunterReputationIsAcceptable = (hunterFaction.getRelToPlayer().isAtBest(RepLevel.NEUTRAL) && hunterFaction.getRelationshipLevel(first).isAtWorst(RepLevel.NEUTRAL));
+            if (isHunterFactionParticipating && (hunterFactionEqualsFirst || hunterReputationIsAcceptable)) {
                 float size = 0f;
                 for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
                     if (!market.isPlanetConditionMarketOnly() && !market.isHidden() && market.getFaction().equals(hunterFaction)) {

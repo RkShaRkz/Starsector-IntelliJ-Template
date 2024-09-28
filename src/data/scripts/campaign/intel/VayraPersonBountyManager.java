@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.*;
 
 import static data.scripts.VayraMergedModPlugin.*;
-import static data.scripts.campaign.intel.VayraPersonBountyIntel.getPersonBountyEventDataFromRepository;
 
 public class VayraPersonBountyManager extends BaseEventManager {
 
@@ -281,14 +280,14 @@ public class VayraPersonBountyManager extends BaseEventManager {
                 Global.getSector().addScript(new PersonBountyManager());
                 log.info("Re-adding the vanilla bounty manager, alas");
             }
-            if (getPersonBountyEventDataFromRepository().isParticipating(Factions.PIRATES)) {
-                getPersonBountyEventDataFromRepository().getParticipatingFactions().remove(Factions.PIRATES);
+            if (PersonBountyEventDataRepository.getInstance().isParticipating(Factions.PIRATES)) {
+                PersonBountyEventDataRepository.getInstance().removeParticipatingFaction(Factions.PIRATES);
                 log.info("Fucking off for now, since player is a bootlicker and hates freedom");
             }
             return;
         }
 
-        if (!getPersonBountyEventDataFromRepository().isParticipating(Factions.PIRATES)) {
+        if (!PersonBountyEventDataRepository.getInstance().isParticipating(Factions.PIRATES)) {
             PersonBountyEventDataRepository.getInstance().addParticipatingFaction(Factions.PIRATES);
         }
 

@@ -10,8 +10,6 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.intel.BaseIntelPlugin;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.DeliveryFailureConsequences;
 import com.fs.starfarer.api.impl.campaign.intel.bar.events.TriTachLoanIncentiveScript;
-import com.fs.starfarer.api.impl.campaign.shared.PersonBountyEventData;
-import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;

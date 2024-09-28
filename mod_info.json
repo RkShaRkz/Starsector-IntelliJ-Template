@@ -2,7 +2,7 @@
 	"id":"vayramerged",
 	"name":"Vayra Merged",
 	"author":"Vayra, but Shark brought it back to life",
-	"version":"3.3.11", # GO UPDATE YOUR VERSION FILE (as the last thing you do before uploadin cuz otherwise... heh)		# update README.md, mod_info.json, vayramerged.version
+	"version":"3.3.12", # GO UPDATE YOUR VERSION FILE (as the last thing you do before uploadin cuz otherwise... heh)		# update README.md, mod_info.json, vayramerged.version
 	"description":"Remember to edit VAYRA_SETTINGS.ini in the mod directory to enable/disable features. Requires LazyLib. Suck it vayra",
 	#"gameVersion":"0.9.1a-RC8",
 	"gameVersion": "0.97a-RC11",
