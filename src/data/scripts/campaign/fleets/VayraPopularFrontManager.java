@@ -16,13 +16,16 @@ import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.campaign.colonies.VayraColonialManager;
+import data.util.LoggerLogLevel;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static data.scripts.VayraMergedModPlugin.*;
+import static data.scripts.util.MiscUtils.log;
 
 public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerHostileActListener {
 
@@ -41,12 +44,17 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
 
     private final IntervalUtil timer = new IntervalUtil(30f, 60f);
     public MarketAPI interstellarStation = null;
+
     public static final String STATION_ID = "interstellar_station";
 
     public static int POPULAR_FRONT_STAGE = 0;
 
     public static List<FactionAPI> ALLIES = new ArrayList<>();
     public static List<FactionAPI> ENEMIES = new ArrayList<>();
+
+    public static boolean LOG_TO_CONSOLE = false;
+
+    public static final AtomicBoolean FORCE_SPAWN = new AtomicBoolean(false);
 
     @Override
     public boolean isDone() {
@@ -60,6 +68,15 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
 
     @Override
     public void advance(float amount) {
+        if (FORCE_SPAWN.get()) {
+            if (interstellarStation == null) {
+                log(LoggerLogLevel.INFO, log, "[FORCE_SPAWN] didn't find interstellaire, force creating one");
+                makeStation();
+            } else {
+                log(LoggerLogLevel.INFO, log, "[FORCE_SPAWN] interstellaire exists, not doing anything");
+            }
+        }
+
         if (!POPULAR_FRONT_ENABLED) {
             return;
         }
@@ -93,13 +110,13 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
                 SectorEntityToken test = Global.getSector().getEntityById(STATION_ID);
                 if (test != null && test.getMarket() != null) {
                     interstellarStation = test.getMarket();
-                    log.info("found preexisting interstellaire, setting existing to this one");
+                    log(LoggerLogLevel.INFO, log, "found preexisting interstellaire, setting existing to this one");
                 } else if (VAYRA_DEBUG || Global.getSector().getClock().getCycle() >= POPULAR_FRONT_TIMEOUT) {
-                    log.info("didn't find interstellaire, creating one");
+                    log(LoggerLogLevel.INFO, log, "didn't find interstellaire, creating one");
                     makeStation();
                 }
             } else {
-                log.info("progressing existing interstellaire");
+                log(LoggerLogLevel.INFO, log, "progressing existing interstellaire");
                 POPULAR_FRONT_STAGE++;
                 VayraColonialManager manager = VayraColonialManager.getInstance();
                 if (manager != null) {
@@ -113,9 +130,10 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
         for (String id : POSSIBLE_ALLIES) {
             FactionAPI faction = Global.getSector().getFaction(id);
             if (faction != null && !ALLIES.contains(faction)) {
-                ALLIES.add(faction); // other inclusions/exclusions should take care of themselves since the factions won't exist at all if the mods are disabled
+                ALLIES.add(faction);
+                // other inclusions/exclusions should take care of themselves since the factions won't exist at all if the mods are disabled
                 // this would be a real lonely popular front if you don't have Kadur, JP, SRA, or DME active
-                log.info("added " + id + " to list of socialist allies");
+                log(LoggerLogLevel.INFO, log, "added " + id + " to list of socialist allies");
             }
         }
     }
@@ -129,118 +147,37 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
         }
     }
 
-    /* // old generation method (in hyperspace, broken):
-    private SectorEntityToken oldStationStuff() {
-        LocationAPI hyper = Global.getSector().getHyperspace();
-        SectorEntityToken newInterstellarStation = hyper.addCustomEntity(STATION_ID, "L'Interstellaire", "station_side07", JOINT_FACTION);
-
-        float base = 12500f;
-        float x = (float) (Math.random() * base);
-        float y = (float) (Math.random() * base);
-        WeightedRandomPicker<String> quadrants = new WeightedRandomPicker<>();
-        quadrants.add("top left");
-        quadrants.add("top right");
-        quadrants.add("bottom left");
-        quadrants.add("bottom right");
-        String sector = quadrants.pick();
-        switch (sector) {
-            case "top left":
-                x = (x * -1f) - base;
-                y = y + base;
-                break;
-            case "top right":
-                x = x + base;
-                y = y + base;
-                break;
-            case "bottom left":
-                x = (x * -1f) - base;
-                y = (y * -1f) - base;
-                break;
-            case "bottom right":
-                x = x + base;
-                y = (y * -1f) - base;
-                break;
-        }
-        float range = 2000f;
-        boolean clear = false;
-        while (!clear) {
-            List<JumpPointAPI> close = new ArrayList<>();
-            Vector2f loc = new Vector2f(x, y);
-            for (Object o : hyper.getEntities(JumpPointAPI.class)) {
-                JumpPointAPI point = (JumpPointAPI) o;
-                float dist = Misc.getDistance(loc, point.getLocationInHyperspace());
-                if (dist < range) {
-                    close.add(point);
-                }
-            }
-            if (close.isEmpty()) {
-                clear = true;
-            } else {
-                switch (sector) {
-                    case "top left":
-                        x -= range * Math.random();
-                        y += range * Math.random();
-                        break;
-                    case "top right":
-                        x += range * Math.random();
-                        y += range * Math.random();
-                        break;
-                    case "bottom left":
-                        x -= range * Math.random();
-                        y -= range * Math.random();
-                        break;
-                    case "bottom right":
-                        x += range * Math.random();
-                        y -= range * Math.random();
-                        break;
-                }
-            }
-        }
-        Vector2f loc = new Vector2f(x, y);
-        float orbitDist = 500f;
-        newInterstellarStation.setCircularOrbitWithSpin(hyper.createToken(loc), 0, orbitDist, 265, 25, 100);
-
-        HyperspaceTerrainPlugin plugin = (HyperspaceTerrainPlugin) Misc.getHyperspaceTerrain().getPlugin();
-        NebulaEditor editor = new NebulaEditor(plugin);
-        float minRadius = plugin.getTileSize() * 2f;
-
-        float radius = orbitDist * 2;
-        editor.clearArc(loc.x, loc.y, 0, radius + minRadius, 0, 360f);
-        editor.clearArc(loc.x, loc.y, 0, radius + minRadius, 0, 360f, 0.25f);
-
-        return newInterstellarStation;
-    } */
     private void makeStation() {
-
+        log(LoggerLogLevel.INFO, log, "--> makeStation()\tinterstellarStation: "+interstellarStation);
         // new generation method (piggyback off colony shit):
         VayraColonialManager manager = VayraColonialManager.getInstance();
         if (manager == null) {
-            log.error("can't find VayraColonialManager");
+            log(LoggerLogLevel.ERROR, log, "can't find VayraColonialManager");
             return;
         }
         FactionAPI faction = Global.getSector().getFaction(JOINT_FACTION);
         if (faction == null) {
-            log.error("can't find communist_clouds");
+            log(LoggerLogLevel.ERROR, log, "can't find communist_clouds");
             return;
         }
         MarketAPI target = manager.pickTarget(manager.pickSource(faction), faction);
         if (target == null) {
-            log.error("can't find a place to put l'interstellaire");
+            log(LoggerLogLevel.ERROR, log, "can't find a place to put l'interstellaire");
             return;
         }
         LocationAPI loc = target.getContainingLocation();
         if (loc == null) {
-            log.error("can't find the place that the place to put l'interstellaire is in");
+            log(LoggerLogLevel.ERROR, log, "can't find the place that the place to put l'interstellaire is in");
             return;
         }
         SectorEntityToken newInterstellarStation = loc.addCustomEntity(STATION_ID, "L'Interstellaire", "station_side07", JOINT_FACTION);
         if (newInterstellarStation == null) {
-            log.error("can't find l'interstellaire after making it");
+            log(LoggerLogLevel.ERROR, log, "can't find l'interstellaire after making it");
             return;
         }
         SectorEntityToken entity = target.getPrimaryEntity();
         if (entity == null) {
-            log.error("can't find the thing l'interstellaire is supposed to orbit, eat shit");
+            log(LoggerLogLevel.ERROR, log, "can't find the thing l'interstellaire is supposed to orbit, eat shit");
             return;
         }
         float orbitDist = 333f;
@@ -274,16 +211,28 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
                                 Industries.GROUNDDEFENSES,
                                 Industries.PATROLHQ,
                                 Industries.WAYSTATION,
-                                station)),
+                                station
+                        )
+                ),
                 new ArrayList<>(
                         Arrays.asList( // which submarkets to generate
                                 Submarkets.GENERIC_MILITARY,
                                 Submarkets.SUBMARKET_BLACK,
                                 Submarkets.SUBMARKET_OPEN,
-                                Submarkets.SUBMARKET_STORAGE)),
+                                Submarkets.SUBMARKET_STORAGE
+                        )
+                ),
                 true, // with junk and chatter?
                 true, // pirate mode? (i.e. hidden)
-                true); // free port
+                true  // free port
+        );
+
+        if (FORCE_SPAWN.get()) {
+            // Clear the force-spawn flag to avoid recreating it multiple times
+            FORCE_SPAWN.compareAndSet(true, false);
+        }
+
+        log(LoggerLogLevel.INFO, log, "<-- makeStation()\tinterstellarStation: "+interstellarStation);
     }
 
     @Override
