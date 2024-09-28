@@ -84,7 +84,8 @@ public class VayraPersonBountyManager extends BaseEventManager {
                 factionsToRemove.add(factionId);
             }
         }
-        // Now remove all of them one by one
+        // Now remove all of them one by one - we're not removing via iterator anymore because the Repository
+        // returns an unmodifiable list whose iterator doesn't support add(), remove() and other operations
         for (String factionId : factionsToRemove) {
             PersonBountyEventDataRepository.getInstance().removeParticipatingFaction(factionId);
         }
