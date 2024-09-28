@@ -16,6 +16,7 @@ import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
+import data.domain.PersonBountyEventDataRepository;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -138,12 +139,8 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
         return value;
     }
 
-    public static PersonBountyEventData getSharedData() {
-        return SharedData.getData().getPersonBountyEventData();
-    }
-
     public boolean isParticipating(String factionId) {
-        boolean inSharedData = getSharedData().isParticipating(factionId);
+        boolean inSharedData = PersonBountyEventDataRepository.getInstance().isParticipating(factionId);
         boolean inParticipantList = participants.contains(factionId);
         FactionAPI check = Global.getSector().getFaction(factionId);
         boolean hasMarkets = false;

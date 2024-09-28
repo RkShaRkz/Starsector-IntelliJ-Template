@@ -22,6 +22,7 @@ import com.fs.starfarer.api.loading.FighterWingSpecAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.domain.PersonBountyEventDataRepository;
 import data.scripts.VayraMergedModPlugin;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -936,13 +937,13 @@ public class VayraColonialManager implements EveryFrameScript {
                 log.info(String.format("Adding %s to the intel and bounty lists", test.getDisplayNameLongWithArticle()));
                 inactiveColonyFactions.remove(factionId);
                 test.setShowInIntelTab(true);
-                SharedData.getData().getPersonBountyEventData().addParticipatingFaction(factionId);
+                PersonBountyEventDataRepository.getInstance().addParticipatingFaction(factionId);
                 VayraMergedModPlugin.setExerelinActive(factionId, true);
             } else if (!inactiveColonyFactions.contains(factionId) && !hasMarkets.contains(factionId) && test instanceof FactionAPI) {
                 log.info(String.format("Removing %s from the intel and bounty lists... good riddance", test.getDisplayNameLongWithArticle()));
                 inactiveColonyFactions.add(factionId);
                 test.setShowInIntelTab(false);
-                SharedData.getData().getPersonBountyEventData().getParticipatingFactions().remove(factionId);
+                PersonBountyEventDataRepository.getInstance().getParticipatingFactions().remove(factionId);
                 VayraMergedModPlugin.setExerelinActive(factionId, false);
             }
         }

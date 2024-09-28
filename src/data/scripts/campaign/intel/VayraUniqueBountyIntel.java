@@ -31,11 +31,11 @@ import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.BreadcrumbSpec
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial.PerShipData;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.ShipRecoverySpecial.ShipCondition;
 import com.fs.starfarer.api.impl.campaign.shared.PersonBountyEventData;
-import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.domain.PersonBountyEventDataRepository;
 import data.scripts.campaign.intel.VayraUniqueBountyManager.UniqueBountyData;
 import org.apache.log4j.Logger;
 
@@ -97,8 +97,8 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
     }
 
     // guess we'll need this later
-    public static PersonBountyEventData getSharedData() {
-        return SharedData.getData().getPersonBountyEventData();
+    public static PersonBountyEventData getPersonBountyEventData() {
+        return PersonBountyEventDataRepository.getInstance().getPersonBountyEventData();
     }
 
     // setup stuff
@@ -550,7 +550,7 @@ public class VayraUniqueBountyIntel extends BaseIntelPlugin implements EveryFram
         result = new BountyResult(BountyResultType.END_PLAYER_BOUNTY, payment, rep);
         sendUpdateIfPlayerHasIntel(result, false);
 
-        getSharedData().reportSuccess();
+        getPersonBountyEventData().reportSuccess();
 
         cleanUpFleetAndEndIfNecessary();
     }

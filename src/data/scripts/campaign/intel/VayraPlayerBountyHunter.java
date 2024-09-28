@@ -24,7 +24,7 @@ import org.lwjgl.util.vector.Vector2f;
 import java.util.Random;
 
 import static data.scripts.VayraMergedModPlugin.*;
-import static data.scripts.campaign.intel.VayraPersonBountyIntel.getSharedData;
+import static data.scripts.campaign.intel.VayraPersonBountyIntel.getPersonBountyEventDataFromRepository;
 
 public class VayraPlayerBountyHunter implements EveryFrameScript {
 
@@ -151,7 +151,7 @@ public class VayraPlayerBountyHunter implements EveryFrameScript {
         postedByFaction = first;
 
         for (FactionAPI hunterFaction : Global.getSector().getAllFactions()) {
-            if (getSharedData().isParticipating(hunterFaction.getId()) && (hunterFaction.equals(first)
+            if (getPersonBountyEventDataFromRepository().isParticipating(hunterFaction.getId()) && (hunterFaction.equals(first)
                     || (hunterFaction.getRelToPlayer().isAtBest(RepLevel.NEUTRAL) && hunterFaction.getRelationshipLevel(first).isAtWorst(RepLevel.NEUTRAL)))) {
                 float size = 0f;
                 for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {

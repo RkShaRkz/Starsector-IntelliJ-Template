@@ -11,6 +11,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.rulecmd.BaseCommandPlugin;
 import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.util.Misc;
+import data.domain.PersonBountyEventDataRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class NGCKadurCommieStartScript extends BaseCommandPlugin {
             @Override
             public void run() {
 
-                SharedData.getData().getPersonBountyEventData().addParticipatingFaction(Factions.PIRATES);
+                PersonBountyEventDataRepository.getInstance().addParticipatingFaction(Factions.PIRATES);
 
                 String parentId = Factions.PIRATES;
                 FactionAPI player = Global.getSector().getFaction(Factions.PLAYER);
