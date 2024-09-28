@@ -3,7 +3,6 @@ package data.scripts.world;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.SectorAPI;
 import com.fs.starfarer.api.campaign.SectorGeneratorPlugin;
-import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import data.domain.PersonBountyEventDataRepository;
 import data.scripts.world.systems.KadurGehennaSystem;
 import data.scripts.world.systems.KadurMirageSystem;
