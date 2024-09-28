@@ -96,7 +96,7 @@ public class VayraColonialManager implements EveryFrameScript {
     public static final float INDUSTRY_CORE_ESCAPE_CHANCE = 0.5f;
     public static final float ADMIN_CORE_ESCAPE_CHANCE = 1f;
 
-    private static final boolean SPAM_LOG_ENABLED = true;
+    private static final boolean SPAM_LOG_ENABLED = false;
     private static final boolean SPAM_LOG_SPAMS_CONSOLE = false;
 
     public static boolean UPGRADES_DISABLED = false;
