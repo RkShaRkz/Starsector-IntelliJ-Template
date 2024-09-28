@@ -32,7 +32,6 @@ import com.fs.starfarer.api.impl.campaign.intel.misc.BreadcrumbIntel;
 import com.fs.starfarer.api.impl.campaign.procgen.Constellation;
 import com.fs.starfarer.api.impl.campaign.rulecmd.salvage.special.BreadcrumbSpecial;
 import com.fs.starfarer.api.impl.campaign.shared.PersonBountyEventData;
-import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
@@ -115,7 +114,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         this.elapsedDays = elapsedDays;
     }
 
-    public static synchronized PersonBountyEventData getSharedData() {
+    public static synchronized PersonBountyEventData getPersonBountyEventDataFromRepository() {
         return PersonBountyEventDataRepository.getInstance().getPersonBountyEventData();
     }
 
@@ -230,7 +229,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
     private void pickLevel() {
 
-        int base = getSharedData().getLevel();
+        int base = getPersonBountyEventDataFromRepository().getLevel();
 
         float timeFactor = (PirateBaseManager.getInstance().getDaysSinceStart() - 180f) / 365f;
         if (timeFactor < 0) {
@@ -320,7 +319,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
         String commFacId = Misc.getCommissionFactionId();
         boolean forceCommissionFaction = true;
-        if (commFacId != null && getSharedData().isParticipating(commFacId)) {
+        if (commFacId != null && getPersonBountyEventDataFromRepository().isParticipating(commFacId)) {
             for (EveryFrameScript s : VayraPersonBountyManager.getInstance().getActive()) {
                 VayraPersonBountyIntel bounty = (VayraPersonBountyIntel) s;
                 if (bounty.faction != null && bounty.faction.getId().equals(commFacId)) {
@@ -334,7 +333,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         WeightedRandomPicker<MarketAPI> picker = new WeightedRandomPicker<>();
         for (MarketAPI market : Global.getSector().getEconomy().getMarketsCopy()) {
 
-            if (!getSharedData().isParticipating(market.getFactionId())) {
+            if (!getPersonBountyEventDataFromRepository().isParticipating(market.getFactionId())) {
                 continue;
             }
             if (market.getSize() < 3) {
@@ -862,7 +861,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
             sendUpdateIfPlayerHasIntel(result, false);
         }
 
-        getSharedData().reportSuccess();
+        getPersonBountyEventDataFromRepository().reportSuccess();
 
         cleanUpFleetAndEndIfNecessary();
     }

@@ -8,10 +8,8 @@ import com.fs.starfarer.api.impl.campaign.ids.Factions;
 import com.fs.starfarer.api.impl.campaign.intel.BaseEventManager;
 import com.fs.starfarer.api.impl.campaign.intel.PersonBountyIntel;
 import com.fs.starfarer.api.impl.campaign.intel.PersonBountyManager;
-import com.fs.starfarer.api.impl.campaign.shared.SharedData;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.domain.PersonBountyEventDataRepository;
-import data.scripts.VayraMergedModPlugin.*;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +21,7 @@ import java.util.List;
 import java.util.*;
 
 import static data.scripts.VayraMergedModPlugin.*;
-import static data.scripts.campaign.intel.VayraPersonBountyIntel.getSharedData;
+import static data.scripts.campaign.intel.VayraPersonBountyIntel.getPersonBountyEventDataFromRepository;
 
 public class VayraPersonBountyManager extends BaseEventManager {
 
@@ -282,14 +280,14 @@ public class VayraPersonBountyManager extends BaseEventManager {
                 Global.getSector().addScript(new PersonBountyManager());
                 log.info("Re-adding the vanilla bounty manager, alas");
             }
-            if (getSharedData().isParticipating(Factions.PIRATES)) {
-                getSharedData().getParticipatingFactions().remove(Factions.PIRATES);
+            if (getPersonBountyEventDataFromRepository().isParticipating(Factions.PIRATES)) {
+                getPersonBountyEventDataFromRepository().getParticipatingFactions().remove(Factions.PIRATES);
                 log.info("Fucking off for now, since player is a bootlicker and hates freedom");
             }
             return;
         }
 
-        if (!getSharedData().isParticipating(Factions.PIRATES)) {
+        if (!getPersonBountyEventDataFromRepository().isParticipating(Factions.PIRATES)) {
             PersonBountyEventDataRepository.getInstance().addParticipatingFaction(Factions.PIRATES);
         }
 
