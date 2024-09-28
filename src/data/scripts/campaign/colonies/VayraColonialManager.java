@@ -943,7 +943,7 @@ public class VayraColonialManager implements EveryFrameScript {
                 log.info(String.format("Removing %s from the intel and bounty lists... good riddance", test.getDisplayNameLongWithArticle()));
                 inactiveColonyFactions.add(factionId);
                 test.setShowInIntelTab(false);
-                PersonBountyEventDataRepository.getInstance().getParticipatingFactions().remove(factionId);
+                PersonBountyEventDataRepository.getInstance().removeParticipatingFaction(factionId);
                 VayraMergedModPlugin.setExerelinActive(factionId, false);
             }
         }
