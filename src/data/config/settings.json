@@ -59,6 +59,7 @@
 		"misc":{	# to make the flag/crest load on game start
 			"ascendancyFlag":"graphics/factions/vayra_science_fuckers_flag_ai.png",
 			"ascendancyCrest":"graphics/factions/vayra_science_fuckers_crest_ai.png",
+			"lunasetting_icon": "graphics/icons/vayra-lunasettings.png"
 		},
 		"planets":{
 			"bread":"graphics/planets/bread.png",
