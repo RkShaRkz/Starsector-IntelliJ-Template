@@ -152,6 +152,16 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             for (String factionId : VayraColonialManager.loadColonyFactionList()) {
                 setExerelinActive(factionId, COLONIAL_FACTIONS_ENABLED);
             }
+            // Make Exerelin/Nexerelin *not* respawn our own factions
+            // Since these factions are supposed to make an appearance later on in the game, Nexerelin
+            // thinks they're deceased and tries bringing them back *much earlier* than they would actually happen
+            //
+            // This makes them (usually) pick a shitty planet and have zero chances of doing whatever they were supposed
+            // to be doing.
+            //
+            // So instead of them coming in at cycle 212, exerelin usually 'respawns' them at cycle 206.
+            // Hopefully this fix makes (n)exerelin stop 'respawning' them before they even spawn for the first time.
+            makeExerelinIgnoreVayraFactions();
         }
 
         if (HAVE_LUNALIB) {
@@ -447,6 +457,25 @@ public class VayraMergedModPlugin extends BaseModPlugin {
                 }
 
             }
+        }
+    }
+
+    private void makeExerelinIgnoreVayraFactions() {
+        if (EXERELIN_LOADED) {
+            /**
+             * communist_clouds
+             * science_fuckers
+             * warhawk_republic
+             * almighty_dollar
+             * ashen_keepers
+             * kadur_remnant
+             */
+            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("communist_clouds");
+            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("science_fuckers");
+            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("warhawk_republic");
+            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("almighty_dollar");
+            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("ashen_keepers");
+            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("kadur_remnant");
         }
     }
 
