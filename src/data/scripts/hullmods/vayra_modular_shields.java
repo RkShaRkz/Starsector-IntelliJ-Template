@@ -3,7 +3,9 @@ package data.scripts.hullmods;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.ids.HullMods;
+import com.fs.starfarer.api.mission.FleetSide;
 import com.fs.starfarer.api.util.Misc;
 import data.scripts.util.MiscUtils;
 import org.apache.log4j.Logger;
@@ -123,70 +125,190 @@ public class vayra_modular_shields extends BaseHullMod {
         // setup stuff
         CombatEngineAPI engine = Global.getCombatEngine();
 
-        // change this ship's shield color according to flux level
-        Color color;
-        if (ship.getShield() != null) {
-            color = Misc.interpolateColor(ZERO_FLUX_COLOR, FULL_FLUX_COLOR, Math.min(ship.getFluxLevel(), 1f));
-            ship.getShield().setInnerColor(color);
-        }
-
         if (ship.getHullSpec() != null) {
+            // Find the generator
+            ShipAPI generator = findGenerator(ship, engine);
+            if (generator == null) {
+                logger.error("no generator found for ship "+ship+", returning...");
+                return;
+            }
+            List<ShipAPI> emitters = findEmitters(generator, engine);
             switch (ship.getHullSpec().getHullId()) {
                 case SHIELD_PART_ID: {
-                    doShieldEmitterStuff(ship);
+                    // Handle emitters
+                    doShieldEmitterStuff(ship, generator);
                     break;
-                } // handle generator
+                }
                 case SHIELD_GENERATOR_ID: {
-                    doShieldGenStuff(ship);
+                    // handle generator
+                    doShieldGenStuff(ship, emitters, engine);
                     break;
-                } // handle damage reduction and visuals for everything else
+                }
                 default: {
-                    doEveryOtherPartStuff(ship, amount, engine);
+                    // handle damage reduction and visuals for everything else
+                    doEveryOtherPartStuff(ship, amount, generator, engine);
                     break;
                 }
             }
         }
     }
 
-    private void doEveryOtherPartStuff(ShipAPI ship, float amount, CombatEngineAPI engine) {
-        Color color;
-
-        // set up generators list
-        Map<ShipAPI, ShipAPI> storedGenerators; // nongenerator part -> shield generator
+    private ShipAPI findGenerator(ShipAPI ship, CombatEngineAPI engine) {
+        // First, try getting generator directly from the cached data
+        Map<FleetMemberAPI, ShipAPI> storedGenerators;
         if (engine.getCustomData().get(STORED_GENERATORS_KEY) instanceof Map) {
-            storedGenerators = (Map<ShipAPI, ShipAPI>) engine.getCustomData().get(STORED_GENERATORS_KEY);
+            storedGenerators = (Map<FleetMemberAPI, ShipAPI>) engine.getCustomData().get(STORED_GENERATORS_KEY);
         } else {
             storedGenerators = new HashMap<>();
         }
+        logger.info("storedGenerators.size(): "+storedGenerators.size());   //TODO remove
+        FleetMemberAPI shipsFleetMember = getFleetMember(ship);
 
-        //TODO duplicated code, consider finding the generator only once then passing it as an argument to this method
-        // find the generator
-        ShipAPI generator = storedGenerators.get(ship);
+        ShipAPI generator = storedGenerators.get(shipsFleetMember);
         if (generator == null) {
-            for (ShipAPI check : CombatUtils.getShipsWithinRange(ship.getLocation(), 1000)) {
+            // Now try getting generator directly since we have no cached data
+            List<ShipAPI> shipsWithin1000range = CombatUtils.getShipsWithinRange(ship.getLocation(), 1000);
+
+            for (ShipAPI check : shipsWithin1000range) {
                 if (check.getHullSpec() != null
                         && check.getHullSpec().getHullId() != null
                         && check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID)
-                        &&
-                        (
-                                ship.equals(check.getParentStation())
-                                ||
-                                (
-                                        ship.getParentStation() != null
-                                        && ship.getParentStation().equals(check.getParentStation())
-                                )
-                        )
+                        && ship.getParentStation() != null
+                        && ship.getParentStation().equals(check.getParentStation())
                 ) {
                     generator = check;
-                    storedGenerators.put(ship, generator);
+                    storedGenerators.put(shipsFleetMember, generator);
+                }
+            }
+
+            // If we still didn't find the generator, try the alternative approach - from any other part
+            if (generator == null) {
+                for (ShipAPI check : shipsWithin1000range) {
+                    if (check.getHullSpec() != null
+                            && check.getHullSpec().getHullId() != null
+                            && check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID)
+                            &&
+                            (
+                                    ship.equals(check.getParentStation())
+                                            ||
+                                            (
+                                                    ship.getParentStation() != null
+                                                            && ship.getParentStation().equals(check.getParentStation())
+                                            )
+                            )
+                    ) {
+                        generator = check;
+                        storedGenerators.put(shipsFleetMember, generator);
+                    }
                 }
             }
         }
-        if (generator != null && generator.isAlive() && !generator.getFluxTracker().isOverloaded()) {
 
+        // sanitize the list from dead or no longer existing fleetmembers
+        Set<FleetMemberAPI> keysToRemove = new HashSet<>();
+        logger.info("storedGenerators before sanitizing: "+storedGenerators);   //TODO remove me
+        // Fill up the to-remove set first
+        for (FleetMemberAPI key : storedGenerators.keySet()) {
+            CombatFleetManagerAPI playerFleet = engine.getFleetManager(FleetSide.PLAYER);
+            CombatFleetManagerAPI enemyFleet = engine.getFleetManager(FleetSide.ENEMY);
+            if (playerFleet.getShipFor(key) != null && !playerFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
+            if (enemyFleet.getShipFor(key) != null && !enemyFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
+            if (key == null) keysToRemove.add(key);
+        }
+        // then remove the keys that need to be removed from the saved list
+        for (FleetMemberAPI key : keysToRemove) {
+            storedGenerators.remove(key);
+        }
+        logger.info("storedGenerators after sanitizing: "+storedGenerators);   //TODO remove me
+
+        // Finally, save the generator map
+        engine.getCustomData().put(STORED_GENERATORS_KEY, storedGenerators);
+
+        return generator;
+    }
+
+    private List<ShipAPI> findEmitters(ShipAPI generator, CombatEngineAPI engine) {
+        // set up emitters list
+        Map<FleetMemberAPI, List<ShipAPI>> storedEmitters; // shield generator -> shield emitters
+        if (engine.getCustomData().get(STORED_EMITTERS_KEY) instanceof Map) {
+            storedEmitters = (Map<FleetMemberAPI, List<ShipAPI>>) engine.getCustomData().get(STORED_EMITTERS_KEY);
+        } else {
+            storedEmitters = new HashMap<>();
+        }
+
+        logger.info("storedEmitters.size(): "+storedEmitters.size());   //TODO remove
+
+        // find the emitters
+        FleetMemberAPI generatorFleetMember = getFleetMember(generator);
+        List<ShipAPI> emitters = storedEmitters.get(generatorFleetMember);
+        if (emitters == null || emitters.isEmpty()) {
+            emitters = new ArrayList<>();
+            for (ShipAPI check : CombatUtils.getShipsWithinRange(generator.getLocation(), 1000)) {
+                if (check.getHullSpec() != null
+                        && check.getHullSpec().getHullId() != null
+                        && check.getHullSpec().getHullId().equals(SHIELD_PART_ID)
+                        && generator.getParentStation() != null
+                        && generator.getParentStation().equals(check.getParentStation())
+                        && !emitters.contains(check)) {
+                    emitters.add(check);
+                }
+            }
+            storedEmitters.put(generatorFleetMember, emitters);
+        }
+
+        logger.info("storedEmitters before sanitizing: "+storedEmitters);   //TODO remove me
+
+        // sanitize the list from dead or no longer existing fleetmembers
+        Set<FleetMemberAPI> keysToRemove = new HashSet<>();
+        // Fill up the to-remove set first
+        for (FleetMemberAPI key : storedEmitters.keySet()) {
+            CombatFleetManagerAPI playerFleet = engine.getFleetManager(FleetSide.PLAYER);
+            CombatFleetManagerAPI enemyFleet = engine.getFleetManager(FleetSide.ENEMY);
+            if (playerFleet.getShipFor(key) != null && !playerFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
+            if (enemyFleet.getShipFor(key) != null && !enemyFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
+            if (key == null) keysToRemove.add(key);
+        }
+        // then remove the keys that need to be removed from the saved list
+        for (FleetMemberAPI key : keysToRemove) {
+            storedEmitters.remove(key);
+        }
+
+        logger.info("storedEmitters after sanitizing: "+storedEmitters);   //TODO remove me
+
+        // Also save emitters since they're only used here
+        engine.getCustomData().put(STORED_EMITTERS_KEY, storedEmitters);
+
+        return emitters;
+    }
+
+    private FleetMemberAPI getFleetMember(ShipAPI ship) {
+        FleetMemberAPI shipsFleetMember = CombatUtils.getFleetMember(ship);
+        if (shipsFleetMember == null) {
+            logger.warn("CombatUtils.getFleetMember() returned null for this ship!\tship: "+ship);
+            shipsFleetMember = ship.getFleetMember();
+        }
+        if (shipsFleetMember == null) {
+            logger.error("ShipAPI.getFleetMember() returned null for this ship as well!\tship: "+ship);
+            // Maybe we're a module?
+            if (ship.getParentStation() != null) {
+                ShipAPI parent = ship.getParentStation();
+                // Please excuse the recursive call but it should be safe to do for modules I think/hope...
+                shipsFleetMember = getFleetMember(parent);
+
+                if (shipsFleetMember == null) {
+                    logger.error("getFleetMember() returned null for this ship's parent as well!\tparent: "+parent);
+                }
+            }
+        }
+
+        return shipsFleetMember;
+    }
+
+    private void doEveryOtherPartStuff(ShipAPI ship, float amount, ShipAPI generator, CombatEngineAPI engine) {
+        if (generator != null && generator.isAlive() && !generator.getFluxTracker().isOverloaded()) {
             // change the color according to the GENERATOR'S flux level for everything else
             float genFlux = generator.getFluxLevel();
-            color = Misc.interpolateColor(ZERO_FLUX_COLOR, FULL_FLUX_COLOR, genFlux);
+            Color color = Misc.interpolateColor(ZERO_FLUX_COLOR, FULL_FLUX_COLOR, genFlux);
 
             // get the jitterlist
             Map<ShipAPI, JitterData> jitters;
@@ -295,40 +417,9 @@ public class vayra_modular_shields extends BaseHullMod {
             ship.getMutableStats().getHullDamageTakenMult().unmodify(SHIELD_GENERATOR_ID);
             ship.getMutableStats().getEmpDamageTakenMult().unmodify(SHIELD_GENERATOR_ID);
         }
-
-        // Finally, saved the generator map
-        engine.getCustomData().put(STORED_GENERATORS_KEY, storedGenerators);
     }
 
-    private void doShieldGenStuff(ShipAPI generator) {
-
-        CombatEngineAPI engine = Global.getCombatEngine();
-
-        // set up emitters list
-        Map<ShipAPI, List<ShipAPI>> storedEmitters; // shield generator -> shield emitters
-        if (engine.getCustomData().get(STORED_EMITTERS_KEY) instanceof Map) {
-            storedEmitters = (Map<ShipAPI, List<ShipAPI>>) engine.getCustomData().get(STORED_EMITTERS_KEY);
-        } else {
-            storedEmitters = new HashMap<>();
-        }
-
-        // find the emitters
-        List<ShipAPI> emitters = storedEmitters.get(generator);
-        if (emitters == null || emitters.isEmpty()) {
-            emitters = new ArrayList<>();
-            for (ShipAPI check : CombatUtils.getShipsWithinRange(generator.getLocation(), 1000)) {
-                if (check.getHullSpec() != null
-                        && check.getHullSpec().getHullId() != null
-                        && check.getHullSpec().getHullId().equals(SHIELD_PART_ID)
-                        && generator.getParentStation() != null
-                        && generator.getParentStation().equals(check.getParentStation())
-                        && !emitters.contains(check)) {
-                    emitters.add(check);
-                }
-            }
-            storedEmitters.put(generator, emitters);
-        }
-
+    private void doShieldGenStuff(ShipAPI generator, List<ShipAPI> emitters, CombatEngineAPI engine) {
         // don't let the generator vent, it looks STUPID
         generator.getMutableStats().getVentRateMult().modifyMult(this.toString(), 0f);
 
@@ -393,8 +484,6 @@ public class vayra_modular_shields extends BaseHullMod {
         engine.getCustomData().put(STORED_HARD_KEY, storedHard);
         engine.getCustomData().put(STORED_FLUX_KEY, storedFlux);
 
-        // Also save emitters since they're only used here
-        engine.getCustomData().put(STORED_EMITTERS_KEY, storedEmitters);
         //TODO get rid of these
         boolean isGeneratorOverloaded = generator.getFluxTracker().isOverloaded();   //TODO delete
         logger.info("doShieldGenStuff()\tis generator overloaded ? "+isGeneratorOverloaded);   //TODO delete
@@ -402,37 +491,16 @@ public class vayra_modular_shields extends BaseHullMod {
         logger.info("doShieldGenStuff()\t["+ MiscUtils.getClockTime(true)+"]--------------------------------------------------------------------------------");   //TODO delete
     }
 
-    private void doShieldEmitterStuff(ShipAPI ship) {
-
-        CombatEngineAPI engine = Global.getCombatEngine();
+    private void doShieldEmitterStuff(ShipAPI ship, ShipAPI generator) {
+        // change this ship's shield color according to flux level
+        if (ship.getShield() != null) {
+            Color color = Misc.interpolateColor(ZERO_FLUX_COLOR, FULL_FLUX_COLOR, Math.min(ship.getFluxLevel(), 1f));
+            ship.getShield().setInnerColor(color);
+        }
 
         // don't let the emitters vent, it looks STUPID
         ship.getMutableStats().getVentRateMult().modifyMult(this.toString(), 0f);
 
-        // set up generators list
-        Map<ShipAPI, ShipAPI> storedGenerators; // nongenerator part -> shield generator
-        if (engine.getCustomData().get(STORED_GENERATORS_KEY) instanceof Map) {
-            storedGenerators = (Map<ShipAPI, ShipAPI>) engine.getCustomData().get(STORED_GENERATORS_KEY);
-        } else {
-            storedGenerators = new HashMap<>();
-        }
-
-        //TODO duplicated code, consider finding the generator only once and then passing it as a argument to this method
-        // find the generator
-        ShipAPI generator = storedGenerators.get(ship);
-        if (generator == null) {
-            for (ShipAPI check : CombatUtils.getShipsWithinRange(ship.getLocation(), 1000)) {
-                if (check.getHullSpec() != null
-                        && check.getHullSpec().getHullId() != null
-                        && check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID)
-                        && ship.getParentStation() != null
-                        && ship.getParentStation().equals(check.getParentStation())
-                ) {
-                    generator = check;
-                    storedGenerators.put(ship, generator);
-                }
-            }
-        }
         // if the generator's dead, disable the shields
         if (generator == null || generator.getHullLevel() < 0.01f) {
             ship.getShield().setArc(0f);
