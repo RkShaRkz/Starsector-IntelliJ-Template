@@ -51,6 +51,9 @@ public class vayra_modular_shields extends BaseHullMod {
     public static ArrayList<String> EXCLUDED_HULLMODS = new ArrayList<>(Collections.singletonList(
             HullMods.MAKESHIFT_GENERATOR));
 
+    private static final boolean UTIL_LOG = false;
+    private static final boolean FLUX_LOG = false;
+
     public static final class JitterData {
 
         public float timeToLive = 0f;
@@ -119,6 +122,14 @@ public class vayra_modular_shields extends BaseHullMod {
         }
     }
 
+    private void utilLog(String log) {
+        if (UTIL_LOG) logger.info(log);
+    }
+
+    private void fluxLog(String log) {
+        if (FLUX_LOG) logger.info(log);
+    }
+
     @Override
     public void advanceInCombat(ShipAPI ship, float amount) {
 
@@ -161,9 +172,9 @@ public class vayra_modular_shields extends BaseHullMod {
         } else {
             storedGenerators = new HashMap<>();
         }
-        logger.info("storedGenerators.size(): "+storedGenerators.size());   //TODO remove
+        utilLog("storedGenerators.size(): "+storedGenerators.size());
+        // find the generator
         FleetMemberAPI shipsFleetMember = getFleetMember(ship);
-
         ShipAPI generator = storedGenerators.get(shipsFleetMember);
         if (generator == null) {
             // Now try getting generator directly since we have no cached data
@@ -206,7 +217,6 @@ public class vayra_modular_shields extends BaseHullMod {
 
         // sanitize the list from dead or no longer existing fleetmembers
         Set<FleetMemberAPI> keysToRemove = new HashSet<>();
-        logger.info("storedGenerators before sanitizing: "+storedGenerators);   //TODO remove me
         // Fill up the to-remove set first
         for (FleetMemberAPI key : storedGenerators.keySet()) {
             CombatFleetManagerAPI playerFleet = engine.getFleetManager(FleetSide.PLAYER);
@@ -219,7 +229,7 @@ public class vayra_modular_shields extends BaseHullMod {
         for (FleetMemberAPI key : keysToRemove) {
             storedGenerators.remove(key);
         }
-        logger.info("storedGenerators after sanitizing: "+storedGenerators);   //TODO remove me
+        utilLog("storedGenerators after sanitizing: "+storedGenerators);
 
         // Finally, save the generator map
         engine.getCustomData().put(STORED_GENERATORS_KEY, storedGenerators);
@@ -236,8 +246,7 @@ public class vayra_modular_shields extends BaseHullMod {
             storedEmitters = new HashMap<>();
         }
 
-        logger.info("storedEmitters.size(): "+storedEmitters.size());   //TODO remove
-
+        utilLog("storedEmitters.size(): "+storedEmitters.size());
         // find the emitters
         FleetMemberAPI generatorFleetMember = getFleetMember(generator);
         List<ShipAPI> emitters = storedEmitters.get(generatorFleetMember);
@@ -256,8 +265,6 @@ public class vayra_modular_shields extends BaseHullMod {
             storedEmitters.put(generatorFleetMember, emitters);
         }
 
-        logger.info("storedEmitters before sanitizing: "+storedEmitters);   //TODO remove me
-
         // sanitize the list from dead or no longer existing fleetmembers
         Set<FleetMemberAPI> keysToRemove = new HashSet<>();
         // Fill up the to-remove set first
@@ -273,7 +280,7 @@ public class vayra_modular_shields extends BaseHullMod {
             storedEmitters.remove(key);
         }
 
-        logger.info("storedEmitters after sanitizing: "+storedEmitters);   //TODO remove me
+        utilLog("storedEmitters after sanitizing: "+storedEmitters);
 
         // Also save emitters since they're only used here
         engine.getCustomData().put(STORED_EMITTERS_KEY, storedEmitters);
@@ -429,10 +436,8 @@ public class vayra_modular_shields extends BaseHullMod {
         Map<ShipAPI, Float> storedHard;
         if (engine.getCustomData().get(STORED_HARD_KEY) instanceof Map) {
             storedHard = (Map<ShipAPI, Float>) engine.getCustomData().get(STORED_HARD_KEY);
-            logger.info("doShieldGenStuff()\tengine.customData().get(STORED_HARD_KEY) was a map, and returned "+storedHard);   //TODO delete
         } else {
             storedHard = new HashMap<>();
-            logger.info("doShieldGenStuff()\tengine.customData().get(STORED_HARD_KEY) was not map, creating new map "+storedHard);   //TODO delete
         }
         if (storedHard.containsKey(generator)) {
             storedEmitterHard = storedHard.get(generator);
@@ -442,40 +447,36 @@ public class vayra_modular_shields extends BaseHullMod {
         Map<ShipAPI, Float> storedFlux;
         if (engine.getCustomData().get(STORED_FLUX_KEY) instanceof Map) {
             storedFlux = (Map<ShipAPI, Float>) engine.getCustomData().get(STORED_FLUX_KEY);
-            logger.info("doShieldGenStuff()\tengine.customData().get(STORED_FLUX_KEY) was a map, and returned "+storedFlux);   //TODO delete
         } else {
             storedFlux = new HashMap<>();
-            logger.info("doShieldGenStuff()\tengine.customData().get(STORED_FLUX_KEY) was not map, creating new map "+storedFlux);   //TODO delete
         }
         if (storedFlux.containsKey(generator)) {
             storedEmitterFlux = storedFlux.get(generator);
         } else {
             storedEmitterFlux = 0f;
         }
-        logger.info("doShieldGenStuff()\tstoredHard map: "+storedHard+"\tstoredFlux map: "+storedFlux);   //TODO delete
+        fluxLog("doShieldGenStuff()\tstoredHard map: "+storedHard+"\tstoredFlux map: "+storedFlux);
         float emitterHard = 0f;
         float emitterFlux = 0f;
         for (ShipAPI emitter : emitters) {
-            logger.info("doShieldGenStuff()\tEmitter "+emitter+":\thard flux: "+emitter.getFluxTracker().getHardFlux()+", current flux: "+emitter.getCurrFlux());
+            fluxLog("doShieldGenStuff()\tEmitter "+emitter+":\thard flux: "+emitter.getFluxTracker().getHardFlux()+", current flux: "+emitter.getCurrFlux());
             emitterHard += emitter.getFluxTracker().getHardFlux();
             emitterFlux += emitter.getCurrFlux();
         }
         // If any of these two are very small numbers, e.g. 1E-45 (0.fourty zeroes then 1) just round them to 0
         if (emitterHard < 0.00001f) emitterHard = 0f;
         if (emitterFlux < 0.00001f) emitterFlux = 0f;
-        logger.info("doShieldGenStuff()\tstoring emitterHard: "+emitterHard+", emitterFlux: "+emitterFlux+"\t\tgenerator max: "+ generator.getFluxTracker().getMaxFlux());   //TODO delete
+        utilLog("doShieldGenStuff()\tstoring emitterHard: "+emitterHard+", emitterFlux: "+emitterFlux+"\t\tgenerator max: "+ generator.getFluxTracker().getMaxFlux());
         storedHard.put(generator, emitterHard);
         storedFlux.put(generator, emitterFlux);
 
-        float currentFlux = generator.getFluxTracker().getCurrFlux();   //TODO delete
-        float currentHardFlux = generator.getFluxTracker().getHardFlux();   //TODO delete
-        logger.info("doShieldGenStuff()\tgenerator currentFlux: "+currentFlux+", generator hardFlux: "+currentHardFlux);   //TODO delete
+        fluxLog("doShieldGenStuff()\tgenerator currentFlux: "+generator.getFluxTracker().getCurrFlux()+", generator hardFlux: "+generator.getFluxTracker().getHardFlux());
 
         // increase/decrease the generator flux, overload is handled by the increaseFlux method
         float hardIncrease = Math.max(0f, emitterHard - storedEmitterHard);
         float softIncrease = Math.max(0f, Math.max(0f, emitterFlux - storedEmitterFlux) - hardIncrease);
         float fluxDecrease = Math.max(0f, storedEmitterFlux - emitterFlux);
-        logger.info("doShieldGenStuff()\tstoredEmitterHard: "+storedEmitterHard+", storedEmitterFlux: "+storedEmitterFlux+"\thardIncrease: "+hardIncrease+", softIncrease: "+softIncrease+", fluxDecrease: "+fluxDecrease);
+        fluxLog("doShieldGenStuff()\tstoredEmitterHard: "+storedEmitterHard+", storedEmitterFlux: "+storedEmitterFlux+"\thardIncrease: "+hardIncrease+", softIncrease: "+softIncrease+", fluxDecrease: "+fluxDecrease);
         generator.getFluxTracker().decreaseFlux(fluxDecrease);
         generator.getFluxTracker().increaseFlux(softIncrease, false);
         generator.getFluxTracker().increaseFlux(hardIncrease, true);
@@ -483,12 +484,6 @@ public class vayra_modular_shields extends BaseHullMod {
         // Finally, put in the maps because they weren't being stored and we'll always be making a new map
         engine.getCustomData().put(STORED_HARD_KEY, storedHard);
         engine.getCustomData().put(STORED_FLUX_KEY, storedFlux);
-
-        //TODO get rid of these
-        boolean isGeneratorOverloaded = generator.getFluxTracker().isOverloaded();   //TODO delete
-        logger.info("doShieldGenStuff()\tis generator overloaded ? "+isGeneratorOverloaded);   //TODO delete
-        logger.info("doShieldGenStuff()\tput maps into custom data!\tstoredHard: "+storedHard+"\tstoredFlux: "+storedFlux);   //TODO delete
-        logger.info("doShieldGenStuff()\t["+ MiscUtils.getClockTime(true)+"]--------------------------------------------------------------------------------");   //TODO delete
     }
 
     private void doShieldEmitterStuff(ShipAPI ship, ShipAPI generator) {
