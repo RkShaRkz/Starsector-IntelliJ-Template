@@ -181,12 +181,16 @@ public class vayra_modular_shields extends BaseHullMod {
             List<ShipAPI> shipsWithin1000range = CombatUtils.getShipsWithinRange(ship.getLocation(), 1000);
 
             for (ShipAPI check : shipsWithin1000range) {
-                if (check.getHullSpec() != null
-                        && check.getHullSpec().getHullId() != null
-                        && check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID)
-                        && ship.getParentStation() != null
-                        && ship.getParentStation().equals(check.getParentStation())
-                ) {
+                boolean checkHullSpecNonNull = check.getHullSpec() != null;
+                boolean checkHullSpecHullIdNonNull = check.getHullSpec().getHullId() != null;
+                boolean checkHullIdEqualsShieldGen = check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID);
+                boolean shipParentStationNonNull = ship.getParentStation() != null;
+                boolean shipParentStationEqualsCheckParentStation = ship.getParentStation().equals(check.getParentStation());
+                if (checkHullSpecNonNull
+                        && checkHullSpecHullIdNonNull
+                        && checkHullIdEqualsShieldGen
+                        && shipParentStationNonNull
+                        && shipParentStationEqualsCheckParentStation) {
                     generator = check;
                     storedGenerators.put(shipsFleetMember, generator);
                 }
@@ -195,18 +199,15 @@ public class vayra_modular_shields extends BaseHullMod {
             // If we still didn't find the generator, try the alternative approach - from any other part
             if (generator == null) {
                 for (ShipAPI check : shipsWithin1000range) {
-                    if (check.getHullSpec() != null
-                            && check.getHullSpec().getHullId() != null
-                            && check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID)
-                            &&
-                            (
-                                    ship.equals(check.getParentStation())
-                                            ||
-                                            (
-                                                    ship.getParentStation() != null
-                                                            && ship.getParentStation().equals(check.getParentStation())
-                                            )
-                            )
+                    boolean checkHullSpecNonNull = check.getHullSpec() != null;
+                    boolean checkHullSpecHullIdNonNull = check.getHullSpec().getHullId() != null;
+                    boolean checkHullIdEqualsShieldGen = check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID);
+                    boolean shipIsChecksParentStation = ship.equals(check.getParentStation());
+                    boolean shipHasSameParentStationAsCheck = ship.getParentStation() != null && ship.getParentStation().equals(check.getParentStation());
+                    if (checkHullSpecNonNull
+                            && checkHullSpecHullIdNonNull
+                            && checkHullIdEqualsShieldGen
+                            && (shipIsChecksParentStation || shipHasSameParentStationAsCheck)
                     ) {
                         generator = check;
                         storedGenerators.put(shipsFleetMember, generator);
@@ -221,8 +222,10 @@ public class vayra_modular_shields extends BaseHullMod {
         for (FleetMemberAPI key : storedGenerators.keySet()) {
             CombatFleetManagerAPI playerFleet = engine.getFleetManager(FleetSide.PLAYER);
             CombatFleetManagerAPI enemyFleet = engine.getFleetManager(FleetSide.ENEMY);
-            if (playerFleet.getShipFor(key) != null && !playerFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
-            if (enemyFleet.getShipFor(key) != null && !enemyFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
+            boolean playerShipForKeyIsNonNullAndDead = playerFleet.getShipFor(key) != null && !playerFleet.getShipFor(key).isAlive();
+            boolean enemyShipForKeyIsNonNullAndDead = enemyFleet.getShipFor(key) != null && !enemyFleet.getShipFor(key).isAlive();
+            if (playerShipForKeyIsNonNullAndDead) keysToRemove.add(key);
+            if (enemyShipForKeyIsNonNullAndDead) keysToRemove.add(key);
             if (key == null) keysToRemove.add(key);
         }
         // then remove the keys that need to be removed from the saved list
@@ -253,11 +256,16 @@ public class vayra_modular_shields extends BaseHullMod {
         if (emitters == null || emitters.isEmpty()) {
             emitters = new ArrayList<>();
             for (ShipAPI check : CombatUtils.getShipsWithinRange(generator.getLocation(), 1000)) {
-                if (check.getHullSpec() != null
-                        && check.getHullSpec().getHullId() != null
-                        && check.getHullSpec().getHullId().equals(SHIELD_PART_ID)
-                        && generator.getParentStation() != null
-                        && generator.getParentStation().equals(check.getParentStation())
+                boolean checkHullSpecNonNull = check.getHullSpec() != null;
+                boolean checkHullSpecHullIdNonNull = check.getHullSpec().getHullId() != null;
+                boolean checkHullIdEqualsShieldPart = check.getHullSpec().getHullId().equals(SHIELD_PART_ID);
+                boolean generatorParentStationNonNull = generator.getParentStation() != null;
+                boolean generatorParentStationEqualsCheckParentStation = generator.getParentStation().equals(check.getParentStation());
+                if (checkHullSpecNonNull
+                        && checkHullSpecHullIdNonNull
+                        && checkHullIdEqualsShieldPart
+                        && generatorParentStationNonNull
+                        && generatorParentStationEqualsCheckParentStation
                         && !emitters.contains(check)) {
                     emitters.add(check);
                 }
@@ -271,8 +279,10 @@ public class vayra_modular_shields extends BaseHullMod {
         for (FleetMemberAPI key : storedEmitters.keySet()) {
             CombatFleetManagerAPI playerFleet = engine.getFleetManager(FleetSide.PLAYER);
             CombatFleetManagerAPI enemyFleet = engine.getFleetManager(FleetSide.ENEMY);
-            if (playerFleet.getShipFor(key) != null && !playerFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
-            if (enemyFleet.getShipFor(key) != null && !enemyFleet.getShipFor(key).isAlive()) keysToRemove.add(key);
+            boolean playerShipForKeyIsNonNullAndDead = playerFleet.getShipFor(key) != null && !playerFleet.getShipFor(key).isAlive();
+            boolean enemyShipForKeyIsNonNullAndDead = enemyFleet.getShipFor(key) != null && !enemyFleet.getShipFor(key).isAlive();
+            if (playerShipForKeyIsNonNullAndDead) keysToRemove.add(key);
+            if (enemyShipForKeyIsNonNullAndDead) keysToRemove.add(key);
             if (key == null) keysToRemove.add(key);
         }
         // then remove the keys that need to be removed from the saved list
