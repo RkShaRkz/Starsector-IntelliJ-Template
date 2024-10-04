@@ -8,6 +8,9 @@ import data.util.LoggerLogLevel;
 import org.apache.log4j.Logger;
 import org.lazywizard.console.Console;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Bunch of small copypastable methods belonging everywhere but nowhere in specific
  */
@@ -34,6 +37,15 @@ public class MiscUtils {
         size = Math.max(size, weapon.getSpec().getHiddenAngleOffsets().size());
 
         return size;
+    }
+
+    public static String getClockTime(boolean showMilliseconds) {
+        long currentMillis = System.currentTimeMillis();
+        Date currentTime = new Date(currentMillis);
+
+        String timeFormat = showMilliseconds ? "HH:mm:ss.SSS" : "HH:mm:ss";
+        SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
+        return timeFormatter.format(currentTime);
     }
 
     /**
