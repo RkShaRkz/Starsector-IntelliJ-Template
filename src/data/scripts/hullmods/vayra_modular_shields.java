@@ -185,7 +185,9 @@ public class vayra_modular_shields extends BaseHullMod {
                 boolean checkHullSpecHullIdNonNull = check.getHullSpec().getHullId() != null;
                 boolean checkHullIdEqualsShieldGen = check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID);
                 boolean shipParentStationNonNull = ship.getParentStation() != null;
-                boolean shipParentStationEqualsCheckParentStation = ship.getParentStation().equals(check.getParentStation());
+                boolean shipParentStationEqualsCheckParentStation =
+                        ship.getParentStation() != null && ship.getParentStation().equals(check.getParentStation());
+
                 if (checkHullSpecNonNull
                         && checkHullSpecHullIdNonNull
                         && checkHullIdEqualsShieldGen
@@ -203,7 +205,9 @@ public class vayra_modular_shields extends BaseHullMod {
                     boolean checkHullSpecHullIdNonNull = check.getHullSpec().getHullId() != null;
                     boolean checkHullIdEqualsShieldGen = check.getHullSpec().getHullId().equals(SHIELD_GENERATOR_ID);
                     boolean shipIsChecksParentStation = ship.equals(check.getParentStation());
-                    boolean shipHasSameParentStationAsCheck = ship.getParentStation() != null && ship.getParentStation().equals(check.getParentStation());
+                    boolean shipHasSameParentStationAsCheck =
+                            ship.getParentStation() != null && ship.getParentStation().equals(check.getParentStation());
+
                     if (checkHullSpecNonNull
                             && checkHullSpecHullIdNonNull
                             && checkHullIdEqualsShieldGen
@@ -260,7 +264,9 @@ public class vayra_modular_shields extends BaseHullMod {
                 boolean checkHullSpecHullIdNonNull = check.getHullSpec().getHullId() != null;
                 boolean checkHullIdEqualsShieldPart = check.getHullSpec().getHullId().equals(SHIELD_PART_ID);
                 boolean generatorParentStationNonNull = generator.getParentStation() != null;
-                boolean generatorParentStationEqualsCheckParentStation = generator.getParentStation().equals(check.getParentStation());
+                boolean generatorParentStationEqualsCheckParentStation =
+                        generator.getParentStation() != null && generator.getParentStation().equals(check.getParentStation());
+
                 if (checkHullSpecNonNull
                         && checkHullSpecHullIdNonNull
                         && checkHullIdEqualsShieldPart
