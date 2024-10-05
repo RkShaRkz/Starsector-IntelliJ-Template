@@ -140,7 +140,9 @@ public class vayra_modular_shields extends BaseHullMod {
             // Find the generator
             ShipAPI generator = findGenerator(ship, engine);
             if (generator == null) {
-                logger.error("no generator found for ship "+ship+", returning...");
+                if (VAYRA_DEBUG) {
+                    logger.error("no generator found for ship " + ship + ", returning...");
+                }
                 return;
             }
             List<ShipAPI> emitters = findEmitters(generator, engine);
@@ -307,11 +309,15 @@ public class vayra_modular_shields extends BaseHullMod {
     private FleetMemberAPI getFleetMember(ShipAPI ship) {
         FleetMemberAPI shipsFleetMember = CombatUtils.getFleetMember(ship);
         if (shipsFleetMember == null) {
-            logger.warn("CombatUtils.getFleetMember() returned null for this ship!\tship: "+ship);
+            if (VAYRA_DEBUG) {
+                logger.warn("CombatUtils.getFleetMember() returned null for this ship!\tship: " + ship);
+            }
             shipsFleetMember = ship.getFleetMember();
         }
         if (shipsFleetMember == null) {
-            logger.error("ShipAPI.getFleetMember() returned null for this ship as well!\tship: "+ship);
+            if (VAYRA_DEBUG) {
+                logger.error("ShipAPI.getFleetMember() returned null for this ship as well!\tship: " + ship);
+            }
             // Maybe we're a module?
             if (ship.getParentStation() != null) {
                 ShipAPI parent = ship.getParentStation();
@@ -319,7 +325,9 @@ public class vayra_modular_shields extends BaseHullMod {
                 shipsFleetMember = getFleetMember(parent);
 
                 if (shipsFleetMember == null) {
-                    logger.error("getFleetMember() returned null for this ship's parent as well!\tparent: "+parent);
+                    if (VAYRA_DEBUG) {
+                        logger.error("getFleetMember() returned null for this ship's parent as well!\tparent: " + parent);
+                    }
                 }
             }
         }
