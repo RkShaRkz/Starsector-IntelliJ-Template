@@ -470,11 +470,19 @@ public class VayraMergedModPlugin extends BaseModPlugin {
              * ashen_keepers
              * kadur_remnant
              */
-            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("communist_clouds");
-            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("science_fuckers");
-            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("warhawk_republic");
-            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("almighty_dollar");
-            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("ashen_keepers");
+            // If POPULAR_FRONT is enabled, make the 'communist clouds' faction not respawn
+            // since it's POPULAR_FRONT-related
+            if (VayraMergedModPlugin.POPULAR_FRONT_ENABLED) {
+                SectorManager.DO_NOT_RESPAWN_FACTIONS.add("communist_clouds");
+            }
+            // If COLONIAL_FACTIONS is enabled, make the 'colonial factions' not respawn
+            // since Nex breaks their scripted spawn by 'respawning' them too early
+            if (VayraMergedModPlugin.COLONIAL_FACTIONS_ENABLED) {
+                SectorManager.DO_NOT_RESPAWN_FACTIONS.add("science_fuckers");
+                SectorManager.DO_NOT_RESPAWN_FACTIONS.add("warhawk_republic");
+                SectorManager.DO_NOT_RESPAWN_FACTIONS.add("almighty_dollar");
+                SectorManager.DO_NOT_RESPAWN_FACTIONS.add("ashen_keepers");
+            }
         }
     }
 
