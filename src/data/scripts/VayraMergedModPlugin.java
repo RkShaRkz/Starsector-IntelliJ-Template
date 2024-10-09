@@ -475,7 +475,6 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             SectorManager.DO_NOT_RESPAWN_FACTIONS.add("warhawk_republic");
             SectorManager.DO_NOT_RESPAWN_FACTIONS.add("almighty_dollar");
             SectorManager.DO_NOT_RESPAWN_FACTIONS.add("ashen_keepers");
-            SectorManager.DO_NOT_RESPAWN_FACTIONS.add("kadur_remnant");
         }
     }
 
