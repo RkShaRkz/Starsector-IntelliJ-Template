@@ -117,6 +117,18 @@ public class VayraPersonBountyManager extends BaseEventManager {
             this.diff = diff;
             return diff;
         }
+
+        @Override
+        public String toString() {
+            return "RareBountyFlagshipData{" +
+                    "variantId='" + variantId + '\'' +
+                    ", spawnWeight=" + spawnWeight +
+                    ", allowedFactions=" + allowedFactions +
+                    ", shipSource='" + shipSource + '\'' +
+                    ", fleetPoints=" + fleetPoints +
+                    ", diff=" + diff +
+                    '}';
+        }
     }
 
     public void reload() {
@@ -164,21 +176,37 @@ public class VayraPersonBountyManager extends BaseEventManager {
                     }
                 }
 
-                // create RareBountyFlagshipData object
-                if (VAYRA_DEBUG) {
-                    log.info("creating RareBountyFlagshipData");
+                String weightString = row.getString("weight");
+                float weight;
+                if (!weightString.isEmpty()) {
+                    weight = (float) Double.parseDouble(weightString);
+                } else {
+                    weight = 0f;
                 }
-                RareBountyFlagshipData data = new RareBountyFlagshipData(
-                        variantId,
-                        (float) row.getDouble("weight"),
-                        allowedFactions,
-                        row.getString("source")
-                );
-                RARE_FLAGSHIPS.put(
-                        variantId,
-                        data
-                );
+                if (VAYRA_DEBUG) {
+                    log.info("weight string " + weightString + " for variantId: " + variantId + " parsed as " + weight+"\t\tallowed factions: "+allowedFactions);
+                }
+                // Since the CSV reader will keep on reading the empty (commentary) rows, and there is no data to be found in them
+                // lets make the variantId the deciding factor in whether an actual valid row was read alright or not
 
+                if (variantId != null && !variantId.isEmpty()) {
+                    // VariantID is alright, lets make it's data and add it to the list
+                    RareBountyFlagshipData data = new RareBountyFlagshipData(
+                            variantId,
+                            weight,
+                            allowedFactions,
+                            row.getString("source")
+                    );
+                    // create RareBountyFlagshipData object
+                    if (VAYRA_DEBUG) {
+                        log.info("created RareBountyFlagshipData\tdata: "+data);
+                    }
+
+                    RARE_FLAGSHIPS.put(
+                            variantId,
+                            data
+                    );
+                }
             }
         } catch (IOException | JSONException ex) {
             log.warn(ex);
