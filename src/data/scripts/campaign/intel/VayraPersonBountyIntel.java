@@ -37,6 +37,7 @@ import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.domain.PersonBountyEventDataRepository;
+import data.scripts.util.MiscUtils;
 import org.apache.log4j.Logger;
 
 import java.awt.*;
@@ -1024,8 +1025,18 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
                 0f, // utilityPts
                 0f // qualityMod
         );
+
+        if (VAYRA_DEBUG) {
+            log.info("generated FleetParams for location: " + hideoutLocation.getLocationInHyperspace() + ", fleetFactionId: " + fleetFactionId + ", combatPoints: " + fp + "\t = " + params);
+        }
+
         params.ignoreMarketFleetSizeMult = true;
-        fleet = FleetFactoryV3.createFleet(params);
+        try {
+            fleet = FleetFactoryV3.createFleet(params);
+        } catch (NullPointerException npe) {
+            log.error("Exception " + npe + " happened while trying to create fleet! creation params: " + MiscUtils.stringifyFleetParams(params));
+            fleet = null;
+        }
         if (fleet == null || fleet.isEmpty()) {
             endImmediately();
             if (VAYRA_DEBUG) {

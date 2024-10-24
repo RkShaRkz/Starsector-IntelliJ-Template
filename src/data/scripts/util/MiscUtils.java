@@ -2,6 +2,7 @@ package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.sun.javafx.beans.annotations.NonNull;
 import data.util.LoggerLogLevel;
@@ -46,6 +47,58 @@ public class MiscUtils {
         String timeFormat = showMilliseconds ? "HH:mm:ss.SSS" : "HH:mm:ss";
         SimpleDateFormat timeFormatter = new SimpleDateFormat(timeFormat);
         return timeFormatter.format(currentTime);
+    }
+
+    public static String stringifyFleetParams(FleetParamsV3 params) {
+        return "FleetParamsV3{" +
+                "source=" + params.source +
+                ", locInHyper=" + params.locInHyper +
+                ", quality=" + params.quality +
+                ", factionId='" + params.factionId + '\'' +
+                ", fleetType='" + params.fleetType + '\'' +
+                ", combatPts=" + params.combatPts +
+                ", freighterPts=" + params.freighterPts +
+                ", tankerPts=" + params.tankerPts +
+                ", transportPts=" + params.transportPts +
+                ", linerPts=" + params.linerPts +
+                ", utilityPts=" + params.utilityPts +
+                ", maxShipSize=" + params.maxShipSize +
+                ", minShipSize=" + params.minShipSize +
+                ", qualityMod=" + params.qualityMod +
+                ", qualityOverride=" + params.qualityOverride +
+                ", averageSMods=" + params.averageSMods +
+                ", withOfficers=" + params.withOfficers +
+                ", ignoreMarketFleetSizeMult=" + params.ignoreMarketFleetSizeMult +
+                ", onlyApplyFleetSizeToCombatShips=" + params.onlyApplyFleetSizeToCombatShips +
+                ", doNotPrune=" + params.doNotPrune +
+                ", doNotAddShipsBeforePruning=" + params.doNotAddShipsBeforePruning +
+                ", modeOverride=" + params.modeOverride +
+                ", officerLevelBonus=" + params.officerLevelBonus +
+                ", officerNumberBonus=" + params.officerNumberBonus +
+                ", maxOfficersToAdd=" + params.maxOfficersToAdd +
+                ", officerNumberMult=" + params.officerNumberMult +
+                ", officerLevelLimit=" + params.officerLevelLimit +
+                ", commanderLevelLimit=" + params.commanderLevelLimit +
+                ", random=" + params.random +
+                ", commander=" + params.commander +
+                ", noCommanderSkills=" + params.noCommanderSkills +
+                ", forceAllowPhaseShipsEtc=" + params.forceAllowPhaseShipsEtc +
+                ", treatCombatFreighterSettingAsFraction=" + params.treatCombatFreighterSettingAsFraction +
+                ", doctrineOverride=" + params.doctrineOverride +
+                ", timestamp=" + params.timestamp +
+                ", maxNumShips=" + params.maxNumShips +
+                ", onlyRetainFlagship=" + params.onlyRetainFlagship +
+                ", flagshipVariantId='" + params.flagshipVariantId + '\'' +
+                ", flagshipVariant=" + params.flagshipVariant +
+                ", aiCores=" + params.aiCores +
+                ", doNotIntegrateAICores=" + params.doNotIntegrateAICores +
+                ", mode=" + params.mode +
+                ", banPhaseShipsEtc=" + params.banPhaseShipsEtc +
+                ", blockFallback=" + params.blockFallback +
+                ", allWeapons=" + params.allWeapons +
+                ", addShips=" + params.addShips +
+                '}';
+
     }
 
     /**
