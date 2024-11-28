@@ -774,6 +774,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER = "vayramerged_disableDamagedEnvironment_player";
             public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY = "vayramerged_disableDamagedEnvironment_enemy";
 
+            public final static String DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER = "vayramerged_disableDamagedEverything_player";
+            public final static String DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY = "vayramerged_disableDamagedEverything_enemy";
+
         }
 
         @Override
@@ -810,6 +813,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedEnvironmentForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY));
             VayraDamagedEnvironment.DISABLE_FOR_PLAYER = disableDamagedEnvironmentForPlayer;
             VayraDamagedEnvironment.DISABLE_FOR_ENEMY = disableDamagedEnvironmentForEnemy;
+
+            // damaged everything - Performance Irregularities
+            boolean disableDamagedEverythingForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER));
+            boolean disableDamagedEverythingForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY));
+            VayraDamagedEverything.DISABLE_FOR_PLAYER = disableDamagedEverythingForPlayer;
+            VayraDamagedEverything.DISABLE_FOR_ENEMY = disableDamagedEverythingForEnemy;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
