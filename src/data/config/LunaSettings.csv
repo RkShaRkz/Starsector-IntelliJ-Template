@@ -1,29 +1,52 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 ,,,,,,,,
-vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should L'Interstellaire traveling market (from Popular Front) upgrade it's buildings periodically or not?,,,General
+vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should [L'Interstellaire] traveling market (from Popular Front) upgrade it's buildings periodically or not?,,,General
 ,,,,,,,,
-vayramerged_disableDamagedAmmo_player,Disable 'Malfunctioning Ammo Forge' D-Mod (for player),Boolean,false,,Should the 'Malfunctioning Ammo Forge' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedAmmo_enemy,Disable 'Malfunctioning Ammo Forge' D-Mod (for enemy),Boolean,false,,Should the 'Malfunctioning Ammo Forge' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedAutomation_player,Disable 'Inoperative Automated Systems' D-Mod (for player),Boolean,false,,Should the 'Inoperative Automated Systems' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedAutomation_enemy,Disable 'Inoperative Automated Systems' D-Mod (for enemy),Boolean,false,,Should the 'Inoperative Automated Systems' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedBallistics_player,Disable 'Irregular Feed Mechanisms' D-Mod (for player),Boolean,false,,Should the 'Irregular Feed Mechanisms' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedBallistics_enemy,Disable 'Irregular Feed Mechanisms' D-Mod (for enemy),Boolean,false,,Should the 'Irregular Feed Mechanisms' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedEnvironment_player,Disable 'Buckled Environmental Shielding' D-Mod (for player),Boolean,false,,Should the 'Buckled Environmental Shielding' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedEnvironment_enemy,Disable 'Buckled Environmental Shielding' D-Mod (for enemy),Boolean,false,,Should the 'Buckled Environmental Shielding' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedEverything_player,Disable 'Performance Irregularities' D-Mod (for player),Boolean,false,,Should the 'Performance Irregularities' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedEverything_enemy,Disable 'Performance Irregularities' D-Mod (for enemy),Boolean,false,,Should the 'Performance Irregularities' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedFighterWeapons_player,Disable 'Malformed Fighter Weapons' D-Mod (for player),Boolean,false,,Should the 'Malformed Fighter Weapons' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedFighterWeapons_enemy,Disable 'Malformed Fighter Weapons' D-Mod (for enemy),Boolean,false,,Should the 'Malformed Fighter Weapons' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedGunnery_player,Disable 'Noncompliant Gunnery Core' D-Mod (for player),Boolean,false,,Should the 'Noncompliant Gunnery Core' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedGunnery_enemy,Disable 'Noncompliant Gunnery Core' D-Mod (for enemy),Boolean,false,,Should the 'Noncompliant Gunnery Core' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedLifeSupport_player,Disable 'Impaired Life Support Systems' D-Mod (for player),Boolean,false,,Should the 'Impaired Life Support Systems' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedLifeSupport_enemy,Disable 'Impaired Life Support Systems' D-Mod (for enemy),Boolean,false,,Should the 'Impaired Life Support Systems' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedMissiles_player,Disable 'Flawed Missile Racks' D-Mod (for player),Boolean,false,,Should the 'Flawed Missile Racks' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedMissiles_enemy,Disable 'Flawed Missile Racks' D-Mod (for enemy),Boolean,false,,Should the 'Flawed Missile Racks' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedOptics_player,Disable 'Distorted Optics' D-Mod (for player),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedOptics_enemy,Disable 'Distorted Optics' D-Mod (for enemy),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedShields_player,Disable 'Destabilized Shield Generator' D-Mod (for player),Boolean,false,,Should the 'Destabilized Shield Generator' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedShields_enemy,Disable 'Destabilized Shield Generator' D-Mod (for enemy),Boolean,false,,Should the 'Destabilized Shield Generator' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
-vayramerged_disableDamagedTurrets_player,Disable 'Misshapen Turret Gyros' D-Mod (for player),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedTurrets_enemy,Disable 'Misshapen Turret Gyros' D-Mod (for enemy),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
+vayramerged_DamagedAmmo_header,Malfunctioning Ammo Forge / Damaged Ammo divider,Header,Malfunctioning Ammo Forge,,,,,D-Mods
+vayramerged_disableDamagedAmmo_player,Disable Malfunctioning Ammo Forge D-Mod (for player),Boolean,false,,Should the [Malfunctioning Ammo Forge] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedAmmo_enemy,Disable Malfunctioning Ammo Forge D-Mod (for enemy),Boolean,false,,Should the [Malfunctioning Ammo Forge] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedAutomation_header,Inoperative Automated Systems / Damaged Automation divider,Header,Inoperative Automated Systems,,,,,D-Mods
+vayramerged_disableDamagedAutomation_player,Disable Inoperative Automated Systems D-Mod (for player),Boolean,false,,Should the [Inoperative Automated Systems] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedAutomation_enemy,Disable Inoperative Automated Systems D-Mod (for enemy),Boolean,false,,Should the [Inoperative Automated Systems] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedBallistics_header,Irregular Feed Mechanisms / Damaged Ballistics divider,Header,Irregular Feed Mechanisms,,,,,D-Mods
+vayramerged_disableDamagedBallistics_player,Disable Irregular Feed Mechanisms D-Mod (for player),Boolean,false,,Should the [Irregular Feed Mechanisms] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedBallistics_enemy,Disable Irregular Feed Mechanisms D-Mod (for enemy),Boolean,false,,Should the [Irregular Feed Mechanisms] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedEnvironment_header,Buckled Environmental Shielding / Damaged Environment divider,Header,Buckled Environmental Shielding,,,,,D-Mods
+vayramerged_disableDamagedEnvironment_player,Disable Buckled Environmental Shielding D-Mod (for player),Boolean,false,,Should the [Buckled Environmental Shielding] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedEnvironment_enemy,Disable Buckled Environmental Shielding D-Mod (for enemy),Boolean,false,,Should the [Buckled Environmental Shielding] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedEverything_header,Performance Irregularities / Damaged Everything divider,Header,Performance Irregularities,,,,,D-Mods
+vayramerged_disableDamagedEverything_player,Disable Performance Irregularities D-Mod (for player),Boolean,false,,Should the [Performance Irregularities] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedEverything_enemy,Disable Performance Irregularities D-Mod (for enemy),Boolean,false,,Should the [Performance Irregularities] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedFighterWeapons_header,Malformed Fighter Weapons / Damaged Fighter Weapons divider,Header,Malformed Fighter Weapons,,,,,D-Mods
+vayramerged_disableDamagedFighterWeapons_player,Disable Malformed Fighter Weapons D-Mod (for player),Boolean,false,,Should the [Malformed Fighter Weapons] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedFighterWeapons_enemy,Disable Malformed Fighter Weapons D-Mod (for enemy),Boolean,false,,Should the [Malformed Fighter Weapons] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedGunnery_header,Noncompliant Gunnery Core / Damaged Gunnery divider,Header,Noncompliant Gunnery Core,,,,,D-Mods
+vayramerged_disableDamagedGunnery_player,Disable Noncompliant Gunnery Core D-Mod (for player),Boolean,false,,Should the [Noncompliant Gunnery Core] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedGunnery_enemy,Disable Noncompliant Gunnery Core D-Mod (for enemy),Boolean,false,,Should the [Noncompliant Gunnery Core] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedLifeSupport_header,Impaired Life Support Systems / Damaged Life Support divider,Header,Impaired Life Support Systems,,,,,D-Mods
+vayramerged_disableDamagedLifeSupport_player,Disable Impaired Life Support Systems D-Mod (for player),Boolean,false,,Should the [Impaired Life Support Systems] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedLifeSupport_enemy,Disable Impaired Life Support Systems D-Mod (for enemy),Boolean,false,,Should the [Impaired Life Support Systems] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedMissiles_header,Flawed Missile Racks / Damaged Missiles divider,Header,Flawed Missile Racks,,,,,D-Mods
+vayramerged_disableDamagedMissiles_player,Disable Flawed Missile Racks D-Mod (for player),Boolean,false,,Should the [Flawed Missile Racks] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedMissiles_enemy,Disable Flawed Missile Racks D-Mod (for enemy),Boolean,false,,Should the [Flawed Missile Racks] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedOptics_header,Distorted Optics / Damaged Optics divider,Header,Distorted Optics,,,,,D-Mods
+vayramerged_disableDamagedOptics_player,Disable Distorted Optics D-Mod (for player),Boolean,false,,Should the [Distorted Optics] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedOptics_enemy,Disable Distorted Optics D-Mod (for enemy),Boolean,false,,Should the [Distorted Optics] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedShields_header,Destabilized Shield Generator / Damaged Shields divider,Header,Destabilized Shield Generator,,,,,D-Mods
+vayramerged_disableDamagedShields_player,Disable Destabilized Shield Generator D-Mod (for player),Boolean,false,,Should the [Destabilized Shield Generator] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedShields_enemy,Disable Destabilized Shield Generator D-Mod (for enemy),Boolean,false,,Should the [Destabilized Shield Generator] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
+vayramerged_DamagedTurrets_header,Misshapen Turret Gyros / Damaged Turrets divider,Header,Misshapen Turret Gyros,,,,,D-Mods
+vayramerged_disableDamagedTurrets_player,Disable Misshapen Turret Gyros D-Mod (for player),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedTurrets_enemy,Disable Misshapen Turret Gyros D-Mod (for enemy),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
 ,,,,,,,,
