@@ -788,6 +788,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             public final static String DISABLE_DAMAGED_MISSILES_FOR_PLAYER = "vayramerged_disableDamagedMissiles_player";
             public final static String DISABLE_DAMAGED_MISSILES_FOR_ENEMY = "vayramerged_disableDamagedMissiles_enemy";
+
+            public final static String DISABLE_DAMAGED_SHIELDS_FOR_PLAYER = "vayramerged_disableDamagedShields_player";
+            public final static String DISABLE_DAMAGED_SHIELDS_FOR_ENEMY = "vayramerged_disableDamagedShields_enemy";
         }
 
         @Override
@@ -860,6 +863,13 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
             VayraDamagedOptics.DISABLE_FOR_PLAYER = disableDamagedOpticsForPlayer;
             VayraDamagedOptics.DISABLE_FOR_ENEMY = disableDamagedOpticsForEnemy;
+
+            // damaged shields - Destabilized Shield Generator
+            boolean disableDamagedShieldsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_SHIELDS_FOR_PLAYER));
+            boolean disableDamagedShieldsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_SHIELDS_FOR_ENEMY));
+            VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedShieldsForPlayer;
+            VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedShieldsForEnemy;
+
         }
 
         private int safeUnboxing(Integer object) {
