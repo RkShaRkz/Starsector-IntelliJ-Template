@@ -36,6 +36,7 @@ import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
 import data.scripts.hullmods.VayraDamagedAmmo;
 import data.scripts.hullmods.VayraDamagedAutomation;
+import data.scripts.hullmods.VayraDamagedBallistics;
 import data.scripts.hullmods.VayraDamagedOptics;
 import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
@@ -770,6 +771,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             public final static String DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER = "vayramerged_disableDamagedAutomation_player";
             public final static String DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY = "vayramerged_disableDamagedAutomation_enemy";
 
+            public final static String DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER = "vayramerged_disableDamagedBallistics_player";
+            public final static String DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY = "vayramerged_disableDamagedBallistics_enemy";
 
         }
 
@@ -790,10 +793,17 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;
             VayraDamagedAmmo.DISABLE_FOR_ENEMY = disableDamagedAmmoForEnemy;
 
+            // damaged automation - Inoperative Automated Systems
             boolean disableDamagedAutomationForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER));
             boolean disableDamagedAutomationForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY));
             VayraDamagedAutomation.DISABLE_FOR_PLAYER = disableDamagedAutomationForPlayer;
             VayraDamagedAutomation.DISABLE_FOR_ENEMY = disableDamagedAutomationForEnemy;
+
+            // damaged ballistics - Irregular Feed Mechanisms
+            boolean disableDamagedBallisticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER));
+            boolean disableDamagedBallisticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY));
+            VayraDamagedBallistics.DISABLE_FOR_PLAYER = disableDamagedBallisticsForPlayer;
+            VayraDamagedBallistics.DISABLE_FOR_ENEMY = disableDamagedBallisticsForEnemy;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
