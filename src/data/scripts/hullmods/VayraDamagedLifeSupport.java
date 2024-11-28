@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedLifeSupport extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedLifeSupport";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float CR_PENALTY = 15f;
     public static final float CREW_CAPACITY_MULT = 0.25f;

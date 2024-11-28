@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedFighterWeapons extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedFighterWeapons";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float FIGHTER_DAMAGE_MULT = 0.8f;
     public static final float FIGHTER_ACCURACY_MULT = 0.5f;

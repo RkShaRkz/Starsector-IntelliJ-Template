@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedMissiles extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedMissiles";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float MISSILE_AMMO_MULT = 0.5f;
     public static final int MISSILE_MIN_AMMO = 1;

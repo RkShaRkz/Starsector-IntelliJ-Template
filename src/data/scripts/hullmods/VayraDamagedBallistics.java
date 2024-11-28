@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedBallistics extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedBallistics";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float BALLISTIC_ROF_MULT = 0.8f;
     public static final float BALLISTIC_FLUX_MULT = 1.25f;

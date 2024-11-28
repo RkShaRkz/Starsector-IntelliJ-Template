@@ -12,8 +12,8 @@ import static data.scripts.util.MiscUtils.getMaximumWeaponSpecAngleOffsetsSize;
 
 public class VayraDamagedOptics extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedOptics";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float BEAM_RANGE_MULT = 0.75f;
     public static final float BEAM_WAVER = 5f;

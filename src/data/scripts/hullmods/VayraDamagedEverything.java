@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedEverything extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedEverything";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float CR_PENALTY = 10f;
     public static final float MALFUNCTION_CHANCE = 0.01f;

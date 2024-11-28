@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedGunnery extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedGunnery";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float AUTOFIRE_ACCURACY_MULT = 0.8f;
     public static final float PROJECTILE_SPEED_MULT = 0.9f;

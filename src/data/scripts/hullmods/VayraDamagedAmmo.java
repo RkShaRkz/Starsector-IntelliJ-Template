@@ -10,8 +10,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedAmmo extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedAmmo";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedTurrets extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedTurrets";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float WEAPON_SPEED_MULT = 0.75f;
     public static final float WEAPON_HP_MULT = 0.75f;

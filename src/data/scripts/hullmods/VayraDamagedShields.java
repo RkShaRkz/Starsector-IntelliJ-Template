@@ -11,8 +11,8 @@ import data.util.LoggerLogLevel;
 
 public class VayraDamagedShields extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedShields";
-    public static boolean DISABLE_FOR_PLAYER = false;
-    public static boolean DISABLE_FOR_ENEMY = false;
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float SHIELD_UPKEEP_MULT = 1.5f;
     public static final float SHIELD_DAMAGE_MULT = 1.1f;
