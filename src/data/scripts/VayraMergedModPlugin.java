@@ -785,6 +785,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             public final static String DISABLE_DAMAGED_LIFE_SUPPORT_FOR_PLAYER = "vayramerged_disableDamagedLifeSupport_player";
             public final static String DISABLE_DAMAGED_LIFE_SUPPORT_FOR_ENEMY = "vayramerged_disableDamagedLifeSupport_enemy";
+
+            public final static String DISABLE_DAMAGED_MISSILES_FOR_PLAYER = "vayramerged_disableDamagedMissiles_player";
+            public final static String DISABLE_DAMAGED_MISSILES_FOR_ENEMY = "vayramerged_disableDamagedMissiles_enemy";
         }
 
         @Override
@@ -845,6 +848,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedLifeSupportForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_LIFE_SUPPORT_FOR_ENEMY));
             VayraDamagedLifeSupport.DISABLE_FOR_PLAYER = disableDamagedLifeSupportForPlayer;
             VayraDamagedLifeSupport.DISABLE_FOR_ENEMY = disableDamagedLifeSupportForEnemy;
+
+            // damaged missiles - Flawed Missile Racks
+            boolean disableDamagedMissilesForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_MISSILES_FOR_PLAYER));
+            boolean disableDamagedMissilesForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_MISSILES_FOR_ENEMY));
+            VayraDamagedMissiles.DISABLE_FOR_PLAYER = disableDamagedMissilesForPlayer;
+            VayraDamagedMissiles.DISABLE_FOR_ENEMY = disableDamagedMissilesForEnemy;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
