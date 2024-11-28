@@ -34,6 +34,7 @@ import data.scripts.campaign.intel.VayraPersonBountyManager;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel;
 import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
+import data.scripts.hullmods.VayraDamagedOptics;
 import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
 import exerelin.campaign.DiplomacyManager;
@@ -755,7 +756,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     private static class MyLunaSettingsListener implements LunaSettingsListener {
 
         private static class LunaConstants {
+            // general settings
             public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
+            // dmod settings
+            public final static String DISABLE_DAMAGED_OPTICS_FOR_PLAYER = "vayramerged_disableDamagedOptics_player";
+            public final static String DISABLE_DAMAGED_OPTICS_FOR_ENEMY = "vayramerged_disableDamagedOptics_enemy";
         }
 
         @Override
@@ -763,6 +768,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             if (modId.equalsIgnoreCase(MOD_ID)) {
                 boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_INTERSTELLAIRE_UPGRADES));
                 VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
+
+                boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
+                boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
+                VayraDamagedOptics.DISABLE_FOR_PLAYER = disableDamagedOpticsForPlayer;
+                VayraDamagedOptics.DISABLE_FOR_ENEMY = disableDamagedOpticsForEnemy;
             }
         }
 

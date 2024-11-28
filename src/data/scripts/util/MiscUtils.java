@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import com.fs.starfarer.api.util.Misc;
 import com.sun.javafx.beans.annotations.NonNull;
 import data.util.LoggerLogLevel;
 import org.apache.log4j.Logger;
@@ -16,6 +17,10 @@ import java.util.Date;
  * Bunch of small copypastable methods belonging everywhere but nowhere in specific
  */
 public class MiscUtils {
+
+    public static final int OWNER_ENEMY = 1;
+    public static final int OWNER_PLAYER = Misc.OWNER_PLAYER;
+    public static final int OWNER_NEUTRAL = Misc.OWNER_NEUTRAL;
 
     /**
      * The annonymous logger instance
