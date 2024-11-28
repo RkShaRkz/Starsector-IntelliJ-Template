@@ -6,22 +6,44 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
+import data.scripts.util.MiscUtils;
+import data.util.LoggerLogLevel;
 
 public class VayraDamagedFighterWeapons extends BaseHullMod {
+    private static final String LOGTAG = "VayraDamagedFighterWeapons";
+    public static boolean DISABLE_FOR_PLAYER = false;
+    public static boolean DISABLE_FOR_ENEMY = false;
 
     public static final float FIGHTER_DAMAGE_MULT = 0.8f;
     public static final float FIGHTER_ACCURACY_MULT = 0.5f;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
+        // Do nothing if it's been disabled
+        if (stats.getFleetMember() != null) {
+            int owner = stats.getFleetMember().getOwner();
+            if (owner == MiscUtils.OWNER_ENEMY && DISABLE_FOR_ENEMY) return;
+            if (owner == MiscUtils.OWNER_PLAYER && DISABLE_FOR_PLAYER) return;
+        } else {
+            MiscUtils.log(LoggerLogLevel.WARN, LOGTAG, "Encountered a ship with NULL fleetmember in 'applyEffectsBeforeShipCreation' so settings to disable it won't work");
+        }
 
+        // Carry on as usual
         CompromisedStructure.modifyCost(hullSize, stats, id);
-
     }
 
     @Override
     public void applyEffectsToFighterSpawnedByShip(ShipAPI fighter, ShipAPI ship, String id) {
+        // Do nothing if it's been disabled
+        if (ship.getFleetMember() != null) {
+            int owner = ship.getFleetMember().getOwner();
+            if (owner == MiscUtils.OWNER_ENEMY && DISABLE_FOR_ENEMY) return;
+            if (owner == MiscUtils.OWNER_PLAYER && DISABLE_FOR_PLAYER) return;
+        } else {
+            MiscUtils.log(LoggerLogLevel.WARN, LOGTAG, "Encountered a ship with NULL fleetmember in 'applyEffectsToFighterSpawnedByShip' so settings to disable it won't work");
+        }
 
+        // Carry on as usual
         MutableShipStatsAPI stats = ship.getMutableStats();
         if (stats == null) return;
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);

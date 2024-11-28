@@ -777,6 +777,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             public final static String DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER = "vayramerged_disableDamagedEverything_player";
             public final static String DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY = "vayramerged_disableDamagedEverything_enemy";
 
+            public final static String DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER = "vayramerged_disableDamagedFighterWeapons_player";
+            public final static String DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY = "vayramerged_disableDamagedFighterWeapons_enemy";
         }
 
         @Override
@@ -819,6 +821,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedEverythingForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY));
             VayraDamagedEverything.DISABLE_FOR_PLAYER = disableDamagedEverythingForPlayer;
             VayraDamagedEverything.DISABLE_FOR_ENEMY = disableDamagedEverythingForEnemy;
+
+            // damaged fighter weapons - Malformed Fighter Weapons
+            boolean disableDamagedFighterWeaponsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER));
+            boolean disableDamagedFighterWeaponsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY));
+            VayraDamagedFighterWeapons.DISABLE_FOR_PLAYER = disableDamagedFighterWeaponsForPlayer;
+            VayraDamagedFighterWeapons.DISABLE_FOR_ENEMY = disableDamagedFighterWeaponsForEnemy;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
