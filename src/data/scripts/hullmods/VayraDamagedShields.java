@@ -22,8 +22,8 @@ public class VayraDamagedShields extends BaseHullMod {
         // Do nothing if it's been disabled
         if (stats.getFleetMember() != null) {
             int owner = stats.getFleetMember().getOwner();
-            if (owner == MiscUtils.OWNER_ENEMY && DISABLE_FOR_ENEMY) return;
-            if (owner == MiscUtils.OWNER_PLAYER && DISABLE_FOR_PLAYER) return;
+            if (DISABLE_FOR_ENEMY && MiscUtils.OWNER_ENEMY == owner) return;
+            if (DISABLE_FOR_PLAYER && MiscUtils.OWNER_PLAYER == owner) return;
         } else {
             MiscUtils.log(LoggerLogLevel.WARN, LOGTAG, "Encountered a ship with NULL fleetmember in 'applyEffectsBeforeShipCreation' so settings to disable it won't work");
         }
