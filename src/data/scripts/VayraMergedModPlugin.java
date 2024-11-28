@@ -759,9 +759,6 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // general settings
             public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
             // dmod settings
-            public final static String DISABLE_DAMAGED_OPTICS_FOR_PLAYER = "vayramerged_disableDamagedOptics_player";
-            public final static String DISABLE_DAMAGED_OPTICS_FOR_ENEMY = "vayramerged_disableDamagedOptics_enemy";
-
             public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";
             public final static String DISABLE_DAMAGED_AMMO_FOR_ENEMY = "vayramerged_disableDamagedAmmo_enemy";
 
@@ -789,8 +786,14 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             public final static String DISABLE_DAMAGED_MISSILES_FOR_PLAYER = "vayramerged_disableDamagedMissiles_player";
             public final static String DISABLE_DAMAGED_MISSILES_FOR_ENEMY = "vayramerged_disableDamagedMissiles_enemy";
 
+            public final static String DISABLE_DAMAGED_OPTICS_FOR_PLAYER = "vayramerged_disableDamagedOptics_player";
+            public final static String DISABLE_DAMAGED_OPTICS_FOR_ENEMY = "vayramerged_disableDamagedOptics_enemy";
+
             public final static String DISABLE_DAMAGED_SHIELDS_FOR_PLAYER = "vayramerged_disableDamagedShields_player";
             public final static String DISABLE_DAMAGED_SHIELDS_FOR_ENEMY = "vayramerged_disableDamagedShields_enemy";
+
+            public final static String DISABLE_DAMAGED_TURRETS_FOR_PLAYER = "vayramerged_disableDamagedTurrets_player";
+            public final static String DISABLE_DAMAGED_TURRETS_FOR_ENEMY = "vayramerged_disableDamagedTurrets_enemy";
         }
 
         @Override
@@ -804,7 +807,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
 
         private void handleDmodSettings() {
-            // damaged ammo - Misshapen Turret Gyros
+            // damaged ammo - Misshapen Turret Gyros //TODO Malfunctioning Ammo Forge
             boolean disableDamagedAmmoForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_PLAYER));
             boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_ENEMY));
             VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;
@@ -870,6 +873,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedShieldsForPlayer;
             VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedShieldsForEnemy;
 
+            // damaged turrets - Misshapen Turret Gyros
+            boolean disableDamagedTurretsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_TURRETS_FOR_PLAYER));
+            boolean disableDamagedTurretsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_TURRETS_FOR_ENEMY));
+            VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedTurretsForPlayer;
+            VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedTurretsForEnemy;
         }
 
         private int safeUnboxing(Integer object) {
