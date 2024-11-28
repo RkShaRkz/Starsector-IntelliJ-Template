@@ -1,7 +1,7 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 ,,,,,,,,
 vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should L'Interstellaire traveling market (from Popular Front) upgrade it's buildings periodically or not?,,,General
-
+,,,,,,,,
 vayramerged_disableDamagedAmmo_player,Disable 'Misshapen Turret Gyros' D-Mod (for player),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedAmmo_enemy,Disable 'Misshapen Turret Gyros' D-Mod (for enemy),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
 vayramerged_disableDamagedAutomation_player,Disable 'Inoperative Automated Systems' D-Mod (for player),Boolean,false,,Should the 'Inoperative Automated Systems' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
@@ -14,5 +14,7 @@ vayramerged_disableDamagedEverything_player,Disable 'Performance Irregularities'
 vayramerged_disableDamagedEverything_enemy,Disable 'Performance Irregularities' D-Mod (for enemy),Boolean,false,,Should the 'Performance Irregularities' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
 vayramerged_disableDamagedFighterWeapons_player,Disable 'Malformed Fighter Weapons' D-Mod (for player),Boolean,false,,Should the 'Malformed Fighter Weapons' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedFighterWeapons_enemy,Disable 'Malformed Fighter Weapons' D-Mod (for enemy),Boolean,false,,Should the 'Malformed Fighter Weapons' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
+vayramerged_disableDamagedGunnery_player,Disable 'Noncompliant Gunnery Core' D-Mod (for player),Boolean,false,,Should the 'Noncompliant Gunnery Core' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedGunnery_enemy,Disable 'Noncompliant Gunnery Core' D-Mod (for enemy),Boolean,false,,Should the 'Noncompliant Gunnery Core' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
 vayramerged_disableDamagedOptics_player,Disable 'Distorted Optics' D-Mod (for player),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedOptics_enemy,Disable 'Distorted Optics' D-Mod (for enemy),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
