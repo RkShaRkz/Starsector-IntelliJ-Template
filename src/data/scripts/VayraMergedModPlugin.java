@@ -807,7 +807,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
 
         private void handleDmodSettings() {
-            // damaged ammo - Misshapen Turret Gyros //TODO Malfunctioning Ammo Forge
+            // damaged ammo - Malfunctioning Ammo Forge
             boolean disableDamagedAmmoForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_PLAYER));
             boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_ENEMY));
             VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;

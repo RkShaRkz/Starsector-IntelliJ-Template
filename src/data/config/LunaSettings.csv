@@ -2,8 +2,8 @@ fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValu
 ,,,,,,,,
 vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should L'Interstellaire traveling market (from Popular Front) upgrade it's buildings periodically or not?,,,General
 ,,,,,,,,
-vayramerged_disableDamagedAmmo_player,Disable 'Misshapen Turret Gyros' D-Mod (for player),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedAmmo_enemy,Disable 'Misshapen Turret Gyros' D-Mod (for enemy),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
+vayramerged_disableDamagedAmmo_player,Disable 'Malfunctioning Ammo Forge' D-Mod (for player),Boolean,false,,Should the 'Malfunctioning Ammo Forge' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedAmmo_enemy,Disable 'Malfunctioning Ammo Forge' D-Mod (for enemy),Boolean,false,,Should the 'Malfunctioning Ammo Forge' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
 vayramerged_disableDamagedAutomation_player,Disable 'Inoperative Automated Systems' D-Mod (for player),Boolean,false,,Should the 'Inoperative Automated Systems' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedAutomation_enemy,Disable 'Inoperative Automated Systems' D-Mod (for enemy),Boolean,false,,Should the 'Inoperative Automated Systems' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
 vayramerged_disableDamagedBallistics_player,Disable 'Irregular Feed Mechanisms' D-Mod (for player),Boolean,false,,Should the 'Irregular Feed Mechanisms' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
@@ -26,3 +26,4 @@ vayramerged_disableDamagedShields_player,Disable 'Destabilized Shield Generator'
 vayramerged_disableDamagedShields_enemy,Disable 'Destabilized Shield Generator' D-Mod (for enemy),Boolean,false,,Should the 'Destabilized Shield Generator' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
 vayramerged_disableDamagedTurrets_player,Disable 'Misshapen Turret Gyros' D-Mod (for player),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedTurrets_enemy,Disable 'Misshapen Turret Gyros' D-Mod (for enemy),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
