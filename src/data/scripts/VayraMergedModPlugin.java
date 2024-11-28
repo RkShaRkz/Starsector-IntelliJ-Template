@@ -34,10 +34,7 @@ import data.scripts.campaign.intel.VayraPersonBountyManager;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel;
 import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
-import data.scripts.hullmods.VayraDamagedAmmo;
-import data.scripts.hullmods.VayraDamagedAutomation;
-import data.scripts.hullmods.VayraDamagedBallistics;
-import data.scripts.hullmods.VayraDamagedOptics;
+import data.scripts.hullmods.*;
 import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
 import exerelin.campaign.DiplomacyManager;
@@ -774,6 +771,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             public final static String DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER = "vayramerged_disableDamagedBallistics_player";
             public final static String DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY = "vayramerged_disableDamagedBallistics_enemy";
 
+            public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER = "vayramerged_disableDamagedEnvironment_player";
+            public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY = "vayramerged_disableDamagedEnvironment_enemy";
+
         }
 
         @Override
@@ -804,6 +804,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedBallisticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY));
             VayraDamagedBallistics.DISABLE_FOR_PLAYER = disableDamagedBallisticsForPlayer;
             VayraDamagedBallistics.DISABLE_FOR_ENEMY = disableDamagedBallisticsForEnemy;
+
+            // damaged environment - Buckled Environmental Shielding
+            boolean disableDamagedEnvironmentForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER));
+            boolean disableDamagedEnvironmentForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY));
+            VayraDamagedEnvironment.DISABLE_FOR_PLAYER = disableDamagedEnvironmentForPlayer;
+            VayraDamagedEnvironment.DISABLE_FOR_ENEMY = disableDamagedEnvironmentForEnemy;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
