@@ -35,6 +35,7 @@ import data.scripts.campaign.intel.VayraPlayerBountyIntel;
 import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
 import data.scripts.hullmods.VayraDamagedAmmo;
+import data.scripts.hullmods.VayraDamagedAutomation;
 import data.scripts.hullmods.VayraDamagedOptics;
 import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
@@ -765,6 +766,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";
             public final static String DISABLE_DAMAGED_AMMO_FOR_ENEMY = "vayramerged_disableDamagedAmmo_enemy";
+
+            public final static String DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER = "vayramerged_disableDamagedAutomation_player";
+            public final static String DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY = "vayramerged_disableDamagedAutomation_enemy";
+
+
         }
 
         @Override
@@ -783,6 +789,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_ENEMY));
             VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;
             VayraDamagedAmmo.DISABLE_FOR_ENEMY = disableDamagedAmmoForEnemy;
+
+            boolean disableDamagedAutomationForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER));
+            boolean disableDamagedAutomationForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY));
+            VayraDamagedAutomation.DISABLE_FOR_PLAYER = disableDamagedAutomationForPlayer;
+            VayraDamagedAutomation.DISABLE_FOR_ENEMY = disableDamagedAutomationForEnemy;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));

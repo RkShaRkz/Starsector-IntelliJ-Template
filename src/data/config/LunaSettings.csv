@@ -4,5 +4,7 @@ vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling mar
 
 vayramerged_disableDamagedAmmo_player,Disable 'Misshapen Turret Gyros' D-Mod (for player),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedAmmo_enemy,Disable 'Misshapen Turret Gyros' D-Mod (for enemy),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
+vayramerged_disableDamagedAutomation_player,Disable 'Inoperative Automated Systems' D-Mod (for player),Boolean,false,,Should the 'Inoperative Automated Systems' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedAutomation_enemy,Disable 'Inoperative Automated Systems' D-Mod (for enemy),Boolean,false,,Should the 'Inoperative Automated Systems' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
 vayramerged_disableDamagedOptics_player,Disable 'Distorted Optics' D-Mod (for player),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedOptics_enemy,Disable 'Distorted Optics' D-Mod (for enemy),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
