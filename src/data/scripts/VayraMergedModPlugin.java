@@ -34,6 +34,7 @@ import data.scripts.campaign.intel.VayraPersonBountyManager;
 import data.scripts.campaign.intel.VayraPlayerBountyIntel;
 import data.scripts.campaign.intel.VayraUniqueBountyManager;
 import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
+import data.scripts.hullmods.VayraDamagedAmmo;
 import data.scripts.hullmods.VayraDamagedOptics;
 import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
@@ -761,6 +762,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // dmod settings
             public final static String DISABLE_DAMAGED_OPTICS_FOR_PLAYER = "vayramerged_disableDamagedOptics_player";
             public final static String DISABLE_DAMAGED_OPTICS_FOR_ENEMY = "vayramerged_disableDamagedOptics_enemy";
+
+            public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";
+            public final static String DISABLE_DAMAGED_AMMO_FOR_ENEMY = "vayramerged_disableDamagedAmmo_enemy";
         }
 
         @Override
@@ -769,11 +773,22 @@ public class VayraMergedModPlugin extends BaseModPlugin {
                 boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_INTERSTELLAIRE_UPGRADES));
                 VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
 
-                boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
-                boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
-                VayraDamagedOptics.DISABLE_FOR_PLAYER = disableDamagedOpticsForPlayer;
-                VayraDamagedOptics.DISABLE_FOR_ENEMY = disableDamagedOpticsForEnemy;
+                handleDmodSettings();
             }
+        }
+
+        private void handleDmodSettings() {
+            // damaged ammo - Misshapen Turret Gyros
+            boolean disableDamagedAmmoForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_PLAYER));
+            boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_ENEMY));
+            VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;
+            VayraDamagedAmmo.DISABLE_FOR_ENEMY = disableDamagedAmmoForEnemy;
+
+            // damaged optics - Distorted Optics
+            boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
+            boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
+            VayraDamagedOptics.DISABLE_FOR_PLAYER = disableDamagedOpticsForPlayer;
+            VayraDamagedOptics.DISABLE_FOR_ENEMY = disableDamagedOpticsForEnemy;
         }
 
         private int safeUnboxing(Integer object) {

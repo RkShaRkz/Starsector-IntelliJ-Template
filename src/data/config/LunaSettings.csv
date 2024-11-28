@@ -1,5 +1,8 @@
 fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValue,maxValue,tab
 ,,,,,,,,
 vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should L'Interstellaire traveling market (from Popular Front) upgrade it's buildings periodically or not?,,,General
-vayramerged_disableDamagedOptics_player,Disable 'Damaged Optics' D-Mod (for player),Boolean,false,,Should the 'Damaged Optics' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
-vayramerged_disableDamagedOptics_enemy,Disable 'Damaged Optics' D-Mod (for enemy),Boolean,false,,Should the 'Damaged Optics' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
+
+vayramerged_disableDamagedAmmo_player,Disable 'Misshapen Turret Gyros' D-Mod (for player),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedAmmo_enemy,Disable 'Misshapen Turret Gyros' D-Mod (for enemy),Boolean,false,,Should the 'Misshapen Turret Gyros' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
+vayramerged_disableDamagedOptics_player,Disable 'Distorted Optics' D-Mod (for player),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableDamagedOptics_enemy,Disable 'Distorted Optics' D-Mod (for enemy),Boolean,false,,Should the 'Distorted Optics' d-mod's effects be disabled for for ships belonging to the enemy side?,,,D-Mods
