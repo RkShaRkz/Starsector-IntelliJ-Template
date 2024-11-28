@@ -61,6 +61,9 @@ import java.util.*;
 import static data.scripts.hullmods.VayraGhostShip.GHOST_GALLEON_BOUNTY_ID;
 import static java.lang.Math.random;
 
+// 'static' Import all luna settings
+import static data.scripts.LunaConstants.*;
+
 public class VayraMergedModPlugin extends BaseModPlugin {
 
     public static Logger logger = Global.getLogger(VayraMergedModPlugin.class);
@@ -755,51 +758,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
     private static class MyLunaSettingsListener implements LunaSettingsListener {
 
-        private static class LunaConstants {
-            // general settings
-            public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
-            // dmod settings
-            public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";
-            public final static String DISABLE_DAMAGED_AMMO_FOR_ENEMY = "vayramerged_disableDamagedAmmo_enemy";
-
-            public final static String DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER = "vayramerged_disableDamagedAutomation_player";
-            public final static String DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY = "vayramerged_disableDamagedAutomation_enemy";
-
-            public final static String DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER = "vayramerged_disableDamagedBallistics_player";
-            public final static String DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY = "vayramerged_disableDamagedBallistics_enemy";
-
-            public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER = "vayramerged_disableDamagedEnvironment_player";
-            public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY = "vayramerged_disableDamagedEnvironment_enemy";
-
-            public final static String DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER = "vayramerged_disableDamagedEverything_player";
-            public final static String DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY = "vayramerged_disableDamagedEverything_enemy";
-
-            public final static String DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER = "vayramerged_disableDamagedFighterWeapons_player";
-            public final static String DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY = "vayramerged_disableDamagedFighterWeapons_enemy";
-
-            public final static String DISABLE_DAMAGED_GUNNERY_FOR_PLAYER = "vayramerged_disableDamagedGunnery_player";
-            public final static String DISABLE_DAMAGED_GUNNERY_FOR_ENEMY = "vayramerged_disableDamagedGunnery_enemy";
-
-            public final static String DISABLE_DAMAGED_LIFE_SUPPORT_FOR_PLAYER = "vayramerged_disableDamagedLifeSupport_player";
-            public final static String DISABLE_DAMAGED_LIFE_SUPPORT_FOR_ENEMY = "vayramerged_disableDamagedLifeSupport_enemy";
-
-            public final static String DISABLE_DAMAGED_MISSILES_FOR_PLAYER = "vayramerged_disableDamagedMissiles_player";
-            public final static String DISABLE_DAMAGED_MISSILES_FOR_ENEMY = "vayramerged_disableDamagedMissiles_enemy";
-
-            public final static String DISABLE_DAMAGED_OPTICS_FOR_PLAYER = "vayramerged_disableDamagedOptics_player";
-            public final static String DISABLE_DAMAGED_OPTICS_FOR_ENEMY = "vayramerged_disableDamagedOptics_enemy";
-
-            public final static String DISABLE_DAMAGED_SHIELDS_FOR_PLAYER = "vayramerged_disableDamagedShields_player";
-            public final static String DISABLE_DAMAGED_SHIELDS_FOR_ENEMY = "vayramerged_disableDamagedShields_enemy";
-
-            public final static String DISABLE_DAMAGED_TURRETS_FOR_PLAYER = "vayramerged_disableDamagedTurrets_player";
-            public final static String DISABLE_DAMAGED_TURRETS_FOR_ENEMY = "vayramerged_disableDamagedTurrets_enemy";
-        }
-
         @Override
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
-                boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_INTERSTELLAIRE_UPGRADES));
+                boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
                 VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
 
                 handleDmodSettings();
@@ -808,74 +770,74 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
         private void handleDmodSettings() {
             // damaged ammo - Malfunctioning Ammo Forge
-            boolean disableDamagedAmmoForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_PLAYER));
-            boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AMMO_FOR_ENEMY));
+            boolean disableDamagedAmmoForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AMMO_FOR_PLAYER));
+            boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AMMO_FOR_ENEMY));
             VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;
             VayraDamagedAmmo.DISABLE_FOR_ENEMY = disableDamagedAmmoForEnemy;
 
             // damaged automation - Inoperative Automated Systems
-            boolean disableDamagedAutomationForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER));
-            boolean disableDamagedAutomationForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY));
+            boolean disableDamagedAutomationForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER));
+            boolean disableDamagedAutomationForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY));
             VayraDamagedAutomation.DISABLE_FOR_PLAYER = disableDamagedAutomationForPlayer;
             VayraDamagedAutomation.DISABLE_FOR_ENEMY = disableDamagedAutomationForEnemy;
 
             // damaged ballistics - Irregular Feed Mechanisms
-            boolean disableDamagedBallisticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER));
-            boolean disableDamagedBallisticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY));
+            boolean disableDamagedBallisticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER));
+            boolean disableDamagedBallisticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY));
             VayraDamagedBallistics.DISABLE_FOR_PLAYER = disableDamagedBallisticsForPlayer;
             VayraDamagedBallistics.DISABLE_FOR_ENEMY = disableDamagedBallisticsForEnemy;
 
             // damaged environment - Buckled Environmental Shielding
-            boolean disableDamagedEnvironmentForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER));
-            boolean disableDamagedEnvironmentForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY));
+            boolean disableDamagedEnvironmentForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER));
+            boolean disableDamagedEnvironmentForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY));
             VayraDamagedEnvironment.DISABLE_FOR_PLAYER = disableDamagedEnvironmentForPlayer;
             VayraDamagedEnvironment.DISABLE_FOR_ENEMY = disableDamagedEnvironmentForEnemy;
 
             // damaged everything - Performance Irregularities
-            boolean disableDamagedEverythingForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER));
-            boolean disableDamagedEverythingForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY));
+            boolean disableDamagedEverythingForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER));
+            boolean disableDamagedEverythingForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY));
             VayraDamagedEverything.DISABLE_FOR_PLAYER = disableDamagedEverythingForPlayer;
             VayraDamagedEverything.DISABLE_FOR_ENEMY = disableDamagedEverythingForEnemy;
 
             // damaged fighter weapons - Malformed Fighter Weapons
-            boolean disableDamagedFighterWeaponsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER));
-            boolean disableDamagedFighterWeaponsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY));
+            boolean disableDamagedFighterWeaponsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER));
+            boolean disableDamagedFighterWeaponsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY));
             VayraDamagedFighterWeapons.DISABLE_FOR_PLAYER = disableDamagedFighterWeaponsForPlayer;
             VayraDamagedFighterWeapons.DISABLE_FOR_ENEMY = disableDamagedFighterWeaponsForEnemy;
 
             // damaged gunnery - Noncompliant Gunnery Core
-            boolean disableDamagedGunneryForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_GUNNERY_FOR_PLAYER));
-            boolean disableDamagedGunneryForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_GUNNERY_FOR_ENEMY));
+            boolean disableDamagedGunneryForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_GUNNERY_FOR_PLAYER));
+            boolean disableDamagedGunneryForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_GUNNERY_FOR_ENEMY));
             VayraDamagedGunnery.DISABLE_FOR_PLAYER = disableDamagedGunneryForPlayer;
             VayraDamagedGunnery.DISABLE_FOR_ENEMY = disableDamagedGunneryForEnemy;
 
             // damaged life support - Impaired Life Support Systems
-            boolean disableDamagedLifeSupportForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_LIFE_SUPPORT_FOR_PLAYER));
-            boolean disableDamagedLifeSupportForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_LIFE_SUPPORT_FOR_ENEMY));
+            boolean disableDamagedLifeSupportForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_LIFE_SUPPORT_FOR_PLAYER));
+            boolean disableDamagedLifeSupportForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_LIFE_SUPPORT_FOR_ENEMY));
             VayraDamagedLifeSupport.DISABLE_FOR_PLAYER = disableDamagedLifeSupportForPlayer;
             VayraDamagedLifeSupport.DISABLE_FOR_ENEMY = disableDamagedLifeSupportForEnemy;
 
             // damaged missiles - Flawed Missile Racks
-            boolean disableDamagedMissilesForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_MISSILES_FOR_PLAYER));
-            boolean disableDamagedMissilesForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_MISSILES_FOR_ENEMY));
+            boolean disableDamagedMissilesForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_MISSILES_FOR_PLAYER));
+            boolean disableDamagedMissilesForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_MISSILES_FOR_ENEMY));
             VayraDamagedMissiles.DISABLE_FOR_PLAYER = disableDamagedMissilesForPlayer;
             VayraDamagedMissiles.DISABLE_FOR_ENEMY = disableDamagedMissilesForEnemy;
 
             // damaged optics - Distorted Optics
-            boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
-            boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
+            boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
+            boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
             VayraDamagedOptics.DISABLE_FOR_PLAYER = disableDamagedOpticsForPlayer;
             VayraDamagedOptics.DISABLE_FOR_ENEMY = disableDamagedOpticsForEnemy;
 
             // damaged shields - Destabilized Shield Generator
-            boolean disableDamagedShieldsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_SHIELDS_FOR_PLAYER));
-            boolean disableDamagedShieldsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_SHIELDS_FOR_ENEMY));
+            boolean disableDamagedShieldsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_SHIELDS_FOR_PLAYER));
+            boolean disableDamagedShieldsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_SHIELDS_FOR_ENEMY));
             VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedShieldsForPlayer;
             VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedShieldsForEnemy;
 
             // damaged turrets - Misshapen Turret Gyros
-            boolean disableDamagedTurretsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_TURRETS_FOR_PLAYER));
-            boolean disableDamagedTurretsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.DISABLE_DAMAGED_TURRETS_FOR_ENEMY));
+            boolean disableDamagedTurretsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_PLAYER));
+            boolean disableDamagedTurretsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_ENEMY));
             VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedTurretsForPlayer;
             VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedTurretsForEnemy;
         }
