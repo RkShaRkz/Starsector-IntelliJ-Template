@@ -8,6 +8,8 @@ import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
 
+import java.util.Random;
+
 public class VayraDamagedAmmo extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedAmmo";
     public static volatile boolean DISABLE_FOR_PLAYER = false;
@@ -43,16 +45,40 @@ public class VayraDamagedAmmo extends BaseHullMod {
             return;
         }
 
-        for (DamagingProjectileAPI p : engine.getProjectiles()) {
-            if (ship.equals(p.getSource()) && p.getWeapon() != null) {
-                if (p.getDamageType() != DamageType.FRAGMENTATION
-                        && p.getDamageType() != DamageType.OTHER
-                        && (p.getWeapon().getType() == WeaponType.BALLISTIC
-                        || p.getWeapon().getType() == WeaponType.MISSILE)) {
-                    p.getDamage().setType(DamageType.FRAGMENTATION);
+        for (DamagingProjectileAPI projectile : engine.getProjectiles()) {
+            if (ship.equals(projectile.getSource()) && projectile.getWeapon() != null) {
+                boolean isNotFragmentationDamage = projectile.getDamageType() != DamageType.FRAGMENTATION;
+                boolean isNotOtherDamage = projectile.getDamageType() != DamageType.OTHER;
+                boolean isBallisticOrMissileWeapon =
+                        (projectile.getWeapon().getType() == WeaponType.BALLISTIC
+                        || projectile.getWeapon().getType() == WeaponType.MISSILE);
+
+                if (isNotFragmentationDamage && isNotOtherDamage && isBallisticOrMissileWeapon) {
+                    if (shouldConvertProjectileToFragmentationDamage(ship)) {
+                        projectile.getDamage().setType(DamageType.FRAGMENTATION);
+                    }
                 }
             }
         }
+    }
+
+    /**
+     * If the ship has the "Rugged Construction" hullmod, throw a die, and convert to fragmentation only 50% of the time.
+     * Otherwise, convert to fragmentation all the time
+     * @param ship the ship to query for the hullmod
+     */
+    private boolean shouldConvertProjectileToFragmentationDamage(ShipAPI ship) {
+        boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
+        boolean retVal; //assume true
+        if (hasRugged) {
+            int dieRoll = MiscUtils.generateRandomInt(100);
+            // do not turn into FRAGMENTATION if we rolled less than 50
+            retVal = dieRoll >= 50;
+        } else {
+            retVal = true;
+        }
+
+        return retVal;
     }
 
     @Override

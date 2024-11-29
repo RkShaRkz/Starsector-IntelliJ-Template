@@ -17,6 +17,7 @@ import org.lazywizard.console.Console;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Bunch of small copypastable methods belonging everywhere but nowhere in specific
@@ -27,6 +28,8 @@ public class MiscUtils {
     public static final int OWNER_PLAYER = Misc.OWNER_PLAYER;
     public static final int OWNER_NEUTRAL = Misc.OWNER_NEUTRAL;
     public static final String HULLMOD_RUGGED_CONSTRUCTION = "rugged";
+
+    public static final Random random = new Random();
 
     /**
      * The annonymous logger instance
@@ -313,5 +316,15 @@ public class MiscUtils {
      */
     public static boolean hasRuggedConstructionHullmod(ShipVariantAPI variant) {
         return hasHullmodAny(variant, HULLMOD_RUGGED_CONSTRUCTION);
+    }
+
+    /**
+     * Generates a random integer between 0 and {@code range}
+     * @param range number that has to be greater than zero
+     * @return a random integer in the range
+     * @see Random#nextInt(int)
+     */
+    public static int generateRandomInt(int range) {
+        return random.nextInt(range);
     }
 }
