@@ -337,4 +337,14 @@ public class MiscUtils {
     public static int generateRandomInt(int range) {
         return random.nextInt(range);
     }
+
+    /**
+     * Ensures that the {@code actualValue} value can't go below {@code minValue} value
+     * @param actualValue the actual value to clamp
+     * @param minValue the clamping cut-off value
+     * @return the clamped value if it was below the cutoff or itself if it wasn't
+     */
+    public static float clamp(float actualValue, float minValue) {
+        return Math.min(actualValue, Math.max(actualValue, minValue));
+    }
 }
