@@ -6,7 +6,9 @@ import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.sun.javafx.beans.annotations.NonNull;
+import data.scripts.VayraMergedModPlugin;
 import data.util.LoggerLogLevel;
+import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Logger;
 import org.lazywizard.console.Console;
 
@@ -217,5 +219,24 @@ public class MiscUtils {
      */
     public static void log(@NonNull LoggerLogLevel logLevel, @NonNull Logger log, String logMessage) {
         log(logLevel, log, logMessage, false);
+    }
+
+    /**
+     * Method that loads a {@link Boolean} property from {@link LunaSettings}, using the {@link VayraMergedModPlugin#MOD_ID}
+     * and returning the {@code defaultValue} if no object was found, otherwise it returns whatever was loaded from LunaSettings
+     *
+     * @param settingName the setting name to load
+     * @param defaultValue the default value to use
+     * @return read value, or default value if we read {@code null}
+     */
+    public static boolean loadBooleanLunaSetting(String settingName, boolean defaultValue) {
+        boolean retVal;
+        Boolean object = LunaSettings.getBoolean(VayraMergedModPlugin.MOD_ID, settingName);
+        if (object == null) {
+            retVal = defaultValue;
+        } else {
+            retVal = object;
+        }
+        return retVal;
     }
 }
