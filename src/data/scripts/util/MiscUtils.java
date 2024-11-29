@@ -1,8 +1,10 @@
 package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.util.Misc;
 import com.sun.javafx.beans.annotations.NonNull;
@@ -14,6 +16,7 @@ import org.lazywizard.console.Console;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Bunch of small copypastable methods belonging everywhere but nowhere in specific
@@ -23,6 +26,7 @@ public class MiscUtils {
     public static final int OWNER_ENEMY = 1;
     public static final int OWNER_PLAYER = Misc.OWNER_PLAYER;
     public static final int OWNER_NEUTRAL = Misc.OWNER_NEUTRAL;
+    public static final String HULLMOD_RUGGED_CONSTRUCTION = "rugged";
 
     /**
      * The annonymous logger instance
@@ -238,5 +242,76 @@ public class MiscUtils {
             retVal = object;
         }
         return retVal;
+    }
+
+    /**
+     * Checks whether the ship variant has a hullmod installed on it (built-in or not)
+     *
+     * @param variant the variant to query for the hullmod
+     * @param hullModId the hull mod's ID to check for
+     * @return whether the hullmod is installed
+     */
+    public static boolean hasHullmod(ShipVariantAPI variant, String hullModId) {
+        return variant.hasHullMod(hullModId);
+    }
+
+    /**
+     * Checks whether the ship variant has a hullmod built into it (or rather, whether the hullmod is installed as "built-in")
+     *
+     * NOTE: Should be used for checking hullmods that typically come with the ship from the start, for hullmods that the
+     * player has built-in use [hasSModdedBuiltInHullmod]
+     *
+     * @param variant the variant to query for the hullmod
+     * @param hullModId the hull mod's ID to check for
+     * @return whether the hullmod is installed
+     */
+    public static boolean hasBuiltInHullmod(ShipVariantAPI variant, String hullModId) {
+        return variant.getHullSpec().getBuiltInMods().contains(hullModId);
+    }
+
+    /**
+     * Checks whether the ship variant has a hullmod S-modded / built into it (or rather, whether the hullmod is installed as "built-in" in refit screen)
+     *
+     * @param variant the variant to query for the hullmod
+     * @param hullModId the hull mod's ID to check for
+     * @return whether the hullmod is installed
+     * @see Misc#getCurrSpecialModsList(ShipVariantAPI)
+     */
+    public static boolean hasSModdedBuiltInHullmod(ShipVariantAPI variant, String hullModId) {
+//        return Misc.getCurrSpecialModsList(this.variant).map { hullmods -> hullmods.id }.containsIgnoreCase(hullModId)
+        boolean retVal = false;
+        List<HullModSpecAPI> hullModSpecAPIList = Misc.getCurrSpecialModsList(variant);
+        // remap to hullmod IDs
+        for (HullModSpecAPI hullModSpec : hullModSpecAPIList) {
+            if(hullModSpec.getId().contains(hullModId)) {
+                retVal = true;
+                break;
+            }
+        }
+
+        return retVal;
+    }
+
+    /**
+     * Checks whether the ship variant has *any* version of the hullmod in it
+     *
+     * @param variant the variant to query
+     * @param hullModId  the hull mod's ID to look for
+     * @return whether the hullmod with the given ID is installed, built-in or S-modded
+     * @see #hasHullmod(ShipVariantAPI, String)
+     * @see #hasBuiltInHullmod(ShipVariantAPI, String)
+     * @see #hasSModdedBuiltInHullmod(ShipVariantAPI, String)
+     */
+    public static boolean hasHullmodAny(ShipVariantAPI variant, String hullModId) {
+        return hasHullmod(variant, hullModId) || hasBuiltInHullmod(variant, hullModId) || hasSModdedBuiltInHullmod(variant, hullModId);
+    }
+
+    /**
+     * Convenience method to check whether a variant has the "Rugged Construction" {@link #HULLMOD_RUGGED_CONSTRUCTION} hullmod
+     * @param variant the variant to query
+     * @return whether the variant contains the "rugged" hullmod or not
+     */
+    public static boolean hasRuggedConstructionHullmod(ShipVariantAPI variant) {
+        return hasHullmodAny(variant, HULLMOD_RUGGED_CONSTRUCTION);
     }
 }
