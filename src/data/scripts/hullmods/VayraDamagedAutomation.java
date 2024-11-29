@@ -4,6 +4,7 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
@@ -30,8 +31,8 @@ public class VayraDamagedAutomation extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float crPenalty = CR_PENALTY * effect;
-        float minCrewMult = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - effect);
+        float crPenalty = calculateCRPenalty(stats.getVariant(), effect);
+        float minCrewMult = calculateMinCrewMultiplier(stats.getVariant(), effect);
 
         stats.getMaxCombatReadiness().modifyFlat(id, -(crPenalty * 0.01f), "Damaged Automated Systems");
         stats.getMinCrewMod().modifyMult(id, minCrewMult);
@@ -39,14 +40,52 @@ public class VayraDamagedAutomation extends BaseHullMod {
         CompromisedStructure.modifyCost(hullSize, stats, id);
     }
 
+    private float calculateCRPenalty(ShipVariantAPI variant, float baseEffect) {
+        float retVal;
+        if (variant != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
+
+            if (hasRugged) {
+                retVal = (CR_PENALTY * baseEffect) / 2;
+            } else {
+                retVal = CR_PENALTY * baseEffect;
+            }
+        } else {
+            // If variant is null, just return the basic thing
+            retVal = CR_PENALTY * baseEffect;
+        }
+
+        return retVal;
+    }
+
+    private float calculateMinCrewMultiplier(ShipVariantAPI variant, float baseEffect) {
+        float retVal;
+        if (variant != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
+
+            if (hasRugged) {
+                retVal = (MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect)) / 2;
+            } else {
+                retVal = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect);
+            }
+        } else {
+            // If variant is null, just return the basic thing
+            retVal = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect);
+        }
+
+        return retVal;
+    }
+
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
+        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
+            variant = ship.getVariant();
         }
-        float crPenalty = CR_PENALTY * effect;
-        float minCrewMult = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - effect);
+        float crPenalty = calculateCRPenalty(variant, effect);
+        float minCrewMult = calculateMinCrewMultiplier(variant, effect);
 
         if (index == 0) {
             return Math.round(crPenalty) + "%";

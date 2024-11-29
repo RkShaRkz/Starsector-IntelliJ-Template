@@ -1,6 +1,7 @@
 package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
@@ -316,6 +317,15 @@ public class MiscUtils {
      */
     public static boolean hasRuggedConstructionHullmod(ShipVariantAPI variant) {
         return hasHullmodAny(variant, HULLMOD_RUGGED_CONSTRUCTION);
+    }
+
+    /**
+     * Convenience method to check whether a variant has the "Rugged Construction" {@link #HULLMOD_RUGGED_CONSTRUCTION} hullmod
+     * @param stats the stats whose variant we should query
+     * @return whether the variant contains the "rugged" hullmod or not
+     */
+    public static boolean hasRuggedConstructionHullmod(MutableShipStatsAPI stats) {
+        return hasHullmodAny(stats.getVariant(), HULLMOD_RUGGED_CONSTRUCTION);
     }
 
     /**
