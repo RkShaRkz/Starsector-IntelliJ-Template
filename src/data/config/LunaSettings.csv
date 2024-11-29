@@ -50,3 +50,7 @@ vayramerged_DamagedTurrets_header,Misshapen Turret Gyros / Damaged Turrets divid
 vayramerged_disableDamagedTurrets_player,Disable Misshapen Turret Gyros D-Mod (for player),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedTurrets_enemy,Disable Misshapen Turret Gyros D-Mod (for enemy),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
 ,,,,,,,,
+vayramerged_LessIllAdvised_header,Less Ill-Advised Modifications divider,Header,Less Ill-Advised Modifications,,,,,D-Mods
+vayramerged_disableLessIllAdvised_player,Disable Less Ill-Advised Modifications D-Mod (for player),Boolean,false,,Should the [Less Ill-Advised Modifications] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
+vayramerged_disableLessIllAdvised_enemy,Disable Less Ill-Advised Modifications D-Mod (for enemy),Boolean,false,,Should the [Less Ill-Advised Modifications] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+,,,,,,,,
