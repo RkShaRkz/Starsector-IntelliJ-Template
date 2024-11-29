@@ -58,11 +58,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.*;
 
+import static data.scripts.LunaConstants.*;
 import static data.scripts.hullmods.VayraGhostShip.GHOST_GALLEON_BOUNTY_ID;
 import static java.lang.Math.random;
-
-// 'static' Import all luna settings
-import static data.scripts.LunaConstants.*;
 
 public class VayraMergedModPlugin extends BaseModPlugin {
 
@@ -838,8 +836,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // damaged turrets - Misshapen Turret Gyros
             boolean disableDamagedTurretsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_PLAYER));
             boolean disableDamagedTurretsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_ENEMY));
-            VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedTurretsForPlayer;
-            VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedTurretsForEnemy;
+            VayraDamagedTurrets.DISABLE_FOR_PLAYER = disableDamagedTurretsForPlayer;
+            VayraDamagedTurrets.DISABLE_FOR_ENEMY = disableDamagedTurretsForEnemy;
         }
 
         private int safeUnboxing(Integer object) {
