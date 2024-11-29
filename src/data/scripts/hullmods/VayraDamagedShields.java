@@ -6,14 +6,29 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
+import data.scripts.util.MiscUtils;
+import data.util.LoggerLogLevel;
 
 public class VayraDamagedShields extends BaseHullMod {
+    private static final String LOGTAG = "VayraDamagedShields";
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float SHIELD_UPKEEP_MULT = 1.5f;
     public static final float SHIELD_DAMAGE_MULT = 1.1f;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
+        // Do nothing if it's been disabled
+        if (stats.getFleetMember() != null) {
+            int owner = stats.getFleetMember().getOwner();
+            if (DISABLE_FOR_ENEMY && MiscUtils.OWNER_ENEMY == owner) return;
+            if (DISABLE_FOR_PLAYER && MiscUtils.OWNER_PLAYER == owner) return;
+        } else {
+            MiscUtils.log(LoggerLogLevel.WARN, LOGTAG, "Encountered a ship with NULL fleetmember in 'applyEffectsBeforeShipCreation' so settings to disable it won't work");
+        }
+
+        // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
         float upkeepMult = SHIELD_UPKEEP_MULT + (1f - SHIELD_UPKEEP_MULT) * (1f - effect);
         float damageMult = SHIELD_DAMAGE_MULT + (1f - SHIELD_DAMAGE_MULT) * (1f - effect);

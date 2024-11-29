@@ -6,14 +6,29 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
+import data.scripts.util.MiscUtils;
+import data.util.LoggerLogLevel;
 
 public class VayraDamagedTurrets extends BaseHullMod {
+    private static final String LOGTAG = "VayraDamagedTurrets";
+    public static volatile boolean DISABLE_FOR_PLAYER = false;
+    public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float WEAPON_SPEED_MULT = 0.75f;
     public static final float WEAPON_HP_MULT = 0.75f;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
+        // Do nothing if it's been disabled
+        if (stats.getFleetMember() != null) {
+            int owner = stats.getFleetMember().getOwner();
+            if (DISABLE_FOR_ENEMY && MiscUtils.OWNER_ENEMY == owner) return;
+            if (DISABLE_FOR_PLAYER && MiscUtils.OWNER_PLAYER == owner) return;
+        } else {
+            MiscUtils.log(LoggerLogLevel.WARN, LOGTAG, "Encountered a ship with NULL fleetmember in 'applyEffectsBeforeShipCreation' so settings to disable it won't work");
+        }
+
+        // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
         float speedMult = WEAPON_SPEED_MULT + (1f - WEAPON_SPEED_MULT) * (1f - effect);
         float hpMult = WEAPON_HP_MULT + (1f - WEAPON_HP_MULT) * (1f - effect);
