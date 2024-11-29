@@ -41,39 +41,45 @@ public class VayraDamagedAutomation extends BaseHullMod {
     }
 
     private float calculateCRPenalty(ShipVariantAPI variant, float baseEffect) {
-        float retVal;
+        // Initialize to base value
+        float retVal = CR_PENALTY * baseEffect;
+
         if (variant != null) {
             boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
 
             if (hasRugged) {
-                retVal = (CR_PENALTY * baseEffect) / 2;
-            } else {
-                retVal = CR_PENALTY * baseEffect;
+                retVal = retVal / 2;
             }
-        } else {
-            // If variant is null, just return the basic thing
-            retVal = CR_PENALTY * baseEffect;
         }
 
         return retVal;
     }
 
     private float calculateMinCrewMultiplier(ShipVariantAPI variant, float baseEffect) {
-        float retVal;
+        // Initialize to base value
+        float retVal = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect);;
         if (variant != null) {
             boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
 
             if (hasRugged) {
-                retVal = (MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect)) / 2;
-            } else {
-                retVal = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect);
+                retVal = retVal / 2;
             }
-        } else {
-            // If variant is null, just return the basic thing
-            retVal = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect);
         }
 
-        return retVal;
+        // And finally, since there is a case that this D-Mod might actually end up *decreasing* the min crew
+        // when rugged is present (1.5 / 2 = 0.75) lets clamp it between 1.0 and whatever it came up with
+        // or rather min(retVal, max(retVal, 1.0))
+        return clamp(retVal, 1.0f);
+    }
+
+    /**
+     * Ensures that the {@code actualValue} value can't go below {@code minValue} value
+     * @param actualValue the actual value to clamp
+     * @param minValue the clamping cut-off value
+     * @return the clamped value if it was below the cutoff or itself if it wasn't
+     */
+    private float clamp(float actualValue, float minValue) {
+        return (float) Math.min(actualValue, Math.max(actualValue, 1.0));
     }
 
     @Override
