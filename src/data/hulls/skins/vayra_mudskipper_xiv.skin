@@ -18,7 +18,7 @@
 	"removeEngineSlots":[], 			# indices, as engine slots have no id in the .ship file
 	"removeBuiltInMods":["civgrade"], 	# hullmod ids
 	"removeBuiltInWeapons":[], 			# weapon slot ids
-	"builtInMods":["vayra_pirate_xiv", "vayra_looted_tpc", "unstable_injector"],
+	"builtInMods":["vayra_pirate_xiv", "vayra_looted_tpc", "unstable_injector", "rugged"],
     "weaponSlotChanges":{
 		"WS 002":{
 			#"angle": 0,
