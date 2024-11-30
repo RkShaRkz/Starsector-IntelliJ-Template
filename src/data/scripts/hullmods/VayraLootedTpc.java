@@ -80,7 +80,7 @@ public class VayraLootedTpc extends BaseHullMod {
         if (INTERVAL.intervalElapsed()) {
             Map<FleetMemberAPI, Boolean> alreadySet = getOrInitializeAlreadySetMap(data);
 
-            if (!alreadySet.containsKey(member)) {
+            if (HULL_ID.equals(member.getHullId()) && !alreadySet.containsKey(member)) {
                 if (member.getVariant() != null) {
                     Boolean TPC = alreadySet.get(member);
                     if (TPC == null) {
