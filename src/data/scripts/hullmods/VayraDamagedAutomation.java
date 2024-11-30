@@ -16,7 +16,7 @@ public class VayraDamagedAutomation extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float CR_PENALTY = 10f;
-    public static final float MIN_CREW_MULT = 1.5f;
+    public static final float MIN_CREW_PENALTY = 0.5f;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -55,23 +55,6 @@ public class VayraDamagedAutomation extends BaseHullMod {
         return retVal;
     }
 
-    private float calculateMinCrewMultiplier(ShipVariantAPI variant, float baseEffect) {
-        // Initialize to base value
-        float retVal = MIN_CREW_MULT + (1f - MIN_CREW_MULT) * (1f - baseEffect);;
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
-
-        // And finally, since there is a case that this D-Mod might actually end up *decreasing* the min crew
-        // when rugged is present (1.5 / 2 = 0.75) lets clamp it between 1.0 and whatever it came up with
-        // or rather min(retVal, max(retVal, 1.0))
-        return MiscUtils.clamp(retVal, 1.0f);
-    }
-
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
@@ -81,17 +64,52 @@ public class VayraDamagedAutomation extends BaseHullMod {
             variant = ship.getVariant();
         }
         float crPenalty = calculateCRPenalty(variant, effect);
-        float minCrewMult = calculateMinCrewMultiplier(variant, effect);
+        float minCrewMalus = calculateMinCrewMalus(variant, effect);
 
         if (index == 0) {
             return Math.round(crPenalty) + "%";
         }
         if (index == 1) {
-            return Math.round((minCrewMult - 1f) * 100f) + "%";
+            return Math.round(minCrewMalus * 100f) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);
         }
         return null;
+    }
+
+    private float calculateMinCrewMultiplier(ShipVariantAPI variant, float baseEffect) {
+        // Basically, min crew multiplier is going to be 1 + MinCrewMalus
+        float retVal;
+        float malus = calculateMinCrewMalus(variant, baseEffect);
+        retVal = 1f + malus;
+
+        return retVal;
+    }
+
+    private float calculateMinCrewMalus(ShipVariantAPI variant, float baseEffect) {
+        float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
+        float retVal = MIN_CREW_PENALTY - MIN_CREW_PENALTY * penaltyFactor;
+        /**
+         * will produce 0.5 for 100% dmod effect mult
+         * 0.5 - 0.5 * (0) = 0.5
+         * will produce 0.25 for 50% dmod effect mult
+         * 0.5 - 0.5*0.5 = 0.25
+         * will produce 1.0 for 200%
+         * 0.5 - 0.5*(-1) = 1/0
+         * will produce 1.5 for 300%
+         * 0.5 - 0.5*-2 = 1.5
+         *
+         * and then half of that if we have "rugged"
+         */
+        if (variant != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
+
+            if (hasRugged) {
+                retVal = retVal / 2;
+            }
+        }
+
+        return retVal;
     }
 }
