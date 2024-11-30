@@ -22,6 +22,7 @@ import java.util.Map;
 public class VayraLootedTpc extends BaseHullMod {
     private static final Logger logger = Global.getLogger(VayraLootedTpc.class);
 
+    public static final String HULLMOD_ID = "vayra_looted_tpc";
     public static final String WEAPON_ID = "vayra_looted_tpc";
     public static final String SMOD_WEAPON_ID = "vayra_looted_tpc_cheaper";
     public static final String HULL_ID = "vayra_mudskipper_xiv";
@@ -49,35 +50,37 @@ public class VayraLootedTpc extends BaseHullMod {
         ShipVariantAPI variant = ship.getVariant();
         MutableCharacterStatsAPI stats = Global.getSector().getPlayerStats();
         boolean isSmod = isSMod(ship);
+        boolean hasHullmod = MiscUtils.hasHullmodAny(ship.getVariant(), HULLMOD_ID);
         int WEAPON_OP_COST = getWeaponOPCost(ship);
         String GIVEN_WEAPON_ID = getWeaponID(ship);
 
-        // If we S-Modded, we want to remove all non-cheap TPCs and "replace" them by placing new TPCs
-        // in those empty slots below, but we'll use the S-Mod variant ('cheap');
-        // otherwise, we want to remove *all* TPCs and "replace" them with non-S-Mod variants (not 'cheap')
-        removeAllLootedTPCsFromShip(ship, !isSmod);
+        if (hasHullmod) {
+            // If we S-Modded, we want to remove all non-cheap TPCs and "replace" them by placing new TPCs
+            // in those empty slots below, but we'll use the S-Mod variant ('cheap');
+            // otherwise, we want to remove *all* TPCs and "replace" them with non-S-Mod variants (not 'cheap')
+            removeAllLootedTPCsFromShip(ship, !isSmod);
 
-        // Place TPCs in empty slots
-        if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
-            for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
-                WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
+            // Place TPCs in empty slots
+            if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
+                for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+                    WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
 
-                boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
-                boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
-                boolean hasEnoughFreeOPForLootedTPC = variant.getUnusedOP(stats) >= WEAPON_OP_COST;
+                    boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
+                    boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
+                    boolean hasEnoughFreeOPForLootedTPC = variant.getUnusedOP(stats) >= WEAPON_OP_COST;
 
-                if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
-                    String slotId = slot.getId();
-                    String currentWeapon = variant.getWeaponId(slotId);
-                    if (currentWeapon == null) {
-                        variant.addWeapon(slotId, GIVEN_WEAPON_ID);
-                        break;
+                    if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
+                        String slotId = slot.getId();
+                        String currentWeapon = variant.getWeaponId(slotId);
+                        if (currentWeapon == null) {
+                            variant.addWeapon(slotId, GIVEN_WEAPON_ID);
+                            break;
+                        }
                     }
-                }
 
-                /**
-                 * TPC Upgrading part
-                 */
+                    /**
+                     * TPC Upgrading part
+                     */
                 /*
                 if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon) {
                     String slotId = slot.getId();
@@ -97,7 +100,11 @@ public class VayraLootedTpc extends BaseHullMod {
                     }
                 }
                  */
+                }
             }
+        } else {
+            // If we removed the hullmod, we want to get rid of all looted TPCs from the ship
+            removeAllLootedTPCsFromShip(ship, true);
         }
 
         // Finally, remove the looted TPC and cheaper looted TPC from the inventory, if any
@@ -106,6 +113,7 @@ public class VayraLootedTpc extends BaseHullMod {
             MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Removed %s LootedTPC weapons from inventory!", removedTPCs), false);
         }
     }
+
 
     @Override
     public void advanceInCampaign(FleetMemberAPI member, float amount) {
