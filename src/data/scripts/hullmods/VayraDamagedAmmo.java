@@ -85,12 +85,17 @@ public class VayraDamagedAmmo extends BaseHullMod {
     }
 
     private float calculateFragmentationChance(ShipAPI ship) {
-        boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
-        float effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float retVal = FRAGMENTATION_CHANCE * effect;
-        if (hasRugged) {
-            // If we have rugged, cut the chances in half
-            retVal = retVal / 2;
+        float retVal;
+        if (ship != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
+            float effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
+            retVal = FRAGMENTATION_CHANCE * effect;
+            if (hasRugged) {
+                // If we have rugged, cut the chances in half
+                retVal = retVal / 2;
+            }
+        } else {
+            retVal = FRAGMENTATION_CHANCE;
         }
 
         return retVal;
