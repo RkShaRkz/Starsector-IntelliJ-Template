@@ -11,12 +11,16 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
+import data.scripts.util.MiscUtils;
+import data.util.LoggerLogLevel;
+import org.apache.log4j.Logger;
 
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VayraLootedTpc extends BaseHullMod {
+    private static final Logger logger = Global.getLogger(VayraLootedTpc.class);
 
     public static final String WEAPON_ID = "vayra_looted_tpc";
     public static final String SMOD_WEAPON_ID = "vayra_looted_tpc_cheaper";
@@ -44,8 +48,14 @@ public class VayraLootedTpc extends BaseHullMod {
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
         ShipVariantAPI variant = ship.getVariant();
         MutableCharacterStatsAPI stats = Global.getSector().getPlayerStats();
+        boolean isSmod = isSMod(ship);
         int WEAPON_OP_COST = getWeaponOPCost(ship);
         String GIVEN_WEAPON_ID = getWeaponID(ship);
+
+        if (isSmod) {
+            // Remove all non-cheap looted TPCs
+            removeAllLootedTPCsFromShip(ship, false);
+        }
 
         if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
             for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
@@ -67,16 +77,9 @@ public class VayraLootedTpc extends BaseHullMod {
         }
 
         // Finally, remove the looted TPC and cheaper looted TPC from the inventory, if any
-        CampaignFleetAPI playerFleet = Global.getSector().getPlayerFleet();
-        if (playerFleet != null) {
-            CargoAPI cargo = Global.getSector().getPlayerFleet().getCargo();
-            // Lets at least try to get rid of all of them in one go
-            while (cargo.getNumWeapons(WEAPON_ID) > 0) {
-                cargo.removeWeapons(WEAPON_ID, cargo.getNumWeapons(WEAPON_ID));
-            }
-            while (cargo.getNumWeapons(SMOD_WEAPON_ID) > 0) {
-                cargo.removeWeapons(SMOD_WEAPON_ID, cargo.getNumWeapons(SMOD_WEAPON_ID));
-            }
+        int removedTPCs = removeAllLootedTPCsFromInventory();
+        if (removedTPCs > 0) {
+            MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Removed %s LootedTPC weapons from inventory!", removedTPCs), false);
         }
     }
 
@@ -167,11 +170,13 @@ public class VayraLootedTpc extends BaseHullMod {
     }
 
     private int getWeaponOPCost(ShipAPI ship) {
+        int retVal = WEAPON_OP;
+
         if (ship != null) {
-            return isSMod(ship) ? SMOD_WEAPON_OP : WEAPON_OP;
-        } else {
-            return WEAPON_OP;
+            retVal = isSMod(ship) ? SMOD_WEAPON_OP : WEAPON_OP;
         }
+
+        return retVal;
     }
 
     private String getWeaponID(ShipAPI ship) {
@@ -179,6 +184,55 @@ public class VayraLootedTpc extends BaseHullMod {
             return isSMod(ship) ? SMOD_WEAPON_ID : WEAPON_ID;
         } else {
             return WEAPON_ID;
+        }
+    }
+
+    private int removeAllLootedTPCsFromInventory() {
+        CampaignFleetAPI playerFleet = Global.getSector().getPlayerFleet();
+        int removedWeapons = 0;
+        if (playerFleet != null) {
+            CargoAPI cargo = Global.getSector().getPlayerFleet().getCargo();
+            // Lets at least try to get rid of all of them in one go
+            while (cargo.getNumWeapons(WEAPON_ID) > 0) {
+                int howMany = cargo.getNumWeapons(WEAPON_ID);
+                cargo.removeWeapons(WEAPON_ID, howMany);
+                removedWeapons += howMany;
+            }
+            while (cargo.getNumWeapons(SMOD_WEAPON_ID) > 0) {
+                int howMany = cargo.getNumWeapons(SMOD_WEAPON_ID);
+                cargo.removeWeapons(SMOD_WEAPON_ID, howMany);
+                removedWeapons += howMany;
+            }
+        }
+
+        return removedWeapons;
+    }
+
+    private void removeAllLootedTPCsFromShip(ShipAPI ship, boolean includeCheapTPC) {
+        ShipVariantAPI variant = ship.getVariant();
+        // If we S-modded, we should also replace all occurances of old TPCs into new cheaper ones
+        for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+            WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(SMOD_WEAPON_ID);
+
+            boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
+            boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
+
+            if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon) {
+                String slotId = slot.getId();
+                String currentWeapon = variant.getWeaponId(slotId);
+                // Sanity check
+                if (currentWeapon == null) continue;
+
+                if (currentWeapon.equalsIgnoreCase(WEAPON_ID)) {
+                    variant.clearSlot(slotId);
+                    break;
+                }
+
+                if (includeCheapTPC && currentWeapon.equalsIgnoreCase(SMOD_WEAPON_ID)) {
+                    variant.clearSlot(slotId);
+                    break;
+                }
+            }
         }
     }
 }
