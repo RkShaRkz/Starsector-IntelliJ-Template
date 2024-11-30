@@ -70,12 +70,12 @@ public class VayraDamagedAmmo extends BaseHullMod {
     private boolean shouldConvertProjectileToFragmentationDamage(ShipAPI ship) {
         boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
         boolean retVal; //assume true
+        int dieRoll = MiscUtils.generateRandomInt(100);
         if (hasRugged) {
-            int dieRoll = MiscUtils.generateRandomInt(100);
-            // do not turn into FRAGMENTATION if we rolled less than 50
-            retVal = dieRoll >= 50;
+            // do not turn into FRAGMENTATION if we rolled less than 75
+            retVal = dieRoll >= 75;
         } else {
-            retVal = true;
+            retVal = dieRoll >= 50;
         }
 
         return retVal;
@@ -83,12 +83,15 @@ public class VayraDamagedAmmo extends BaseHullMod {
 
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
-
+        boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
         if (index == 0) {
             return "Fragmentation";
         }
-        if (index >= 1) {
-            return CompromisedStructure.getCostDescParam(index, 1);
+        if (index == 1) {
+            return hasRugged ? "25%" : "50%";
+        }
+        if (index >= 2) {
+            return CompromisedStructure.getCostDescParam(index, 2);
         }
         return null;
     }
