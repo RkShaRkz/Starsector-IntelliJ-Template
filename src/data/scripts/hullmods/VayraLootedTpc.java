@@ -74,34 +74,47 @@ public class VayraLootedTpc extends BaseHullMod {
 
     @Override
     public void advanceInCampaign(FleetMemberAPI member, float amount) {
-        CampaignFleetAPI fleet = member.getFleetData() == null ? null : member.getFleetData().getFleet();
-        CampaignFleetAPI playerFleet = Global.getSector().getPlayerFleet();
         Map<String, Object> data = Global.getSector().getPersistentData();
 
         INTERVAL.advance(amount);
         if (INTERVAL.intervalElapsed()) {
-            Map<FleetMemberAPI, Boolean> alreadySet = (Map<FleetMemberAPI, Boolean>) data.get(ALREADY_SET_LIST_KEY);
-            if (alreadySet == null) {
-                alreadySet = new HashMap<>();
-                data.put(ALREADY_SET_LIST_KEY, alreadySet);
-            }
+            Map<FleetMemberAPI, Boolean> alreadySet = getOrInitializeAlreadySetMap(data);
 
-            if (HULL_ID.equals(member.getHullId()) && !alreadySet.containsKey(member)) {
+            if (!alreadySet.containsKey(member)) {
                 if (member.getVariant() != null) {
-                    if (playerFleet != null && !playerFleet.equals(fleet)) {
-                        Boolean TPC = alreadySet.get(member);
-                        if (TPC == null) {
-                            TPC = Math.random() > CHANCE_NO_TPC;
-                            alreadySet.put(member, TPC);
-                        }
-                        ShipVariantAPI variant = Global.getSettings().getVariant(VARIANT);
-                        if (TPC && variant != null) {
-                            member.setVariant(variant, false, true);
-                        }
+                    Boolean TPC = alreadySet.get(member);
+                    if (TPC == null) {
+                        TPC = Math.random() > CHANCE_NO_TPC;
+                        alreadySet.put(member, TPC);
+                    }
+                    ShipVariantAPI variant = Global.getSettings().getVariant(VARIANT);
+                    if (TPC && variant != null) {
+                        member.setVariant(variant, false, true);
                     }
                 }
             }
         }
+    }
+
+    private synchronized Map<FleetMemberAPI, Boolean> getOrInitializeAlreadySetMap(Map<String, Object> persistentData) {
+        // Just in case many different calls get made to this method, since there's only one instance of this class,
+        // lets be safe about this map.
+        //
+        // Try fetching it
+        Map<FleetMemberAPI, Boolean> retVal = (Map<FleetMemberAPI, Boolean>) persistentData.get(ALREADY_SET_LIST_KEY);
+        if (retVal == null) {
+            synchronized (VayraLootedTpc.class) {
+                // IF there was none, initialize it, and put it in the persisted data
+                if (retVal == null) {
+                    retVal = new HashMap<>();
+                    persistentData.put(ALREADY_SET_LIST_KEY, retVal);
+                }
+
+                // Finally, return the thing from persisted data
+                retVal = (Map<FleetMemberAPI, Boolean>) persistentData.get(ALREADY_SET_LIST_KEY);
+            }
+        }
+        return retVal;
     }
 
     @Override
