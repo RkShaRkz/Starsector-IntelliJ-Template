@@ -4,6 +4,7 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
+import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
@@ -15,7 +16,7 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
     public static final float CR_PENALTY = 15f;
-    public static final float CREW_CAPACITY_MULT = 0.25f;
+    public static final float CREW_CAPACITY_PENALTY = 0.75f;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -30,8 +31,8 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float crPenalty = CR_PENALTY * effect;
-        float crewMult = CREW_CAPACITY_MULT + (1f - CREW_CAPACITY_MULT) * (1f - effect);
+        float crPenalty = calculateCRMalus(stats.getVariant(), effect);
+        float crewMult = calculateCrewCapacityMultiplier(stats.getVariant(), effect);
 
         stats.getMaxCombatReadiness().modifyFlat(id, -(crPenalty * 0.01f), "Damaged life support");
         stats.getMaxCrewMod().modifyMult(id, crewMult);
@@ -42,21 +43,86 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
+        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
+            variant = ship.getVariant();
         }
-        float crPenalty = CR_PENALTY * effect;
-        float crewMult = CREW_CAPACITY_MULT + (1f - CREW_CAPACITY_MULT) * (1f - effect);
+        float crPenalty = calculateCRMalus(variant, effect);
+        float crewMalus = calculateCrewCapacityMalus(variant, effect);
 
         if (index == 0) {
             return Math.round(crPenalty) + "%";
         }
         if (index == 1) {
-            return Math.round((1f - crewMult) * 100f) + "%";
+            return Math.round(crewMalus * 100f) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);
         }
         return null;
+    }
+
+
+    private float calculateCRMalus(ShipVariantAPI variant, float baseEffect) {
+        float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
+        float retVal = CR_PENALTY - CR_PENALTY * penaltyFactor;
+        /**
+         * will produce 15 for 100% dmod effect mult
+         * 15 - 15 * (0) = 15
+         * will produce 7.5 for 50% dmod effect mult
+         * 15 - 15*0.5 = 7.5
+         * will produce 30 for 200%
+         * 15 - 15*(-1) = 30
+         * will produce 45 for 300%
+         * 15 - 15*-2 = 45
+         *
+         * and then half of that if we have "rugged"
+         */
+        if (variant != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
+
+            if (hasRugged) {
+                retVal = retVal / 2;
+            }
+        }
+
+        return retVal;
+    }
+
+    private float calculateCrewCapacityMultiplier(ShipVariantAPI variant, float baseEffect) {
+        // Basically, crew capacity multiplier is going to be 1 - CrewCapacityMalus
+        float retVal;
+        float malus = calculateCrewCapacityMalus(variant, baseEffect);
+        retVal = 1f - malus;
+
+        // In this exceptional case, i think it would make sense to clamp it to 0
+        return MiscUtils.clamp(retVal, 0.0f);
+    }
+
+    private float calculateCrewCapacityMalus(ShipVariantAPI variant, float baseEffect) {
+        float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
+        float retVal = CREW_CAPACITY_PENALTY - CREW_CAPACITY_PENALTY * penaltyFactor;
+        /**
+         * will produce 0.75 for 100% dmod effect mult
+         * 0.75 - 0.75 * (0) = 0.75
+         * will produce 0.375 for 50% dmod effect mult
+         * 0.75 - 0.7*0.5 = 0.375
+         * will produce 1.5 for 200%
+         * 0.75 - 0.75*(-1) = 1.5
+         * will produce 2.25 for 300%
+         * 0.75 - 0.75*-2 = 2.25
+         *
+         * and then half of that if we have "rugged"
+         */
+        if (variant != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
+
+            if (hasRugged) {
+                retVal = retVal / 2;
+            }
+        }
+
+        return retVal;
     }
 }

@@ -4,6 +4,7 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
@@ -12,6 +13,8 @@ public class VayraDamagedAmmo extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedAmmo";
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
+
+    public static final int FRAGMENTATION_CHANCE = 50;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -43,26 +46,67 @@ public class VayraDamagedAmmo extends BaseHullMod {
             return;
         }
 
-        for (DamagingProjectileAPI p : engine.getProjectiles()) {
-            if (ship.equals(p.getSource()) && p.getWeapon() != null) {
-                if (p.getDamageType() != DamageType.FRAGMENTATION
-                        && p.getDamageType() != DamageType.OTHER
-                        && (p.getWeapon().getType() == WeaponType.BALLISTIC
-                        || p.getWeapon().getType() == WeaponType.MISSILE)) {
-                    p.getDamage().setType(DamageType.FRAGMENTATION);
+        for (DamagingProjectileAPI projectile : engine.getProjectiles()) {
+            if (ship.equals(projectile.getSource()) && projectile.getWeapon() != null) {
+                boolean isNotFragmentationDamage = projectile.getDamageType() != DamageType.FRAGMENTATION;
+                boolean isNotOtherDamage = projectile.getDamageType() != DamageType.OTHER;
+                boolean isBallisticOrMissileWeapon =
+                        (projectile.getWeapon().getType() == WeaponType.BALLISTIC
+                        || projectile.getWeapon().getType() == WeaponType.MISSILE);
+
+                if (isNotFragmentationDamage && isNotOtherDamage && isBallisticOrMissileWeapon) {
+                    if (shouldConvertProjectileToFragmentationDamage(ship)) {
+                        projectile.getDamage().setType(DamageType.FRAGMENTATION);
+                    }
                 }
             }
         }
     }
 
+    /**
+     * Convert to Fragmentation only 50% of the time, scaled with Dmod efficiency.
+     * If the ship has the "Rugged Construction" hullmod, cut that chance in half and convert only about 25% of the time.
+     *
+     * Throws a die, and returns whether we should convert this shot to Fragmentation or not by comparing against the chance.
+     * @param ship the ship to query for the hullmod
+     * @return whether we should convert this shot to Fragmentation or not
+     * @see #calculateFragmentationChance(ShipAPI)
+     * @see #FRAGMENTATION_CHANCE
+     */
+    private boolean shouldConvertProjectileToFragmentationDamage(ShipAPI ship) {
+        boolean retVal; //assume true
+        int dieRoll = MiscUtils.generateRandomInt(100);
+        float chance = calculateFragmentationChance(ship);
+        // Now that we know the chance, see if our die is under teh chance; if it is - we won't convert to Fragmentation
+        // if it's not - oh well, better luck next time.
+        retVal = dieRoll >= (int) chance;
+
+        return retVal;
+    }
+
+    private float calculateFragmentationChance(ShipAPI ship) {
+        boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
+        float effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
+        float retVal = FRAGMENTATION_CHANCE * effect;
+        if (hasRugged) {
+            // If we have rugged, cut the chances in half
+            retVal = retVal / 2;
+        }
+
+        return retVal;
+    }
+
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
-
+        float chance = calculateFragmentationChance(ship);
         if (index == 0) {
             return "Fragmentation";
         }
-        if (index >= 1) {
-            return CompromisedStructure.getCostDescParam(index, 1);
+        if (index == 1) {
+            return Math.round(chance) + "%";
+        }
+        if (index >= 2) {
+            return CompromisedStructure.getCostDescParam(index, 2);
         }
         return null;
     }
