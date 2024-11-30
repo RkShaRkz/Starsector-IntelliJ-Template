@@ -52,11 +52,12 @@ public class VayraLootedTpc extends BaseHullMod {
         int WEAPON_OP_COST = getWeaponOPCost(ship);
         String GIVEN_WEAPON_ID = getWeaponID(ship);
 
-        if (isSmod) {
-            // Remove all non-cheap looted TPCs
-            removeAllLootedTPCsFromShip(ship, false);
-        }
+        // If we S-Modded, we want to remove all non-cheap TPCs and "replace" them by placing new TPCs
+        // in those empty slots below, but we'll use the S-Mod variant ('cheap');
+        // otherwise, we want to remove *all* TPCs and "replace" them with non-S-Mod variants (not 'cheap')
+        removeAllLootedTPCsFromShip(ship, !isSmod);
 
+        // Place TPCs in empty slots
         if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
             for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
                 WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
@@ -73,6 +74,29 @@ public class VayraLootedTpc extends BaseHullMod {
                         break;
                     }
                 }
+
+                /**
+                 * TPC Upgrading part
+                 */
+                /*
+                if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon) {
+                    String slotId = slot.getId();
+                    String currentWeapon = variant.getWeaponId(slotId);
+                    if (isSmod) {
+                        // If we are S-modded, replace occurances of WEAPON_ID with SMOD_WEAPON_ID
+                        if (currentWeapon != null && currentWeapon.equalsIgnoreCase(WEAPON_ID)) {
+                            variant.clearSlot(slotId);
+                            variant.addWeapon(slotId, SMOD_WEAPON_ID);
+                        }
+                    } else {
+                        // If we're not S-modded, replace occurances of SMOD_WEAPON_ID with WEAPON_ID
+                        if (currentWeapon != null && currentWeapon.equalsIgnoreCase(SMOD_WEAPON_ID)) {
+                            variant.clearSlot(slotId);
+                            variant.addWeapon(slotId, WEAPON_ID);
+                        }
+                    }
+                }
+                 */
             }
         }
 
