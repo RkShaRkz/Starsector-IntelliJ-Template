@@ -4,16 +4,17 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.WeaponAPI.WeaponType;
+import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
-
-import java.util.Random;
 
 public class VayraDamagedAmmo extends BaseHullMod {
     private static final String LOGTAG = "VayraDamagedAmmo";
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
+
+    public static final int FRAGMENTATION_CHANCE = 50;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -63,19 +64,33 @@ public class VayraDamagedAmmo extends BaseHullMod {
     }
 
     /**
-     * If the ship has the "Rugged Construction" hullmod, throw a die, and convert to fragmentation only 50% of the time.
-     * Otherwise, convert to fragmentation all the time
+     * Convert to Fragmentation only 50% of the time, scaled with Dmod efficiency.
+     * If the ship has the "Rugged Construction" hullmod, cut that chance in half and convert only about 25% of the time.
+     *
+     * Throws a die, and returns whether we should convert this shot to Fragmentation or not by comparing against the chance.
      * @param ship the ship to query for the hullmod
+     * @return whether we should convert this shot to Fragmentation or not
+     * @see #calculateFragmentationChance(ShipAPI)
+     * @see #FRAGMENTATION_CHANCE
      */
     private boolean shouldConvertProjectileToFragmentationDamage(ShipAPI ship) {
-        boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
         boolean retVal; //assume true
         int dieRoll = MiscUtils.generateRandomInt(100);
+        float chance = calculateFragmentationChance(ship);
+        // Now that we know the chance, see if our die is under teh chance; if it is - we won't convert to Fragmentation
+        // if it's not - oh well, better luck next time.
+        retVal = dieRoll >= (int) chance;
+
+        return retVal;
+    }
+
+    private float calculateFragmentationChance(ShipAPI ship) {
+        boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
+        float effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
+        float retVal = FRAGMENTATION_CHANCE * effect;
         if (hasRugged) {
-            // do not turn into FRAGMENTATION if we rolled less than 75
-            retVal = dieRoll >= 75;
-        } else {
-            retVal = dieRoll >= 50;
+            // If we have rugged, cut the chances in half
+            retVal = retVal / 2;
         }
 
         return retVal;
@@ -83,12 +98,12 @@ public class VayraDamagedAmmo extends BaseHullMod {
 
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
-        boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
+        float chance = calculateFragmentationChance(ship);
         if (index == 0) {
             return "Fragmentation";
         }
         if (index == 1) {
-            return hasRugged ? "25%" : "50%";
+            return Math.round(chance) + "%";
         }
         if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 2);
