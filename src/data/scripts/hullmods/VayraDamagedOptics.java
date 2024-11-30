@@ -15,7 +15,7 @@ public class VayraDamagedOptics extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float BEAM_RANGE_MULT = 0.75f;
+    public static final float BEAM_RANGE_PENALTY = 0.15f;
     public static final float BEAM_WAVER = 5f;
 
 
@@ -32,7 +32,7 @@ public class VayraDamagedOptics extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float rangeMult = BEAM_RANGE_MULT + (1f - BEAM_RANGE_MULT) * (1f - effect);
+        float rangeMult = calculateBeamRangeMultiplier(stats.getVariant(), effect);
 
         stats.getBeamWeaponRangeBonus().modifyMult(id, rangeMult);
 
@@ -96,21 +96,22 @@ public class VayraDamagedOptics extends BaseHullMod {
         }
 
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-
-        return BEAM_WAVER * effect;
+        return calculateBeamWaverMalus(ship.getVariant(), effect);
     }
 
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
+        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
+            variant = ship.getVariant();
         }
-        float rangeMult = BEAM_RANGE_MULT + (1f - BEAM_RANGE_MULT) * (1f - effect);
-        float beamWaver = BEAM_WAVER * effect;
+        float beamWaver = calculateBeamWaverMalus(variant, effect);
+        float beamRangeMalus = calculateBeamRangeMalus(variant, effect);
 
         if (index == 0) {
-            return Math.round((1f - rangeMult) * 100f) + "%";
+            return Math.round(beamRangeMalus * 100f) + "%";
         }
         if (index == 1) {
             return "" + Math.round(beamWaver * 2f);
@@ -121,4 +122,52 @@ public class VayraDamagedOptics extends BaseHullMod {
         return null;
     }
 
+    private float calculateBeamRangeMultiplier(ShipVariantAPI variant, float baseEffect) {
+        // Basically, beam range multiplier is going to be 1 - BeamRangeMalus
+        float retVal;
+        float malus = calculateBeamRangeMalus(variant, baseEffect);
+        retVal = 1f - malus;
+
+        return retVal;
+    }
+
+    private float calculateBeamRangeMalus(ShipVariantAPI variant, float baseEffect) {
+        float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
+        float retVal = BEAM_RANGE_PENALTY - BEAM_RANGE_PENALTY * penaltyFactor;
+        /**
+         * will produce 0.15 for 100% dmod effect mult
+         * 0.15 - 0.15 * (0) = 0.15
+         * will produce 0.075 for 50% dmod effect mult
+         * 0.15 - 0.15*0.5 = 0.075
+         * will produce 0.3 for 200%
+         * 0.15 - 0.15*(-1) = 0.3
+         * will produce 0.45 for 300%
+         * 0.15 - 0.15*-2 = 0.45
+         *
+         * and then half of that if we have "rugged"
+         */
+        if (variant != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
+
+            if (hasRugged) {
+                retVal = retVal / 2;
+            }
+        }
+
+        return retVal;
+    }
+
+    public float calculateBeamWaverMalus(ShipVariantAPI variant, float effect) {
+        float retVal = BEAM_WAVER * effect;
+
+        if (variant != null) {
+            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
+
+            if (hasRugged) {
+                retVal = retVal / 2;
+            }
+        }
+
+        return retVal;
+    }
 }
