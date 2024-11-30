@@ -8,17 +8,22 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.loading.WeaponSlotAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
+import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
+import com.fs.starfarer.api.util.Misc;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class VayraLootedTpc extends BaseHullMod {
 
     public static final String WEAPON_ID = "vayra_looted_tpc";
+    public static final String SMOD_WEAPON_ID = "vayra_looted_tpc_cheaper";
     public static final String HULL_ID = "vayra_mudskipper_xiv";
     public static final String VARIANT = "vayra_mudskipper_xiv_rd";
     public static final int WEAPON_OP = 20;
+    public static final int SMOD_WEAPON_OP = 15;
     public static final float CHANCE_NO_TPC = 0.1312f;
     public static final float CAPACITY_MULT = 0.5f;
     public static final String ALREADY_SET_LIST_KEY = "vayra_already_looted_tpc";
@@ -37,37 +42,40 @@ public class VayraLootedTpc extends BaseHullMod {
 
     @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
-
         ShipVariantAPI variant = ship.getVariant();
         MutableCharacterStatsAPI stats = Global.getSector().getPlayerStats();
+        int WEAPON_OP_COST = getWeaponOPCost(ship);
+        String GIVEN_WEAPON_ID = getWeaponID(ship);
 
-        if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP) {
+        if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
             for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
-                WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(WEAPON_ID);
+                WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
 
                 boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
                 boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
-                boolean hasEnoughFreeOPForLootedTPC = variant.getUnusedOP(stats) >= WEAPON_OP;
+                boolean hasEnoughFreeOPForLootedTPC = variant.getUnusedOP(stats) >= WEAPON_OP_COST;
 
                 if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
                     String slotId = slot.getId();
                     String currentWeapon = variant.getWeaponId(slotId);
                     if (currentWeapon == null) {
-                        variant.addWeapon(slotId, WEAPON_ID);
+                        variant.addWeapon(slotId, GIVEN_WEAPON_ID);
                         break;
                     }
                 }
             }
         }
 
+        // Finally, remove the looted TPC and cheaper looted TPC from the inventory, if any
         CampaignFleetAPI playerFleet = Global.getSector().getPlayerFleet();
-
         if (playerFleet != null) {
             CargoAPI cargo = Global.getSector().getPlayerFleet().getCargo();
             // Lets at least try to get rid of all of them in one go
-            int numOfWeapons = cargo.getNumWeapons(WEAPON_ID);
             while (cargo.getNumWeapons(WEAPON_ID) > 0) {
-                cargo.removeWeapons(WEAPON_ID, numOfWeapons);
+                cargo.removeWeapons(WEAPON_ID, cargo.getNumWeapons(WEAPON_ID));
+            }
+            while (cargo.getNumWeapons(SMOD_WEAPON_ID) > 0) {
+                cargo.removeWeapons(SMOD_WEAPON_ID, cargo.getNumWeapons(SMOD_WEAPON_ID));
             }
         }
     }
@@ -126,7 +134,7 @@ public class VayraLootedTpc extends BaseHullMod {
             return "automatically be equipped";
         }
         if (index == 2) {
-            return WEAPON_OP + " ordnance points";
+            return getWeaponOPCost(ship) + " ordnance points";
         }
         if (index == 3) {
             return "prevents attachment to any other ship";
@@ -140,5 +148,37 @@ public class VayraLootedTpc extends BaseHullMod {
     @Override
     public boolean hasSModEffect() {
         return true;
+    }
+
+    @Override
+    public void addPostDescriptionSection(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
+        float oPad = 10f;
+        Color good = Misc.getPositiveHighlightColor();
+
+        tooltip.addPara("Replaces every blank LARGE slot with a Looted Thermal Pulse Cannon costing %s OP.", oPad, good, String.valueOf(getWeaponOPCost(ship)));
+    }
+
+    @Override
+    public void addSModEffectSection(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec, boolean isForBuildInList) {
+        float oPad = 10;
+        Color good = Misc.getPositiveHighlightColor();
+
+        tooltip.addPara("Lowers the Looted Thermal Pulse Cannon cost to %s.", oPad, good, String.valueOf(SMOD_WEAPON_OP));
+    }
+
+    private int getWeaponOPCost(ShipAPI ship) {
+        if (ship != null) {
+            return isSMod(ship) ? SMOD_WEAPON_OP : WEAPON_OP;
+        } else {
+            return WEAPON_OP;
+        }
+    }
+
+    private String getWeaponID(ShipAPI ship) {
+        if (ship != null) {
+            return isSMod(ship) ? SMOD_WEAPON_ID : WEAPON_ID;
+        } else {
+            return WEAPON_ID;
+        }
     }
 }
