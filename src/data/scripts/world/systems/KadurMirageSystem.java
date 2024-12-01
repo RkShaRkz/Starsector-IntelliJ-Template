@@ -37,9 +37,10 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
     private static final float YAKCHAL_ORBIT = 12500;
     private static final float OUTER_RING = 15500;
 
-    private static final String DERELICT_SHIP1 = "vayra_camel_shotgun";
-    private static final String DERELICT_SHIP2 = "vayra_falchion_assault";
-    private static final String DERELICT_SHIP3 = "vayra_sphinx_artillery";
+    private static final String DERELICT_SHIP_CAMEL = "vayra_camel_shotgun";
+    private static final String DERELICT_SHIP_FALCHION1 = "vayra_falchion_standard";
+    private static final String DERELICT_SHIP_FALCHION2 = "vayra_falchion_overdriven";
+    private static final String DERELICT_SHIP_SPHINX = "vayra_sphinx_artillery";
 
     /**
      *
@@ -288,14 +289,18 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         debris.setDiscoverable(null);
         debris.setCircularOrbit(star, 180, KADUR_ORBIT, 400);
 
-        SectorEntityToken toxxCamel = addDerelictShip(system, DERELICT_SHIP1, ShipRecoverySpecial.ShipCondition.AVERAGE, true);
+        SectorEntityToken toxxCamel = addDerelictShip(system, DERELICT_SHIP_CAMEL, ShipRecoverySpecial.ShipCondition.AVERAGE, true);
         toxxCamel.setCircularOrbit(mirageIII, 69, 240, 69f);
 
-        SectorEntityToken toxxFalchion = addDerelictShip(system, DERELICT_SHIP2, ShipRecoverySpecial.ShipCondition.BATTERED, (Math.random() > 0.75f));
-        toxxFalchion.setCircularOrbit(mirageIII, 150, 160, 69f);
+        SectorEntityToken toxxFalchion1 = addDerelictShip(system, DERELICT_SHIP_FALCHION1, ShipRecoverySpecial.ShipCondition.BATTERED, (Math.random() > 0.75f));
+        toxxFalchion1.setCircularOrbit(mirageIII, 150, 160, 69f);
 
-        SectorEntityToken toxxSphinx = addDerelictShip(system, DERELICT_SHIP3, ShipRecoverySpecial.ShipCondition.WRECKED, false);
+        SectorEntityToken toxxFalchion2 = addDerelictShip(system, DERELICT_SHIP_FALCHION2, ShipRecoverySpecial.ShipCondition.WRECKED, (Math.random() > 0.75f));
+        toxxFalchion2.setCircularOrbit(mirageIII, 225, 120, 69f);
+
+        SectorEntityToken toxxSphinx = addDerelictShip(system, DERELICT_SHIP_SPHINX, ShipRecoverySpecial.ShipCondition.WRECKED, false);
         toxxSphinx.setCircularOrbit(mirageIII, 303, 303, 69f);
+
 
         // An intermediary smaller belt shades Yakchal, guaranteeing it remains frozen
         system.addAsteroidBelt(star, 450, MIDDLE_RING - 100, 666, 100, 200, Terrain.ASTEROID_BELT, "Arrad Belt");
