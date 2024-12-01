@@ -11,6 +11,7 @@ import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.IntervalUtil;
 import com.fs.starfarer.api.util.Misc;
+import com.sun.javafx.beans.annotations.NonNull;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
 import org.apache.log4j.Logger;
@@ -22,7 +23,6 @@ import java.util.Map;
 public class VayraLootedTpc extends BaseHullMod {
     private static final Logger logger = Global.getLogger(VayraLootedTpc.class);
 
-    public static final String HULLMOD_ID = "vayra_looted_tpc";
     public static final String WEAPON_ID = "vayra_looted_tpc";
     public static final String SMOD_WEAPON_ID = "vayra_looted_tpc_cheaper";
     public static final String HULL_ID = "vayra_mudskipper_xiv";
@@ -47,10 +47,8 @@ public class VayraLootedTpc extends BaseHullMod {
 
     @Override
     public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
-        ShipVariantAPI variant = ship.getVariant();
-        MutableCharacterStatsAPI stats = Global.getSector().getPlayerStats();
         boolean isSmod = isSMod(ship);
-        int WEAPON_OP_COST = getWeaponOPCost(ship);
+        int GIVEN_WEAPON_OP_COST = getWeaponOPCost(ship);
         String GIVEN_WEAPON_ID = getWeaponID(ship);
 
         // If we S-Modded, we want to remove all non-cheap TPCs and "replace" them by placing new TPCs
@@ -58,46 +56,17 @@ public class VayraLootedTpc extends BaseHullMod {
         // otherwise, we want to remove *all* TPCs and "replace" them with non-S-Mod variants (not 'cheap')
         removeAllLootedTPCsFromShip(ship, !isSmod);
 
-        // TEST
-        MutableCharacterStatsAPI stats1 = null;// = ship.getFleetCommander().getFleetCommanderStats();
-        MutableCharacterStatsAPI stats2 = null;// = ship.getFleetCommander().getStats();
-        MutableCharacterStatsAPI stats3 = null;// = ship.getCaptain().getFleetCommanderStats();
-        MutableCharacterStatsAPI stats4 = null;// = ship.getCaptain().getStats();
-        if (ship.getFleetCommander() != null) {
-            stats1 = ship.getFleetCommander().getFleetCommanderStats();
-            stats2 = ship.getFleetCommander().getStats();
-        } else {
-            MiscUtils.log(LoggerLogLevel.WARN, logger, "ship.getFleetCommander() was NULL");
-        }
-        if (ship.getCaptain() != null) {
-            stats3 = ship.getCaptain().getFleetCommanderStats();
-            stats4 = ship.getCaptain().getStats();
-        } else {
-            MiscUtils.log(LoggerLogLevel.WARN, logger, "ship.getCaptain() was NULL");
-        }
-        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s [fleetCommander->fleetCommanderStats]!", variant.getUnusedOP(stats1)), false);
-        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s  [fleetCommander->stats]!", variant.getUnusedOP(stats2)), false);
-        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s  [captain->fleetCommanderStats]!", variant.getUnusedOP(stats3)), false);
-        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s  [captain->stats]!", variant.getUnusedOP(stats4)), false);
+        // Get stats, either from the ship in one of the 4 possible ways that returned valid OP results, or fallback to PlayerStats :/
+        MutableCharacterStatsAPI stats = getNonNullStats(ship);
 
-        // Place TPCs in empty slots
-        if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
-            WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
-            // Iterate thru all weapon slots and fit them with looted TPCs if they match size, type and we have free OP
-            for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
-                boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
-                boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
-                boolean hasEnoughFreeOPForLootedTPC = variant.getUnusedOP(stats) >= WEAPON_OP_COST;
-
-                if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
-                    String slotId = slot.getId();
-                    String currentWeapon = variant.getWeaponId(slotId);
-                    if (currentWeapon == null) {
-                        variant.addWeapon(slotId, GIVEN_WEAPON_ID);
-                        break;
-                    }
-                }
+        // Place TPCs in empty slots, we won't check the OP here because it will be checked inside the method
+        if (stats != null) {
+            int addedTPCs = fillAllEmptyLargeHybridSlotsWithLootedTPC(ship, stats, GIVEN_WEAPON_ID, GIVEN_WEAPON_OP_COST);
+            if (addedTPCs > 0) {
+                MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Added %s LootedTPC weapons to ship slots!", addedTPCs), false);
             }
+        } else {
+            MiscUtils.log(LoggerLogLevel.ERROR, logger, "Didn't call fillAllEmptyLargeHybridSlotsWithLootedTPC() because stats were NULL", false);
         }
 
         // Finally, remove the looted TPC and cheaper looted TPC from the inventory, if any
@@ -116,16 +85,23 @@ public class VayraLootedTpc extends BaseHullMod {
         if (INTERVAL.intervalElapsed()) {
             Map<FleetMemberAPI, Boolean> alreadySet = getOrInitializeAlreadySetMap(data);
 
-            if (HULL_ID.equals(member.getHullId()) && !alreadySet.containsKey(member)) {
+            if (!alreadySet.containsKey(member)) {
                 if (member.getVariant() != null) {
                     Boolean TPC = alreadySet.get(member);
                     if (TPC == null) {
                         TPC = Math.random() > CHANCE_NO_TPC;
                         alreadySet.put(member, TPC);
                     }
-                    ShipVariantAPI variant = Global.getSettings().getVariant(VARIANT);
-                    if (TPC && variant != null) {
-                        member.setVariant(variant, false, true);
+
+                    // I believe this part of code is here to prevent you from removing the TPC from the mudskipper
+                    // I don't know what this part really does, but it doesn't interfere with this hullmod on any other
+                    // ship, so instead of deleting it, let's just leave it in, since it's mudskipper-exclusive *shrug*
+                    // and in that variant, it has *only* the looted TPC mounted on itself
+                    if (HULL_ID.equals(member.getHullId())) {
+                        ShipVariantAPI variant = Global.getSettings().getVariant(VARIANT);
+                        if (TPC && variant != null) {
+                            member.setVariant(variant, false, true);
+                        }
                     }
                 }
             }
@@ -168,7 +144,7 @@ public class VayraLootedTpc extends BaseHullMod {
             return "prevents attachment to any other ship";
         }
         if (index == 4) {
-            return "significantly reduces extra crew and cargo capacity";
+            return "significantly reduces extra crew (forced to remain on min. crew) and cargo capacity (-" + CAPACITY_MULT + "%)";
         }
         return null;
     }
@@ -246,18 +222,91 @@ public class VayraLootedTpc extends BaseHullMod {
                 String slotId = slot.getId();
                 String currentWeapon = variant.getWeaponId(slotId);
                 // Sanity check
-                if (currentWeapon == null) continue;
+                if (currentWeapon == null || currentWeapon.isEmpty()) continue;
 
                 if (currentWeapon.equalsIgnoreCase(WEAPON_ID)) {
                     variant.clearSlot(slotId);
-                    break;
                 }
 
                 if (includeCheapTPC && currentWeapon.equalsIgnoreCase(SMOD_WEAPON_ID)) {
                     variant.clearSlot(slotId);
-                    break;
                 }
             }
         }
+    }
+
+    private int fillAllEmptyLargeHybridSlotsWithLootedTPC(ShipAPI ship, MutableCharacterStatsAPI stats, String GIVEN_WEAPON_ID, int GIVEN_WEAPON_OP_COST) {
+        MiscUtils.log(LoggerLogLevel.INFO, logger, "--> fillAllEmptyLargeHybridSlotsWithLootedTPC()\tGIVEN_WEAPON_ID: "+GIVEN_WEAPON_ID+", GIVEN_WEAPON_OP_COST: "+GIVEN_WEAPON_OP_COST);
+        int retVal = 0;
+        ShipVariantAPI variant = ship.getVariant();
+        WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
+        // Iterate through all weapon slots and fit them with looted TPCs if they match size, type and we have free OP
+        for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+            int unusedOP = variant.getUnusedOP(stats);
+            boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
+            boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
+            boolean hasEnoughFreeOPForLootedTPC = unusedOP >= GIVEN_WEAPON_OP_COST;
+
+            MiscUtils.log(LoggerLogLevel.INFO, logger, "slotID: "+slot.getId()+", unusedOP: "+unusedOP+", isSlotWeaponTypeHybrid: "+isSlotWeaponTypeHybrid+", isSlotSameSizeAsWeapon: "+isSlotSameSizeAsWeapon+", hasEnoughFreeOPForLootedTPC : "+hasEnoughFreeOPForLootedTPC);
+
+            if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
+                String slotId = slot.getId();
+                String currentWeapon = variant.getWeaponId(slotId);
+                if (currentWeapon == null || currentWeapon.isEmpty()) {
+                    variant.addWeapon(slotId, GIVEN_WEAPON_ID);
+                    retVal++;
+                }
+            }
+        }
+
+        MiscUtils.log(LoggerLogLevel.INFO, logger, "<-- fillAllEmptyLargeHybridSlotsWithLootedTPC()\treturning "+retVal);
+        return retVal;
+    }
+
+    /**
+     * Method that tries getting various Stats from the ship, and finally falls back to PlayerStats in case all of these fail
+     *
+     * It will try getting stats in this order:
+     * - ship.getFleetCommander().getFleetCommanderStats()
+     * - ship.getFleetCommander().getStats();
+     * - ship.getCaptain().getFleetCommanderStats();
+     * - ship.getCaptain().getStats();
+     * - Global.getSector().getPlayerStats();
+     *
+     * @param ship the ship from which to get stats
+     * @return a non-null instance of stats
+     */
+    private @NonNull MutableCharacterStatsAPI getNonNullStats(ShipAPI ship) {
+        MutableCharacterStatsAPI retVal = null;
+
+        MutableCharacterStatsAPI fallback1 = null;
+        MutableCharacterStatsAPI fallback2 = null;
+        MutableCharacterStatsAPI fallback3 = null;
+        MutableCharacterStatsAPI fallback4 = null;
+
+        if (ship.getFleetCommander() != null) {
+            fallback1 = ship.getFleetCommander().getFleetCommanderStats();
+            fallback2 = ship.getFleetCommander().getStats();
+        }
+
+        if (fallback1 != null) retVal = fallback1;
+        if (retVal != null) return retVal;
+
+        if (fallback2 != null) retVal = fallback2;
+        if (retVal != null) return retVal;
+
+        if (ship.getCaptain() != null) {
+            fallback3 = ship.getCaptain().getFleetCommanderStats();;
+            fallback4 = ship.getCaptain().getStats();
+        }
+
+        if (fallback3 != null) retVal = fallback3;
+        if (retVal != null) return retVal;
+
+        if (fallback4 != null) retVal = fallback4;
+        if (retVal != null) return retVal;
+
+        // Finally, if all of these failed, then fuck it and revert to using PlayerStats
+        return Global.getSector().getPlayerStats();
     }
 }
