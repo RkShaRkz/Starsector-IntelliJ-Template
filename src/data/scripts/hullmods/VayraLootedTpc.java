@@ -50,61 +50,54 @@ public class VayraLootedTpc extends BaseHullMod {
         ShipVariantAPI variant = ship.getVariant();
         MutableCharacterStatsAPI stats = Global.getSector().getPlayerStats();
         boolean isSmod = isSMod(ship);
-        boolean hasHullmod = MiscUtils.hasHullmodAny(ship.getVariant(), HULLMOD_ID);
         int WEAPON_OP_COST = getWeaponOPCost(ship);
         String GIVEN_WEAPON_ID = getWeaponID(ship);
 
-        if (hasHullmod) {
-            // If we S-Modded, we want to remove all non-cheap TPCs and "replace" them by placing new TPCs
-            // in those empty slots below, but we'll use the S-Mod variant ('cheap');
-            // otherwise, we want to remove *all* TPCs and "replace" them with non-S-Mod variants (not 'cheap')
-            removeAllLootedTPCsFromShip(ship, !isSmod);
+        // If we S-Modded, we want to remove all non-cheap TPCs and "replace" them by placing new TPCs
+        // in those empty slots below, but we'll use the S-Mod variant ('cheap');
+        // otherwise, we want to remove *all* TPCs and "replace" them with non-S-Mod variants (not 'cheap')
+        removeAllLootedTPCsFromShip(ship, !isSmod);
 
-            // Place TPCs in empty slots
-            if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
-                for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
-                    WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
+        // TEST
+        MutableCharacterStatsAPI stats1 = null;// = ship.getFleetCommander().getFleetCommanderStats();
+        MutableCharacterStatsAPI stats2 = null;// = ship.getFleetCommander().getStats();
+        MutableCharacterStatsAPI stats3 = null;// = ship.getCaptain().getFleetCommanderStats();
+        MutableCharacterStatsAPI stats4 = null;// = ship.getCaptain().getStats();
+        if (ship.getFleetCommander() != null) {
+            stats1 = ship.getFleetCommander().getFleetCommanderStats();
+            stats2 = ship.getFleetCommander().getStats();
+        } else {
+            MiscUtils.log(LoggerLogLevel.WARN, logger, "ship.getFleetCommander() was NULL");
+        }
+        if (ship.getCaptain() != null) {
+            stats3 = ship.getCaptain().getFleetCommanderStats();
+            stats4 = ship.getCaptain().getStats();
+        } else {
+            MiscUtils.log(LoggerLogLevel.WARN, logger, "ship.getCaptain() was NULL");
+        }
+        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s [fleetCommander->fleetCommanderStats]!", variant.getUnusedOP(stats1)), false);
+        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s  [fleetCommander->stats]!", variant.getUnusedOP(stats2)), false);
+        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s  [captain->fleetCommanderStats]!", variant.getUnusedOP(stats3)), false);
+        MiscUtils.log(LoggerLogLevel.INFO, logger, String.format("Variant's unused OP is %s  [captain->stats]!", variant.getUnusedOP(stats4)), false);
 
-                    boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
-                    boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
-                    boolean hasEnoughFreeOPForLootedTPC = variant.getUnusedOP(stats) >= WEAPON_OP_COST;
+        // Place TPCs in empty slots
+        if (stats != null && variant.getUnusedOP(stats) >= WEAPON_OP_COST) {
+            WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
+            // Iterate thru all weapon slots and fit them with looted TPCs if they match size, type and we have free OP
+            for (WeaponSlotAPI slot : ship.getHullSpec().getAllWeaponSlotsCopy()) {
+                boolean isSlotWeaponTypeHybrid = slot.getWeaponType().equals(WeaponAPI.WeaponType.HYBRID);
+                boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
+                boolean hasEnoughFreeOPForLootedTPC = variant.getUnusedOP(stats) >= WEAPON_OP_COST;
 
-                    if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
-                        String slotId = slot.getId();
-                        String currentWeapon = variant.getWeaponId(slotId);
-                        if (currentWeapon == null) {
-                            variant.addWeapon(slotId, GIVEN_WEAPON_ID);
-                            break;
-                        }
-                    }
-
-                    /**
-                     * TPC Upgrading part
-                     */
-                /*
-                if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon) {
+                if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
                     String slotId = slot.getId();
                     String currentWeapon = variant.getWeaponId(slotId);
-                    if (isSmod) {
-                        // If we are S-modded, replace occurances of WEAPON_ID with SMOD_WEAPON_ID
-                        if (currentWeapon != null && currentWeapon.equalsIgnoreCase(WEAPON_ID)) {
-                            variant.clearSlot(slotId);
-                            variant.addWeapon(slotId, SMOD_WEAPON_ID);
-                        }
-                    } else {
-                        // If we're not S-modded, replace occurances of SMOD_WEAPON_ID with WEAPON_ID
-                        if (currentWeapon != null && currentWeapon.equalsIgnoreCase(SMOD_WEAPON_ID)) {
-                            variant.clearSlot(slotId);
-                            variant.addWeapon(slotId, WEAPON_ID);
-                        }
+                    if (currentWeapon == null) {
+                        variant.addWeapon(slotId, GIVEN_WEAPON_ID);
+                        break;
                     }
                 }
-                 */
-                }
             }
-        } else {
-            // If we removed the hullmod, we want to get rid of all looted TPCs from the ship
-            removeAllLootedTPCsFromShip(ship, true);
         }
 
         // Finally, remove the looted TPC and cheaper looted TPC from the inventory, if any
