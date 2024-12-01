@@ -236,7 +236,6 @@ public class VayraLootedTpc extends BaseHullMod {
     }
 
     private int fillAllEmptyLargeHybridSlotsWithLootedTPC(ShipAPI ship, MutableCharacterStatsAPI stats, String GIVEN_WEAPON_ID, int GIVEN_WEAPON_OP_COST) {
-        MiscUtils.log(LoggerLogLevel.INFO, logger, "--> fillAllEmptyLargeHybridSlotsWithLootedTPC()\tGIVEN_WEAPON_ID: "+GIVEN_WEAPON_ID+", GIVEN_WEAPON_OP_COST: "+GIVEN_WEAPON_OP_COST);
         int retVal = 0;
         ShipVariantAPI variant = ship.getVariant();
         WeaponSpecAPI lootedTPCspec = Global.getSettings().getWeaponSpec(GIVEN_WEAPON_ID);
@@ -247,7 +246,6 @@ public class VayraLootedTpc extends BaseHullMod {
             boolean isSlotSameSizeAsWeapon = slot.getSlotSize().equals(lootedTPCspec.getSize());
             boolean hasEnoughFreeOPForLootedTPC = unusedOP >= GIVEN_WEAPON_OP_COST;
 
-            MiscUtils.log(LoggerLogLevel.INFO, logger, "slotID: "+slot.getId()+", unusedOP: "+unusedOP+", isSlotWeaponTypeHybrid: "+isSlotWeaponTypeHybrid+", isSlotSameSizeAsWeapon: "+isSlotSameSizeAsWeapon+", hasEnoughFreeOPForLootedTPC : "+hasEnoughFreeOPForLootedTPC);
 
             if (isSlotWeaponTypeHybrid && isSlotSameSizeAsWeapon && hasEnoughFreeOPForLootedTPC) {
                 String slotId = slot.getId();
@@ -259,7 +257,6 @@ public class VayraLootedTpc extends BaseHullMod {
             }
         }
 
-        MiscUtils.log(LoggerLogLevel.INFO, logger, "<-- fillAllEmptyLargeHybridSlotsWithLootedTPC()\treturning "+retVal);
         return retVal;
     }
 
