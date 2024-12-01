@@ -141,7 +141,7 @@ Very Converted Cargo Bays,vayra_extremely_converted_hangar,1,,Vayra,,,,,TRUE,,0,
 The shuttle bay, notably, remains unmolested. 
 
 For now.",,graphics/hullmods/converted_hangar.png
-Looted Thermal Pulse Cannon,vayra_looted_tpc,,,Vayra,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.VayraLootedTpc,"This hull is packaged with a jury-rigged %s - no doubt stolen from the wreck of a derelict Onslaught-class battleship - which will %s whenever a suitable weapon mount is left empty and %s are available to mount it. While the weapon can be removed and replaced with another as normal, its supporting flux infrastructure is permanently integrated into the hull and %s as well as %s.",,graphics/hullmods/ballistics_integration.png
+Looted Thermal Pulse Cannon,vayra_looted_tpc,,,Vayra,,,,,,,0,0,0,0,data.scripts.hullmods.VayraLootedTpc,"This hull is packaged with a jury-rigged %s - no doubt stolen from the wreck of a derelict Onslaught-class battleship - which will %s whenever a suitable weapon mount is left empty and %s are available to mount it. While the weapon can be removed and replaced with another as normal, its supporting flux infrastructure is permanently integrated into the hull and %s as well as %s.",,graphics/hullmods/ballistics_integration.png
 ,,,,,,,,,,,,,,,,,,
 # GENERAL BUILTINS,,,,,,,,,,,,,,,,,,
 XIV Targeting Core,vayra_xiv_core,,,Vayra,,,,,TRUE,,0,0,0,0,data.scripts.hullmods.VayraXIVCore,Extends the range of nonmissile weapons by %s. Precludes the installation of a Dedicated Targeting Core or an Integrated Targeting Unit.,,graphics/icons/abilities/transponder.png
