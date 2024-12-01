@@ -298,7 +298,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         SectorEntityToken toxxFalchion2 = addDerelictShip(system, DERELICT_SHIP_FALCHION2, ShipRecoverySpecial.ShipCondition.WRECKED, (Math.random() > 0.75f));
         toxxFalchion2.setCircularOrbit(mirageIII, 225, 120, 69f);
 
-        SectorEntityToken toxxSphinx = addDerelictShip(system, DERELICT_SHIP_SPHINX, ShipRecoverySpecial.ShipCondition.WRECKED, false);
+        SectorEntityToken toxxSphinx = addDerelictShip(system, DERELICT_SHIP_SPHINX, ShipRecoverySpecial.ShipCondition.WRECKED, true);
         toxxSphinx.setCircularOrbit(mirageIII, 303, 303, 69f);
 
 
