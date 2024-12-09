@@ -357,18 +357,20 @@ public class MiscUtils {
      * Method that tries getting various Stats from the ship, and finally falls back to PlayerStats in case all of these fail
      *
      * It will try getting stats in this order:
-     * - ship.getFleetCommander().getFleetCommanderStats()
-     * - ship.getFleetCommander().getStats();
-     * - ship.getCaptain().getFleetCommanderStats();
-     * - ship.getCaptain().getStats();
-     * - ship.getFleetMember().getFleetCommanderForStats().getFleetCommanderStats()
-     * - ship.getFleetMember().getFleetCommanderForStats().getStats()
-     * - Global.getSector().getPlayerStats();
+     * <ul>
+     * <li>ship.getFleetCommander().getFleetCommanderStats()</li>
+     * <li>ship.getFleetCommander().getStats()</li>
+     * <li>ship.getCaptain().getFleetCommanderStats()</li>
+     * <li>ship.getCaptain().getStats()</li>
+     * <li>ship.getFleetMember().getFleetCommanderForStats().getFleetCommanderStats()</li>
+     * <li>ship.getFleetMember().getFleetCommanderForStats().getStats()</li>
+     * <li>Global.getSector().getPlayerStats()</li>
+     *</ul>
      *
-     * @param ship the ship from which to get stats
+     * @param ship the {@link ShipAPI} from which to get stats, <b>must not be null</b>
      * @return a non-null instance of stats
      */
-    public static @NonNull MutableCharacterStatsAPI getNonNullStats(ShipAPI ship) {
+    public static @NonNull MutableCharacterStatsAPI getNonNullStats(@NonNull ShipAPI ship) {
         MutableCharacterStatsAPI retVal = null;
 
         MutableCharacterStatsAPI fallback1 = null;
@@ -414,7 +416,23 @@ public class MiscUtils {
         }
     }
 
-    public static @Nullable MutableCharacterStatsAPI getStats(FleetMemberAPI member) {
+    /**
+     * Method that tries getting various Stats from the FleetMemberAPI by using<br>
+     * {@link FleetMemberAPI#getFleetCommanderForStats()}<p>
+     *
+     * It will try getting stats in this order:
+     * <ul>
+     * <li>fleetMemberForStats.getFleetCommanderStats()</li>
+     * <li>fleetMemberForStats.getStats()</li>
+     * </ul>
+     *
+     * If these two variations fail, we can't extract any {@link MutableCharacterStatsAPI} from this FleetMemberAPI
+     * and the method will return {@code null}
+     *
+     * @param member the {@link FleetMemberAPI} from which we're trying to get stats, <b>must not be null</b>
+     * @return the fetched stats, or null
+     */
+    public static @Nullable MutableCharacterStatsAPI getStats(@NonNull FleetMemberAPI member) {
         PersonAPI fleetMemberForStats = member.getFleetCommanderForStats();
         // We don't have to check this 'fleetMemberForStats' for being null, because it will either return an
         // existing non-null instance of the fleetmember's getFleetCommanderForStats or create a new one and set it
