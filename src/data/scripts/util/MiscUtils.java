@@ -1,9 +1,13 @@
 package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.characters.MutableCharacterStatsAPI;
+import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
+import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.combat.WeaponAPI;
+import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.fleets.FleetParamsV3;
 import com.fs.starfarer.api.loading.HullModSpecAPI;
 import com.fs.starfarer.api.loading.WeaponSpecAPI;
@@ -13,6 +17,7 @@ import data.scripts.VayraMergedModPlugin;
 import data.util.LoggerLogLevel;
 import lunalib.lunaSettings.LunaSettings;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 import org.lazywizard.console.Console;
 
 import java.text.SimpleDateFormat;
@@ -346,5 +351,97 @@ public class MiscUtils {
      */
     public static float clamp(float actualValue, float minValue) {
         return Math.min(actualValue, Math.max(actualValue, minValue));
+    }
+
+    /**
+     * Method that tries getting various Stats from the ship, and finally falls back to PlayerStats in case all of these fail
+     *
+     * It will try getting stats in this order:
+     * <ul>
+     * <li>ship.getFleetCommander().getFleetCommanderStats()</li>
+     * <li>ship.getFleetCommander().getStats()</li>
+     * <li>ship.getCaptain().getFleetCommanderStats()</li>
+     * <li>ship.getCaptain().getStats()</li>
+     * <li>ship.getFleetMember().getFleetCommanderForStats().getFleetCommanderStats()</li>
+     * <li>ship.getFleetMember().getFleetCommanderForStats().getStats()</li>
+     * <li>Global.getSector().getPlayerStats()</li>
+     *</ul>
+     *
+     * @param ship the {@link ShipAPI} from which to get stats, <b>must not be null</b>
+     * @return a non-null instance of stats
+     */
+    public static @NonNull MutableCharacterStatsAPI getNonNullStats(@NonNull ShipAPI ship) {
+        MutableCharacterStatsAPI retVal = null;
+
+        MutableCharacterStatsAPI fallback1 = null;
+        MutableCharacterStatsAPI fallback2 = null;
+        MutableCharacterStatsAPI fallback3 = null;
+        MutableCharacterStatsAPI fallback4 = null;
+
+        if (ship.getFleetCommander() != null) {
+            fallback1 = ship.getFleetCommander().getFleetCommanderStats();
+            fallback2 = ship.getFleetCommander().getStats();
+        }
+
+        if (fallback1 != null) retVal = fallback1;
+        if (retVal != null) return retVal;
+
+        if (fallback2 != null) retVal = fallback2;
+        if (retVal != null) return retVal;
+
+        if (ship.getCaptain() != null) {
+            fallback3 = ship.getCaptain().getFleetCommanderStats();
+            fallback4 = ship.getCaptain().getStats();
+        }
+
+        if (fallback3 != null) retVal = fallback3;
+        if (retVal != null) return retVal;
+
+        if (fallback4 != null) retVal = fallback4;
+        if (retVal != null) return retVal;
+
+        // Finally, if all of these failed, then fuck it and revert to using PlayerStats
+        // if ship was being owned by player - return player stats, otherwise create new stats
+        if (ship.getOwner() == OWNER_PLAYER) {
+            return Global.getSector().getPlayerStats();
+        } else {
+            FleetMemberAPI member = ship.getFleetMember();
+            if (member != null) {
+                MutableCharacterStatsAPI fallback = getStats(member);
+                if (fallback != null) return fallback;
+            }
+
+            // Fuck it again, return player stats
+            return Global.getSector().getPlayerStats();
+        }
+    }
+
+    /**
+     * Method that tries getting various Stats from the FleetMemberAPI by using<br>
+     * {@link FleetMemberAPI#getFleetCommanderForStats()}<p>
+     *
+     * It will try getting stats in this order:
+     * <ul>
+     * <li>fleetMemberForStats.getFleetCommanderStats()</li>
+     * <li>fleetMemberForStats.getStats()</li>
+     * </ul>
+     *
+     * If these two variations fail, we can't extract any {@link MutableCharacterStatsAPI} from this FleetMemberAPI
+     * and the method will return {@code null}
+     *
+     * @param member the {@link FleetMemberAPI} from which we're trying to get stats, <b>must not be null</b>
+     * @return the fetched stats, or null
+     */
+    public static @Nullable MutableCharacterStatsAPI getStats(@NonNull FleetMemberAPI member) {
+        PersonAPI fleetMemberForStats = member.getFleetCommanderForStats();
+        // We don't have to check this 'fleetMemberForStats' for being null, because it will either return an
+        // existing non-null instance of the fleetmember's getFleetCommanderForStats or create a new one and set it
+        MutableCharacterStatsAPI fallback5 = fleetMemberForStats.getFleetCommanderStats();
+        MutableCharacterStatsAPI fallback6 = fleetMemberForStats.getStats();
+        if (fallback5 != null) return fallback5;
+        if (fallback6 != null) return fallback6;
+
+        // If the previous two didn't return, we can't really extract anything more from this member so return null
+        return null;
     }
 }
