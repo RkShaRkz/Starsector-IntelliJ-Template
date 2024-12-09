@@ -61,31 +61,33 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
     public static float MAX_TIME_BASED_ADDED_LEVEL = 3;
     public static final float CARE_ABOUT_RANGE = 4000f;
-    private int allies = 0;
-    private int enemies = 0;
+    private volatile int allies = 0;
+    private volatile int enemies = 0;
 
-    private float elapsedDays = 0f;
-    private float duration = BOUNTY_DURATION;
-    private float bountyCredits = 0;
-    private float perLevel;
+    private volatile float elapsedDays = 0f;
+    private volatile float duration = BOUNTY_DURATION;
+    private volatile float bountyCredits = 0;
+    private volatile float perLevel;
 
-    private FactionAPI faction;
-    private FactionAPI bountyFaction;
-    private PersonAPI person;
-    private String wordForKillingJerk;
-    private String descOfJerk;
-    private String typeOfJerk;
-    private String titleOfJerk;
-    private String reasonForJerk;
-    private CampaignFleetAPI fleet;
-    private FleetMemberAPI flagship;
-    private RareBountyFlagshipData rareFlagship = null;
+    private volatile FactionAPI faction;
+    private volatile FactionAPI bountyFaction;
+    private volatile PersonAPI person;
+    private volatile String wordForKillingJerk;
+    private volatile String descOfJerk;
+    private volatile String typeOfJerk;
+    private volatile String titleOfJerk;
+    private volatile String reasonForJerk;
+    private volatile CampaignFleetAPI fleet;
+    private volatile FleetMemberAPI flagship;
+    private volatile RareBountyFlagshipData rareFlagship = null;
 
-    private BountyType bountyType;
+    private volatile BountyType bountyType;
 
-    private SectorEntityToken hideoutLocation = null;
+    private volatile SectorEntityToken hideoutLocation = null;
 
-    private int level = 0;
+    private volatile int level = 0;
+
+    private final Object lock = new Object();
 
     public FactionAPI getBountyFaction() {
         return bountyFaction;
@@ -95,23 +97,23 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         return faction;
     }
 
-    public PersonAPI getPerson() {
+    public synchronized PersonAPI getPerson() {
         return person;
     }
 
-    public CampaignFleetAPI getFleet() {
+    public synchronized CampaignFleetAPI getFleet() {
         return fleet;
     }
 
-    public FleetMemberAPI getFlagship() {
+    public synchronized FleetMemberAPI getFlagship() {
         return flagship;
     }
 
-    public float getElapsedDays() {
+    public synchronized float getElapsedDays() {
         return elapsedDays;
     }
 
-    public void setElapsedDays(float elapsedDays) {
+    public synchronized void setElapsedDays(float elapsedDays) {
         this.elapsedDays = elapsedDays;
     }
 
@@ -120,105 +122,106 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
     }
 
     public VayraPersonBountyIntel() {
+        synchronized (lock) {
+            if (JERK_KILL_WORDS.isEmpty()) {
+                log.error("Jerk kill words list was empty for some reason...");
+                log.info("Fucking off for now to try again later.");
+                endImmediately();
+                return;
+            }
 
-        if (JERK_KILL_WORDS.isEmpty()) {
-            log.error("Jerk kill words list was empty for some reason...");
-            log.info("Fucking off for now to try again later.");
-            endImmediately();
-            return;
-        }
+            pickLevel();
+            if (VAYRA_DEBUG) {
+                log.info("picked level");
+            }
 
-        pickLevel();
-        if (VAYRA_DEBUG) {
-            log.info("picked level");
-        }
+            pickJerk();
+            if (VAYRA_DEBUG) {
+                log.info("picked jerk");
+            }
 
-        pickJerk();
-        if (VAYRA_DEBUG) {
-            log.info("picked jerk");
-        }
+            pickFaction();
+            if (VAYRA_DEBUG) {
+                log.info("picked faction");
+            }
 
-        pickFaction();
-        if (VAYRA_DEBUG) {
-            log.info("picked faction");
-        }
+            Global.getSector().getIntelManager().removeAllThatShouldBeRemoved();
 
-        Global.getSector().getIntelManager().removeAllThatShouldBeRemoved();
+            if (VayraPersonBountyManager.getInstance().getActiveCount() >= VayraPersonBountyManager.getInstance().getMaxConcurrent()) {
+                log.info(String.format("I should never have come here and now I'm gonna pay. (bounties are full) [%s/%s]",
+                        VayraPersonBountyManager.getInstance().getActiveCount(), VayraPersonBountyManager.getInstance().getMaxConcurrent()));
+                endImmediately();
+                return;
+            }
 
-        if (VayraPersonBountyManager.getInstance().getActiveCount() >= VayraPersonBountyManager.getInstance().getMaxConcurrent()) {
-            log.info(String.format("I should never have come here and now I'm gonna pay. (bounties are full) [%s/%s]",
-                    VayraPersonBountyManager.getInstance().getActiveCount(), VayraPersonBountyManager.getInstance().getMaxConcurrent()));
-            endImmediately();
-            return;
-        }
+            if (isDone()) {
+                log.error("decided I was done before picking bountyFaction");
+                return;
+            }
 
-        if (isDone()) {
-            log.error("decided I was done before picking bountyFaction");
-            return;
-        }
+            pickBountyFaction();
+            if (VAYRA_DEBUG) {
+                log.info("picked bounty faction");
+            }
+            if (isDone()) {
+                log.error("decided I was done after trying to pick bounty faction");
+                return;
+            }
 
-        pickBountyFaction();
-        if (VAYRA_DEBUG) {
-            log.info("picked bounty faction");
-        }
-        if (isDone()) {
-            log.error("decided I was done after trying to pick bounty faction");
-            return;
-        }
+            initBountyAmount();
+            if (VAYRA_DEBUG) {
+                log.info("picked bounty amount");
+            }
 
-        initBountyAmount();
-        if (VAYRA_DEBUG) {
-            log.info("picked bounty amount");
-        }
+            this.hideoutLocation = VayraBountySharedMethods.pickHideoutLocation(bountyFaction);
+            if (hideoutLocation == null) {
+                log.error("failed to pick hideoutLocation, aborting");
+                endImmediately();
+                return;
+            } else if (VAYRA_DEBUG) {
+                log.info("picked hideout location");
+            }
+            modifyBountyForNearbyFleets();
 
-        this.hideoutLocation = VayraBountySharedMethods.pickHideoutLocation(bountyFaction);
-        if (hideoutLocation == null) {
-            log.error("failed to pick hideoutLocation, aborting");
-            endImmediately();
-            return;
-        } else if (VAYRA_DEBUG) {
-            log.info("picked hideout location");
-        }
-        modifyBountyForNearbyFleets();
+            if (isDone()) {
+                log.error("decided I was done before picking bounty type");
+                return;
+            }
 
-        if (isDone()) {
-            log.error("decided I was done before picking bounty type");
-            return;
-        }
+            pickBountyType();
+            if (VAYRA_DEBUG) {
+                log.info("picked bounty type");
+            }
+            if (bountyType == BountyType.DESERTER) {
+                bountyCredits *= 1.5f;
+            }
 
-        pickBountyType();
-        if (VAYRA_DEBUG) {
-            log.info("picked bounty type");
-        }
-        if (bountyType == BountyType.DESERTER) {
-            bountyCredits *= 1.5f;
-        }
+            initPerson();
+            if (VAYRA_DEBUG) {
+                log.info("picked person");
+            }
+            if (isDone()) {
+                log.error("decided I was done before spawning fleet");
+                return;
+            }
 
-        initPerson();
-        if (VAYRA_DEBUG) {
-            log.info("picked person");
-        }
-        if (isDone()) {
-            log.error("decided I was done before spawning fleet");
-            return;
-        }
+            spawnFleet();
+            if (VAYRA_DEBUG) {
+                log.info("spawned fleet");
+            }
+            pickReason();
+            if (VAYRA_DEBUG) {
+                log.info("picked reason");
+            }
+            if (isDone()) {
+                log.error("got to the end of initialization and decided I was done");
+                return;
+            }
 
-        spawnFleet();
-        if (VAYRA_DEBUG) {
-            log.info("spawned fleet");
-        }
-        pickReason();
-        if (VAYRA_DEBUG) {
-            log.info("picked reason");
-        }
-        if (isDone()) {
-            log.error("got to the end of initialization and decided I was done");
-            return;
-        }
+            log.info(String.format("Starting person bounty posted by faction [%s] for person [%s] from faction [%s]", faction.getDisplayName(), person.getName().getFullName(), bountyFaction.getDisplayName()));
 
-        log.info(String.format("Starting person bounty posted by faction [%s] for person [%s] from faction [%s]", faction.getDisplayName(), person.getName().getFullName(), bountyFaction.getDisplayName()));
-
-        Global.getSector().getIntelManager().queueIntel(this);
+            Global.getSector().getIntelManager().queueIntel(this);
+        }
     }
 
     @Override
@@ -228,7 +231,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         }
     }
 
-    private void pickLevel() {
+    private synchronized void pickLevel() {
 
         int base = getPersonBountyEventDataFromRepository().getLevel();
 
@@ -315,7 +318,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         }
     }
 
-    private void pickFaction() {
+    private synchronized void pickFaction() {
         FactionAPI player = Global.getSector().getPlayerFaction();
 
         String commFacId = Misc.getCommissionFactionId();
@@ -509,7 +512,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         return picker.pick();
     }
 
-    private void pickJerk() {
+    private synchronized void pickJerk() {
 
         WeightedRandomPicker<String> jerkKillWord = new WeightedRandomPicker<>();
         for (String word : JERK_KILL_WORDS) {
