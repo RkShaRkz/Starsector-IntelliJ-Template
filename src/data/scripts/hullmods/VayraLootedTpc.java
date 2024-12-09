@@ -57,7 +57,7 @@ public class VayraLootedTpc extends BaseHullMod {
         removeAllLootedTPCsFromShip(ship, !isSmod);
 
         // Get stats, either from the ship in one of the 4 possible ways that returned valid OP results, or fallback to PlayerStats :/
-        MutableCharacterStatsAPI stats = getNonNullStats(ship);
+        MutableCharacterStatsAPI stats = MiscUtils.getNonNullStats(ship);
 
         // Place TPCs in empty slots, we won't check the OP here because it will be checked inside the method
         if (stats != null) {
@@ -258,52 +258,5 @@ public class VayraLootedTpc extends BaseHullMod {
         }
 
         return retVal;
-    }
-
-    /**
-     * Method that tries getting various Stats from the ship, and finally falls back to PlayerStats in case all of these fail
-     *
-     * It will try getting stats in this order:
-     * - ship.getFleetCommander().getFleetCommanderStats()
-     * - ship.getFleetCommander().getStats();
-     * - ship.getCaptain().getFleetCommanderStats();
-     * - ship.getCaptain().getStats();
-     * - Global.getSector().getPlayerStats();
-     *
-     * @param ship the ship from which to get stats
-     * @return a non-null instance of stats
-     */
-    private @NonNull MutableCharacterStatsAPI getNonNullStats(ShipAPI ship) {
-        MutableCharacterStatsAPI retVal = null;
-
-        MutableCharacterStatsAPI fallback1 = null;
-        MutableCharacterStatsAPI fallback2 = null;
-        MutableCharacterStatsAPI fallback3 = null;
-        MutableCharacterStatsAPI fallback4 = null;
-
-        if (ship.getFleetCommander() != null) {
-            fallback1 = ship.getFleetCommander().getFleetCommanderStats();
-            fallback2 = ship.getFleetCommander().getStats();
-        }
-
-        if (fallback1 != null) retVal = fallback1;
-        if (retVal != null) return retVal;
-
-        if (fallback2 != null) retVal = fallback2;
-        if (retVal != null) return retVal;
-
-        if (ship.getCaptain() != null) {
-            fallback3 = ship.getCaptain().getFleetCommanderStats();;
-            fallback4 = ship.getCaptain().getStats();
-        }
-
-        if (fallback3 != null) retVal = fallback3;
-        if (retVal != null) return retVal;
-
-        if (fallback4 != null) retVal = fallback4;
-        if (retVal != null) return retVal;
-
-        // Finally, if all of these failed, then fuck it and revert to using PlayerStats
-        return Global.getSector().getPlayerStats();
     }
 }
