@@ -41,6 +41,8 @@ public class VayraPersonBountyManager extends BaseEventManager {
 
     public transient boolean checkedForFuckedUpParticipants = false;
 
+    private transient final Object lock = new Object();
+
     public static JSONObject KadurBountyShit() throws IOException, JSONException {
         return Global.getSettings().getMergedJSONForMod(BOUNTY_DATA_PATH + "bounty_strings.json", MOD_ID);
     }
@@ -268,7 +270,7 @@ public class VayraPersonBountyManager extends BaseEventManager {
     }
 
     @Override
-    public void advance(float amount) {
+    public synchronized void advance(float amount) {
 
         if (JERK_KILL_WORDS.isEmpty()) {
             JERK_KILL_WORDS = loadFromBountyJSON("jerkKillWords");
@@ -349,19 +351,21 @@ public class VayraPersonBountyManager extends BaseEventManager {
     }
 
     @Override
-    public EveryFrameScript createEvent() {
+    public synchronized EveryFrameScript createEvent() {
 
         if (getInstance().getActiveCount() >= getInstance().getMaxConcurrent()) {
             log.info(String.format("Bounty hunting? Fuck off, we're full. [%s/%s]", VayraPersonBountyManager.getInstance().getActiveCount(), VayraPersonBountyManager.getInstance().getMaxConcurrent()));
             return null;
         }
 
-        VayraPersonBountyIntel intel = new VayraPersonBountyIntel();
-        if (intel.isDone()) {
-            intel = null;
-        }
+        synchronized (lock) {
+            VayraPersonBountyIntel intel = new VayraPersonBountyIntel();
+            if (intel.isDone()) {
+                intel = null;
+            }
 
-        return intel;
+            return intel;
+        }
     }
 
 }
