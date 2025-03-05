@@ -790,6 +790,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedBallisticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY));
             VayraDamagedBallistics.DISABLE_FOR_PLAYER = disableDamagedBallisticsForPlayer;
             VayraDamagedBallistics.DISABLE_FOR_ENEMY = disableDamagedBallisticsForEnemy;
+            double damagedBallisticsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_BALLISTICS_EFFECT1), VayraDamagedBallistics.DEFAULT_BALLISTIC_ROF_PENALTY);
+            double damagedBallisticsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_BALLISTICS_EFFECT2), VayraDamagedBallistics.DEFAULT_BALLISTIC_FLUX_PENALTY);
+            VayraDamagedBallistics.BALLISTIC_ROF_PENALTY = (float) damagedBallisticsEffect1;
+            VayraDamagedBallistics.BALLISTIC_FLUX_PENALTY = (float) damagedBallisticsEffect2;
 
             // damaged environment - Buckled Environmental Shielding
             boolean disableDamagedEnvironmentForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER));

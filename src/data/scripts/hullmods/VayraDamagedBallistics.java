@@ -15,8 +15,10 @@ public class VayraDamagedBallistics extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float BALLISTIC_ROF_PENALTY = 0.2f;
-    public static final float BALLISTIC_FLUX_PENALTY = 0.25f;
+    public static final float DEFAULT_BALLISTIC_ROF_PENALTY = 0.2f;
+    public static float BALLISTIC_ROF_PENALTY = DEFAULT_BALLISTIC_ROF_PENALTY;
+    public static final float DEFAULT_BALLISTIC_FLUX_PENALTY = 0.25f;
+    public static float BALLISTIC_FLUX_PENALTY = DEFAULT_BALLISTIC_FLUX_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
