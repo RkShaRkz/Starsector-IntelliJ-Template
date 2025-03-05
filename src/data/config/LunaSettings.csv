@@ -35,6 +35,11 @@ vayramerged_damagedEverything_effect3,Performance Irregularities D-Mod effect,Do
 vayramerged_DamagedFighterWeapons_header,Malformed Fighter Weapons / Damaged Fighter Weapons divider,Header,Malformed Fighter Weapons,,,,,D-Mods
 vayramerged_disableDamagedFighterWeapons_player,Disable Malformed Fighter Weapons D-Mod (for player),Boolean,false,,Should the [Malformed Fighter Weapons] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedFighterWeapons_enemy,Disable Malformed Fighter Weapons D-Mod (for enemy),Boolean,false,,Should the [Malformed Fighter Weapons] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedFighterWeapons_effect1,Malformed Fighter Weapons D-Mod effect,Double,0.2,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Ballistic Damage Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect2,Malformed Fighter Weapons D-Mod effect,Double,0.2,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Energy Damage Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect3,Malformed Fighter Weapons D-Mod effect,Double,0.2,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Missile Damage Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect4,Malformed Fighter Weapons D-Mod effect,Double,0.3,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Accuracy Penalty (default value 0.3),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect5,Malformed Fighter Weapons D-Mod effect,Double,0.6,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Recoil Penalty (default value 0.6),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedGunnery_header,Noncompliant Gunnery Core / Damaged Gunnery divider,Header,Noncompliant Gunnery Core,,,,,D-Mods
 vayramerged_disableDamagedGunnery_player,Disable Noncompliant Gunnery Core D-Mod (for player),Boolean,false,,Should the [Noncompliant Gunnery Core] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods

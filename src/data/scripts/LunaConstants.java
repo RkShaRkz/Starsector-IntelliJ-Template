@@ -37,6 +37,12 @@ public class LunaConstants {
 
     public final static String DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER = "vayramerged_disableDamagedFighterWeapons_player";
     public final static String DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY = "vayramerged_disableDamagedFighterWeapons_enemy";
+    public final static String DAMAGED_FIGHTER_WEAPONS_EFFECT1 = "vayramerged_damagedFighterWeapons_effect1";
+    public final static String DAMAGED_FIGHTER_WEAPONS_EFFECT2 = "vayramerged_damagedFighterWeapons_effect2";
+    public final static String DAMAGED_FIGHTER_WEAPONS_EFFECT3 = "vayramerged_damagedFighterWeapons_effect3";
+    public final static String DAMAGED_FIGHTER_WEAPONS_EFFECT4 = "vayramerged_damagedFighterWeapons_effect4";
+    public final static String DAMAGED_FIGHTER_WEAPONS_EFFECT5 = "vayramerged_damagedFighterWeapons_effect5";
+
 
     public final static String DISABLE_DAMAGED_GUNNERY_FOR_PLAYER = "vayramerged_disableDamagedGunnery_player";
     public final static String DISABLE_DAMAGED_GUNNERY_FOR_ENEMY = "vayramerged_disableDamagedGunnery_enemy";

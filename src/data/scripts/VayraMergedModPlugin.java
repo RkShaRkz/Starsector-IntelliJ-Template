@@ -822,6 +822,16 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedFighterWeaponsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY));
             VayraDamagedFighterWeapons.DISABLE_FOR_PLAYER = disableDamagedFighterWeaponsForPlayer;
             VayraDamagedFighterWeapons.DISABLE_FOR_ENEMY = disableDamagedFighterWeaponsForEnemy;
+            double damagedFighterWeaponsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT1), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_BALLISTIC_DAMAGE_PENALTY);
+            double damagedFighterWeaponsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT2), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_ENERGY_DAMAGE_PENALTY);
+            double damagedFighterWeaponsEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT3), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_MISSILE_DAMAGE_PENALTY);
+            double damagedFighterWeaponsEffect4 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT4), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_ACCURACY_PENALTY);
+            double damagedFighterWeaponsEffect5 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT5), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_RECOIL_PENALTY);
+            VayraDamagedFighterWeapons.FIGHTER_BALLISTIC_DAMAGE_PENALTY = (float) damagedFighterWeaponsEffect1;
+            VayraDamagedFighterWeapons.FIGHTER_ENERGY_DAMAGE_PENALTY = (float) damagedFighterWeaponsEffect2;
+            VayraDamagedFighterWeapons.FIGHTER_MISSILE_DAMAGE_PENALTY = (float) damagedFighterWeaponsEffect3;
+            VayraDamagedFighterWeapons.FIGHTER_ACCURACY_PENALTY = (float) damagedFighterWeaponsEffect4;
+            VayraDamagedFighterWeapons.FIGHTER_RECOIL_PENALTY = (float) damagedFighterWeaponsEffect5;
 
             // damaged gunnery - Noncompliant Gunnery Core
             boolean disableDamagedGunneryForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_GUNNERY_FOR_PLAYER));
