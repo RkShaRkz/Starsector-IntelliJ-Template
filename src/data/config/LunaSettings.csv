@@ -44,6 +44,9 @@ vayramerged_damagedFighterWeapons_effect5,Malformed Fighter Weapons D-Mod effect
 vayramerged_DamagedGunnery_header,Noncompliant Gunnery Core / Damaged Gunnery divider,Header,Noncompliant Gunnery Core,,,,,D-Mods
 vayramerged_disableDamagedGunnery_player,Disable Noncompliant Gunnery Core D-Mod (for player),Boolean,false,,Should the [Noncompliant Gunnery Core] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedGunnery_enemy,Disable Noncompliant Gunnery Core D-Mod (for enemy),Boolean,false,,Should the [Noncompliant Gunnery Core] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedGunnery_effect1,Noncompliant Gunnery Core D-Mod effect,Double,0.2,,[Noncompliant Gunnery Core] D-Mod's effect Autofire Accuracy Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedGunnery_effect2,Noncompliant Gunnery Core D-Mod effect,Double,0.1,,[Noncompliant Gunnery Core] D-Mod's effect Projectile Speed Penalty (default value 0.1),0.0,1.0,D-Mods
+vayramerged_damagedGunnery_effect3,Noncompliant Gunnery Core D-Mod effect,Double,0.5,,[Noncompliant Gunnery Core] D-Mod's effect Recoil Penalty (default value 0.5),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedLifeSupport_header,Impaired Life Support Systems / Damaged Life Support divider,Header,Impaired Life Support Systems,,,,,D-Mods
 vayramerged_disableDamagedLifeSupport_player,Disable Impaired Life Support Systems D-Mod (for player),Boolean,false,,Should the [Impaired Life Support Systems] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods

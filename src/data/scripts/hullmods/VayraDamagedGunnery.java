@@ -15,9 +15,14 @@ public class VayraDamagedGunnery extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float AUTOFIRE_ACCURACY_PENALTY = 0.2f;
-    public static final float PROJECTILE_SPEED_PENALTY = 0.1f;
-    public static final float RECOIL_PENALTY = 0.5f;
+    public static final float DEFAULT_AUTOFIRE_ACCURACY_PENALTY = 0.2f;
+    public static float AUTOFIRE_ACCURACY_PENALTY = DEFAULT_AUTOFIRE_ACCURACY_PENALTY;
+
+    public static final float DEFAULT_PROJECTILE_SPEED_PENALTY = 0.1f;
+    public static float PROJECTILE_SPEED_PENALTY = DEFAULT_PROJECTILE_SPEED_PENALTY;
+
+    public static final float DEFAULT_RECOIL_PENALTY = 0.5f;
+    public static float RECOIL_PENALTY = DEFAULT_RECOIL_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

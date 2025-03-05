@@ -838,6 +838,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedGunneryForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_GUNNERY_FOR_ENEMY));
             VayraDamagedGunnery.DISABLE_FOR_PLAYER = disableDamagedGunneryForPlayer;
             VayraDamagedGunnery.DISABLE_FOR_ENEMY = disableDamagedGunneryForEnemy;
+            double noncompliantGunneryCodeEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_GUNNERY_EFFECT1), VayraDamagedGunnery.DEFAULT_AUTOFIRE_ACCURACY_PENALTY);
+            double noncompliantGunneryCodeEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_GUNNERY_EFFECT2), VayraDamagedGunnery.DEFAULT_PROJECTILE_SPEED_PENALTY);
+            double noncompliantGunneryCodeEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_GUNNERY_EFFECT3), VayraDamagedGunnery.DEFAULT_RECOIL_PENALTY);
+            VayraDamagedGunnery.AUTOFIRE_ACCURACY_PENALTY = (float) noncompliantGunneryCodeEffect1;
+            VayraDamagedGunnery.PROJECTILE_SPEED_PENALTY = (float) noncompliantGunneryCodeEffect2;
+            VayraDamagedGunnery.RECOIL_PENALTY = (float) noncompliantGunneryCodeEffect3;
 
             // damaged life support - Impaired Life Support Systems
             boolean disableDamagedLifeSupportForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_LIFE_SUPPORT_FOR_PLAYER));
