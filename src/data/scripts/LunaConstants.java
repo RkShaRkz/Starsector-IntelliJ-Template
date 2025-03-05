@@ -16,6 +16,8 @@ public class LunaConstants {
 
     public final static String DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER = "vayramerged_disableDamagedAutomation_player";
     public final static String DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY = "vayramerged_disableDamagedAutomation_enemy";
+    public final static String DAMAGED_AUTOMATION_EFFECT1 = "vayramerged_damagedAutomation_effect1";
+    public final static String DAMAGED_AUTOMATION_EFFECT2 = "vayramerged_damagedAutomation_effect2";
 
     public final static String DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER = "vayramerged_disableDamagedBallistics_player";
     public final static String DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY = "vayramerged_disableDamagedBallistics_enemy";

@@ -15,8 +15,10 @@ public class VayraDamagedAutomation extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float CR_PENALTY = 10f;
-    public static final float MIN_CREW_PENALTY = 0.5f;
+    public static final float DEFAULT_CR_PENALTY = 10f;
+    public static float CR_PENALTY = DEFAULT_CR_PENALTY;
+    public static final float DEFAULT_MIN_CREW_PENALTY = 0.5f;
+    public static float MIN_CREW_PENALTY = DEFAULT_MIN_CREW_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

@@ -780,6 +780,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedAutomationForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY));
             VayraDamagedAutomation.DISABLE_FOR_PLAYER = disableDamagedAutomationForPlayer;
             VayraDamagedAutomation.DISABLE_FOR_ENEMY = disableDamagedAutomationForEnemy;
+            double damagedAutomationEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_AUTOMATION_EFFECT1), VayraDamagedAutomation.DEFAULT_CR_PENALTY);
+            double damagedAutomationEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_AUTOMATION_EFFECT2), VayraDamagedAutomation.DEFAULT_MIN_CREW_PENALTY);
+            VayraDamagedAutomation.CR_PENALTY = (float) damagedAutomationEffect1;
+            VayraDamagedAutomation.MIN_CREW_PENALTY = (float) damagedAutomationEffect2;
 
             // damaged ballistics - Irregular Feed Mechanisms
             boolean disableDamagedBallisticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER));
@@ -863,6 +867,17 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean retVal;
             if (object == null) {
                 retVal = false;
+            } else {
+                retVal = object;
+            }
+
+            return retVal;
+        }
+
+        private double safeUnboxing(Double object, double defaultValue) {
+            double retVal;
+            if (object == null) {
+                retVal = defaultValue;
             } else {
                 retVal = object;
             }
