@@ -810,6 +810,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedEverythingForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY));
             VayraDamagedEverything.DISABLE_FOR_PLAYER = disableDamagedEverythingForPlayer;
             VayraDamagedEverything.DISABLE_FOR_ENEMY = disableDamagedEverythingForEnemy;
+            double damagedEverythingEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_EVERYTHING_EFFECT1), VayraDamagedEverything.DEFAULT_CR_PENALTY);
+            double damagedEverythingEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_EVERYTHING_EFFECT2), VayraDamagedEverything.DEFAULT_WEAPON_MALFUNCTION_CHANCE);
+            double damagedEverythingEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_EVERYTHING_EFFECT3), VayraDamagedEverything.DEFAULT_ENGINE_MALFUNCTION_CHANCE);
+            VayraDamagedEverything.CR_PENALTY = (float) damagedEverythingEffect1;
+            VayraDamagedEverything.WEAPON_MALFUNCTION_CHANCE = (float) damagedEverythingEffect2;
+            VayraDamagedEverything.ENGINE_MALFUNCTION_CHANCE = (float) damagedEverythingEffect3;
 
             // damaged fighter weapons - Malformed Fighter Weapons
             boolean disableDamagedFighterWeaponsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER));

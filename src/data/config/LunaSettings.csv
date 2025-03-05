@@ -28,6 +28,9 @@ vayramerged_damagedEnvironment_effect2,Buckled Environmental Shielding D-Mod eff
 vayramerged_DamagedEverything_header,Performance Irregularities / Damaged Everything divider,Header,Performance Irregularities,,,,,D-Mods
 vayramerged_disableDamagedEverything_player,Disable Performance Irregularities D-Mod (for player),Boolean,false,,Should the [Performance Irregularities] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedEverything_enemy,Disable Performance Irregularities D-Mod (for enemy),Boolean,false,,Should the [Performance Irregularities] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedEverything_effect1,Performance Irregularities D-Mod effect,Double,10.0,,[Performance Irregularities] D-Mod's effect Max CR penalty (default value 10.0),0.0,100.0,D-Mods
+vayramerged_damagedEverything_effect2,Performance Irregularities D-Mod effect,Double,0.05,,[Performance Irregularities] D-Mod's effect Weapon Malfunction chance (default value 0.05),0.0,1.0,D-Mods
+vayramerged_damagedEverything_effect3,Performance Irregularities D-Mod effect,Double,0.05,,[Performance Irregularities] D-Mod's effect Engine Malfunction chance (default value 0.05),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedFighterWeapons_header,Malformed Fighter Weapons / Damaged Fighter Weapons divider,Header,Malformed Fighter Weapons,,,,,D-Mods
 vayramerged_disableDamagedFighterWeapons_player,Disable Malformed Fighter Weapons D-Mod (for player),Boolean,false,,Should the [Malformed Fighter Weapons] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods

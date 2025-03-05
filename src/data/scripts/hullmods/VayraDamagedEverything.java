@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
+import com.sun.javafx.beans.annotations.NonNull;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
 
@@ -15,8 +16,14 @@ public class VayraDamagedEverything extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float CR_PENALTY = 10f;
-    public static final float MALFUNCTION_CHANCE = 0.05f;
+    public static final float DEFAULT_CR_PENALTY = 10f;
+    public static float CR_PENALTY = DEFAULT_CR_PENALTY;
+
+    public static final float DEFAULT_WEAPON_MALFUNCTION_CHANCE = 0.05f;
+    public static float WEAPON_MALFUNCTION_CHANCE = DEFAULT_WEAPON_MALFUNCTION_CHANCE;
+
+    public static final float DEFAULT_ENGINE_MALFUNCTION_CHANCE = 0.05f;
+    public static float ENGINE_MALFUNCTION_CHANCE = DEFAULT_ENGINE_MALFUNCTION_CHANCE;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -32,11 +39,12 @@ public class VayraDamagedEverything extends BaseHullMod {
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
         float crPenalty = calculateCRMalus(stats.getVariant(), effect);
-        float malfunctionPenalty = calculateMalfunctionMalus(stats.getVariant(), effect);
+        float weaponMalfunctionPenalty = calculateMalfunctionMalus(stats.getVariant(), effect, MalfunctionType.WEAPON);
+        float engineMalfunctionPenalty = calculateMalfunctionMalus(stats.getVariant(), effect, MalfunctionType.ENGINE);
 
         stats.getMaxCombatReadiness().modifyFlat(id, -(crPenalty * 0.01f), "Performance irregularities");
-        stats.getWeaponMalfunctionChance().modifyFlat(id, malfunctionPenalty);
-        stats.getEngineMalfunctionChance().modifyFlat(id, malfunctionPenalty);
+        stats.getWeaponMalfunctionChance().modifyFlat(id, weaponMalfunctionPenalty);
+        stats.getEngineMalfunctionChance().modifyFlat(id, engineMalfunctionPenalty);
 
         CompromisedStructure.modifyCost(hullSize, stats, id);
     }
@@ -50,15 +58,19 @@ public class VayraDamagedEverything extends BaseHullMod {
             variant = ship.getVariant();
         }
         float crPenalty = calculateCRMalus(variant, effect);
-        float malfunctionPenalty = calculateMalfunctionMalus(variant, effect);
+        float weaponMalfunctionPenalty = calculateMalfunctionMalus(variant, effect, MalfunctionType.WEAPON);
+        float engineMalfunctionPenalty = calculateMalfunctionMalus(variant, effect, MalfunctionType.ENGINE);
 
         if (index == 0) {
             return Math.round(crPenalty) + "%";
         }
         if (index == 1) {
-            return Math.round(malfunctionPenalty * 100f) + "%";
+            return Math.round(weaponMalfunctionPenalty * 100f) + "%";
         }
-        if (index >= 2) {
+        if (index == 2) {
+            return Math.round(engineMalfunctionPenalty * 100f) + "%";
+        }
+        if (index >= 3) {
             return CompromisedStructure.getCostDescParam(index, 2);
         }
         return null;
@@ -90,9 +102,18 @@ public class VayraDamagedEverything extends BaseHullMod {
         return retVal;
     }
 
-    private float calculateMalfunctionMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateMalfunctionMalus(ShipVariantAPI variant, float baseEffect, @NonNull MalfunctionType type) {
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
-        float retVal = MALFUNCTION_CHANCE - MALFUNCTION_CHANCE * penaltyFactor;
+        float retVal;
+        switch(type) {
+            case ENGINE:
+                retVal = ENGINE_MALFUNCTION_CHANCE - ENGINE_MALFUNCTION_CHANCE * penaltyFactor;
+                break;
+            case WEAPON:
+                retVal = WEAPON_MALFUNCTION_CHANCE - WEAPON_MALFUNCTION_CHANCE * penaltyFactor;
+                break;
+            default: throw new IllegalStateException("add support for "+type+" malfunction type in VayraDamagedEverything !!!");
+        }
 
         /**
          * I'm not gonna bother doing the math for 5%
@@ -107,4 +128,6 @@ public class VayraDamagedEverything extends BaseHullMod {
 
         return retVal;
     }
+
+    private enum MalfunctionType{ WEAPON, ENGINE }
 }
