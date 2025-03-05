@@ -16,8 +16,8 @@ vayramerged_damagedAutomation_effect2,Inoperative Automated Systems D-Mod effect
 vayramerged_DamagedBallistics_header,Irregular Feed Mechanisms / Damaged Ballistics divider,Header,Irregular Feed Mechanisms,,,,,D-Mods
 vayramerged_disableDamagedBallistics_player,Disable Irregular Feed Mechanisms D-Mod (for player),Boolean,false,,Should the [Irregular Feed Mechanisms] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedBallistics_enemy,Disable Irregular Feed Mechanisms D-Mod (for enemy),Boolean,false,,Should the [Irregular Feed Mechanisms] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
-vayramerged_damagedBallistics_effect1,Irregular Feed Mechanisms D-Mod effect,Double,10,,[Irregular Feed Mechanisms] D-Mod's effect Ballistic Rate of Fire penalty (default value 0.2),0.0,1.0,D-Mods
-vayramerged_damagedBallistics_effect2,Irregular Feed Mechanisms D-Mod effect,Double,0.5,,[Irregular Feed Mechanisms] D-Mod's effect Ballistic Flux cost Penalty (default value 0.25),0.0,9.0,D-Mods
+vayramerged_damagedBallistics_effect1,Irregular Feed Mechanisms D-Mod effect,Double,0.2,,[Irregular Feed Mechanisms] D-Mod's effect Ballistic Rate of Fire penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedBallistics_effect2,Irregular Feed Mechanisms D-Mod effect,Double,0.25,,[Irregular Feed Mechanisms] D-Mod's effect Ballistic Flux cost Penalty (default value 0.25),0.0,9.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedEnvironment_header,Buckled Environmental Shielding / Damaged Environment divider,Header,Buckled Environmental Shielding,,,,,D-Mods
 vayramerged_disableDamagedEnvironment_player,Disable Buckled Environmental Shielding D-Mod (for player),Boolean,false,,Should the [Buckled Environmental Shielding] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
