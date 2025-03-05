@@ -26,6 +26,8 @@ public class LunaConstants {
 
     public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER = "vayramerged_disableDamagedEnvironment_player";
     public final static String DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY = "vayramerged_disableDamagedEnvironment_enemy";
+    public final static String DAMAGED_ENVIRONMENT_EFFECT1 = "vayramerged_damagedEnvironment_effect1";
+    public final static String DAMAGED_ENVIRONMENT_EFFECT2 = "vayramerged_damagedEnvironment_effect2";
 
     public final static String DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER = "vayramerged_disableDamagedEverything_player";
     public final static String DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY = "vayramerged_disableDamagedEverything_enemy";

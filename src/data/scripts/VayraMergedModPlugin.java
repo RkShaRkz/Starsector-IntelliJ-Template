@@ -800,6 +800,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedEnvironmentForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY));
             VayraDamagedEnvironment.DISABLE_FOR_PLAYER = disableDamagedEnvironmentForPlayer;
             VayraDamagedEnvironment.DISABLE_FOR_ENEMY = disableDamagedEnvironmentForEnemy;
+            double damagedEnvironmentEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_ENVIRONMENT_EFFECT1), VayraDamagedEnvironment.DEFAULT_EMP_DAMAGE_PENALTY);
+            double damagedEnvironmentEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_ENVIRONMENT_EFFECT2), VayraDamagedEnvironment.DEFAULT_CORONA_DAMAGE_PENALTY);
+            VayraDamagedEnvironment.EMP_DAMAGE_PENALTY = (float) damagedEnvironmentEffect1;
+            VayraDamagedEnvironment.CORONA_DAMAGE_PENALTY = (float) damagedEnvironmentEffect2;
 
             // damaged everything - Performance Irregularities
             boolean disableDamagedEverythingForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER));

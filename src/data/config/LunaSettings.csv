@@ -22,6 +22,8 @@ vayramerged_damagedBallistics_effect2,Irregular Feed Mechanisms D-Mod effect,Dou
 vayramerged_DamagedEnvironment_header,Buckled Environmental Shielding / Damaged Environment divider,Header,Buckled Environmental Shielding,,,,,D-Mods
 vayramerged_disableDamagedEnvironment_player,Disable Buckled Environmental Shielding D-Mod (for player),Boolean,false,,Should the [Buckled Environmental Shielding] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedEnvironment_enemy,Disable Buckled Environmental Shielding D-Mod (for enemy),Boolean,false,,Should the [Buckled Environmental Shielding] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedEnvironment_effect1,Buckled Environmental Shielding D-Mod effect,Double,0.5,,[Buckled Environmental Shielding] D-Mod's effect EMP damage penalty (default value 0.5),0.0,4.0,D-Mods
+vayramerged_damagedEnvironment_effect2,Buckled Environmental Shielding D-Mod effect,Double,0.5,,[Buckled Environmental Shielding] D-Mod's effect Corona/terrain damage penalty (default value 0.5),0.0,4.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedEverything_header,Performance Irregularities / Damaged Everything divider,Header,Performance Irregularities,,,,,D-Mods
 vayramerged_disableDamagedEverything_player,Disable Performance Irregularities D-Mod (for player),Boolean,false,,Should the [Performance Irregularities] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
