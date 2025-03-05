@@ -850,6 +850,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedLifeSupportForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_LIFE_SUPPORT_FOR_ENEMY));
             VayraDamagedLifeSupport.DISABLE_FOR_PLAYER = disableDamagedLifeSupportForPlayer;
             VayraDamagedLifeSupport.DISABLE_FOR_ENEMY = disableDamagedLifeSupportForEnemy;
+            double damagedLifeSupportEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_LIFE_SUPPORT_EFFECT1), VayraDamagedLifeSupport.DEFAULT_CR_PENALTY);
+            double damagedLifeSupportEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_LIFE_SUPPORT_EFFECT2), VayraDamagedLifeSupport.DEFAULT_CREW_CAPACITY_PENALTY);
+            VayraDamagedLifeSupport.CR_PENALTY = (float) damagedLifeSupportEffect1;
+            VayraDamagedLifeSupport.CREW_CAPACITY_PENALTY = (float) damagedLifeSupportEffect2;
 
             // damaged missiles - Flawed Missile Racks
             boolean disableDamagedMissilesForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_MISSILES_FOR_PLAYER));

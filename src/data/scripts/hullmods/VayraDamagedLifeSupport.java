@@ -15,8 +15,11 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float CR_PENALTY = 15f;
-    public static final float CREW_CAPACITY_PENALTY = 0.75f;
+    public static final float DEFAULT_CR_PENALTY = 15f;
+    public static float CR_PENALTY = DEFAULT_CR_PENALTY;
+
+    public static final float DEFAULT_CREW_CAPACITY_PENALTY = 0.75f;
+    public static float CREW_CAPACITY_PENALTY = DEFAULT_CREW_CAPACITY_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

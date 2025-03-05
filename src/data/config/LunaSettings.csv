@@ -51,6 +51,8 @@ vayramerged_damagedGunnery_effect3,Noncompliant Gunnery Core D-Mod effect,Double
 vayramerged_DamagedLifeSupport_header,Impaired Life Support Systems / Damaged Life Support divider,Header,Impaired Life Support Systems,,,,,D-Mods
 vayramerged_disableDamagedLifeSupport_player,Disable Impaired Life Support Systems D-Mod (for player),Boolean,false,,Should the [Impaired Life Support Systems] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedLifeSupport_enemy,Disable Impaired Life Support Systems D-Mod (for enemy),Boolean,false,,Should the [Impaired Life Support Systems] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedLifeSupport_effect1,Impaired Life Support Systems D-Mod effect,Double,15.0,,[Impaired Life Support Systems] D-Mod's effect Max CR Penalty (default value 15.0),0.0,100.0,D-Mods
+vayramerged_damagedLifeSupport_effect2,Impaired Life Support Systems D-Mod effect,Double,0.75,,[Impaired Life Support Systems] D-Mod's effect Max Crew (Capacity) Penalty (default value 0.75),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedMissiles_header,Flawed Missile Racks / Damaged Missiles divider,Header,Flawed Missile Racks,,,,,D-Mods
 vayramerged_disableDamagedMissiles_player,Disable Flawed Missile Racks D-Mod (for player),Boolean,false,,Should the [Flawed Missile Racks] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
