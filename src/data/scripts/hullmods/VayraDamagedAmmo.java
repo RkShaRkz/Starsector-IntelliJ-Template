@@ -14,7 +14,8 @@ public class VayraDamagedAmmo extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final int FRAGMENTATION_CHANCE = 50;
+    public static final int DEFAULT_FRAGMENTATION_CHANCE = 50;
+    public static int FRAGMENTATION_CHANCE = DEFAULT_FRAGMENTATION_CHANCE;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

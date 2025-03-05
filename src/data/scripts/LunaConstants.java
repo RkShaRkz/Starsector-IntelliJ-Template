@@ -12,6 +12,7 @@ public class LunaConstants {
     // dmod settings
     public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";
     public final static String DISABLE_DAMAGED_AMMO_FOR_ENEMY = "vayramerged_disableDamagedAmmo_enemy";
+    public final static String DAMAGED_AMMO_EFFECT = "vayramerged_damagedAmmo_effect1";
 
     public final static String DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER = "vayramerged_disableDamagedAutomation_player";
     public final static String DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY = "vayramerged_disableDamagedAutomation_enemy";

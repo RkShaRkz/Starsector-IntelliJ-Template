@@ -5,6 +5,7 @@ vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling mar
 vayramerged_DamagedAmmo_header,Malfunctioning Ammo Forge / Damaged Ammo divider,Header,Malfunctioning Ammo Forge,,,,,D-Mods
 vayramerged_disableDamagedAmmo_player,Disable Malfunctioning Ammo Forge D-Mod (for player),Boolean,false,,Should the [Malfunctioning Ammo Forge] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedAmmo_enemy,Disable Malfunctioning Ammo Forge D-Mod (for enemy),Boolean,false,,Should the [Malfunctioning Ammo Forge] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedAmmo_effect1,Malfunctioning Ammo Forge D-Mod effect,Int,50,,[Malfunctioning Ammo Forge] D-Mod's effect chance to convert damage type to Fragmentation (default value 50),0,100,D-Mods
 ,,,,,,,,
 vayramerged_DamagedAutomation_header,Inoperative Automated Systems / Damaged Automation divider,Header,Inoperative Automated Systems,,,,,D-Mods
 vayramerged_disableDamagedAutomation_player,Disable Inoperative Automated Systems D-Mod (for player),Boolean,false,,Should the [Inoperative Automated Systems] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods

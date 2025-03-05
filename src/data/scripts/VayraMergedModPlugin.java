@@ -772,6 +772,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AMMO_FOR_ENEMY));
             VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;
             VayraDamagedAmmo.DISABLE_FOR_ENEMY = disableDamagedAmmoForEnemy;
+            int damagedAmmoEffect = safeUnboxing(LunaSettings.getInt(MOD_ID, DAMAGED_AMMO_EFFECT), VayraDamagedAmmo.DEFAULT_FRAGMENTATION_CHANCE);
+            VayraDamagedAmmo.FRAGMENTATION_CHANCE = damagedAmmoEffect;
 
             // damaged automation - Inoperative Automated Systems
             boolean disableDamagedAutomationForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER));
@@ -846,10 +848,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             VayraLessIllAdvised.DISABLE_FOR_ENEMY = disableLessIllAdvisedForEnemy;
         }
 
-        private int safeUnboxing(Integer object) {
+        private int safeUnboxing(Integer object, int defaultValue) {
             int retVal;
             if (object == null) {
-                retVal = 0;
+                retVal = defaultValue;
             } else {
                 retVal = object;
             }
