@@ -64,6 +64,8 @@ vayramerged_damagedMissiles_effect3,Flawed Missile Racks D-Mod effect,Double,0.2
 vayramerged_DamagedOptics_header,Distorted Optics / Damaged Optics divider,Header,Distorted Optics,,,,,D-Mods
 vayramerged_disableDamagedOptics_player,Disable Distorted Optics D-Mod (for player),Boolean,false,,Should the [Distorted Optics] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedOptics_enemy,Disable Distorted Optics D-Mod (for enemy),Boolean,false,,Should the [Distorted Optics] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedOptics_effect1,Distorted Optics D-Mod effect,Double,0.15,,[Distorted Optics] D-Mod's effect Beam Range Penalty (default value 0.15),0.0,1.0,D-Mods
+vayramerged_damagedOptics_effect2,Distorted Optics D-Mod effect,Double,5.0,,[Distorted Optics] D-Mod's effect Beam Waver Penalty (default value 5.0),0.0,180.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedShields_header,Destabilized Shield Generator / Damaged Shields divider,Header,Destabilized Shield Generator,,,,,D-Mods
 vayramerged_disableDamagedShields_player,Disable Destabilized Shield Generator D-Mod (for player),Boolean,false,,Should the [Destabilized Shield Generator] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods

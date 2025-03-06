@@ -15,8 +15,11 @@ public class VayraDamagedOptics extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float BEAM_RANGE_PENALTY = 0.15f;
-    public static final float BEAM_WAVER = 5f;
+    public static final float DEFAULT_BEAM_RANGE_PENALTY = 0.15f;
+    public static float BEAM_RANGE_PENALTY = DEFAULT_BEAM_RANGE_PENALTY;
+
+    public static final float DEFAULT_BEAM_WAVER = 5f;
+    public static float BEAM_WAVER = DEFAULT_BEAM_WAVER;
 
 
     @Override

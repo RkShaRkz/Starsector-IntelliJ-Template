@@ -872,6 +872,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
             VayraDamagedOptics.DISABLE_FOR_PLAYER = disableDamagedOpticsForPlayer;
             VayraDamagedOptics.DISABLE_FOR_ENEMY = disableDamagedOpticsForEnemy;
+            double damagedOpticsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_OPTICS_EFFECT1), VayraDamagedOptics.DEFAULT_BEAM_RANGE_PENALTY);
+            double damagedOpticsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_OPTICS_EFFECT2), VayraDamagedOptics.DEFAULT_BEAM_WAVER);
+            VayraDamagedOptics.BEAM_RANGE_PENALTY = (float) damagedOpticsEffect1;
+            VayraDamagedOptics.BEAM_WAVER = (float) damagedOpticsEffect2;
 
             // damaged shields - Destabilized Shield Generator
             boolean disableDamagedShieldsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_SHIELDS_FOR_PLAYER));
