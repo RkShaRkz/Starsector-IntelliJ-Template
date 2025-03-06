@@ -68,6 +68,8 @@ public class LunaConstants {
 
     public final static String DISABLE_DAMAGED_SHIELDS_FOR_PLAYER = "vayramerged_disableDamagedShields_player";
     public final static String DISABLE_DAMAGED_SHIELDS_FOR_ENEMY = "vayramerged_disableDamagedShields_enemy";
+    public final static String DAMAGED_SHIELDS_EFFECT1 = "vayramerged_damagedShields_effect1";
+    public final static String DAMAGED_SHIELDS_EFFECT2 = "vayramerged_damagedShields_effect2";
 
     public final static String DISABLE_DAMAGED_TURRETS_FOR_PLAYER = "vayramerged_disableDamagedTurrets_player";
     public final static String DISABLE_DAMAGED_TURRETS_FOR_ENEMY = "vayramerged_disableDamagedTurrets_enemy";

@@ -15,10 +15,11 @@ public class VayraDamagedShields extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float SHIELD_UPKEEP_MULT = 1.5f;
-    public static final float SHIELD_UPKEEP_PENALTY = 0.5f;
-    public static final float SHIELD_DAMAGE_MULT = 1.1f;
-    public static final float SHIELD_DAMAGE_PENALTY = 0.1f;
+    public static final float DEFAULT_SHIELD_UPKEEP_PENALTY = 0.5f;
+    public static float SHIELD_UPKEEP_PENALTY = DEFAULT_SHIELD_UPKEEP_PENALTY;
+
+    public static final float DEFAULT_SHIELD_DAMAGE_PENALTY = 0.1f;
+    public static float SHIELD_DAMAGE_PENALTY = DEFAULT_SHIELD_DAMAGE_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

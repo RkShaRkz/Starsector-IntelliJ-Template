@@ -882,6 +882,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedShieldsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_SHIELDS_FOR_ENEMY));
             VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedShieldsForPlayer;
             VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedShieldsForEnemy;
+            double damagedShieldsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_SHIELDS_EFFECT1), VayraDamagedShields.DEFAULT_SHIELD_UPKEEP_PENALTY);
+            double damagedShieldsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_SHIELDS_EFFECT2), VayraDamagedShields.DEFAULT_SHIELD_DAMAGE_PENALTY);
+            VayraDamagedShields.SHIELD_UPKEEP_PENALTY = (float) damagedShieldsEffect1;
+            VayraDamagedShields.SHIELD_DAMAGE_PENALTY = (float) damagedShieldsEffect2;
 
             // damaged turrets - Misshapen Turret Gyros
             boolean disableDamagedTurretsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_PLAYER));

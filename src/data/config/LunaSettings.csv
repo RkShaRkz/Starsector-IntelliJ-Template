@@ -70,6 +70,8 @@ vayramerged_damagedOptics_effect2,Distorted Optics D-Mod effect,Double,5.0,,[Dis
 vayramerged_DamagedShields_header,Destabilized Shield Generator / Damaged Shields divider,Header,Destabilized Shield Generator,,,,,D-Mods
 vayramerged_disableDamagedShields_player,Disable Destabilized Shield Generator D-Mod (for player),Boolean,false,,Should the [Destabilized Shield Generator] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedShields_enemy,Disable Destabilized Shield Generator D-Mod (for enemy),Boolean,false,,Should the [Destabilized Shield Generator] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedShields_effect1,Destabilized Shield Generator D-Mod effect,Double,0.5,,[Destabilized Shield Generator] D-Mod's effect Shield Upkeep Penalty (default value 0.5),0.0,9.0,D-Mods
+vayramerged_damagedShields_effect2,Destabilized Shield Generator D-Mod effect,Double,0.1,,[Destabilized Shield Generator] D-Mod's effect Shield Damage Penalty (default value 0.1),0.0,9.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedTurrets_header,Misshapen Turret Gyros / Damaged Turrets divider,Header,Misshapen Turret Gyros,,,,,D-Mods
 vayramerged_disableDamagedTurrets_player,Disable Misshapen Turret Gyros D-Mod (for player),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
