@@ -15,9 +15,14 @@ public class VayraDamagedMissiles extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float MISSILE_AMMO_PENALTY = 0.3f;
-    public static final float MISSILE_ROF_PENALTY = 0.25f;
-    public static final float MISSILE_GUIDANCE_PENALTY = 0.2f;
+    public static final float DEFAULT_MISSILE_AMMO_PENALTY = 0.3f;
+    public static float MISSILE_AMMO_PENALTY = DEFAULT_MISSILE_AMMO_PENALTY;
+
+    public static final float DEFAULT_MISSILE_ROF_PENALTY = 0.25f;
+    public static float MISSILE_ROF_PENALTY = DEFAULT_MISSILE_ROF_PENALTY;
+
+    public static final float DEFAULT_MISSILE_GUIDANCE_PENALTY = 0.2f;
+    public static float MISSILE_GUIDANCE_PENALTY = DEFAULT_MISSILE_GUIDANCE_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

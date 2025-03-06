@@ -860,6 +860,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedMissilesForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_MISSILES_FOR_ENEMY));
             VayraDamagedMissiles.DISABLE_FOR_PLAYER = disableDamagedMissilesForPlayer;
             VayraDamagedMissiles.DISABLE_FOR_ENEMY = disableDamagedMissilesForEnemy;
+            double damagedMissilesEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_MISSILES_EFFECT1), VayraDamagedMissiles.DEFAULT_MISSILE_AMMO_PENALTY);
+            double damagedMissilesEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_MISSILES_EFFECT2), VayraDamagedMissiles.DEFAULT_MISSILE_ROF_PENALTY);
+            double damagedMissilesEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_MISSILES_EFFECT3), VayraDamagedMissiles.DEFAULT_MISSILE_GUIDANCE_PENALTY);
+            VayraDamagedMissiles.MISSILE_AMMO_PENALTY = (float) damagedMissilesEffect1;
+            VayraDamagedMissiles.MISSILE_ROF_PENALTY = (float) damagedMissilesEffect2;
+            VayraDamagedMissiles.MISSILE_GUIDANCE_PENALTY = (float) damagedMissilesEffect3;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
