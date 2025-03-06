@@ -76,6 +76,9 @@ vayramerged_damagedShields_effect2,Destabilized Shield Generator D-Mod effect,Do
 vayramerged_DamagedTurrets_header,Misshapen Turret Gyros / Damaged Turrets divider,Header,Misshapen Turret Gyros,,,,,D-Mods
 vayramerged_disableDamagedTurrets_player,Disable Misshapen Turret Gyros D-Mod (for player),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedTurrets_enemy,Disable Misshapen Turret Gyros D-Mod (for enemy),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedTurrets_effect1,Misshapen Turret Gyros D-Mod effect,Double,0.15,,[Misshapen Turret Gyros] D-Mod's effect Weapon Turn Rate Penalty (default value 0.15),0.0,1.0,D-Mods
+vayramerged_damagedTurrets_effect2,Misshapen Turret Gyros D-Mod effect,Double,0.15,,[Misshapen Turret Gyros] D-Mod's effect Weapon Health Penalty (default value 0.15),0.0,1.0,D-Mods
+vayramerged_damagedTurrets_effect3,Misshapen Turret Gyros D-Mod effect,Double,0.05,,[Misshapen Turret Gyros] D-Mod's effect Weapon Malfunction chance (default value 0.05),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_LessIllAdvised_header,Less Ill-Advised Modifications divider,Header,Less Ill-Advised Modifications,,,,,D-Mods
 vayramerged_disableLessIllAdvised_player,Disable Less Ill-Advised Modifications D-Mod (for player),Boolean,false,,Should the [Less Ill-Advised Modifications] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods

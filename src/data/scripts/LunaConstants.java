@@ -73,6 +73,9 @@ public class LunaConstants {
 
     public final static String DISABLE_DAMAGED_TURRETS_FOR_PLAYER = "vayramerged_disableDamagedTurrets_player";
     public final static String DISABLE_DAMAGED_TURRETS_FOR_ENEMY = "vayramerged_disableDamagedTurrets_enemy";
+    public final static String DAMAGED_TURRETS_EFFECT1 = "vayramerged_damagedTurrets_effect1";
+    public final static String DAMAGED_TURRETS_EFFECT2 = "vayramerged_damagedTurrets_effect2";
+    public final static String DAMAGED_TURRETS_EFFECT3 = "vayramerged_damagedTurrets_effect3";
 
     public final static String DISABLE_LESS_ILL_ADVISED_FOR_PLAYER = "vayramerged_disableLessIllAdvised_player";
     public final static String DISABLE_LESS_ILL_ADVISED_FOR_ENEMY = "vayramerged_disableLessIllAdvised_enemy";

@@ -15,9 +15,14 @@ public class VayraDamagedTurrets extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float WEAPON_SPEED_PENALTY = 0.15f;
-    public static final float WEAPON_HP_PENALTY = 0.15f;
-    public static final float WEAPON_MALFUNCTION_PENALTY = 0.05f;
+    public static final float DEFAULT_WEAPON_SPEED_PENALTY = 0.15f;
+    public static float WEAPON_SPEED_PENALTY = DEFAULT_WEAPON_SPEED_PENALTY;
+
+    public static final float DEFAULT_WEAPON_HP_PENALTY = 0.15f;
+    public static float WEAPON_HP_PENALTY = DEFAULT_WEAPON_HP_PENALTY;
+
+    public static final float DEFAULT_WEAPON_MALFUNCTION_PENALTY = 0.05f;
+    public static float WEAPON_MALFUNCTION_PENALTY = DEFAULT_WEAPON_MALFUNCTION_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {

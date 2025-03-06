@@ -892,6 +892,12 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedTurretsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_ENEMY));
             VayraDamagedTurrets.DISABLE_FOR_PLAYER = disableDamagedTurretsForPlayer;
             VayraDamagedTurrets.DISABLE_FOR_ENEMY = disableDamagedTurretsForEnemy;
+            double damagedTurretsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_TURRETS_EFFECT1), VayraDamagedTurrets.DEFAULT_WEAPON_SPEED_PENALTY);
+            double damagedTurretsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_TURRETS_EFFECT2), VayraDamagedTurrets.DEFAULT_WEAPON_HP_PENALTY);
+            double damagedTurretsEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_TURRETS_EFFECT3), VayraDamagedTurrets.DEFAULT_WEAPON_MALFUNCTION_PENALTY);
+            VayraDamagedTurrets.WEAPON_SPEED_PENALTY = (float) damagedTurretsEffect1;
+            VayraDamagedTurrets.WEAPON_HP_PENALTY = (float) damagedTurretsEffect2;
+            VayraDamagedTurrets.WEAPON_MALFUNCTION_PENALTY = (float) damagedTurretsEffect3;
 
             // Less Ill-Advised Modifications
             boolean disableLessIllAdvisedForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_LESS_ILL_ADVISED_FOR_PLAYER));
