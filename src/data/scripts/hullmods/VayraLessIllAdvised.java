@@ -68,6 +68,8 @@ public class VayraLessIllAdvised extends BaseHullMod {
     }
 
     private float calculateWeaponMalfunctionMalus(ShipVariantAPI variant, float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = WEAPON_MALFUNCTION_PENALTY - WEAPON_MALFUNCTION_PENALTY * penaltyFactor;
         /**
@@ -82,13 +84,6 @@ public class VayraLessIllAdvised extends BaseHullMod {
          *
          * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
@@ -103,6 +98,11 @@ public class VayraLessIllAdvised extends BaseHullMod {
     }
 
     private float calculateTurnRateBonus(ShipVariantAPI variant, float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5
+        // We should leave the doubling of bonuses if we have rugged
+        // so they remain consistent across having and not having rugged, but should get rid of halving for penalties
+        // because that just ends up reducing them to quarter instead of just being half
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = WEAPON_TURN_RATE_BONUS - WEAPON_TURN_RATE_BONUS * penaltyFactor;
         /**
@@ -121,7 +121,9 @@ public class VayraLessIllAdvised extends BaseHullMod {
             boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
 
             if (hasRugged) {
-                retVal = retVal * 2;
+                // Multiplying by 2 makes it be the same as for other non-rugged ships
+                // so let's multiply by 4 to make bonuses twice as good, while the penalties get halved
+                retVal = retVal * 4;
             }
         }
 
@@ -138,6 +140,11 @@ public class VayraLessIllAdvised extends BaseHullMod {
     }
 
     private float calculateRoFBonus(ShipVariantAPI variant, float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5
+        // We should leave the doubling of bonuses if we have rugged
+        // so they remain consistent across having and not having rugged, but should get rid of halving for penalties
+        // because that just ends up reducing them to quarter instead of just being half
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = WEAPON_RATE_OF_FIRE_BONUS - WEAPON_RATE_OF_FIRE_BONUS * penaltyFactor;
         /**
@@ -156,7 +163,9 @@ public class VayraLessIllAdvised extends BaseHullMod {
             boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
 
             if (hasRugged) {
-                retVal = retVal * 2;
+                // Multiplying by 2 makes it be the same as for other non-rugged ships
+                // so let's multiply by 4 to make bonuses twice as good, while the penalties get halved
+                retVal = retVal * 4;
             }
         }
 
