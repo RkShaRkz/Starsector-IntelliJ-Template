@@ -7,6 +7,7 @@ import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
+import com.sun.javafx.beans.annotations.NonNull;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
 
@@ -15,7 +16,10 @@ public class VayraDamagedEnvironment extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float DAMAGE_PENALTY = 0.5f;
+    public static final float DEFAULT_EMP_DAMAGE_PENALTY = 0.5f;
+    public static float EMP_DAMAGE_PENALTY = DEFAULT_EMP_DAMAGE_PENALTY;
+    public static final float DEFAULT_CORONA_DAMAGE_PENALTY = 0.5f;
+    public static float CORONA_DAMAGE_PENALTY = DEFAULT_CORONA_DAMAGE_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -30,10 +34,11 @@ public class VayraDamagedEnvironment extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float damageMult = calculateDamageMultiplier(stats.getVariant(), effect);
+        float empDamageMult = calculateDamageMultiplier(effect, DamageMultiplierType.EMP);
+        float coronaDamageMult = calculateDamageMultiplier(effect, DamageMultiplierType.CORONA);
 
-        stats.getEmpDamageTakenMult().modifyMult(id, damageMult);
-        stats.getDynamic().getStat(Stats.CORONA_EFFECT_MULT).modifyMult(id, damageMult);
+        stats.getEmpDamageTakenMult().modifyMult(id, empDamageMult);
+        stats.getDynamic().getStat(Stats.CORONA_EFFECT_MULT).modifyMult(id, coronaDamageMult);
 
         CompromisedStructure.modifyCost(hullSize, stats, id);
     }
@@ -41,35 +46,46 @@ public class VayraDamagedEnvironment extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
-        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-            variant = ship.getVariant();
         }
-        float damageMalus = calculateDamageMalus(variant, effect);
+        float empDamageMalus = calculateDamageMalus(effect, DamageMultiplierType.EMP);
+        float coronaDamageMalus = calculateDamageMalus(effect, DamageMultiplierType.CORONA);
 
         if (index == 0) {
-            return Math.round(damageMalus * 100f) + "%";
+            return Math.round(empDamageMalus * 100f) + "%";
         }
-        if (index >= 1) {
+        if (index == 1) {
+            return Math.round(coronaDamageMalus * 100f) + "%";
+        }
+        if (index >= 2) {
             return CompromisedStructure.getCostDescParam(index, 1);
         }
         return null;
     }
 
-    private float calculateDamageMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateDamageMultiplier(float baseEffect, @NonNull DamageMultiplierType type) {
         // Basically, damage multiplier is going to be 1 + DamageMalus
         float retVal;
-        float malus = calculateDamageMalus(variant, baseEffect);
+        float malus = calculateDamageMalus(baseEffect, type);
         retVal = 1f + malus;
 
         return retVal;
     }
 
-    private float calculateDamageMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateDamageMalus(float baseEffect, @NonNull DamageMultiplierType type) {
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
-        float retVal = DAMAGE_PENALTY - DAMAGE_PENALTY * penaltyFactor;
-        /**
+        float retVal;
+        switch(type) {
+            case EMP:
+                retVal = EMP_DAMAGE_PENALTY - EMP_DAMAGE_PENALTY * penaltyFactor;
+                break;
+            case CORONA:
+                retVal = CORONA_DAMAGE_PENALTY - CORONA_DAMAGE_PENALTY * penaltyFactor;
+                break;
+            default: throw new IllegalArgumentException("add support for "+type+" environment damage type in VayraDamagedEnvironment !!!");
+        }
+        /*
          * will produce 0.5 for 100% dmod effect mult
          * 0.5 - 0.5 * (0) = 0.5
          * will produce 0.25 for 50% dmod effect mult
@@ -78,17 +94,10 @@ public class VayraDamagedEnvironment extends BaseHullMod {
          * 0.5 - 0.5*(-1) = 1.0
          * will produce 1.5 for 300%
          * 0.5 - 0.5*-2 = 1.5
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
+
+    private enum DamageMultiplierType{ EMP, CORONA }
 }

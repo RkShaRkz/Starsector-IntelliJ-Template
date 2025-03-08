@@ -4,7 +4,6 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
@@ -15,10 +14,11 @@ public class VayraDamagedShields extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float SHIELD_UPKEEP_MULT = 1.5f;
-    public static final float SHIELD_UPKEEP_PENALTY = 0.5f;
-    public static final float SHIELD_DAMAGE_MULT = 1.1f;
-    public static final float SHIELD_DAMAGE_PENALTY = 0.1f;
+    public static final float DEFAULT_SHIELD_UPKEEP_PENALTY = 0.5f;
+    public static float SHIELD_UPKEEP_PENALTY = DEFAULT_SHIELD_UPKEEP_PENALTY;
+
+    public static final float DEFAULT_SHIELD_DAMAGE_PENALTY = 0.1f;
+    public static float SHIELD_DAMAGE_PENALTY = DEFAULT_SHIELD_DAMAGE_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -33,8 +33,8 @@ public class VayraDamagedShields extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float upkeepMult = calculateShieldUpkeepMultiplier(stats.getVariant(), effect);
-        float damageMult = calculateShieldDamageMultiplier(stats.getVariant(), effect);
+        float upkeepMult = calculateShieldUpkeepMultiplier(effect);
+        float damageMult = calculateShieldDamageMultiplier(effect);
 
         stats.getShieldUpkeepMult().modifyMult(id, upkeepMult);
         stats.getShieldDamageTakenMult().modifyMult(id, damageMult);
@@ -45,13 +45,11 @@ public class VayraDamagedShields extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
-        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-            variant = ship.getVariant();
         }
-        float upkeepMalus = calculateShieldUpkeepMalus(variant, effect);
-        float damageMalus = calculateShieldDamageMalus(variant, effect);
+        float upkeepMalus = calculateShieldUpkeepMalus(effect);
+        float damageMalus = calculateShieldDamageMalus(effect);
 
         if (index == 0) {
             return Math.round(upkeepMalus * 100f) + "%";
@@ -65,19 +63,21 @@ public class VayraDamagedShields extends BaseHullMod {
         return null;
     }
 
-    private float calculateShieldUpkeepMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateShieldUpkeepMultiplier(float baseEffect) {
         // Basically, shield upkeep multiplier is going to be 1 + ShieldUpkeepMalus
         float retVal;
-        float malus = calculateShieldUpkeepMalus(variant, baseEffect);
+        float malus = calculateShieldUpkeepMalus(baseEffect);
         retVal = 1f + malus;
 
         return retVal;
     }
 
-    private float calculateShieldUpkeepMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateShieldUpkeepMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = SHIELD_UPKEEP_PENALTY - SHIELD_UPKEEP_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.5 for 100% dmod effect mult
          * 0.5 - 0.5 * (0) = 0.5
          * will produce 0.25 for 50% dmod effect mult
@@ -86,33 +86,26 @@ public class VayraDamagedShields extends BaseHullMod {
          * 0.5 - 0.5*(-1) = 1.0
          * will produce 1.5 for 300%
          * 0.5 - 0.5*-2 = 1.5
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
 
-    private float calculateShieldDamageMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateShieldDamageMultiplier(float baseEffect) {
         // Basically, shield damage multiplier is going to be 1 + ShieldDamageMalus
         float retVal;
-        float malus = calculateShieldDamageMalus(variant, baseEffect);
+        float malus = calculateShieldDamageMalus(baseEffect);
         retVal = 1f + malus;
 
         return retVal;
     }
 
-    private float calculateShieldDamageMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateShieldDamageMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = SHIELD_DAMAGE_PENALTY - SHIELD_DAMAGE_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.1 for 100% dmod effect mult
          * 0.1 - 0.1 * (0) = 0.1
          * will produce 0.05 for 50% dmod effect mult
@@ -121,16 +114,7 @@ public class VayraDamagedShields extends BaseHullMod {
          * 0.1 - 0.1*(-1) = 0.2
          * will produce 0.3 for 300%
          * 0.1 - 0.1*-2 = 0.3
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }

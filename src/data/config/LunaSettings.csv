@@ -5,52 +5,87 @@ vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling mar
 vayramerged_DamagedAmmo_header,Malfunctioning Ammo Forge / Damaged Ammo divider,Header,Malfunctioning Ammo Forge,,,,,D-Mods
 vayramerged_disableDamagedAmmo_player,Disable Malfunctioning Ammo Forge D-Mod (for player),Boolean,false,,Should the [Malfunctioning Ammo Forge] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedAmmo_enemy,Disable Malfunctioning Ammo Forge D-Mod (for enemy),Boolean,false,,Should the [Malfunctioning Ammo Forge] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedAmmo_effect1,Malfunctioning Ammo Forge D-Mod effect,Int,50,,[Malfunctioning Ammo Forge] D-Mod's effect chance to convert damage type to Fragmentation (default value 50),0,100,D-Mods
 ,,,,,,,,
 vayramerged_DamagedAutomation_header,Inoperative Automated Systems / Damaged Automation divider,Header,Inoperative Automated Systems,,,,,D-Mods
 vayramerged_disableDamagedAutomation_player,Disable Inoperative Automated Systems D-Mod (for player),Boolean,false,,Should the [Inoperative Automated Systems] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedAutomation_enemy,Disable Inoperative Automated Systems D-Mod (for enemy),Boolean,false,,Should the [Inoperative Automated Systems] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedAutomation_effect1,Inoperative Automated Systems D-Mod effect,Double,10.0,,[Inoperative Automated Systems] D-Mod's effect CR penalty (default value 10.0),0.0,100.0,D-Mods
+vayramerged_damagedAutomation_effect2,Inoperative Automated Systems D-Mod effect,Double,0.5,,[Inoperative Automated Systems] D-Mod's effect Minimum Crew penalty (default value 0.5),0.0,9.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedBallistics_header,Irregular Feed Mechanisms / Damaged Ballistics divider,Header,Irregular Feed Mechanisms,,,,,D-Mods
 vayramerged_disableDamagedBallistics_player,Disable Irregular Feed Mechanisms D-Mod (for player),Boolean,false,,Should the [Irregular Feed Mechanisms] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedBallistics_enemy,Disable Irregular Feed Mechanisms D-Mod (for enemy),Boolean,false,,Should the [Irregular Feed Mechanisms] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedBallistics_effect1,Irregular Feed Mechanisms D-Mod effect,Double,0.2,,[Irregular Feed Mechanisms] D-Mod's effect Ballistic Rate of Fire penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedBallistics_effect2,Irregular Feed Mechanisms D-Mod effect,Double,0.25,,[Irregular Feed Mechanisms] D-Mod's effect Ballistic Flux cost Penalty (default value 0.25),0.0,9.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedEnvironment_header,Buckled Environmental Shielding / Damaged Environment divider,Header,Buckled Environmental Shielding,,,,,D-Mods
 vayramerged_disableDamagedEnvironment_player,Disable Buckled Environmental Shielding D-Mod (for player),Boolean,false,,Should the [Buckled Environmental Shielding] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedEnvironment_enemy,Disable Buckled Environmental Shielding D-Mod (for enemy),Boolean,false,,Should the [Buckled Environmental Shielding] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedEnvironment_effect1,Buckled Environmental Shielding D-Mod effect,Double,0.5,,[Buckled Environmental Shielding] D-Mod's effect EMP damage penalty (default value 0.5),0.0,4.0,D-Mods
+vayramerged_damagedEnvironment_effect2,Buckled Environmental Shielding D-Mod effect,Double,0.5,,[Buckled Environmental Shielding] D-Mod's effect Corona/terrain damage penalty (default value 0.5),0.0,4.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedEverything_header,Performance Irregularities / Damaged Everything divider,Header,Performance Irregularities,,,,,D-Mods
 vayramerged_disableDamagedEverything_player,Disable Performance Irregularities D-Mod (for player),Boolean,false,,Should the [Performance Irregularities] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedEverything_enemy,Disable Performance Irregularities D-Mod (for enemy),Boolean,false,,Should the [Performance Irregularities] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedEverything_effect1,Performance Irregularities D-Mod effect,Double,10.0,,[Performance Irregularities] D-Mod's effect Max CR penalty (default value 10.0),0.0,100.0,D-Mods
+vayramerged_damagedEverything_effect2,Performance Irregularities D-Mod effect,Double,0.05,,[Performance Irregularities] D-Mod's effect Weapon Malfunction chance (default value 0.05),0.0,1.0,D-Mods
+vayramerged_damagedEverything_effect3,Performance Irregularities D-Mod effect,Double,0.05,,[Performance Irregularities] D-Mod's effect Engine Malfunction chance (default value 0.05),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedFighterWeapons_header,Malformed Fighter Weapons / Damaged Fighter Weapons divider,Header,Malformed Fighter Weapons,,,,,D-Mods
 vayramerged_disableDamagedFighterWeapons_player,Disable Malformed Fighter Weapons D-Mod (for player),Boolean,false,,Should the [Malformed Fighter Weapons] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedFighterWeapons_enemy,Disable Malformed Fighter Weapons D-Mod (for enemy),Boolean,false,,Should the [Malformed Fighter Weapons] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedFighterWeapons_effect1,Malformed Fighter Weapons D-Mod effect,Double,0.2,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Ballistic Damage Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect2,Malformed Fighter Weapons D-Mod effect,Double,0.2,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Energy Damage Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect3,Malformed Fighter Weapons D-Mod effect,Double,0.2,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Missile Damage Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect4,Malformed Fighter Weapons D-Mod effect,Double,0.3,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Accuracy Penalty (default value 0.3),0.0,1.0,D-Mods
+vayramerged_damagedFighterWeapons_effect5,Malformed Fighter Weapons D-Mod effect,Double,0.6,,[Malformed Fighter Weapons] D-Mod's effect Fighter's Recoil Penalty (default value 0.6),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedGunnery_header,Noncompliant Gunnery Core / Damaged Gunnery divider,Header,Noncompliant Gunnery Core,,,,,D-Mods
 vayramerged_disableDamagedGunnery_player,Disable Noncompliant Gunnery Core D-Mod (for player),Boolean,false,,Should the [Noncompliant Gunnery Core] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedGunnery_enemy,Disable Noncompliant Gunnery Core D-Mod (for enemy),Boolean,false,,Should the [Noncompliant Gunnery Core] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedGunnery_effect1,Noncompliant Gunnery Core D-Mod effect,Double,0.2,,[Noncompliant Gunnery Core] D-Mod's effect Autofire Accuracy Penalty (default value 0.2),0.0,1.0,D-Mods
+vayramerged_damagedGunnery_effect2,Noncompliant Gunnery Core D-Mod effect,Double,0.1,,[Noncompliant Gunnery Core] D-Mod's effect Projectile Speed Penalty (default value 0.1),0.0,1.0,D-Mods
+vayramerged_damagedGunnery_effect3,Noncompliant Gunnery Core D-Mod effect,Double,0.5,,[Noncompliant Gunnery Core] D-Mod's effect Recoil Penalty (default value 0.5),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedLifeSupport_header,Impaired Life Support Systems / Damaged Life Support divider,Header,Impaired Life Support Systems,,,,,D-Mods
 vayramerged_disableDamagedLifeSupport_player,Disable Impaired Life Support Systems D-Mod (for player),Boolean,false,,Should the [Impaired Life Support Systems] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedLifeSupport_enemy,Disable Impaired Life Support Systems D-Mod (for enemy),Boolean,false,,Should the [Impaired Life Support Systems] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedLifeSupport_effect1,Impaired Life Support Systems D-Mod effect,Double,15.0,,[Impaired Life Support Systems] D-Mod's effect Max CR Penalty (default value 15.0),0.0,100.0,D-Mods
+vayramerged_damagedLifeSupport_effect2,Impaired Life Support Systems D-Mod effect,Double,0.75,,[Impaired Life Support Systems] D-Mod's effect Max Crew (Capacity) Penalty (default value 0.75),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedMissiles_header,Flawed Missile Racks / Damaged Missiles divider,Header,Flawed Missile Racks,,,,,D-Mods
 vayramerged_disableDamagedMissiles_player,Disable Flawed Missile Racks D-Mod (for player),Boolean,false,,Should the [Flawed Missile Racks] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedMissiles_enemy,Disable Flawed Missile Racks D-Mod (for enemy),Boolean,false,,Should the [Flawed Missile Racks] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedMissiles_effect1,Flawed Missile Racks D-Mod effect,Double,0.3,,[Flawed Missile Racks] D-Mod's effect Missile Ammo Penalty (default value 0.3),0.0,1.0,D-Mods
+vayramerged_damagedMissiles_effect2,Flawed Missile Racks D-Mod effect,Double,0.25,,[Flawed Missile Racks] D-Mod's effect Missile Rate of Fire Penalty (default value 0.25),0.0,1.0,D-Mods
+vayramerged_damagedMissiles_effect3,Flawed Missile Racks D-Mod effect,Double,0.2,,[Flawed Missile Racks] D-Mod's effect Missile Guidance Penalty (default value 0.2),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedOptics_header,Distorted Optics / Damaged Optics divider,Header,Distorted Optics,,,,,D-Mods
 vayramerged_disableDamagedOptics_player,Disable Distorted Optics D-Mod (for player),Boolean,false,,Should the [Distorted Optics] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedOptics_enemy,Disable Distorted Optics D-Mod (for enemy),Boolean,false,,Should the [Distorted Optics] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedOptics_effect1,Distorted Optics D-Mod effect,Double,0.15,,[Distorted Optics] D-Mod's effect Beam Range Penalty (default value 0.15),0.0,1.0,D-Mods
+vayramerged_damagedOptics_effect2,Distorted Optics D-Mod effect,Double,5.0,,[Distorted Optics] D-Mod's effect Beam Waver Penalty (default value 5.0),0.0,180.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedShields_header,Destabilized Shield Generator / Damaged Shields divider,Header,Destabilized Shield Generator,,,,,D-Mods
 vayramerged_disableDamagedShields_player,Disable Destabilized Shield Generator D-Mod (for player),Boolean,false,,Should the [Destabilized Shield Generator] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedShields_enemy,Disable Destabilized Shield Generator D-Mod (for enemy),Boolean,false,,Should the [Destabilized Shield Generator] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedShields_effect1,Destabilized Shield Generator D-Mod effect,Double,0.5,,[Destabilized Shield Generator] D-Mod's effect Shield Upkeep Penalty (default value 0.5),0.0,9.0,D-Mods
+vayramerged_damagedShields_effect2,Destabilized Shield Generator D-Mod effect,Double,0.1,,[Destabilized Shield Generator] D-Mod's effect Shield Damage Penalty (default value 0.1),0.0,9.0,D-Mods
 ,,,,,,,,
 vayramerged_DamagedTurrets_header,Misshapen Turret Gyros / Damaged Turrets divider,Header,Misshapen Turret Gyros,,,,,D-Mods
 vayramerged_disableDamagedTurrets_player,Disable Misshapen Turret Gyros D-Mod (for player),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableDamagedTurrets_enemy,Disable Misshapen Turret Gyros D-Mod (for enemy),Boolean,false,,Should the [Misshapen Turret Gyros] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_damagedTurrets_effect1,Misshapen Turret Gyros D-Mod effect,Double,0.15,,[Misshapen Turret Gyros] D-Mod's effect Weapon Turn Rate Penalty (default value 0.15),0.0,1.0,D-Mods
+vayramerged_damagedTurrets_effect2,Misshapen Turret Gyros D-Mod effect,Double,0.15,,[Misshapen Turret Gyros] D-Mod's effect Weapon Health Penalty (default value 0.15),0.0,1.0,D-Mods
+vayramerged_damagedTurrets_effect3,Misshapen Turret Gyros D-Mod effect,Double,0.05,,[Misshapen Turret Gyros] D-Mod's effect Weapon Malfunction chance (default value 0.05),0.0,1.0,D-Mods
 ,,,,,,,,
 vayramerged_LessIllAdvised_header,Less Ill-Advised Modifications divider,Header,Less Ill-Advised Modifications,,,,,D-Mods
 vayramerged_disableLessIllAdvised_player,Disable Less Ill-Advised Modifications D-Mod (for player),Boolean,false,,Should the [Less Ill-Advised Modifications] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableLessIllAdvised_enemy,Disable Less Ill-Advised Modifications D-Mod (for enemy),Boolean,false,,Should the [Less Ill-Advised Modifications] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_lessIllAdvised_effect1,Less Ill-Advised Modifications D-Mod effect,Double,0.05,,[Less Ill-Advised Modifications] D-Mod's effect Weapon Malfunction Chance (default value 0.05),0.0,1.0,D-Mods
+vayramerged_lessIllAdvised_effect2,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Weapon Turn Rate Bonus (default value 0.1),0.0,9.0,D-Mods
+vayramerged_lessIllAdvised_effect3,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Ballistic Weapon Rate of Fire Bonus (default value 0.1),0.0,9.0,D-Mods
+vayramerged_lessIllAdvised_effect4,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Energy Weapon Rate of Fire Bonus (default value 0.1),0.0,9.0,D-Mods
+vayramerged_lessIllAdvised_effect5,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Missile Weapon Rate of Fire Bonus (default value 0.1),0.0,9.0,D-Mods
 ,,,,,,,,

@@ -15,8 +15,11 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float CR_PENALTY = 15f;
-    public static final float CREW_CAPACITY_PENALTY = 0.75f;
+    public static final float DEFAULT_CR_PENALTY = 15f;
+    public static float CR_PENALTY = DEFAULT_CR_PENALTY;
+
+    public static final float DEFAULT_CREW_CAPACITY_PENALTY = 0.75f;
+    public static float CREW_CAPACITY_PENALTY = DEFAULT_CREW_CAPACITY_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -65,9 +68,11 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
 
 
     private float calculateCRMalus(ShipVariantAPI variant, float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = CR_PENALTY - CR_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 15 for 100% dmod effect mult
          * 15 - 15 * (0) = 15
          * will produce 7.5 for 50% dmod effect mult
@@ -76,16 +81,7 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
          * 15 - 15*(-1) = 30
          * will produce 45 for 300%
          * 15 - 15*-2 = 45
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
@@ -101,9 +97,11 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
     }
 
     private float calculateCrewCapacityMalus(ShipVariantAPI variant, float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = CREW_CAPACITY_PENALTY - CREW_CAPACITY_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.75 for 100% dmod effect mult
          * 0.75 - 0.75 * (0) = 0.75
          * will produce 0.375 for 50% dmod effect mult
@@ -112,16 +110,7 @@ public class VayraDamagedLifeSupport extends BaseHullMod {
          * 0.75 - 0.75*(-1) = 1.5
          * will produce 2.25 for 300%
          * 0.75 - 0.75*-2 = 2.25
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }

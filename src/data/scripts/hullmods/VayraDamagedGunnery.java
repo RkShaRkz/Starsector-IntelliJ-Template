@@ -4,7 +4,6 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
@@ -15,9 +14,14 @@ public class VayraDamagedGunnery extends BaseHullMod {
     public static volatile boolean DISABLE_FOR_PLAYER = false;
     public static volatile boolean DISABLE_FOR_ENEMY = false;
 
-    public static final float AUTOFIRE_ACCURACY_PENALTY = 0.2f;
-    public static final float PROJECTILE_SPEED_PENALTY = 0.1f;
-    public static final float RECOIL_PENALTY = 0.5f;
+    public static final float DEFAULT_AUTOFIRE_ACCURACY_PENALTY = 0.2f;
+    public static float AUTOFIRE_ACCURACY_PENALTY = DEFAULT_AUTOFIRE_ACCURACY_PENALTY;
+
+    public static final float DEFAULT_PROJECTILE_SPEED_PENALTY = 0.1f;
+    public static float PROJECTILE_SPEED_PENALTY = DEFAULT_PROJECTILE_SPEED_PENALTY;
+
+    public static final float DEFAULT_RECOIL_PENALTY = 0.5f;
+    public static float RECOIL_PENALTY = DEFAULT_RECOIL_PENALTY;
 
     @Override
     public void applyEffectsBeforeShipCreation(HullSize hullSize, MutableShipStatsAPI stats, String id) {
@@ -32,9 +36,9 @@ public class VayraDamagedGunnery extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float autofireMult = calculateAutofireAccuracyMultiplier(stats.getVariant(), effect);
-        float projSpeedMult = calculateProjectileSpeedMultiplier(stats.getVariant(), effect);
-        float recoilMult = calculateRecoilMultiplier(stats.getVariant(), effect);
+        float autofireMult = calculateAutofireAccuracyMultiplier(effect);
+        float projSpeedMult = calculateProjectileSpeedMultiplier(effect);
+        float recoilMult = calculateRecoilMultiplier(effect);
 
         stats.getAutofireAimAccuracy().modifyMult(id, autofireMult);
         stats.getProjectileSpeedMult().modifyMult(id, projSpeedMult);
@@ -46,14 +50,12 @@ public class VayraDamagedGunnery extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
-        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-            variant = ship.getVariant();
         }
-        float autofireMalus = calculateAutofireAccuracyMalus(variant, effect);
-        float projSpeedMalus = calculateProjectileSpeedMalus(variant, effect);
-        float recoilMalus = calculateRecoilMalus(variant, effect);
+        float autofireMalus = calculateAutofireAccuracyMalus(effect);
+        float projSpeedMalus = calculateProjectileSpeedMalus(effect);
+        float recoilMalus = calculateRecoilMalus(effect);
 
         if (index == 0) {
             return Math.round(autofireMalus * 100f) + "%";
@@ -70,19 +72,21 @@ public class VayraDamagedGunnery extends BaseHullMod {
         return null;
     }
 
-    private float calculateAutofireAccuracyMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateAutofireAccuracyMultiplier(float baseEffect) {
         // Basically, autofire multiplier is going to be 1 - AutofireMalus
         float retVal;
-        float malus = calculateAutofireAccuracyMalus(variant, baseEffect);
+        float malus = calculateAutofireAccuracyMalus(baseEffect);
         retVal = 1f - malus;
 
         return retVal;
     }
 
-    private float calculateAutofireAccuracyMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateAutofireAccuracyMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = AUTOFIRE_ACCURACY_PENALTY - AUTOFIRE_ACCURACY_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.2 for 100% dmod effect mult
          * 0.2 - 0.2 * (0) = 0.2
          * will produce 0.1 for 50% dmod effect mult
@@ -91,33 +95,26 @@ public class VayraDamagedGunnery extends BaseHullMod {
          * 0.2 - 0.2*(-1) = 0.4
          * will produce 0.6 for 300%
          * 0.2 - 0.2*-2 = 0.6
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
 
-    private float calculateProjectileSpeedMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateProjectileSpeedMultiplier(float baseEffect) {
         // Basically, speed multiplier is going to be 1 - SpeedMalus
         float retVal;
-        float malus = calculateProjectileSpeedMalus(variant, baseEffect);
+        float malus = calculateProjectileSpeedMalus(baseEffect);
         retVal = 1f - malus;
 
         return retVal;
     }
 
-    private float calculateProjectileSpeedMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateProjectileSpeedMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = PROJECTILE_SPEED_PENALTY - PROJECTILE_SPEED_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.1 for 100% dmod effect mult
          * 0.1 - 0.1 * (0) = 0.1
          * will produce 0.05 for 50% dmod effect mult
@@ -126,33 +123,26 @@ public class VayraDamagedGunnery extends BaseHullMod {
          * 0.1 - 0.1*(-1) = 0.2
          * will produce 0.3 for 300%
          * 0.1 - 0.1*-2 = 0.3
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
 
-    private float calculateRecoilMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateRecoilMultiplier(float baseEffect) {
         // Basically, recoil multiplier is going to be 1 + RecoilMalus
         float retVal;
-        float malus = calculateRecoilMalus(variant, baseEffect);
+        float malus = calculateRecoilMalus(baseEffect);
         retVal = 1f + malus;
 
         return retVal;
     }
 
-    private float calculateRecoilMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateRecoilMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = RECOIL_PENALTY - RECOIL_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.5 for 100% dmod effect mult
          * 0.5 - 0.5 * (0) = 0.5
          * will produce 0.25 for 50% dmod effect mult
@@ -161,16 +151,7 @@ public class VayraDamagedGunnery extends BaseHullMod {
          * 0.5 - 0.5*(-1) = 1.0
          * will produce 1.5 for 300%
          * 0.5 - 0.5*-2 = 1.5
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }

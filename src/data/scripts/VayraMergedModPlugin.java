@@ -772,84 +772,154 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableDamagedAmmoForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AMMO_FOR_ENEMY));
             VayraDamagedAmmo.DISABLE_FOR_PLAYER = disableDamagedAmmoForPlayer;
             VayraDamagedAmmo.DISABLE_FOR_ENEMY = disableDamagedAmmoForEnemy;
+            int damagedAmmoEffect = safeUnboxing(LunaSettings.getInt(MOD_ID, DAMAGED_AMMO_EFFECT), VayraDamagedAmmo.DEFAULT_FRAGMENTATION_CHANCE);
+            VayraDamagedAmmo.FRAGMENTATION_CHANCE = damagedAmmoEffect;
 
             // damaged automation - Inoperative Automated Systems
             boolean disableDamagedAutomationForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AUTOMATION_FOR_PLAYER));
             boolean disableDamagedAutomationForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_AUTOMATION_FOR_ENEMY));
             VayraDamagedAutomation.DISABLE_FOR_PLAYER = disableDamagedAutomationForPlayer;
             VayraDamagedAutomation.DISABLE_FOR_ENEMY = disableDamagedAutomationForEnemy;
+            double damagedAutomationEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_AUTOMATION_EFFECT1), VayraDamagedAutomation.DEFAULT_CR_PENALTY);
+            double damagedAutomationEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_AUTOMATION_EFFECT2), VayraDamagedAutomation.DEFAULT_MIN_CREW_PENALTY);
+            VayraDamagedAutomation.CR_PENALTY = (float) damagedAutomationEffect1;
+            VayraDamagedAutomation.MIN_CREW_PENALTY = (float) damagedAutomationEffect2;
 
             // damaged ballistics - Irregular Feed Mechanisms
             boolean disableDamagedBallisticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_BALLISTICS_FOR_PLAYER));
             boolean disableDamagedBallisticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_BALLISTICS_FOR_ENEMY));
             VayraDamagedBallistics.DISABLE_FOR_PLAYER = disableDamagedBallisticsForPlayer;
             VayraDamagedBallistics.DISABLE_FOR_ENEMY = disableDamagedBallisticsForEnemy;
+            double damagedBallisticsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_BALLISTICS_EFFECT1), VayraDamagedBallistics.DEFAULT_BALLISTIC_ROF_PENALTY);
+            double damagedBallisticsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_BALLISTICS_EFFECT2), VayraDamagedBallistics.DEFAULT_BALLISTIC_FLUX_PENALTY);
+            VayraDamagedBallistics.BALLISTIC_ROF_PENALTY = (float) damagedBallisticsEffect1;
+            VayraDamagedBallistics.BALLISTIC_FLUX_PENALTY = (float) damagedBallisticsEffect2;
 
             // damaged environment - Buckled Environmental Shielding
             boolean disableDamagedEnvironmentForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_ENVIRONMENT_FOR_PLAYER));
             boolean disableDamagedEnvironmentForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_ENVIRONMENT_FOR_ENEMY));
             VayraDamagedEnvironment.DISABLE_FOR_PLAYER = disableDamagedEnvironmentForPlayer;
             VayraDamagedEnvironment.DISABLE_FOR_ENEMY = disableDamagedEnvironmentForEnemy;
+            double damagedEnvironmentEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_ENVIRONMENT_EFFECT1), VayraDamagedEnvironment.DEFAULT_EMP_DAMAGE_PENALTY);
+            double damagedEnvironmentEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_ENVIRONMENT_EFFECT2), VayraDamagedEnvironment.DEFAULT_CORONA_DAMAGE_PENALTY);
+            VayraDamagedEnvironment.EMP_DAMAGE_PENALTY = (float) damagedEnvironmentEffect1;
+            VayraDamagedEnvironment.CORONA_DAMAGE_PENALTY = (float) damagedEnvironmentEffect2;
 
             // damaged everything - Performance Irregularities
             boolean disableDamagedEverythingForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_EVERYTHING_FOR_PLAYER));
             boolean disableDamagedEverythingForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_EVERYTHING_FOR_ENEMY));
             VayraDamagedEverything.DISABLE_FOR_PLAYER = disableDamagedEverythingForPlayer;
             VayraDamagedEverything.DISABLE_FOR_ENEMY = disableDamagedEverythingForEnemy;
+            double damagedEverythingEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_EVERYTHING_EFFECT1), VayraDamagedEverything.DEFAULT_CR_PENALTY);
+            double damagedEverythingEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_EVERYTHING_EFFECT2), VayraDamagedEverything.DEFAULT_WEAPON_MALFUNCTION_CHANCE);
+            double damagedEverythingEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_EVERYTHING_EFFECT3), VayraDamagedEverything.DEFAULT_ENGINE_MALFUNCTION_CHANCE);
+            VayraDamagedEverything.CR_PENALTY = (float) damagedEverythingEffect1;
+            VayraDamagedEverything.WEAPON_MALFUNCTION_CHANCE = (float) damagedEverythingEffect2;
+            VayraDamagedEverything.ENGINE_MALFUNCTION_CHANCE = (float) damagedEverythingEffect3;
 
             // damaged fighter weapons - Malformed Fighter Weapons
             boolean disableDamagedFighterWeaponsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_PLAYER));
             boolean disableDamagedFighterWeaponsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_FIGHTER_WEAPONS_FOR_ENEMY));
             VayraDamagedFighterWeapons.DISABLE_FOR_PLAYER = disableDamagedFighterWeaponsForPlayer;
             VayraDamagedFighterWeapons.DISABLE_FOR_ENEMY = disableDamagedFighterWeaponsForEnemy;
+            double damagedFighterWeaponsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT1), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_BALLISTIC_DAMAGE_PENALTY);
+            double damagedFighterWeaponsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT2), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_ENERGY_DAMAGE_PENALTY);
+            double damagedFighterWeaponsEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT3), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_MISSILE_DAMAGE_PENALTY);
+            double damagedFighterWeaponsEffect4 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT4), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_ACCURACY_PENALTY);
+            double damagedFighterWeaponsEffect5 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_FIGHTER_WEAPONS_EFFECT5), VayraDamagedFighterWeapons.DEFAULT_FIGHTER_RECOIL_PENALTY);
+            VayraDamagedFighterWeapons.FIGHTER_BALLISTIC_DAMAGE_PENALTY = (float) damagedFighterWeaponsEffect1;
+            VayraDamagedFighterWeapons.FIGHTER_ENERGY_DAMAGE_PENALTY = (float) damagedFighterWeaponsEffect2;
+            VayraDamagedFighterWeapons.FIGHTER_MISSILE_DAMAGE_PENALTY = (float) damagedFighterWeaponsEffect3;
+            VayraDamagedFighterWeapons.FIGHTER_ACCURACY_PENALTY = (float) damagedFighterWeaponsEffect4;
+            VayraDamagedFighterWeapons.FIGHTER_RECOIL_PENALTY = (float) damagedFighterWeaponsEffect5;
 
             // damaged gunnery - Noncompliant Gunnery Core
             boolean disableDamagedGunneryForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_GUNNERY_FOR_PLAYER));
             boolean disableDamagedGunneryForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_GUNNERY_FOR_ENEMY));
             VayraDamagedGunnery.DISABLE_FOR_PLAYER = disableDamagedGunneryForPlayer;
             VayraDamagedGunnery.DISABLE_FOR_ENEMY = disableDamagedGunneryForEnemy;
+            double noncompliantGunneryCodeEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_GUNNERY_EFFECT1), VayraDamagedGunnery.DEFAULT_AUTOFIRE_ACCURACY_PENALTY);
+            double noncompliantGunneryCodeEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_GUNNERY_EFFECT2), VayraDamagedGunnery.DEFAULT_PROJECTILE_SPEED_PENALTY);
+            double noncompliantGunneryCodeEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_GUNNERY_EFFECT3), VayraDamagedGunnery.DEFAULT_RECOIL_PENALTY);
+            VayraDamagedGunnery.AUTOFIRE_ACCURACY_PENALTY = (float) noncompliantGunneryCodeEffect1;
+            VayraDamagedGunnery.PROJECTILE_SPEED_PENALTY = (float) noncompliantGunneryCodeEffect2;
+            VayraDamagedGunnery.RECOIL_PENALTY = (float) noncompliantGunneryCodeEffect3;
 
             // damaged life support - Impaired Life Support Systems
             boolean disableDamagedLifeSupportForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_LIFE_SUPPORT_FOR_PLAYER));
             boolean disableDamagedLifeSupportForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_LIFE_SUPPORT_FOR_ENEMY));
             VayraDamagedLifeSupport.DISABLE_FOR_PLAYER = disableDamagedLifeSupportForPlayer;
             VayraDamagedLifeSupport.DISABLE_FOR_ENEMY = disableDamagedLifeSupportForEnemy;
+            double damagedLifeSupportEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_LIFE_SUPPORT_EFFECT1), VayraDamagedLifeSupport.DEFAULT_CR_PENALTY);
+            double damagedLifeSupportEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_LIFE_SUPPORT_EFFECT2), VayraDamagedLifeSupport.DEFAULT_CREW_CAPACITY_PENALTY);
+            VayraDamagedLifeSupport.CR_PENALTY = (float) damagedLifeSupportEffect1;
+            VayraDamagedLifeSupport.CREW_CAPACITY_PENALTY = (float) damagedLifeSupportEffect2;
 
             // damaged missiles - Flawed Missile Racks
             boolean disableDamagedMissilesForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_MISSILES_FOR_PLAYER));
             boolean disableDamagedMissilesForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_MISSILES_FOR_ENEMY));
             VayraDamagedMissiles.DISABLE_FOR_PLAYER = disableDamagedMissilesForPlayer;
             VayraDamagedMissiles.DISABLE_FOR_ENEMY = disableDamagedMissilesForEnemy;
+            double damagedMissilesEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_MISSILES_EFFECT1), VayraDamagedMissiles.DEFAULT_MISSILE_AMMO_PENALTY);
+            double damagedMissilesEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_MISSILES_EFFECT2), VayraDamagedMissiles.DEFAULT_MISSILE_ROF_PENALTY);
+            double damagedMissilesEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_MISSILES_EFFECT3), VayraDamagedMissiles.DEFAULT_MISSILE_GUIDANCE_PENALTY);
+            VayraDamagedMissiles.MISSILE_AMMO_PENALTY = (float) damagedMissilesEffect1;
+            VayraDamagedMissiles.MISSILE_ROF_PENALTY = (float) damagedMissilesEffect2;
+            VayraDamagedMissiles.MISSILE_GUIDANCE_PENALTY = (float) damagedMissilesEffect3;
 
             // damaged optics - Distorted Optics
             boolean disableDamagedOpticsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_OPTICS_FOR_PLAYER));
             boolean disableDamagedOpticsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_OPTICS_FOR_ENEMY));
             VayraDamagedOptics.DISABLE_FOR_PLAYER = disableDamagedOpticsForPlayer;
             VayraDamagedOptics.DISABLE_FOR_ENEMY = disableDamagedOpticsForEnemy;
+            double damagedOpticsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_OPTICS_EFFECT1), VayraDamagedOptics.DEFAULT_BEAM_RANGE_PENALTY);
+            double damagedOpticsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_OPTICS_EFFECT2), VayraDamagedOptics.DEFAULT_BEAM_WAVER);
+            VayraDamagedOptics.BEAM_RANGE_PENALTY = (float) damagedOpticsEffect1;
+            VayraDamagedOptics.BEAM_WAVER = (float) damagedOpticsEffect2;
 
             // damaged shields - Destabilized Shield Generator
             boolean disableDamagedShieldsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_SHIELDS_FOR_PLAYER));
             boolean disableDamagedShieldsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_SHIELDS_FOR_ENEMY));
             VayraDamagedShields.DISABLE_FOR_PLAYER = disableDamagedShieldsForPlayer;
             VayraDamagedShields.DISABLE_FOR_ENEMY = disableDamagedShieldsForEnemy;
+            double damagedShieldsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_SHIELDS_EFFECT1), VayraDamagedShields.DEFAULT_SHIELD_UPKEEP_PENALTY);
+            double damagedShieldsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_SHIELDS_EFFECT2), VayraDamagedShields.DEFAULT_SHIELD_DAMAGE_PENALTY);
+            VayraDamagedShields.SHIELD_UPKEEP_PENALTY = (float) damagedShieldsEffect1;
+            VayraDamagedShields.SHIELD_DAMAGE_PENALTY = (float) damagedShieldsEffect2;
 
             // damaged turrets - Misshapen Turret Gyros
             boolean disableDamagedTurretsForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_PLAYER));
             boolean disableDamagedTurretsForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_DAMAGED_TURRETS_FOR_ENEMY));
             VayraDamagedTurrets.DISABLE_FOR_PLAYER = disableDamagedTurretsForPlayer;
             VayraDamagedTurrets.DISABLE_FOR_ENEMY = disableDamagedTurretsForEnemy;
+            double damagedTurretsEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_TURRETS_EFFECT1), VayraDamagedTurrets.DEFAULT_WEAPON_SPEED_PENALTY);
+            double damagedTurretsEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_TURRETS_EFFECT2), VayraDamagedTurrets.DEFAULT_WEAPON_HP_PENALTY);
+            double damagedTurretsEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, DAMAGED_TURRETS_EFFECT3), VayraDamagedTurrets.DEFAULT_WEAPON_MALFUNCTION_PENALTY);
+            VayraDamagedTurrets.WEAPON_SPEED_PENALTY = (float) damagedTurretsEffect1;
+            VayraDamagedTurrets.WEAPON_HP_PENALTY = (float) damagedTurretsEffect2;
+            VayraDamagedTurrets.WEAPON_MALFUNCTION_PENALTY = (float) damagedTurretsEffect3;
 
             // Less Ill-Advised Modifications
             boolean disableLessIllAdvisedForPlayer = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_LESS_ILL_ADVISED_FOR_PLAYER));
             boolean disableLessIllAdvisedForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_LESS_ILL_ADVISED_FOR_ENEMY));
             VayraLessIllAdvised.DISABLE_FOR_PLAYER = disableLessIllAdvisedForPlayer;
             VayraLessIllAdvised.DISABLE_FOR_ENEMY = disableLessIllAdvisedForEnemy;
+            double lessIllAdvisedEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT1), VayraLessIllAdvised.DEFAULT_WEAPON_MALFUNCTION_PENALTY);
+            double lessIllAdvisedEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT2), VayraLessIllAdvised.DEFAULT_WEAPON_TURN_RATE_BONUS);
+            double lessIllAdvisedEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT3), VayraLessIllAdvised.DEFAULT_BALLISTIC_WEAPON_RATE_OF_FIRE_BONUS);
+            double lessIllAdvisedEffect4 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT4), VayraLessIllAdvised.DEFAULT_ENERGY_WEAPON_RATE_OF_FIRE_BONUS);
+            double lessIllAdvisedEffect5 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT5), VayraLessIllAdvised.DEFAULT_MISSILE_WEAPON_RATE_OF_FIRE_BONUS);
+            VayraLessIllAdvised.WEAPON_MALFUNCTION_PENALTY = (float) lessIllAdvisedEffect1;
+            VayraLessIllAdvised.WEAPON_TURN_RATE_BONUS = (float) lessIllAdvisedEffect2;
+            VayraLessIllAdvised.BALLISTIC_WEAPON_RATE_OF_FIRE_BONUS = (float) lessIllAdvisedEffect3;
+            VayraLessIllAdvised.ENERGY_WEAPON_RATE_OF_FIRE_BONUS = (float) lessIllAdvisedEffect4;
+            VayraLessIllAdvised.MISSILE_WEAPON_RATE_OF_FIRE_BONUS = (float) lessIllAdvisedEffect5;
         }
 
-        private int safeUnboxing(Integer object) {
+        private int safeUnboxing(Integer object, int defaultValue) {
             int retVal;
             if (object == null) {
-                retVal = 0;
+                retVal = defaultValue;
             } else {
                 retVal = object;
             }
@@ -861,6 +931,17 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean retVal;
             if (object == null) {
                 retVal = false;
+            } else {
+                retVal = object;
+            }
+
+            return retVal;
+        }
+
+        private double safeUnboxing(Double object, double defaultValue) {
+            double retVal;
+            if (object == null) {
+                retVal = defaultValue;
             } else {
                 retVal = object;
             }
