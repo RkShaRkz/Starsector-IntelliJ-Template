@@ -4,7 +4,6 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
@@ -37,9 +36,9 @@ public class VayraDamagedTurrets extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float speedMult = calculateWeaponSpeedMultiplier(stats.getVariant(), effect);
-        float hpMult = calculateWeaponHPMultiplier(stats.getVariant(), effect);
-        float malfunctionMult = calculateWeaponMalfunctionMalus(stats.getVariant(), effect);
+        float speedMult = calculateWeaponSpeedMultiplier(effect);
+        float hpMult = calculateWeaponHPMultiplier(effect);
+        float malfunctionMult = calculateWeaponMalfunctionMalus(effect);
 
         stats.getWeaponTurnRateBonus().modifyMult(id, speedMult);
         stats.getWeaponHealthBonus().modifyMult(id, hpMult);
@@ -51,14 +50,12 @@ public class VayraDamagedTurrets extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
-        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-            variant = ship.getVariant();
         }
-        float speedMalus = calculateWeaponSpeedMalus(variant, effect);
-        float hpMalus = calculateWeaponHPMalus(variant, effect);
-        float malfunctionMalus = calculateWeaponMalfunctionMalus(variant, effect);
+        float speedMalus = calculateWeaponSpeedMalus(effect);
+        float hpMalus = calculateWeaponHPMalus(effect);
+        float malfunctionMalus = calculateWeaponMalfunctionMalus(effect);
 
         if (index == 0) {
             return Math.round(speedMalus * 100f) + "%";
@@ -76,19 +73,21 @@ public class VayraDamagedTurrets extends BaseHullMod {
         return null;
     }
 
-    private float calculateWeaponSpeedMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateWeaponSpeedMultiplier(float baseEffect) {
         // Basically, speed multiplier is going to be 1 - SpeedMalus
         float retVal;
-        float malus = calculateWeaponSpeedMalus(variant, baseEffect);
+        float malus = calculateWeaponSpeedMalus(baseEffect);
         retVal = 1f - malus;
 
         return retVal;
     }
 
-    private float calculateWeaponSpeedMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateWeaponSpeedMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = WEAPON_SPEED_PENALTY - WEAPON_SPEED_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.15 for 100% dmod effect mult
          * 0.15 - 0.15 * (0) = 0.15
          * will produce 0.075 for 50% dmod effect mult
@@ -97,33 +96,26 @@ public class VayraDamagedTurrets extends BaseHullMod {
          * 0.15 - 0.15*(-1) = 0.3
          * will produce 0.45 for 300%
          * 0.15 - 0.15*-2 = 0.45
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
 
-    private float calculateWeaponHPMultiplier(ShipVariantAPI variant, float baseEffect) {
-        // Basically, HP multiplier is going to be 1 - HMMalus
+    private float calculateWeaponHPMultiplier(float baseEffect) {
+        // Basically, HP multiplier is going to be 1 - WeaponHPMalus
         float retVal;
-        float malus = calculateWeaponHPMalus(variant, baseEffect);
+        float malus = calculateWeaponHPMalus(baseEffect);
         retVal = 1f - malus;
 
         return retVal;
     }
 
-    private float calculateWeaponHPMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateWeaponHPMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = WEAPON_HP_PENALTY - WEAPON_HP_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.15 for 100% dmod effect mult
          * 0.1 - 0.15 * (0) = 0.15
          * will produce 0.075 for 50% dmod effect mult
@@ -132,24 +124,17 @@ public class VayraDamagedTurrets extends BaseHullMod {
          * 0.15 - 0.15*(-1) = 0.3
          * will produce 0.45 for 300%
          * 0.15 - 0.15*-2 = 0.45
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
 
-    private float calculateWeaponMalfunctionMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateWeaponMalfunctionMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = WEAPON_MALFUNCTION_PENALTY - WEAPON_MALFUNCTION_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.05 for 100% dmod effect mult
          * 0.05 - 0.05 * (0) = 0.05
          * will produce 0.025 for 50% dmod effect mult
@@ -158,16 +143,7 @@ public class VayraDamagedTurrets extends BaseHullMod {
          * 0.05 - 0.05*(-1) = 0.1
          * will produce 0.15 for 300%
          * 0.05 - 0.05*-2 = 0.15
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }

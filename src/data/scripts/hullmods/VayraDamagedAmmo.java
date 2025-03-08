@@ -78,7 +78,7 @@ public class VayraDamagedAmmo extends BaseHullMod {
         boolean retVal; //assume true
         int dieRoll = MiscUtils.generateRandomInt(100);
         float chance = calculateFragmentationChance(ship);
-        // Now that we know the chance, see if our die is under teh chance; if it is - we won't convert to Fragmentation
+        // Now that we know the chance, see if our die is under the chance; if it is - we won't convert to Fragmentation
         // if it's not - oh well, better luck next time.
         retVal = dieRoll >= (int) chance;
 
@@ -86,15 +86,12 @@ public class VayraDamagedAmmo extends BaseHullMod {
     }
 
     private float calculateFragmentationChance(ShipAPI ship) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0 so we don't need to check for rugged
         float retVal;
         if (ship != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(ship.getVariant());
             float effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
             retVal = FRAGMENTATION_CHANCE * effect;
-            if (hasRugged) {
-                // If we have rugged, cut the chances in half
-                retVal = retVal / 2;
-            }
         } else {
             retVal = FRAGMENTATION_CHANCE;
         }

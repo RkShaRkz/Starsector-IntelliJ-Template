@@ -4,7 +4,6 @@ import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
-import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
@@ -33,8 +32,8 @@ public class VayraDamagedBallistics extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float fireRateMult = calculateFireRateMultiplier(stats.getVariant(), effect);
-        float fluxMult = calculateFluxMultiplier(stats.getVariant(), effect);
+        float fireRateMult = calculateFireRateMultiplier(effect);
+        float fluxMult = calculateFluxMultiplier(effect);
 
         stats.getBallisticRoFMult().modifyMult(id, fireRateMult);
         stats.getBallisticWeaponFluxCostMod().modifyMult(id, fluxMult);
@@ -45,13 +44,11 @@ public class VayraDamagedBallistics extends BaseHullMod {
     @Override
     public String getDescriptionParam(int index, HullSize hullSize, ShipAPI ship) {
         float effect = 1f;
-        ShipVariantAPI variant = null;
         if (ship != null) {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-            variant = ship.getVariant();
         }
-        float fireRateMalus = calculateFireRateMalus(variant, effect);
-        float fluxMalus = calculateFluxMalus(variant, effect);
+        float fireRateMalus = calculateFireRateMalus(effect);
+        float fluxMalus = calculateFluxMalus(effect);
 
         if (index == 0) {
             return Math.round(fireRateMalus * 100f) + "%";
@@ -65,16 +62,18 @@ public class VayraDamagedBallistics extends BaseHullMod {
         return null;
     }
 
-    private float calculateFireRateMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateFireRateMultiplier(float baseEffect) {
         // Basically, fire rate multiplier is going to be 1 - FireRateMalus
         float retVal;
-        float malus = calculateFireRateMalus(variant, baseEffect);
+        float malus = calculateFireRateMalus(baseEffect);
         retVal = 1f - malus;
 
         return retVal;
     }
 
-    private float calculateFireRateMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateFireRateMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = BALLISTIC_ROF_PENALTY - BALLISTIC_ROF_PENALTY * penaltyFactor;
         /**
@@ -86,30 +85,23 @@ public class VayraDamagedBallistics extends BaseHullMod {
          * 0.2 - 0.2*(-1) = 0.4
          * will produce 0.6 for 300%
          * 0.2 - 0.2*-2 = 0.6
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }
 
-    private float calculateFluxMultiplier(ShipVariantAPI variant, float baseEffect) {
+    private float calculateFluxMultiplier(float baseEffect) {
         // Basically, the flux multiplier is going to be 1 + FluxMalus
         float retVal;
-        float malus = calculateFluxMalus(variant, baseEffect);
+        float malus = calculateFluxMalus(baseEffect);
         retVal = 1f + malus;
 
         return retVal;
     }
 
-    private float calculateFluxMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateFluxMalus(float baseEffect) {
+        // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
+        // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = BALLISTIC_FLUX_PENALTY - BALLISTIC_FLUX_PENALTY * penaltyFactor;
         /**
@@ -121,16 +113,7 @@ public class VayraDamagedBallistics extends BaseHullMod {
          * 0.25 - 0.25*(-1) = 0.5
          * will produce 0.75 for 300% dmod effect mult
          * 0.25 - 0.25*(-2) = 0.75
-         *
-         * and then half of that if we have "rugged"
          */
-        if (variant != null) {
-            boolean hasRugged = MiscUtils.hasRuggedConstructionHullmod(variant);
-
-            if (hasRugged) {
-                retVal = retVal / 2;
-            }
-        }
 
         return retVal;
     }

@@ -6,7 +6,6 @@ import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.combat.ShipVariantAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
-import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
 
@@ -41,7 +40,7 @@ public class VayraLessIllAdvised extends BaseHullMod {
 
         // Carry on as usual
         float effect = stats.getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
-        float malfunctionChance = calculateWeaponMalfunctionMalus(stats.getVariant(), effect);
+        float malfunctionChance = calculateWeaponMalfunctionMalus(effect);
         float weaponTurnRateBonusMult = calculateTurnRateMultiplier(stats.getVariant(), effect);
         float ballisticWeaponRateOfFireMult = calculateRoFMultiplier(stats.getVariant(), effect, WeaponType.BALLISTIC);
         float energyWeaponRateOfFireMult = calculateRoFMultiplier(stats.getVariant(), effect, WeaponType.ENERGY);
@@ -62,7 +61,7 @@ public class VayraLessIllAdvised extends BaseHullMod {
             effect = ship.getMutableStats().getDynamic().getValue(Stats.DMOD_EFFECT_MULT);
             variant = ship.getVariant();
         }
-        float malfunctionChance = calculateWeaponMalfunctionMalus(variant, effect);
+        float malfunctionChance = calculateWeaponMalfunctionMalus(effect);
         float weaponTurnRateBonus = calculateTurnRateBonus(variant, effect);
         float ballisticWeaponRateOfFireBonus = calculateRoFBonus(variant, effect, WeaponType.BALLISTIC);
         float energyWeaponRateOfFireBonus = calculateRoFBonus(variant, effect, WeaponType.ENERGY);
@@ -86,12 +85,12 @@ public class VayraLessIllAdvised extends BaseHullMod {
         return null;
     }
 
-    private float calculateWeaponMalfunctionMalus(ShipVariantAPI variant, float baseEffect) {
+    private float calculateWeaponMalfunctionMalus(float baseEffect) {
         // Since having "rugged" is already implicitly a part of baseEffect, meaning it will come in as 0.5
         // instead of 1.0, the penalty factor will also end up being 0.5 so we don't need to check for rugged
         float penaltyFactor = (1f - baseEffect);    // will be 0 for nominal DMOD_EFFECT_MULT
         float retVal = WEAPON_MALFUNCTION_PENALTY - WEAPON_MALFUNCTION_PENALTY * penaltyFactor;
-        /**
+        /*
          * will produce 0.05 for 100% dmod effect mult
          * 0.05 - 0.05 * (0) = 0.05
          * will produce 0.025 for 50% dmod effect mult
@@ -100,8 +99,6 @@ public class VayraLessIllAdvised extends BaseHullMod {
          * 0.05 - 0.05*(-1) = 0.1
          * will produce 0.15 for 300%
          * 0.05 - 0.05*-2 = 0.15
-         *
-         * and then half of that if we have "rugged"
          */
 
         return retVal;
@@ -184,7 +181,7 @@ public class VayraLessIllAdvised extends BaseHullMod {
                 break;
             default: throw new IllegalArgumentException("add support for "+type+" weapon type in VayraLessIllAdvised !!!");
         }
-        /**
+        /*
          * will produce 0.1 for 100% dmod effect mult
          * 0.1 - 0.1 * (0) = 0.1
          * will produce 0.05 for 50% dmod effect mult
