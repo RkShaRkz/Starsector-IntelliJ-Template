@@ -904,6 +904,16 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             boolean disableLessIllAdvisedForEnemy = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_LESS_ILL_ADVISED_FOR_ENEMY));
             VayraLessIllAdvised.DISABLE_FOR_PLAYER = disableLessIllAdvisedForPlayer;
             VayraLessIllAdvised.DISABLE_FOR_ENEMY = disableLessIllAdvisedForEnemy;
+            double lessIllAdvisedEffect1 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT1), VayraLessIllAdvised.DEFAULT_WEAPON_MALFUNCTION_PENALTY);
+            double lessIllAdvisedEffect2 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT2), VayraLessIllAdvised.DEFAULT_WEAPON_TURN_RATE_BONUS);
+            double lessIllAdvisedEffect3 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT3), VayraLessIllAdvised.DEFAULT_BALLISTIC_WEAPON_RATE_OF_FIRE_BONUS);
+            double lessIllAdvisedEffect4 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT4), VayraLessIllAdvised.DEFAULT_ENERGY_WEAPON_RATE_OF_FIRE_BONUS);
+            double lessIllAdvisedEffect5 = safeUnboxing(LunaSettings.getDouble(MOD_ID, LESS_ILL_ADVISED_EFFECT5), VayraLessIllAdvised.DEFAULT_MISSILE_WEAPON_RATE_OF_FIRE_BONUS);
+            VayraLessIllAdvised.WEAPON_MALFUNCTION_PENALTY = (float) lessIllAdvisedEffect1;
+            VayraLessIllAdvised.WEAPON_TURN_RATE_BONUS = (float) lessIllAdvisedEffect2;
+            VayraLessIllAdvised.BALLISTIC_WEAPON_RATE_OF_FIRE_BONUS = (float) lessIllAdvisedEffect3;
+            VayraLessIllAdvised.ENERGY_WEAPON_RATE_OF_FIRE_BONUS = (float) lessIllAdvisedEffect4;
+            VayraLessIllAdvised.MISSILE_WEAPON_RATE_OF_FIRE_BONUS = (float) lessIllAdvisedEffect5;
         }
 
         private int safeUnboxing(Integer object, int defaultValue) {

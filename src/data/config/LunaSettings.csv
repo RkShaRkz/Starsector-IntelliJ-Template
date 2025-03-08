@@ -83,4 +83,9 @@ vayramerged_damagedTurrets_effect3,Misshapen Turret Gyros D-Mod effect,Double,0.
 vayramerged_LessIllAdvised_header,Less Ill-Advised Modifications divider,Header,Less Ill-Advised Modifications,,,,,D-Mods
 vayramerged_disableLessIllAdvised_player,Disable Less Ill-Advised Modifications D-Mod (for player),Boolean,false,,Should the [Less Ill-Advised Modifications] D-Mod's effects be disabled for ships belonging to the player's side?,,,D-Mods
 vayramerged_disableLessIllAdvised_enemy,Disable Less Ill-Advised Modifications D-Mod (for enemy),Boolean,false,,Should the [Less Ill-Advised Modifications] D-Mod's effects be disabled for ships belonging to the enemy side?,,,D-Mods
+vayramerged_lessIllAdvised_effect1,Less Ill-Advised Modifications D-Mod effect,Double,0.05,,[Less Ill-Advised Modifications] D-Mod's effect Weapon Malfunction Chance (default value 0.05),0.0,1.0,D-Mods
+vayramerged_lessIllAdvised_effect2,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Weapon Turn Rate Bonus (default value 0.1),0.0,9.0,D-Mods
+vayramerged_lessIllAdvised_effect3,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Ballistic Weapon Rate of Fire Bonus (default value 0.1),0.0,9.0,D-Mods
+vayramerged_lessIllAdvised_effect4,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Energy Weapon Rate of Fire Bonus (default value 0.1),0.0,9.0,D-Mods
+vayramerged_lessIllAdvised_effect5,Less Ill-Advised Modifications D-Mod effect,Double,0.1,,[Less Ill-Advised Modifications] D-Mod's effect Missile Weapon Rate of Fire Bonus (default value 0.1),0.0,9.0,D-Mods
 ,,,,,,,,

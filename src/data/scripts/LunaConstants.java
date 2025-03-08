@@ -79,4 +79,9 @@ public class LunaConstants {
 
     public final static String DISABLE_LESS_ILL_ADVISED_FOR_PLAYER = "vayramerged_disableLessIllAdvised_player";
     public final static String DISABLE_LESS_ILL_ADVISED_FOR_ENEMY = "vayramerged_disableLessIllAdvised_enemy";
+    public final static String LESS_ILL_ADVISED_EFFECT1 = "vayramerged_lessIllAdvised_effect1";
+    public final static String LESS_ILL_ADVISED_EFFECT2 = "vayramerged_lessIllAdvised_effect2";
+    public final static String LESS_ILL_ADVISED_EFFECT3 = "vayramerged_lessIllAdvised_effect3";
+    public final static String LESS_ILL_ADVISED_EFFECT4 = "vayramerged_lessIllAdvised_effect4";
+    public final static String LESS_ILL_ADVISED_EFFECT5 = "vayramerged_lessIllAdvised_effect5";
 }
