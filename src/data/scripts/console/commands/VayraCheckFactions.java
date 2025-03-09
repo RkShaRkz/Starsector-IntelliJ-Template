@@ -45,25 +45,6 @@ public class VayraCheckFactions implements BaseCommand
             return CommandResult.WRONG_CONTEXT;
         }
         // Check the status of the following factions, print out their status and return success.
-        /*
-        FactionAPI scienceFuckers = Global.getSector().getFaction("science_fuckers");
-        if( scienceFuckers != null )
-        {
-            // Probably enabled?
-            FactionSpecAPI scienceFuckersSpec = scienceFuckers.getFactionSpec();
-            MarketAPI market = Global.getSector().getEconomy().getMarket("crom_cruach");
-            boolean marketExists = market != null;
-            if( marketExists )
-            {
-                String marketFactionID = market.getFactionId();
-                FactionAPI marketFaction = market.getFaction();
-                boolean marketFactionMatchesScienceFuckers = marketFaction.equals(scienceFuckers);
-                LocationAPI marketLocation = market.getContainingLocation();
-                Vector2f marketLocationVector = market.getLocation();
-                // Stringify all this shit
-            }
-        }
-        */
         checkFactionAndMarketStatusAndStringifyAllToConsole("communist_clouds", "umbra");
         checkFactionAndMarketStatusAndStringifyAllToConsole("science_fuckers", "crom_cruach");
         checkFactionAndMarketStatusAndStringifyAllToConsole("warhawk_republic", "mairaath");
@@ -149,7 +130,7 @@ public class VayraCheckFactions implements BaseCommand
                 }
             }
             sb.append("\n");
-            sb.append("\tFaction spawned and is active: ").append(factionSpawnedAndIsActive);
+            sb.append("\tFaction ").append(factionId).append(" spawned and is active: ").append(factionSpawnedAndIsActive);
             sb.append("\n\n");
             Console.showMessage(sb.toString());
         }
