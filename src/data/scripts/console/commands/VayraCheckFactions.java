@@ -124,7 +124,8 @@ public class VayraCheckFactions implements BaseCommand
                 for (MarketAPI marketIterable : allMarketsList) {
                     if (marketIterable.getFaction().equals(faction)) {
                         // Bingo, we found it.
-                        sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!").append("\n");;
+                        sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!").append("\n");
+                        sb.append("\tMarket type:\t").append(MarketType.PLANET).append("\n");
                         factionSpawnedAndIsActive = stringifyMarketIntoStringBuilder(marketIterable, faction, factionId, sb);
                     }
                 }
@@ -165,10 +166,9 @@ public class VayraCheckFactions implements BaseCommand
                 sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!");
                 if (token.getMarket() != null) {
                     MarketAPI tokenMarket = token.getMarket();
+                    sb.append("\tMarket type:\t").append(MarketType.STATION).append("\n");
                     retVal = stringifyMarketIntoStringBuilder(tokenMarket, faction, factionId, sb);
                 }
-                // Still, we found something!
-                retVal = true;
                 // early return
                 return retVal;
             }
