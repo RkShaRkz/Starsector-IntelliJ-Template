@@ -17,6 +17,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.campaign.colonies.VayraColonialManager;
 import data.util.LoggerLogLevel;
+import data.util.Optional;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -160,11 +161,12 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             log(LoggerLogLevel.ERROR, log, "can't find communist_clouds");
             return;
         }
-        MarketAPI target = manager.pickTarget(manager.pickSource(faction), faction);
-        if (target == null) {
+        Optional<MarketAPI> targetOptional = manager.pickTarget(manager.pickSource(faction), faction);
+        if (!targetOptional.isPresent()) {
             log(LoggerLogLevel.ERROR, log, "can't find a place to put l'interstellaire");
             return;
         }
+        MarketAPI target = targetOptional.get();
         LocationAPI loc = target.getContainingLocation();
         if (loc == null) {
             log(LoggerLogLevel.ERROR, log, "can't find the place that the place to put l'interstellaire is in");

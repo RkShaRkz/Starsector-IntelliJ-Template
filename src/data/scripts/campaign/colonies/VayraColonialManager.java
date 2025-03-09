@@ -23,6 +23,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.domain.PersonBountyEventDataRepository;
 import data.scripts.VayraMergedModPlugin;
+import data.util.Optional;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -295,27 +296,32 @@ public class VayraColonialManager implements EveryFrameScript {
             spamLog("VayraColonialManager::advance()\tCOLONY SECTION");
             if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= colonyChance) {
                 spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tstarting to spawn colony...");
-                FactionAPI colonyFaction = pickFaction();
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tpicked faction: "+((colonyFaction != null) ? colonyFaction.getId() : "null")+", faction name: "+((colonyFaction != null) ? colonyFaction.getDisplayName() : "null"));
-                if (colonyFaction == null) {
-                    log.info("Not starting a colonial expedition -- everyone is at the global colony cap");
-                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because colonyFaction == null condition");
+                Optional<FactionAPI> colonyFactionOptional = pickFaction();
+                if (!colonyFactionOptional.isPresent()) {
+                    log.info("Not starting a colonial expedition -- pickFaction() returned NOTHING!");
                     return;
                 }
+                FactionAPI colonyFaction = colonyFactionOptional.get();
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tpicked faction: "+((colonyFaction != null) ? colonyFaction.getId() : "null")+", faction name: "+((colonyFaction != null) ? colonyFaction.getDisplayName() : "null"));
+                log.info(String.format("Colony interval elapsed, picked faction (id=%s) for starting a colonization attempt", colonyFaction.getId()));
                 // and this is where we create the colonial expedition! ohgodsomuchwork
                 MarketAPI source = pickSource(colonyFaction);
                 if (source == null) {
-                    log.info(String.format("We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving"
-                            + " up instead", colonyFaction.getDisplayNameLongWithArticle(), Global.getSector().getFaction(colonialParents.get(colonyFaction.getId()))));
+                    FactionAPI colonialParent = Global.getSector()
+                            .getFaction(colonialParents.get(colonyFaction.getId()));
+                    log.info(String.format(
+                            "We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving up instead",
+                            colonyFaction.getDisplayNameLongWithArticle(), colonialParent));
                     spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because source == null condition");
                     return;
                 }
-                MarketAPI target = pickTarget(source, colonyFaction);
-                if (target == null) {
+                Optional<MarketAPI> targetOptional = pickTarget(source, colonyFaction);
+                if (!targetOptional.isPresent()) {
                     log.info("We were gonna colonize a planet, but target returned null so we're giving up instead");
                     spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because target == null condition");
                     return;
                 }
+                MarketAPI target = targetOptional.get();
                 spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\ttarget.isPlanetConditionMarketingOnly ? "+target.isPlanetConditionMarketOnly());
                 if (!target.isPlanetConditionMarketOnly()) {
                     log.info(String.format("We were gonna colonize %s, but it's not a planetary condition only market "
@@ -324,13 +330,9 @@ public class VayraColonialManager implements EveryFrameScript {
                 }
                 float fleetPoints = pickExpeditionFP(colonyFaction);
                 log.info(String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
-                try {
-                    VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
-                    planetsTargetedForColonies.add(target);
-                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tadded planet as target for colony\ttarget name: "+target.getName()+", target star system: "+target.getStarSystem());
-                } catch (NullPointerException ex) {
-                    log.info(String.format("Expedition picked %s in %s as a target, but that causes an error -- i thought i fixed this...", target.getName(), target.getStarSystem()));
-                }
+                VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
+                planetsTargetedForColonies.add(target);
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tadded planet as target for colony\ttarget name: " + target.getName() + ", target star system: " + target.getStarSystem());
             }
         }
     }
@@ -750,6 +752,7 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     public MarketAPI pickSource(FactionAPI faction) {
+        log.info("--> pickSource()\tfaction: "+faction.getId());
 
         FactionAPI parentFaction = Global.getSector().getFaction(colonialParents.get(faction.getId()));
         String factionId = faction.getId();
@@ -781,16 +784,19 @@ public class VayraColonialManager implements EveryFrameScript {
             }
         }
 
+        log.info("pickSource()\tpossibleSources: "+possibleSources);
+
         if (possibleSources.isEmpty()) {
             source = null;
         } else {
             source = possibleSources.pick();
         }
 
+        log.info("<-- pickSource()\treturning source: "+source);
         return source;
     }
 
-    public MarketAPI pickTarget(MarketAPI source, FactionAPI faction) {
+    public Optional<MarketAPI> pickTarget(MarketAPI source, FactionAPI faction) {
         PlanetAPI target;
         List<StarSystemAPI> systems = Global.getSector().getStarSystems();
         WeightedRandomPicker<PlanetAPI> preferredTargets = new WeightedRandomPicker<>();
@@ -800,7 +806,7 @@ public class VayraColonialManager implements EveryFrameScript {
         for (StarSystemAPI system : systems) {
             if (source == null || system == null) {
                 // wEiRd crash
-                return null;
+                return Optional.empty();
             }
 
             if (system.hasTag(Tags.THEME_MISC_SKIP)
@@ -881,7 +887,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
         for (PlanetAPI check : targetsToCheck) {
             StarSystemAPI system = check.getStarSystem();
-            if (Misc.getMarketsInLocation(system).size() > 0) {
+            if ( !Misc.getMarketsInLocation(system).isEmpty() ) {
                 targetsToRemove.add(check);
             }
         }
@@ -895,7 +901,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
         if (possibleTargets.isEmpty()) {
             log.info("Tried to pick a target but the list wae empty (jesus, how), returning null");
-            return null;
+            return Optional.empty();
         } else if (!preferredTargets.isEmpty()) {
             target = preferredTargets.pick();
         } else {
@@ -907,7 +913,7 @@ public class VayraColonialManager implements EveryFrameScript {
             log.info(String.format("Picked %s as target but it had null market -- initializing condition market now", target.getName()));
         }
 
-        return target.getMarket();
+        return Optional.of(target.getMarket());
     }
 
     private float pickExpeditionFP(FactionAPI faction) {
@@ -1106,7 +1112,7 @@ public class VayraColonialManager implements EveryFrameScript {
         Global.getSector().getListenerManager().addListener(new VayraFixAIBlueprintsListener());
     }
 
-    private FactionAPI pickFaction() {
+    private Optional<FactionAPI> pickFaction() {
         if (colonyFactions.isEmpty()) {
             for (String factionId : possibleColonyFactions) {
                 colonyFactions.add(factionId);
@@ -1118,11 +1124,11 @@ public class VayraColonialManager implements EveryFrameScript {
             }
         }
         if (colonyFactions.isEmpty()) {
-            return null;
+            return Optional.empty();
         }
         FactionAPI faction = Global.getSector().getFaction(colonyFactions.pickAndRemove());
-        log.info(String.format("picking %s", faction.getId()));
-        return faction;
+        log.info(String.format("<-- pickFaction()\tpicking %s", faction.getId()));
+        return Optional.of(faction);
     }
 
     private void AIFuckeryUpkeep() {
