@@ -8,6 +8,8 @@ public class LunaConstants {
 
     // general settings
     public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
+
+    // colonial factions
     public final static String COLONIAL_COMPETITORS_ENABLED = "vayramerged_enableColonialCompetitors";
     public final static String COLONIAL_COMPETITORS_START_CYCLE = "vayramerged_colonialCompetitorsStartCycle";
     public final static String COLONIAL_COMPETITORS_COLONY_MULT = "vayramerged_colonialCompetitorsColonyMult";

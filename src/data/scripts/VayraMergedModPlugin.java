@@ -759,8 +759,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         @Override
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
-
-
+                handleGeneralSettings();
+                handleColonialFactionSettings();
                 handleDmodSettings();
             }
         }
@@ -769,7 +769,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // interstellaire upgrades
             boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
             VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
+        }
 
+        private void handleColonialFactionSettings() {
             // colonial factions enabled
             boolean colonialCompetitorsEnabled = safeUnboxing(LunaSettings.getBoolean(MOD_ID, COLONIAL_COMPETITORS_ENABLED));
             COLONIAL_FACTIONS_ENABLED = colonialCompetitorsEnabled;
