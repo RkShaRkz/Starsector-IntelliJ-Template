@@ -6,11 +6,14 @@ import com.fs.starfarer.api.campaign.FactionSpecAPI;
 import com.fs.starfarer.api.campaign.LocationAPI;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
+import data.scripts.VayraMergedModPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.lazywizard.console.BaseCommand;
 import org.lazywizard.console.CommonStrings;
 import org.lazywizard.console.Console;
 import org.lwjgl.util.vector.Vector2f;
+
+import java.util.List;
 
 public class VayraCheckFactions implements BaseCommand
 {
@@ -117,30 +120,75 @@ public class VayraCheckFactions implements BaseCommand
             sb.append("\tMarket exists:\t").append(marketExists).append("\n");
             if( marketExists )
             {
-                String marketFactionID = market.getFactionId();
-                FactionAPI marketFaction = market.getFaction();
-                boolean marketFactionMatchesActualFaction = marketFaction.equals(faction);
-                boolean marketFactionIDMatchesActualFactionID = marketFactionID.equals(factionId);
-                LocationAPI marketLocation = market.getContainingLocation();
-                Vector2f marketLocationVector = market.getLocation();
-                // Stringify all this shit
-                sb.append("\tMarket Faction ID:\t").append(marketFactionID).append("\n");
-                sb.append("\tMarket Faction:\t").append(marketFaction).append("\n");
-                sb.append("\tMarket Faction matches actual Faction:\t").append(marketFactionMatchesActualFaction).append("\n");
-                sb.append("\tMarket Faction ID matches actual Faction ID:\t").append(marketFactionIDMatchesActualFactionID).append("\n");
-                sb.append("\tMarket Location:\t").append(marketLocation).append("\n");
-                sb.append("\tMarket Location (vector):\t").append(marketLocationVector).append("\n");
+                boolean spawnedAndActive = stringifyMarketIntoStringBuilder(market, faction, factionId, sb);
 
                 // Faction is spawned and active if the market's faction equals the faction we're interested in
-                factionSpawnedAndIsActive = marketFactionMatchesActualFaction;
+                factionSpawnedAndIsActive = spawnedAndActive;
             }
-            //TODO if still inactive, try to search through *ALL* planets and stations to find anything theirs
-            // just to be sure
+
+            // Since we *still* didn't find anything, look through everything else besides Markets.
+            if (!factionSpawnedAndIsActive) {
+                List<SectorEntityToken> entityTokenList = Global.getSector().getEntitiesWithTag(VayraMergedModPlugin.MOD_ID);
+                factionSpawnedAndIsActive = searchSectorEntityTokenList(entityTokenList, faction, factionId, sb);
+            }
+            if (!factionSpawnedAndIsActive) {
+                List<SectorEntityToken> customTokenList = Global.getSector().getCustomEntitiesWithTag(VayraMergedModPlugin.MOD_ID);
+                factionSpawnedAndIsActive = searchSectorEntityTokenList(customTokenList, faction, factionId, sb);
+            }
+            if (!factionSpawnedAndIsActive) {
+                List<MarketAPI> allMarketsList = Global.getSector().getEconomy().getMarketsCopy();
+                for (MarketAPI marketIterable : allMarketsList) {
+                    if (marketIterable.getFaction().equals(faction)) {
+                        // Bingo, we found it.
+                        sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!");
+                        factionSpawnedAndIsActive = stringifyMarketIntoStringBuilder(marketIterable, faction, factionId, sb);
+                    }
+                }
+            }
             sb.append("\n");
             sb.append("\tFaction spawned and is active: ").append(factionSpawnedAndIsActive);
             sb.append("\n\n");
             Console.showMessage(sb.toString());
         }
+    }
+
+    private boolean stringifyMarketIntoStringBuilder(MarketAPI market, FactionAPI faction, String factionId, StringBuilder sb) {
+        String marketFactionID = market.getFactionId();
+        FactionAPI marketFaction = market.getFaction();
+        boolean marketFactionMatchesActualFaction = marketFaction.equals(faction);
+        boolean marketFactionIDMatchesActualFactionID = marketFactionID.equals(factionId);
+        LocationAPI marketLocation = market.getContainingLocation();
+        Vector2f marketLocationVector = market.getLocation();
+        // Stringify all this shit
+        sb.append("\tMarket Faction ID:\t").append(marketFactionID).append("\n");
+        sb.append("\tMarket Faction:\t").append(marketFaction).append("\n");
+        sb.append("\tMarket Faction matches actual Faction:\t").append(marketFactionMatchesActualFaction).append("\n");
+        sb.append("\tMarket Faction ID matches actual Faction ID:\t").append(marketFactionIDMatchesActualFactionID).append("\n");
+        sb.append("\tMarket Location:\t").append(marketLocation).append("\n");
+        sb.append("\tMarket Location (vector):\t").append(marketLocationVector).append("\n");
+
+        return marketFactionMatchesActualFaction;
+    }
+
+    private boolean searchSectorEntityTokenList(List<SectorEntityToken> entityTokenList, FactionAPI faction, String factionId, StringBuilder sb) {
+        boolean retVal = false;
+        for (SectorEntityToken token : entityTokenList) {
+            if (token.getFaction().equals(faction)) {
+                LocationAPI tokenLocation = token.getContainingLocation();
+                Vector2f tokenLocationVector = token.getLocation();
+                sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!");
+                if (token.getMarket() != null) {
+                    MarketAPI tokenMarket = token.getMarket();
+                    retVal = stringifyMarketIntoStringBuilder(tokenMarket, faction, factionId, sb);
+                }
+                // Still, we found something!
+                retVal = true;
+                // early return
+                return retVal;
+            }
+        }
+        // normal return
+        return retVal;
     }
 
     private enum MarketType { PLANET, STATION }
