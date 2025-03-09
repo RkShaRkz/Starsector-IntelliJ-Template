@@ -764,9 +764,15 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             int actualVersion = colonialManagerInstance.getVersion();
             int currentVersion = VayraColonialManager.SCRIPT_VERSION;
             if (actualVersion < currentVersion) {
-                Global.getSector().removeScript(colonialManagerInstance);
+                // This should have been done only once but...
+                int removedHowMany = 0;
+                while(Global.getSector().hasScript(VayraColonialManager.class))
+                {
+                    Global.getSector().removeScript(colonialManagerInstance);
+                    removedHowMany++;
+                }
                 Global.getSector().addScript(new VayraColonialManager());
-                logger.warn("Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it");
+                logger.warn("Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved "+removedHowMany+" of them");
                 logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
             }
         }
