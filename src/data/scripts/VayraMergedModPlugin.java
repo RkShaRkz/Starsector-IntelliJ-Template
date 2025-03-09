@@ -787,6 +787,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // interstellaire upgrades
             boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
             VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
+
+            // communist clouds expedition FP multiplier
+            double communistCloudsFPmultiplier = safeUnboxing(LunaSettings.getDouble(MOD_ID, COMMUNIST_CLOUDS_FP_MULTIPLIER), VayraColonialManager.DEFAULT_COMMUNIST_CLOUDS_FP_MULTIPLIER);
+            VayraColonialManager.COMMUNIST_CLOUDS_FP_MULTIPLIER = (float) communistCloudsFPmultiplier;
         }
 
         private void handleColonialFactionSettings() {

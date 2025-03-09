@@ -58,6 +58,8 @@ public class VayraColonialManager implements EveryFrameScript {
     public static final String COLONY_FACTION_LIST_PATH = "data/config/vayraColonies/";
     public static final String COLONY_FACTION_LIST_CSV = "colony_factions.csv";
 
+    public static final float DEFAULT_COMMUNIST_CLOUDS_FP_MULTIPLIER = 3f;
+    public static float COMMUNIST_CLOUDS_FP_MULTIPLIER = DEFAULT_COMMUNIST_CLOUDS_FP_MULTIPLIER;
     public static final float DEFAULT_BASE_FLEET_POINTS = 150f;
     public static float BASE_FLEET_POINTS = DEFAULT_BASE_FLEET_POINTS;
     public static final float DEFAULT_COLONY_INTERVAL_MIN = 90f;
@@ -958,7 +960,7 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     private float pickExpeditionFP(FactionAPI faction) {
-        return faction.getId().equals("communist_clouds") ? BASE_FLEET_POINTS * 3f : BASE_FLEET_POINTS;
+        return faction.getId().equals("communist_clouds") ? BASE_FLEET_POINTS * COMMUNIST_CLOUDS_FP_MULTIPLIER : BASE_FLEET_POINTS;
     }
 
     private boolean checkIfReady() {
