@@ -257,7 +257,7 @@ public class VayraColonialManager implements EveryFrameScript {
             useItems();
         }
 
-        spamLog("VayraColonialManager::advance()\tcoloniesActive: "+stringifyColonyList());
+        spamLog("VayraColonialManager::advance()\tcoloniesActive: "+StringifyUtils.stringifyColonyList(coloniesActive));
         if (!coloniesActive.isEmpty()) {
             for (MarketAPI market : coloniesActive) {
                 market.advance(amount);
@@ -360,23 +360,6 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         log.info("<-- performColonySpawn()");
-    }
-
-    public String stringifyColonyList() {
-        StringBuffer sb = new StringBuffer();
-        for (Iterator<MarketAPI> iter = coloniesActive.iterator(); iter.hasNext();  ) {
-            MarketAPI colony = iter.next();
-            sb
-                    .append("Faction ID: ")
-                    .append(colony.getFactionId())
-                    .append(", ");
-        }
-        // rewind last two letters if non-empty
-        if (sb.length() > 2) {
-            sb.setLength(sb.length() - 2);
-        }
-
-        return sb.toString();
     }
 
     public static Set<String> loadColonyFactionList() {
