@@ -229,6 +229,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         } else {
             logger.warn("VayraDistressCallManager.getInstance() returned null");
         }
+
+        performMigrations();
     }
 
     private static void loadVayraSettings() {
@@ -752,6 +754,22 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
 
         return sb.toString();
+    }
+
+    private void performMigrations() {
+        // Check the VayraColonialManager
+        VayraColonialManager colonialManagerInstance = VayraColonialManager.getInstance();
+        if (colonialManagerInstance != null) {
+            // check version
+            int actualVersion = colonialManagerInstance.getVersion();
+            int currentVersion = VayraColonialManager.SCRIPT_VERSION;
+            if (actualVersion < currentVersion) {
+                Global.getSector().removeScript(colonialManagerInstance);
+                Global.getSector().addScript(new VayraColonialManager());
+                logger.warn("Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it");
+                logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
+            }
+        }
     }
 
     private static class MyLunaSettingsListener implements LunaSettingsListener {
