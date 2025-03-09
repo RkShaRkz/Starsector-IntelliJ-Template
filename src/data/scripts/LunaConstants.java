@@ -7,7 +7,7 @@ package data.scripts;
 public class LunaConstants {
 
     // general settings
-    public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
+    public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_disableInterstellaireUpgrades";
 
     // colonial factions
     public final static String COLONIAL_COMPETITORS_ENABLED = "vayramerged_enableColonialCompetitors";
