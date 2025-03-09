@@ -314,7 +314,7 @@ public class VayraColonialExpeditionStage4Colonize extends ActionStage implement
         log.info(String.format("giving defend order to colony fleets", market.getName(), market.getFaction().getDisplayNameLongWithArticle()));
 
         for (CampaignFleetAPI fleet : target.getContainingLocation().getFleets()) {
-            if (fleet.getFaction().equals(colonyIntel.colonyFaction)) {
+            if (fleet.getFaction().equals(colonyIntel.getFaction())) {
                 fleet.addAssignment(FleetAssignment.DEFEND_LOCATION, target.getPrimaryEntity(), 69f);
                 fleet.addAssignment(FleetAssignment.GO_TO_LOCATION_AND_DESPAWN, target.getPrimaryEntity(), 42069f);
             }

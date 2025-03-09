@@ -32,7 +32,7 @@ public class VayraColonialExpeditionStage2Assemble extends AssembleStage {
             status = RaidStageStatus.FAILURE;
             giveReturnOrdersToStragglers(getRoutes());
             raidIntel.sendOutcomeUpdate();
-            log.info(String.format("oh GOD DAMN it this is the problem isn't it. raidIntel.getFrom.getFactionId = %s, raidIntel.getFaction.getId = %s", raidIntel.getFrom().getFactionId(), raidIntel.getFaction().getId()));
+            log.warn(String.format("oh GOD DAMN it this is the problem isn't it. raidIntel.getFrom.getFactionId = %s, raidIntel.getFaction.getId = %s", raidIntel.getFrom().getFactionId(), raidIntel.getFaction().getId()));
         }
         super.updateStatus();
     }

@@ -5,6 +5,7 @@ import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.campaign.FactionAPI;
 import com.fs.starfarer.api.campaign.ReputationActionResponsePlugin.ReputationAdjustmentResult;
 import com.fs.starfarer.api.campaign.SectorEntityToken;
+import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin;
 import com.fs.starfarer.api.impl.campaign.CoreReputationPlugin.CustomRepImpact;
@@ -54,22 +55,19 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
     protected MarketAPI target;
     protected MarketAPI from;
 
-    protected FactionAPI colonyFaction;
-
     protected boolean enteredSystem = false;
     protected KadurColonialExpeditionOutcome outcome;
 
     protected Random random = new Random();
 
-    @Override
-    public FactionAPI getFaction() {
-        return colonyFaction;
-    }
-
     @SuppressWarnings("OverridableMethodCallInConstructor")
     public VayraColonialExpeditionIntel(@NonNull FactionAPI faction, MarketAPI from, MarketAPI target, float fleetPoints) {
-        super(target.getStarSystem(), faction, null);
-        this.colonyFaction = faction;
+        super(
+                target.getStarSystem(),
+                faction,
+                null
+        );
+
         this.delegate = this;
         this.from = from;
         this.target = target;
@@ -108,7 +106,7 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
         Random thisRandom = route.getRandom();
 
         MarketAPI market = route.getMarket();
-        CampaignFleetAPI fleet = createFleet(colonyFaction.getId(), route, market, null, thisRandom);
+        CampaignFleetAPI fleet = createFleet(getFaction().getId(), route, market, null, thisRandom);
 
         if (fleet == null || fleet.isEmpty()) {
             return null;
@@ -224,9 +222,12 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
     public void makeHostile() {
         boolean hostile = getFaction().isHostileTo(Factions.PLAYER);
         if (!hostile) {
-            repResult = Global.getSector().adjustPlayerReputation(new RepActionEnvelope(RepActions.MAKE_HOSTILE_AT_BEST,
-                            null, null, null, false, true),
-                    colonyFaction.getId());
+            repResult = Global
+                    .getSector()
+                    .adjustPlayerReputation(
+                            new RepActionEnvelope(RepActions.MAKE_HOSTILE_AT_BEST,null, null, null, false, true),
+                            getFaction().getId()
+                    );
         }
     }
 
@@ -250,7 +251,7 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
 
     @Override
     public String getName() {
-        String base = Misc.ucFirst(colonyFaction.getEntityNamePrefix()) + " Colonial Expedition";
+        String base = Misc.ucFirst(getFaction().getEntityNamePrefix()) + " Colonial Expedition";
         if (outcome == KadurColonialExpeditionOutcome.EXPEDITION_DESTROYED
                 || outcome == KadurColonialExpeditionOutcome.TARGET_ALREADY_COLONIZED) {
             return base + " - Failed";
@@ -358,22 +359,22 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
 
         info.addImage(getFactionForUIColors().getLogo(), width, 128, opad);
 
-        String has = colonyFaction.getDisplayNameHasOrHave();
-        String is = colonyFaction.getDisplayNameIsOrAre();
+        String has = getFaction().getDisplayNameHasOrHave();
+        String is = getFaction().getDisplayNameIsOrAre();
 
         String strDesc = getRaidStrDesc();
 
         String articleOfPlanet = aOrAn(target.getPlanetEntity().getTypeNameWithLowerCaseWorld());
 
-        LabelAPI label = info.addPara(Misc.ucFirst(colonyFaction.getDisplayNameWithArticle()) + " " + is
+        LabelAPI label = info.addPara(Misc.ucFirst(getFaction().getDisplayNameWithArticle()) + " " + is
                         + " sending a colonial expedition to %s, " + articleOfPlanet + " %s in the %s."
                         + " The expedition is projected to be " + strDesc + ".",
-                opad, colonyFaction.getBaseUIColor(), target.getName(), target.getPlanetEntity().getTypeNameWithLowerCaseWorld().toLowerCase(), target.getStarSystem().getNameWithLowercaseType());
-        label.setHighlight(colonyFaction.getDisplayNameWithArticleWithoutArticle(), target.getName(), strDesc);
-        label.setHighlightColors(colonyFaction.getBaseUIColor(), target.getFaction().getBaseUIColor(), h);
+                opad, getFaction().getBaseUIColor(), target.getName(), target.getPlanetEntity().getTypeNameWithLowerCaseWorld().toLowerCase(), target.getStarSystem().getNameWithLowercaseType());
+        label.setHighlight(getFaction().getDisplayNameWithArticleWithoutArticle(), target.getName(), strDesc);
+        label.setHighlightColors(getFaction().getBaseUIColor(), target.getFaction().getBaseUIColor(), h);
 
         info.addSectionHeading("Status",
-                colonyFaction.getBaseUIColor(), colonyFaction.getDarkUIColor(), Alignment.MID, opad);
+                getFaction().getBaseUIColor(), getFaction().getDarkUIColor(), Alignment.MID, opad);
 
         for (RaidStage stage : stages) {
             stage.showStageInfo(info);
@@ -410,16 +411,33 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
     public void notifyRaidEnded(RaidIntel raid, RaidStageStatus status) {
         if (outcome == null && failStage >= 0) {
             if (target.hasIndustry(Industries.POPULATION) || target.isPlayerOwned()) {
-                outcome = KadurColonialExpeditionOutcome.TARGET_ALREADY_COLONIZED;
+                setOutcome(KadurColonialExpeditionOutcome.TARGET_ALREADY_COLONIZED);
             } else {
-                outcome = KadurColonialExpeditionOutcome.EXPEDITION_DESTROYED;
+                setOutcome(KadurColonialExpeditionOutcome.EXPEDITION_DESTROYED);
             }
         }
-    }
 
-    @Override
-    public String getIcon() {
-        return colonyFaction.getCrest();
+        FactionAPI raidingFaction = raid.getFaction();
+        StarSystemAPI targetSystem = raid.getSystem();
+        switch (status)
+        {
+            case ONGOING:
+                log.info(String.format("Raid from %s to system: %s is %s", raidingFaction, targetSystem, status));
+                break;
+            case SUCCESS:
+            case FAILURE:
+                log.info(
+                        String.format(
+                                "Raid from %s to system: %s has finished and was a %s\toutcome was %s",
+                                raidingFaction,
+                                targetSystem,
+                                status,
+                                getOutcome()
+                        )
+                );
+
+                break;
+        }
     }
 
     @Override

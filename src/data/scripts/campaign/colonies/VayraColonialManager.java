@@ -112,7 +112,7 @@ public class VayraColonialManager implements EveryFrameScript {
     public Map<String, Float> colonialPrefMinDist = new HashMap<>();
     public Map<String, Float> colonialPrefMaxDist = new HashMap<>();
 
-    private String AOTD_MOD_ID = "aotd_vok";
+    private final String AOTD_MOD_ID = "aotd_vok";
     public boolean AOTD_ENABLED = Global.getSettings().getModManager().isModEnabled(AOTD_MOD_ID);
 
     static {
@@ -375,6 +375,15 @@ public class VayraColonialManager implements EveryFrameScript {
             }
             float fleetPoints = pickExpeditionFP(colonyFaction);
             log.info(String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
+            log.info(
+                    String.format(
+                            "Notifying the Intel screen about it by calling VayraColonialExpeditionIntel(faction=%s, from=%s, target=%s, fleetPoints=%s)",
+                            colonyFaction,
+                            StringifyUtils.shortMarketApiString(source),
+                            StringifyUtils.shortMarketApiString(target),
+                            fleetPoints
+                    )
+            );
             VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
             planetsTargetedForColonies.add(target);
             spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tadded planet as target for colony\ttarget name: " + target.getName() + ", target star system: " + target.getStarSystem());
@@ -382,8 +391,8 @@ public class VayraColonialManager implements EveryFrameScript {
                     String.format(
                             "Colonial expedition was started by %s and heading from %s to %s with a fleet worth %s fleet points!\nPlanets targeted for colonies: %s",
                             colonyFaction,
-                            source,
-                            target,
+                            StringifyUtils.shortMarketApiString(source),
+                            StringifyUtils.shortMarketApiString(target),
                             fleetPoints,
                             StringifyUtils.shortMarketApiStringFromSet(planetsTargetedForColonies)
                     )
@@ -835,7 +844,7 @@ public class VayraColonialManager implements EveryFrameScript {
             source = possibleSources.pick();
         }
 
-        log.info("<-- pickSource()\treturning source: "+source);
+        log.info("<-- pickSource()\treturning source: "+((source != null) ? StringifyUtils.shortMarketApiString(source) : "null"));
         return source;
     }
 
