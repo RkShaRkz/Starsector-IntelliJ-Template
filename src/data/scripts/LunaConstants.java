@@ -19,6 +19,7 @@ public class LunaConstants {
     public final static String COLONIAL_COMPETITOR_CHANCE = "vayramerged_colonialCompetitorChance";
     public final static String COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MIN = "vayramerged_colonialCompetitorUpgradeIntervalMin";
     public final static String COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MAX = "vayramerged_colonialCompetitorUpgradeIntervalMax";
+    public final static String COLONIAL_COMPETITOR_BASE_FLEET_POINTS = "vayramerged_colonialCompetitorBaseFleetPoints";
 
     // dmod settings
     public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";

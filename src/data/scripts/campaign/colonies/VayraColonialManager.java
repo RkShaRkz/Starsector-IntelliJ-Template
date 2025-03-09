@@ -24,6 +24,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.domain.PersonBountyEventDataRepository;
 import data.scripts.VayraMergedModPlugin;
 import data.util.Optional;
+import data.util.StringifyUtils;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,7 +47,8 @@ public class VayraColonialManager implements EveryFrameScript {
     public static final String COLONY_FACTION_LIST_PATH = "data/config/vayraColonies/";
     public static final String COLONY_FACTION_LIST_CSV = "colony_factions.csv";
 
-    public static final float BASE_FLEET_POINTS = 150f;
+    public static final float DEFAULT_BASE_FLEET_POINTS = 150f;
+    public static float BASE_FLEET_POINTS = DEFAULT_BASE_FLEET_POINTS;
     public static final float DEFAULT_COLONY_INTERVAL_MIN = 90f;
     public static float COLONY_INTERVAL_MIN = DEFAULT_COLONY_INTERVAL_MIN;
     public static float DEFAULT_COLONY_INTERVAL_MAX = 180f;
@@ -303,6 +305,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
     private void performColonySpawn(float spawnChance) {
         spamLog("VayraColonialManager::advance()\tCOLONY SECTION");
+        log.info("--> performColonySpawn()\tspawnChance: "+spawnChance);
         if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= spawnChance) {
             spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tstarting to spawn colony...");
             Optional<FactionAPI> colonyFactionOptional = pickFaction();
@@ -349,18 +352,14 @@ public class VayraColonialManager implements EveryFrameScript {
                             source,
                             target,
                             fleetPoints,
-                            shortMarketApiStringFromSet(planetsTargetedForColonies)
+                            StringifyUtils.shortMarketApiStringFromSet(planetsTargetedForColonies)
                     )
             );
+        } else {
+            log.info("performColonySpawn()\tcolonies were not ready to spawn or random-check failed.");
         }
-    }
 
-    private String shortMarketApiStringFromSet(Set<MarketAPI> marketSet) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{ ");
-        for (MarketAPI market : marketSet) {
-            sb.append("MarketAPI[").append("name=").append(market.getName()).append(", faction=").append(market.getFaction())
-        }
+        log.info("<-- performColonySpawn()");
     }
 
     public String stringifyColonyList() {
@@ -544,8 +543,10 @@ public class VayraColonialManager implements EveryFrameScript {
                     } else {
                         WeightedRandomPicker<Industry> corePicker = new WeightedRandomPicker<>();
                         for (Industry possibleCoreIndustry : market.getIndustries()) {
-                            if (possibleCoreIndustry.getAICoreId() == null
-                                    || (possibleCoreIndustry.getAICoreId() != null && !possibleCoreIndustry.getAICoreId().equals(Commodities.ALPHA_CORE))) {
+                            String possibleCoreIndustryAICoreId = possibleCoreIndustry.getAICoreId();
+                            boolean possibleCoreIndustryAICoreIdEmptyOrNull = possibleCoreIndustry == null || possibleCoreIndustryAICoreId.isEmpty();
+                            boolean possibleCoreIndustryAICoreIsNotAlphaCore = !possibleCoreIndustryAICoreIdEmptyOrNull && !possibleCoreIndustryAICoreId.equals(Commodities.ALPHA_CORE);
+                            if(possibleCoreIndustryAICoreIdEmptyOrNull || possibleCoreIndustryAICoreIsNotAlphaCore) {
                                 float weight = possibleCoreIndustry.getBaseUpkeep();
                                 if (possibleCoreIndustry.getId().equals(Industries.STARFORTRESS_HIGH)) {
                                     weight *= 100f;

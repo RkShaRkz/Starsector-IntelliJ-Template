@@ -799,6 +799,14 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             double colonyUpgradeMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MIN), VayraColonialManager.DEFAULT_UPGRADE_INTERVAL_MIN);
             double colonyUpgradeMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MAX), VayraColonialManager.DEFAULT_UPGRADE_INTERVAL_MAX);
             VayraColonialManager.adjustUpgradeTimerIntervals((float) colonyUpgradeMin, (float) colonyUpgradeMax);
+
+            // colonial faction invasion base fleet points
+            int colonialCompetitorFactionBaseFleetPoints = safeUnboxing(
+                    LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_BASE_FLEET_POINTS),
+                    Math.round(VayraColonialManager.DEFAULT_BASE_FLEET_POINTS)
+            );
+            VayraColonialManager.BASE_FLEET_POINTS = colonialCompetitorFactionBaseFleetPoints;
+
         }
 
         private void handleDmodSettings() {
