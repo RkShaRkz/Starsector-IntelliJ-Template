@@ -759,11 +759,44 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         @Override
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
-                boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
-                VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
+
 
                 handleDmodSettings();
             }
+        }
+
+        private void handleGeneralSettings() {
+            // interstellaire upgrades
+            boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
+            VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
+
+            // colonial factions enabled
+            boolean colonialCompetitorsEnabled = safeUnboxing(LunaSettings.getBoolean(MOD_ID, COLONIAL_COMPETITORS_ENABLED));
+            COLONIAL_FACTIONS_ENABLED = colonialCompetitorsEnabled;
+
+            // colonial competitors start cycle
+            int colonialCompetitorsStartCycle = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITORS_START_CYCLE), COLONIAL_FACTION_TIMEOUT);
+            COLONIAL_FACTION_TIMEOUT = colonialCompetitorsStartCycle;
+
+            // colonial faction multiplier
+            int colonialCompetitorColonyMult = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITORS_COLONY_MULT), COLONIAL_FACTION_COLONY_MULT);
+            COLONIAL_FACTION_COLONY_MULT = colonialCompetitorColonyMult;
+
+            // colonial faction max colonies
+            int colonialCompetitorFactionColoniesMax = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_FACTION_COLONY_MAX), VayraColonialManager.DEFAULT_BASE_PER_FACTION_COLONY_COUNT);
+            VayraColonialManager.BASE_PER_FACTION_COLONY_COUNT = colonialCompetitorFactionColoniesMax;
+
+            // Colony spawn interval min and max - unlike the rest, we're gonna read two settings here and apply the change just once
+            double colonyIntervalMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_TIMER_INTERVAL_MIN), VayraColonialManager.DEFAULT_COLONY_INTERVAL_MIN);
+            double colonyIntervalMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_TIMER_INTERVAL_MAX), VayraColonialManager.DEFAULT_COLONY_INTERVAL_MAX);
+            VayraColonialManager.adjustColonialTimerIntervals((float) colonyIntervalMin, (float) colonyIntervalMax);
+
+            double colonyCompetitorChance = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_CHANCE), VayraColonialManager.DEFAULT_BASE_COLONY_CHANCE);
+            VayraColonialManager.BASE_COLONY_CHANCE = (float) colonyCompetitorChance;
+
+            double colonyUpgradeMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MIN), VayraColonialManager.DEFAULT_UPGRADE_INTERVAL_MIN);
+            double colonyUpgradeMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MAX), VayraColonialManager.DEFAULT_UPGRADE_INTERVAL_MAX);
+            VayraColonialManager.adjustUpgradeTimerIntervals((float) colonyUpgradeMin, (float) colonyUpgradeMax);
         }
 
         private void handleDmodSettings() {

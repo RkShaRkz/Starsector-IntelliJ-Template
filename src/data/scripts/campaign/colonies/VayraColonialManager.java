@@ -46,17 +46,33 @@ public class VayraColonialManager implements EveryFrameScript {
     public static final String COLONY_FACTION_LIST_CSV = "colony_factions.csv";
 
     public static final float BASE_FLEET_POINTS = 150f;
+    public static final float DEFAULT_COLONY_INTERVAL_MIN = 90f;
+    public static float COLONY_INTERVAL_MIN = DEFAULT_COLONY_INTERVAL_MIN;
+    public static float DEFAULT_COLONY_INTERVAL_MAX = 180f;
+    public static float COLONY_INTERVAL_MAX = DEFAULT_COLONY_INTERVAL_MAX;
 
     // only make a new colony / upgrade existing colonies every so often
-    private final IntervalUtil colonyTimer = new IntervalUtil(90f, 180f);
-    private final IntervalUtil upgradeTimer = new IntervalUtil(60f, 90f);
+    private final IntervalUtil colonyTimer = new IntervalUtil(COLONY_INTERVAL_MIN, COLONY_INTERVAL_MAX);
+
+    public static final float DEFAULT_UPGRADE_INTERVAL_MIN = 60f;
+    public static float UPGRADE_INTERVAL_MIN = DEFAULT_UPGRADE_INTERVAL_MIN;
+    public static final float DEFAULT_UPGRADE_INTERVAL_MAX = 90f;
+    public static float UPGRADE_INTERVAL_MAX = DEFAULT_UPGRADE_INTERVAL_MAX;
+    private final IntervalUtil upgradeTimer = new IntervalUtil(UPGRADE_INTERVAL_MIN, UPGRADE_INTERVAL_MAX);
+
     private final IntervalUtil useItemsTimer = new IntervalUtil(2f, 7f);
     public static final float COLONIAL_SPECIAL_CHANCE = 0.15f;
     public static final Map<String, Float> COLONIAL_MONEY_BUILDINGS = new HashMap<>();
 
-    public static final float BASE_COLONY_CHANCE = 0.5f; // and only make a new colony some of the time
-    public static final int BASE_PER_FACTION_COLONY_COUNT = 1; // maximum (player's markets + this) colonies per faction
-    // also, set in the settings .ini, a separate global colony maximum
+    public static final float DEFAULT_BASE_COLONY_CHANCE = 0.5f; // and only make a new colony some of the time
+    public static float BASE_COLONY_CHANCE = DEFAULT_BASE_COLONY_CHANCE;
+    /**
+     * How many more planets can any single colonial faction have more than the player?
+     * maximum (player's markets + this) colonies per faction
+     */
+    public static final int DEFAULT_BASE_PER_FACTION_COLONY_COUNT = 1;
+    public static int BASE_PER_FACTION_COLONY_COUNT = DEFAULT_BASE_PER_FACTION_COLONY_COUNT;
+
 
     public static final float DEFAULT_PREF_SCORE = 0.5f;
     public static final float DEFAULT_PREF_MIN_DIST = 0f;
@@ -205,8 +221,6 @@ public class VayraColonialManager implements EveryFrameScript {
         return (VayraColonialManager) test;
     }
 
-    private IntervalUtil t = null;
-
     @Override
     public void advance(float amount) {
         spamLog("--> VayraColonialManager::advance()");
@@ -354,6 +368,8 @@ public class VayraColonialManager implements EveryFrameScript {
         } catch (IOException | JSONException ex) {
             log.error("Colony faction list CSV loading failed!!! ;.....;", ex);
         }
+
+        log.info("Loaded possible colony list! loaded colonies: "+set);
         return set;
     }
 
@@ -680,7 +696,7 @@ public class VayraColonialManager implements EveryFrameScript {
                     Industry ind = market.getIndustry(upgrade);
                     if (ind != null) {
                         ind.startUpgrading();
-                        log.info(String.format("upgrading %s on %s", upgrade, market.getName()));
+                        log.info(String.format("upgrading %s on %s\t\tbuilding: %s, build progress: %s", upgrade, market.getName(), ind.isBuilding(), ind.getBuildOrUpgradeProgressText()));
                     } else {
                         log.error(String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName()));
                     }
@@ -1336,6 +1352,14 @@ public class VayraColonialManager implements EveryFrameScript {
                 log.info(logMessage);
             }
         }
+    }
+
+    public static void adjustColonialTimerIntervals(float minInterval, float maxInterval) {
+        getInstance().colonyTimer.setInterval(minInterval, maxInterval);
+    }
+
+    public static void adjustUpgradeTimerIntervals(float minInterval, float maxInterval) {
+        getInstance().upgradeTimer.setInterval(minInterval, maxInterval);
     }
 }
 

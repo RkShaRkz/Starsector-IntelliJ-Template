@@ -8,6 +8,15 @@ public class LunaConstants {
 
     // general settings
     public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
+    public final static String COLONIAL_COMPETITORS_ENABLED = "vayramerged_enableColonialCompetitors";
+    public final static String COLONIAL_COMPETITORS_START_CYCLE = "vayramerged_colonialCompetitorsStartCycle";
+    public final static String COLONIAL_COMPETITORS_COLONY_MULT = "vayramerged_colonialCompetitorsColonyMult";
+    public final static String COLONIAL_COMPETITOR_FACTION_COLONY_MAX = "vayramerged_colonialCompetitorFactionColonyMax";
+    public final static String COLONIAL_COMPETITOR_TIMER_INTERVAL_MIN = "vayramerged_colonialCompetitorTimerIntervalMin";
+    public final static String COLONIAL_COMPETITOR_TIMER_INTERVAL_MAX = "vayramerged_colonialCompetitorTimerIntervalMax";
+    public final static String COLONIAL_COMPETITOR_CHANCE = "vayramerged_colonialCompetitorChance";
+    public final static String COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MIN = "vayramerged_colonialCompetitorUpgradeIntervalMin";
+    public final static String COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MAX = "vayramerged_colonialCompetitorUpgradeIntervalMax";
 
     // dmod settings
     public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";
