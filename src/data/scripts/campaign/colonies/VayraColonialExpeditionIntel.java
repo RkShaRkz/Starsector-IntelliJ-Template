@@ -409,11 +409,17 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
 
     @Override
     public void notifyRaidEnded(RaidIntel raid, RaidStageStatus status) {
-        if (outcome == null && failStage >= 0) {
-            if (target.hasIndustry(Industries.POPULATION) || target.isPlayerOwned()) {
-                setOutcome(KadurColonialExpeditionOutcome.TARGET_ALREADY_COLONIZED);
+        if (outcome == null) {
+            // check for failure
+            if (failStage >= 0) {
+                if (target.hasIndustry(Industries.POPULATION) || target.isPlayerOwned()) {
+                    setOutcome(KadurColonialExpeditionOutcome.TARGET_ALREADY_COLONIZED);
+                } else {
+                    setOutcome(KadurColonialExpeditionOutcome.EXPEDITION_DESTROYED);
+                }
             } else {
-                setOutcome(KadurColonialExpeditionOutcome.EXPEDITION_DESTROYED);
+                // it's probably -1, which indicates 'no failure'
+                setOutcome(KadurColonialExpeditionOutcome.COLONY_ESTABLISHED);
             }
         }
 
