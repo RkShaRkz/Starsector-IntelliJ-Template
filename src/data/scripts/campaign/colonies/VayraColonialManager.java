@@ -30,7 +30,6 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.lazywizard.console.Console;
 import org.lwjgl.util.vector.Vector2f;
 
 import java.io.IOException;
@@ -127,9 +126,6 @@ public class VayraColonialManager implements EveryFrameScript {
 
     public static final float INDUSTRY_CORE_ESCAPE_CHANCE = 0.5f;
     public static final float ADMIN_CORE_ESCAPE_CHANCE = 1f;
-
-    private static final boolean SPAM_LOG_ENABLED = false;
-    private static final boolean SPAM_LOG_SPAMS_CONSOLE = false;
 
     public static boolean UPGRADES_DISABLED = false;
 
@@ -259,7 +255,6 @@ public class VayraColonialManager implements EveryFrameScript {
 
     @Override
     public void advance(float amount) {
-        spamLog("--> VayraColonialManager::advance()");
         checkIfAnyShouldBeVisible();
 
         if (!COLONIAL_FACTIONS_ENABLED) {
@@ -290,7 +285,6 @@ public class VayraColonialManager implements EveryFrameScript {
             useItems();
         }
 
-        spamLog("VayraColonialManager::advance()\tcoloniesActive: "+StringifyUtils.stringifyColonyList(coloniesActive));
         if (!coloniesActive.isEmpty()) {
             for (MarketAPI market : coloniesActive) {
                 market.advance(amount);
@@ -313,7 +307,6 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     private void performColonyUpgrade() {
-        spamLog("VayraColonialManager::performColonyUpgrade()\tUPGRADE SECTION\tcoloniesActive size: "+coloniesActive.size());
         if (!coloniesActive.isEmpty()) {
             for (MarketAPI market : coloniesActive) {
                 pickNextUpgrade(market);
@@ -337,17 +330,14 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     private void performColonySpawn(float spawnChance) {
-        spamLog("VayraColonialManager::advance()\tCOLONY SECTION");
         log.info("--> performColonySpawn()\tspawnChance: "+spawnChance);
         if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= spawnChance) {
-            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tstarting to spawn colony...");
             Optional<FactionAPI> colonyFactionOptional = pickFaction();
             if (!colonyFactionOptional.isPresent()) {
                 log.info("Not starting a colonial expedition -- pickFaction() returned NOTHING!");
                 return;
             }
             FactionAPI colonyFaction = colonyFactionOptional.get();
-            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tpicked faction: "+((colonyFaction != null) ? colonyFaction.getId() : "null")+", faction name: "+((colonyFaction != null) ? colonyFaction.getDisplayName() : "null"));
             log.info(String.format("Colony interval elapsed, picked faction (id=%s) for starting a colonization attempt", colonyFaction.getId()));
             // and this is where we create the colonial expedition! ohgodsomuchwork
             MarketAPI source = pickSource(colonyFaction);
@@ -357,21 +347,17 @@ public class VayraColonialManager implements EveryFrameScript {
                 log.info(String.format(
                         "We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving up instead",
                         colonyFaction.getDisplayNameLongWithArticle(), colonialParent));
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because source == null condition");
                 return;
             }
             Optional<MarketAPI> targetOptional = pickTarget(source, colonyFaction);
             if (!targetOptional.isPresent()) {
                 log.info("We were gonna colonize a planet, but target returned null so we're giving up instead");
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because target == null condition");
                 return;
             }
             MarketAPI target = targetOptional.get();
-            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\ttarget.isPlanetConditionMarketingOnly ? "+target.isPlanetConditionMarketOnly());
             if (!target.isPlanetConditionMarketOnly()) {
                 log.info(String.format("We were gonna colonize %s, but it's not a planetary condition only market "
                         + "(already taken?) so we're giving up instead", target.getName()));
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because !target.isPlanetConditionMarketOnly() condition");
             }
             float fleetPoints = pickExpeditionFP(colonyFaction);
             log.info(String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
@@ -386,7 +372,6 @@ public class VayraColonialManager implements EveryFrameScript {
             );
             VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
             planetsTargetedForColonies.add(target);
-            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tadded planet as target for colony\ttarget name: " + target.getName() + ", target star system: " + target.getStarSystem());
             log.info(
                     String.format(
                             "Colonial expedition was started by %s and heading from %s to %s with a fleet worth %s fleet points!\nPlanets targeted for colonies: %s",
@@ -1404,15 +1389,6 @@ public class VayraColonialManager implements EveryFrameScript {
         }
     }
 
-    private void spamLog(String logMessage) {
-        if (SPAM_LOG_ENABLED) {
-            if (SPAM_LOG_SPAMS_CONSOLE) {
-                Console.showMessage(logMessage);
-            } else {
-                log.info(logMessage);
-            }
-        }
-    }
 
     public static void adjustColonialTimerIntervals(float minInterval, float maxInterval) {
 //        VayraColonialManager instance = getInstance();
