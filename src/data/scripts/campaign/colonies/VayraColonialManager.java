@@ -50,6 +50,9 @@ public class VayraColonialManager implements EveryFrameScript {
 
     public static Logger log = Global.getLogger(VayraColonialManager.class);
 
+    public static final int SCRIPT_VERSION = 1;
+    private final int myVersion;
+
     public static final String KEY = "$vayra_colonialManager";
 
     public static final String COLONY_FACTION_LIST_PATH = "data/config/vayraColonies/";
@@ -130,6 +133,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
     public VayraColonialManager() {
 
+        myVersion = SCRIPT_VERSION;
         possibleColonyFactions = loadColonyFactionList();
         loadColonyFactionData();
         Global.getSector().getMemoryWithoutUpdate().set(KEY, this);
@@ -245,6 +249,10 @@ public class VayraColonialManager implements EveryFrameScript {
     public static @Nullable VayraColonialManager getInstance() {
         Object test = Global.getSector().getMemoryWithoutUpdate().get(KEY);
         return (VayraColonialManager) test;
+    }
+
+    public int getVersion() {
+        return myVersion;
     }
 
     @Override
