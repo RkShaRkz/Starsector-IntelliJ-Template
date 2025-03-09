@@ -128,6 +128,9 @@ public class VayraCheckFactions implements BaseCommand
 
             // Since we *still* didn't find anything, look through everything else besides Markets.
             if (!factionSpawnedAndIsActive) {
+                sb.append("\n\n\tNOTHING WAS FOUND YET - SEARCHING THROUGH ALL MARKETS AND ENTITIES....").append("\n");;
+            }
+            if (!factionSpawnedAndIsActive) {
                 List<SectorEntityToken> entityTokenList = Global.getSector().getEntitiesWithTag(VayraMergedModPlugin.MOD_ID);
                 factionSpawnedAndIsActive = searchSectorEntityTokenList(entityTokenList, faction, factionId, sb);
             }
@@ -140,7 +143,7 @@ public class VayraCheckFactions implements BaseCommand
                 for (MarketAPI marketIterable : allMarketsList) {
                     if (marketIterable.getFaction().equals(faction)) {
                         // Bingo, we found it.
-                        sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!");
+                        sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!").append("\n");;
                         factionSpawnedAndIsActive = stringifyMarketIntoStringBuilder(marketIterable, faction, factionId, sb);
                     }
                 }
@@ -157,6 +160,7 @@ public class VayraCheckFactions implements BaseCommand
         FactionAPI marketFaction = market.getFaction();
         boolean marketFactionMatchesActualFaction = marketFaction.equals(faction);
         boolean marketFactionIDMatchesActualFactionID = marketFactionID.equals(factionId);
+        String marketName = market.getName();
         LocationAPI marketLocation = market.getContainingLocation();
         Vector2f marketLocationVector = market.getLocation();
         // Stringify all this shit
@@ -164,6 +168,7 @@ public class VayraCheckFactions implements BaseCommand
         sb.append("\tMarket Faction:\t").append(marketFaction).append("\n");
         sb.append("\tMarket Faction matches actual Faction:\t").append(marketFactionMatchesActualFaction).append("\n");
         sb.append("\tMarket Faction ID matches actual Faction ID:\t").append(marketFactionIDMatchesActualFactionID).append("\n");
+        sb.append("\tMarket Name:\t").append(marketName).append("\n");
         sb.append("\tMarket Location:\t").append(marketLocation).append("\n");
         sb.append("\tMarket Location (vector):\t").append(marketLocationVector).append("\n");
 
