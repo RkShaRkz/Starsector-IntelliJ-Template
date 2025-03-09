@@ -95,13 +95,25 @@ public class VayraCheckFactions implements BaseCommand
 
             // Assume faction hasn't spawned yet
             boolean factionSpawnedAndIsActive = false;
+            MarketType targetMarketType;
 
-            //TODO refactor this, and check whether the target Market is really a station or a planet
-            // we can fetch the station's market with station.getMarket() and the planet is already fetched as-is like this.
-            // then just perform the if (marketExists) only once, shared for both the station's market and the planet's market
-            MarketAPI market = Global.getSector().getEconomy().getMarket(marketId);
+            // And now, start asking questions about the faction and determine whether it is spawned and active
+            MarketAPI targetMarket = Global.getSector().getEconomy().getMarket(marketId);
+            boolean targetMarketExists = targetMarket != null;
+            // If target market exists, great, move on, otherwise, check if it's a station instead
+            MarketAPI market;
+            if (!targetMarketExists) {
+                SectorEntityToken station = Global.getSector().getEntityById(marketId);
+                targetMarketType = MarketType.STATION;
+                market = station.getMarket();
+            } else {
+                market = targetMarket;
+                targetMarketType = MarketType.PLANET;
+            }
+            // Now carry on with the unified flow
             boolean marketExists = market != null;
             sb.append("\tFaction (target) market:\t").append(market).append("\n");
+            sb.append("\tFaction (target) market type:\t").append(targetMarketType).append("\n");
             sb.append("\tMarket exists:\t").append(marketExists).append("\n");
             if( marketExists )
             {
@@ -121,36 +133,15 @@ public class VayraCheckFactions implements BaseCommand
 
                 // Faction is spawned and active if the market's faction equals the faction we're interested in
                 factionSpawnedAndIsActive = marketFactionMatchesActualFaction;
-            } else {
-                // Maybe it's a station?
-                SectorEntityToken station = Global.getSector().getEntityById(marketId);
-                boolean stationExists = station != null;
-                sb.append("\tFaction (target) sector entity:\t").append(station).append("\n");
-                sb.append("\tStation exists:\t").append(stationExists).append("\n");
-                if( stationExists )
-                {
-                    FactionAPI stationFaction = station.getFaction();
-                    String stationFactionID = station.getFaction().getId();
-                    boolean stationFactionMatchesActualFaction = stationFaction.equals(faction);
-                    boolean stationFactionIDMatchesActualFactionID = stationFactionID.equals(factionId);
-                    LocationAPI stationLocation = station.getContainingLocation();
-                    Vector2f stationLocationVector = station.getLocation();
-                    // Stringify all this shit
-                    sb.append("\tStation Faction ID:\t").append(stationFactionID).append("\n");
-                    sb.append("\tStation Faction:\t").append(stationFaction).append("\n");
-                    sb.append("\tStation Faction matches actual Faction:\t").append(stationFactionMatchesActualFaction).append("\n");
-                    sb.append("\tMarket Faction ID matches actual Faction ID:\t").append(stationFactionIDMatchesActualFactionID).append("\n");
-                    sb.append("\tStation Location:\t").append(stationLocation).append("\n");
-                    sb.append("\tStation Location (vector):\t").append(stationLocationVector).append("\n");
-
-                    // Faction is spawned and active if the station's faction equals the faction we're interested in
-                    factionSpawnedAndIsActive = stationFactionMatchesActualFaction;
-                }
             }
+            //TODO if still inactive, try to search through *ALL* planets and stations to find anything theirs
+            // just to be sure
             sb.append("\n");
             sb.append("\tFaction spawned and is active: ").append(factionSpawnedAndIsActive);
             sb.append("\n\n");
             Console.showMessage(sb.toString());
         }
     }
+
+    private enum MarketType { PLANET, STATION }
 }
