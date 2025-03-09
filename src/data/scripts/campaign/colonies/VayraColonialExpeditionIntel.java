@@ -24,6 +24,7 @@ import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.SectorMapAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
 import com.fs.starfarer.api.util.Misc;
+import com.sun.javafx.beans.annotations.NonNull;
 import org.apache.log4j.Logger;
 import org.lwjgl.util.vector.Vector2f;
 
@@ -66,7 +67,7 @@ public class VayraColonialExpeditionIntel extends RaidIntel implements RaidDeleg
     }
 
     @SuppressWarnings("OverridableMethodCallInConstructor")
-    public VayraColonialExpeditionIntel(FactionAPI faction, MarketAPI from, MarketAPI target, float fleetPoints) {
+    public VayraColonialExpeditionIntel(@NonNull FactionAPI faction, MarketAPI from, MarketAPI target, float fleetPoints) {
         super(target.getStarSystem(), faction, null);
         this.colonyFaction = faction;
         this.delegate = this;

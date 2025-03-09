@@ -53,13 +53,13 @@ public class VayraColonialManager implements EveryFrameScript {
     public static float COLONY_INTERVAL_MAX = DEFAULT_COLONY_INTERVAL_MAX;
 
     // only make a new colony / upgrade existing colonies every so often
-    private final IntervalUtil colonyTimer = new IntervalUtil(COLONY_INTERVAL_MIN, COLONY_INTERVAL_MAX);
+    private final IntervalUtil colonyTimer = VayraColonialManagerExternalDataHolder.getInstance().getColonyTimer();
 
     public static final float DEFAULT_UPGRADE_INTERVAL_MIN = 60f;
     public static float UPGRADE_INTERVAL_MIN = DEFAULT_UPGRADE_INTERVAL_MIN;
     public static final float DEFAULT_UPGRADE_INTERVAL_MAX = 90f;
     public static float UPGRADE_INTERVAL_MAX = DEFAULT_UPGRADE_INTERVAL_MAX;
-    private final IntervalUtil upgradeTimer = new IntervalUtil(UPGRADE_INTERVAL_MIN, UPGRADE_INTERVAL_MAX);
+    private final IntervalUtil upgradeTimer = VayraColonialManagerExternalDataHolder.getInstance().getUpgradeTimer();
 
     private final IntervalUtil useItemsTimer = new IntervalUtil(2f, 7f);
     public static final float COLONIAL_SPECIAL_CHANCE = 0.15f;
@@ -269,71 +269,97 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         if (upgradeTimer.intervalElapsed()) {
-            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tcoloniesActive size: "+coloniesActive.size());
-            if (!coloniesActive.isEmpty()) {
-                for (MarketAPI market : coloniesActive) {
-                    pickNextUpgrade(market);
-                }
-                List<MarketAPI> remove = new ArrayList<>();
-                for (MarketAPI toRemove : coloniesToRemove) {
-                    coloniesActive.remove(toRemove);
-                    log.info(String.format("removing %s from list of colonies as it now belongs to %s", toRemove.getName(), toRemove.getFactionId()));
-                    purgeCores(toRemove);
-                    executeAdmin(toRemove);
-                    remove.add(toRemove);
-                }
-                for (MarketAPI toRemove : remove) {
-                    coloniesToRemove.remove(toRemove);
-                }
-
-                if (AI_REBELLION_THRESHOLD > 0) {
-                    testForAITakeover("science_fuckers");
-                }
-            }
+            performColonyUpgrade();
         }
 
         if (colonyTimer.intervalElapsed()) {
-            spamLog("VayraColonialManager::advance()\tCOLONY SECTION");
-            if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= colonyChance) {
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tstarting to spawn colony...");
-                Optional<FactionAPI> colonyFactionOptional = pickFaction();
-                if (!colonyFactionOptional.isPresent()) {
-                    log.info("Not starting a colonial expedition -- pickFaction() returned NOTHING!");
-                    return;
-                }
-                FactionAPI colonyFaction = colonyFactionOptional.get();
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tpicked faction: "+((colonyFaction != null) ? colonyFaction.getId() : "null")+", faction name: "+((colonyFaction != null) ? colonyFaction.getDisplayName() : "null"));
-                log.info(String.format("Colony interval elapsed, picked faction (id=%s) for starting a colonization attempt", colonyFaction.getId()));
-                // and this is where we create the colonial expedition! ohgodsomuchwork
-                MarketAPI source = pickSource(colonyFaction);
-                if (source == null) {
-                    FactionAPI colonialParent = Global.getSector()
-                            .getFaction(colonialParents.get(colonyFaction.getId()));
-                    log.info(String.format(
-                            "We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving up instead",
-                            colonyFaction.getDisplayNameLongWithArticle(), colonialParent));
-                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because source == null condition");
-                    return;
-                }
-                Optional<MarketAPI> targetOptional = pickTarget(source, colonyFaction);
-                if (!targetOptional.isPresent()) {
-                    log.info("We were gonna colonize a planet, but target returned null so we're giving up instead");
-                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because target == null condition");
-                    return;
-                }
-                MarketAPI target = targetOptional.get();
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\ttarget.isPlanetConditionMarketingOnly ? "+target.isPlanetConditionMarketOnly());
-                if (!target.isPlanetConditionMarketOnly()) {
-                    log.info(String.format("We were gonna colonize %s, but it's not a planetary condition only market "
-                            + "(already taken?) so we're giving up instead", target.getName()));
-                    spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because !target.isPlanetConditionMarketOnly() condition");
-                }
-                float fleetPoints = pickExpeditionFP(colonyFaction);
-                log.info(String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
-                VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
-                planetsTargetedForColonies.add(target);
-                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tadded planet as target for colony\ttarget name: " + target.getName() + ", target star system: " + target.getStarSystem());
+            performColonySpawn(colonyChance);
+        }
+    }
+
+    private void performColonyUpgrade() {
+        spamLog("VayraColonialManager::performColonyUpgrade()\tUPGRADE SECTION\tcoloniesActive size: "+coloniesActive.size());
+        if (!coloniesActive.isEmpty()) {
+            for (MarketAPI market : coloniesActive) {
+                pickNextUpgrade(market);
             }
+            List<MarketAPI> remove = new ArrayList<>();
+            for (MarketAPI toRemove : coloniesToRemove) {
+                coloniesActive.remove(toRemove);
+                log.info(String.format("removing %s from list of colonies as it now belongs to %s", toRemove.getName(), toRemove.getFactionId()));
+                purgeCores(toRemove);
+                executeAdmin(toRemove);
+                remove.add(toRemove);
+            }
+            for (MarketAPI toRemove : remove) {
+                coloniesToRemove.remove(toRemove);
+            }
+
+            if (AI_REBELLION_THRESHOLD > 0) {
+                testForAITakeover("science_fuckers");
+            }
+        }
+    }
+
+    private void performColonySpawn(float spawnChance) {
+        spamLog("VayraColonialManager::advance()\tCOLONY SECTION");
+        if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= spawnChance) {
+            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tstarting to spawn colony...");
+            Optional<FactionAPI> colonyFactionOptional = pickFaction();
+            if (!colonyFactionOptional.isPresent()) {
+                log.info("Not starting a colonial expedition -- pickFaction() returned NOTHING!");
+                return;
+            }
+            FactionAPI colonyFaction = colonyFactionOptional.get();
+            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tpicked faction: "+((colonyFaction != null) ? colonyFaction.getId() : "null")+", faction name: "+((colonyFaction != null) ? colonyFaction.getDisplayName() : "null"));
+            log.info(String.format("Colony interval elapsed, picked faction (id=%s) for starting a colonization attempt", colonyFaction.getId()));
+            // and this is where we create the colonial expedition! ohgodsomuchwork
+            MarketAPI source = pickSource(colonyFaction);
+            if (source == null) {
+                FactionAPI colonialParent = Global.getSector()
+                        .getFaction(colonialParents.get(colonyFaction.getId()));
+                log.info(String.format(
+                        "We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving up instead",
+                        colonyFaction.getDisplayNameLongWithArticle(), colonialParent));
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because source == null condition");
+                return;
+            }
+            Optional<MarketAPI> targetOptional = pickTarget(source, colonyFaction);
+            if (!targetOptional.isPresent()) {
+                log.info("We were gonna colonize a planet, but target returned null so we're giving up instead");
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because target == null condition");
+                return;
+            }
+            MarketAPI target = targetOptional.get();
+            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\ttarget.isPlanetConditionMarketingOnly ? "+target.isPlanetConditionMarketOnly());
+            if (!target.isPlanetConditionMarketOnly()) {
+                log.info(String.format("We were gonna colonize %s, but it's not a planetary condition only market "
+                        + "(already taken?) so we're giving up instead", target.getName()));
+                spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\taborting because !target.isPlanetConditionMarketOnly() condition");
+            }
+            float fleetPoints = pickExpeditionFP(colonyFaction);
+            log.info(String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
+            VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
+            planetsTargetedForColonies.add(target);
+            spamLog("VayraColonialManager::advance()\tUPGRADE SECTION\tadded planet as target for colony\ttarget name: " + target.getName() + ", target star system: " + target.getStarSystem());
+            log.info(
+                    String.format(
+                            "Colonial expedition was started by %s and heading from %s to %s with a fleet worth %s fleet points!\nPlanets targeted for colonies: %s",
+                            colonyFaction,
+                            source,
+                            target,
+                            fleetPoints,
+                            shortMarketApiStringFromSet(planetsTargetedForColonies)
+                    )
+            );
+        }
+    }
+
+    private String shortMarketApiStringFromSet(Set<MarketAPI> marketSet) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{ ");
+        for (MarketAPI market : marketSet) {
+            sb.append("MarketAPI[").append("name=").append(market.getName()).append(", faction=").append(market.getFaction())
         }
     }
 
@@ -1123,7 +1149,9 @@ public class VayraColonialManager implements EveryFrameScript {
                 colonyFactions.remove(factionId);
             }
         }
+        // So this will be emptied only if none of the factions have room to expand
         if (colonyFactions.isEmpty()) {
+            log.info(String.format("<-- pickFaction()\tno one had room to expand and colonyFactions WeightedRandomPicker was empty! returning nothing"));
             return Optional.empty();
         }
         FactionAPI faction = Global.getSector().getFaction(colonyFactions.pickAndRemove());
@@ -1361,11 +1389,32 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     public static void adjustColonialTimerIntervals(float minInterval, float maxInterval) {
-        getInstance().colonyTimer.setInterval(minInterval, maxInterval);
+//        VayraColonialManager instance = getInstance();
+//        if (instance != null)
+//        {
+//            instance.colonyTimer.setInterval(minInterval, maxInterval);
+//        } else {
+//            log.warn("VayraColonialManager instance was null! did not adjust colonyTimer !!!");
+//        }
+        // Because we don't want to cater to *when* the VayraColonialManager gets instantiated
+        // hint: it gets instantiated only in VayraMergedModPlugin::onNewGameAfterTimePass()
+        // we need to keep a few things *outside* of it, so that we can update/tweak them regardless of whether
+        // the VayraColonialManager has an instance or not.
+        //
+        // Doing things like above leads to NPEs when the Starsector game is started, before the game is loaded. (before main menu)
+        // and because we don't quite want that and still want to just update LunaSettings in VayraMergedModPlugin::onApplicationLoad()
+        // instead of covering *all* paths, we have extracted these two IntervalUtils there which can be touched/changed
+        // by the VayraMergedModPlugin::onApplicationLoad() without needing to have the VayraColonialManager even instantiated.
+        //
+        // The VayraColonialManager will share their instances, and all is going to be well.
+        VayraColonialManagerExternalDataHolder externalDataHolder = VayraColonialManagerExternalDataHolder.getInstance();
+        externalDataHolder.getColonyTimer().setInterval(minInterval, maxInterval);
     }
 
     public static void adjustUpgradeTimerIntervals(float minInterval, float maxInterval) {
-        getInstance().upgradeTimer.setInterval(minInterval, maxInterval);
+        // NOTE: the comment from adjustColonialTimerIntervals() applies here as well since this is an identical situation
+        VayraColonialManagerExternalDataHolder externalDataHolder = VayraColonialManagerExternalDataHolder.getInstance();
+        externalDataHolder.getUpgradeTimer().setInterval(minInterval, maxInterval);
     }
 }
 
@@ -1451,4 +1500,40 @@ class ReputationHolder {
     }
 
     static enum ReputationHolderType { FLOAT, REP_LEVEL }
+}
+
+class VayraColonialManagerExternalDataHolder {
+    private static volatile VayraColonialManagerExternalDataHolder instance = null;
+
+    private final IntervalUtil upgradeTimer;
+    private final IntervalUtil colonyTimer;
+
+    private VayraColonialManagerExternalDataHolder() {
+        // Empty private constructor to prevent instantiation
+
+        upgradeTimer = new IntervalUtil(
+                VayraColonialManager.UPGRADE_INTERVAL_MIN,
+                VayraColonialManager.UPGRADE_INTERVAL_MAX
+        );
+        colonyTimer = new IntervalUtil(
+                VayraColonialManager.COLONY_INTERVAL_MIN,
+                VayraColonialManager.COLONY_INTERVAL_MAX
+        );
+    }
+
+    public static VayraColonialManagerExternalDataHolder getInstance() {
+        // The typical doubly-locked getInstance
+        if (instance == null) {
+            synchronized (VayraColonialManagerExternalDataHolder.class) {
+                if (instance == null) {
+                    instance = new VayraColonialManagerExternalDataHolder();
+                }
+            }
+        }
+
+        return instance;
+    }
+
+    public IntervalUtil getUpgradeTimer() { return upgradeTimer; }
+    public IntervalUtil getColonyTimer() { return colonyTimer; }
 }
