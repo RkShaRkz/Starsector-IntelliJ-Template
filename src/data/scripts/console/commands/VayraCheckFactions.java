@@ -161,9 +161,7 @@ public class VayraCheckFactions implements BaseCommand
         boolean retVal = false;
         for (SectorEntityToken token : entityTokenList) {
             if (token.getFaction().equals(faction)) {
-                LocationAPI tokenLocation = token.getContainingLocation();
-                Vector2f tokenLocationVector = token.getLocation();
-                sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!");
+                sb.append("\t\tFOUND SOMETHING THE FACTION OWNS!").append("\n");
                 if (token.getMarket() != null) {
                     MarketAPI tokenMarket = token.getMarket();
                     sb.append("\tMarket type:\t").append(MarketType.STATION).append("\n");
