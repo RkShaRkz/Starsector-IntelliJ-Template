@@ -75,6 +75,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static int COLONIAL_FACTION_TIMEOUT;
     public static int COLONIAL_FACTION_COLONY_MULT;
     public static boolean POPULAR_FRONT_ENABLED;
+    private static final int DEFAULT_POPULAR_FRONT_TIMEOUT = 210;
     public static int POPULAR_FRONT_TIMEOUT;
     public static int AI_REBELLION_THRESHOLD;
     public static boolean UNIQUE_BOUNTIES;
@@ -784,12 +785,23 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
                 handleGeneralSettings();
+                handlePopularFrontSettings();
                 handleColonialFactionSettings();
                 handleDmodSettings();
             }
         }
 
         private void handleGeneralSettings() {
+            // RPG minigame
+            boolean enableRpgMinigame = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_RPG_MINIGAME));
+            PLAY_TTRPG = enableRpgMinigame;
+
+            // VayraDebug
+            boolean enableVayraDebug = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_VAYRA_DEBUG));
+            VAYRA_DEBUG = enableVayraDebug;
+        }
+
+        private void handlePopularFrontSettings() {
             // interstellaire upgrades
             boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
             VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
@@ -797,6 +809,13 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // communist clouds expedition FP multiplier
             double communistCloudsFPmultiplier = safeUnboxing(LunaSettings.getDouble(MOD_ID, COMMUNIST_CLOUDS_FP_MULTIPLIER), VayraColonialManager.DEFAULT_COMMUNIST_CLOUDS_FP_MULTIPLIER);
             VayraColonialManager.COMMUNIST_CLOUDS_FP_MULTIPLIER = (float) communistCloudsFPmultiplier;
+
+            // popular front start cycle
+            int popularFrontStartCycle = safeUnboxing(LunaSettings.getInt(MOD_ID, POPULAR_FRONT_START_CYCLE), DEFAULT_POPULAR_FRONT_TIMEOUT);
+            POPULAR_FRONT_TIMEOUT = popularFrontStartCycle;
+
+            boolean enablePopularFront = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.POPULAR_FRONT_ENABLED));
+            POPULAR_FRONT_ENABLED = enablePopularFront;
         }
 
         private void handleColonialFactionSettings() {

@@ -7,8 +7,14 @@ package data.scripts;
 public class LunaConstants {
 
     // general settings
+    public final static String ENABLE_RPG_MINIGAME = "vayramerged_enableRpgMinigame";
+    public final static String ENABLE_VAYRA_DEBUG = "vayramerged_enableVayraDebug";
+
+    // popular front settings
     public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_disableInterstellaireUpgrades";
     public final static String COMMUNIST_CLOUDS_FP_MULTIPLIER = "vayramerged_popularFrontExpeditionMultiplier";
+    public final static String POPULAR_FRONT_ENABLED = "vayramerged_popularFrontEnabled";
+    public final static String POPULAR_FRONT_START_CYCLE = "vayramerged_popularFrontStartCycle";
 
     // colonial factions
     public final static String COLONIAL_COMPETITORS_ENABLED = "vayramerged_enableColonialCompetitors";
