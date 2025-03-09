@@ -1,5 +1,8 @@
 package data.util;
 
+import com.sun.javafx.beans.annotations.NonNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.NoSuchElementException;
 
 public class Optional<T> {
@@ -11,7 +14,7 @@ public class Optional<T> {
         this.value = value;
     }
 
-    public static <T> Optional<T> of(T value){
+    public static <T> Optional<T> of(@NonNull T value){
         return new Optional<T>(value);
     }
 
@@ -20,7 +23,7 @@ public class Optional<T> {
         return (Optional<T>) EMPTY;
     }
 
-    public static <T> Optional<T> ofNullable(T value){
+    public static <T> Optional<T> ofNullable(@Nullable T value){
         if(value == null){
             return empty();
         }else{
