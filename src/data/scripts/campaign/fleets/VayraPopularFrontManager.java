@@ -175,6 +175,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             log(LoggerLogLevel.ERROR, log, "can't find l'interstellaire after making it");
             return;
         }
+        newInterstellarStation.addTag(MOD_ID);
         SectorEntityToken entity = target.getPrimaryEntity();
         if (entity == null) {
             log(LoggerLogLevel.ERROR, log, "can't find the thing l'interstellaire is supposed to orbit, eat shit");

@@ -370,6 +370,7 @@ public class VayraProcgenEntityFramework implements EveryFrameScript, DiscoverEn
                             data.entityId, // entity type id from custom_entities.json
                             data.factionId // faction ID of entity
                     );
+                    entity.addTag(MOD_ID);
 
                     log.info("placed " + data.id + " in " + location.getId() + " as entity");
 
