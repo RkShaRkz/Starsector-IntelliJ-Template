@@ -26,6 +26,7 @@ import data.scripts.VayraMergedModPlugin;
 import data.util.Optional;
 import data.util.StringifyUtils;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +39,13 @@ import java.util.*;
 import static com.fs.starfarer.api.impl.campaign.procgen.themes.MiscellaneousThemeGenerator.PLANETARY_SHIELD_PLANET_KEY;
 import static data.scripts.VayraMergedModPlugin.*;
 
+/**
+ * Do NOT be fooled, this isn't a class or a "system" class, this is just a oddly-named {@link EveryFrameScript}
+ *
+ * Because of when it's instantiated, try not to expose alot of it's inner objects, and anything that *does* require
+ * it's instance to be non-null should be better put in the {@link VayraColonialManagerExternalDataHolder} and having
+ * the {@link VayraColonialManager} share it's instance of that thing with the external data holder's
+ */
 public class VayraColonialManager implements EveryFrameScript {
 
     public static Logger log = Global.getLogger(VayraColonialManager.class);
@@ -219,7 +227,22 @@ public class VayraColonialManager implements EveryFrameScript {
         return 0f;
     }
 
-    public static VayraColonialManager getInstance() {
+    /**
+     * This getInstance() isn't the typical kind, because it really just does this
+     *
+     * <pre>
+     *{@code
+     *Object test = Global.getSector().getMemoryWithoutUpdate().get(KEY);
+     *return (VayraColonialManager) test;
+     *}
+     * </pre>
+     *
+     * As such, the instance it returns may very well be <b>null</b>. It will also <b>not instantiate</b> the object
+     * in case it is <b>null</b>
+     *
+     * @return the instance, if it exists
+     */
+    public static @Nullable VayraColonialManager getInstance() {
         Object test = Global.getSector().getMemoryWithoutUpdate().get(KEY);
         return (VayraColonialManager) test;
     }
