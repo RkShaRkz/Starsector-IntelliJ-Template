@@ -16,7 +16,7 @@ vayramerged_colonialCompetitorTimerIntervalMin,Colonial Competitors Spawn interv
 vayramerged_colonialCompetitorTimerIntervalMax,Colonial Competitors Spawn interval (max),Double,180.0,,Maximum interval (in days) before any [Colonial Competitor] is rolled and considered to be spawned? (default value is 180.0),1.0,1800.0,Colonial Factions
 vayramerged_colonialCompetitorChance,Colonial Competitors Spawn chance,Double,0.5,,Chance that the [Colonial Competitor] spawns after every interval passes. (default value is 0.5),0.0,1.0,Colonial Factions
 vayramerged_colonialCompetitorUpgradeIntervalMin,Colonial Competitors Upgrade interval (min),Double,60.0,,Minimum interval (in days) before any [Colonial Competitor] is considered for an upgrade? (default value is 60.0),1.0,1800.0,Colonial Factions
-vayramerged_colonialCompetitorUpgradeIntervalMax,Colonial Competitors Upgrade interval (min),Double,90.0,,Maximum interval (in days) before any [Colonial Competitor] is considered for an upgrade? (default value is 90.0),1.0,1800.0,Colonial Factions
+vayramerged_colonialCompetitorUpgradeIntervalMax,Colonial Competitors Upgrade interval (max),Double,90.0,,Maximum interval (in days) before any [Colonial Competitor] is considered for an upgrade? (default value is 90.0),1.0,1800.0,Colonial Factions
 vayramerged_colonialCompetitorBaseFleetPoints,Colonial Competitors Base Fleet Points,Int,150,,How many Fleet Points (FP) should the [Colonial Competitor] use for it's expedition? (default value is 150),15,1500,Colonial Factions
 ,,,,,,,,
 vayramerged_DamagedAmmo_header,Malfunctioning Ammo Forge / Damaged Ammo divider,Header,Malfunctioning Ammo Forge,,,,,D-Mods
