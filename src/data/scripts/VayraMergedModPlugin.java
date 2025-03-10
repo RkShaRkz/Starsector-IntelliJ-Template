@@ -760,20 +760,40 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     private void performMigrations() {
         // Check the VayraColonialManager
         VayraColonialManager colonialManagerInstance = VayraColonialManager.getInstance();
-        if (colonialManagerInstance != null) {
+        if( colonialManagerInstance != null ) {
             // check version
             int actualVersion = colonialManagerInstance.getVersion();
             int currentVersion = VayraColonialManager.SCRIPT_VERSION;
-            if (actualVersion < currentVersion) {
+            if( actualVersion < currentVersion ) {
                 // This should have been done only once but...
                 int removedHowMany = 0;
-                while(Global.getSector().hasScript(VayraColonialManager.class))
-                {
+                while(Global.getSector().hasScript(VayraColonialManager.class)) {
                     Global.getSector().removeScript(colonialManagerInstance);
                     removedHowMany++;
                 }
                 Global.getSector().addScript(new VayraColonialManager());
-                logger.warn("Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved "+removedHowMany+" of them");
+                logger.warn(
+                        "Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
+                logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
+            }
+        }
+
+        // Check the VayraPopularManager
+        VayraPopularFrontManager popularFrontManager = VayraPopularFrontManager.getInstance();
+        if( popularFrontManager != null ) {
+            // check version
+            int actualVersion = popularFrontManager.getVersion();
+            int currentVersion = VayraPopularFrontManager.SCRIPT_VERSION;
+            if( actualVersion < currentVersion ) {
+                // This should have been done only once but...
+                int removedHowMany = 0;
+                while(Global.getSector().hasScript(VayraPopularFrontManager.class)) {
+                    Global.getSector().removeScript(colonialManagerInstance);
+                    removedHowMany++;
+                }
+                Global.getSector().addScript(new VayraPopularFrontManager());
+                logger.warn(
+                        "Version mismatch was detected between actual VayraPopularFrontManager's instance and the VayraPopularFrontManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
                 logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
             }
         }
