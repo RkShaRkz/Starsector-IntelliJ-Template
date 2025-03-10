@@ -43,4 +43,18 @@ public class StringifyUtils
 
         return sb.toString();
     }
+
+    public static String stringifyException(Exception ex) {
+        StringBuilder sb = new StringBuilder();
+        StackTraceElement[] stackTrace = ex.getStackTrace();
+        int stacktraceDepth = ex.getStackTrace().length - 1;
+        sb.append("Exception ").append(ex).append(" happened!\n");
+        sb.append("STACKTRACE: \n");
+
+        for (int i = stacktraceDepth; i > 0; i--) {
+            sb.append(stackTrace[i]).append("\n");
+        }
+
+        return sb.toString();
+    }
 }

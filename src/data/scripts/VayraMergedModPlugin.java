@@ -37,6 +37,7 @@ import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
 import data.scripts.hullmods.*;
 import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
+import data.util.StringifyUtils;
 import exerelin.campaign.DiplomacyManager;
 import exerelin.campaign.SectorManager;
 import exerelin.campaign.fleets.InvasionFleetManager;
@@ -242,7 +243,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         try {
             setting = Global.getSettings().loadJSON(SETTINGS_FILE);
         } catch (IOException | JSONException e) {
-            logger.error(stringifyException(e), e);
+            logger.error(StringifyUtils.stringifyException(e), e);
             // Lets not halt the mod-loading VM.
             //throw new RuntimeException(e);
         }
@@ -742,20 +743,6 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         }
 
         return result;
-    }
-
-    public static String stringifyException(Exception ex) {
-        StringBuilder sb = new StringBuilder();
-        StackTraceElement[] stackTrace = ex.getStackTrace();
-        int stacktraceDepth = ex.getStackTrace().length - 1;
-        sb.append("Exception ").append(ex).append(" happened!\n");
-        sb.append("STACKTRACE: \n");
-
-        for (int i = stacktraceDepth; i > 0; i--) {
-            sb.append(stackTrace[i]).append("\n");
-        }
-
-        return sb.toString();
     }
 
     private void performMigrations() {
