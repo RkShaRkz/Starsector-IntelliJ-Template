@@ -17,7 +17,9 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.scripts.campaign.colonies.VayraColonialManager;
 import data.util.LoggerLogLevel;
+import data.util.Optional;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +33,53 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
 
     public static Logger log = Global.getLogger(VayraPopularFrontManager.class);
 
+    public static final String KEY = "$vayra_popularFrontManager";
+    public static final int SCRIPT_VERSION = 1;
+    private final int myVersion;
+
+    private static volatile VayraPopularFrontManager instance;
+
+    public static final float DEFAULT_TIMER_INTERVAL_MIN = 30f;
+    public static float TIMER_INTERVAL_MIN = DEFAULT_TIMER_INTERVAL_MIN;
+    public static final float DEFAULT_TIMER_INTERVAL_MAX = 60f;
+    public static float TIMER_INTERVAL_MAX = DEFAULT_TIMER_INTERVAL_MAX;
+
+    public VayraPopularFrontManager() {
+        myVersion = SCRIPT_VERSION;
+        instance = this;
+
+        Global.getSector().getMemoryWithoutUpdate().set(KEY, this);
+    }
+
+    /**
+     * This getInstance() isn't the typical kind, it's rather wonky. See {@link VayraColonialManager#getInstance()}
+     * since it's kinda similar, but better.
+     *
+     * As such, the instance it returns may very well be <b>null</b>. It will also <b>not instantiate</b> the object
+     * in case it is <b>null</b>
+     *
+     * @return the instance, if it exists
+     */
+    public static @Nullable VayraPopularFrontManager getInstance() {
+        if (instance == null)
+        {
+            Object test = Global.getSector().getMemoryWithoutUpdate().get(KEY);
+            // Lets try doubly locked paradigm here
+            if (test != null) {
+                synchronized (VayraPopularFrontManager.class) {
+                    if (instance == null) {
+                        instance = (VayraPopularFrontManager) test;
+                    }
+                }
+            }
+        }
+        return instance;
+    }
+
+    public int getVersion() {
+        return myVersion;
+    }
+
     public static final String JOINT_FACTION = "communist_clouds";
 
     public static final List<String> POSSIBLE_ALLIES = new ArrayList<>(Arrays.asList(
@@ -42,7 +91,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             "pack",
             "air"));
 
-    private final IntervalUtil timer = new IntervalUtil(30f, 60f);
+    private final IntervalUtil timer = VayraPopularFrontManagerExternalDataHolder.getInstance().getTimer();
     public MarketAPI interstellarStation = null;
 
     public static final String STATION_ID = "interstellar_station";
@@ -160,11 +209,12 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             log(LoggerLogLevel.ERROR, log, "can't find communist_clouds");
             return;
         }
-        MarketAPI target = manager.pickTarget(manager.pickSource(faction), faction);
-        if (target == null) {
+        Optional<MarketAPI> targetOptional = manager.pickTarget(manager.pickSource(faction), faction);
+        if (!targetOptional.isPresent()) {
             log(LoggerLogLevel.ERROR, log, "can't find a place to put l'interstellaire");
             return;
         }
+        MarketAPI target = targetOptional.get();
         LocationAPI loc = target.getContainingLocation();
         if (loc == null) {
             log(LoggerLogLevel.ERROR, log, "can't find the place that the place to put l'interstellaire is in");
@@ -175,6 +225,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             log(LoggerLogLevel.ERROR, log, "can't find l'interstellaire after making it");
             return;
         }
+        newInterstellarStation.addTag(MOD_ID);
         SectorEntityToken entity = target.getPrimaryEntity();
         if (entity == null) {
             log(LoggerLogLevel.ERROR, log, "can't find the thing l'interstellaire is supposed to orbit, eat shit");
@@ -262,4 +313,48 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             }
         }
     }
+
+    /**
+     * Very relevant read: {@link VayraColonialManager#adjustColonialTimerIntervals(float, float)}
+     *
+     * @param minInterval the timer's new minInterval
+     * @param maxInterval the timer's new maxInterval
+     */
+    public static void adjustTimerIntervals(float minInterval, float maxInterval) {
+        TIMER_INTERVAL_MIN = minInterval;
+        TIMER_INTERVAL_MAX = maxInterval;
+
+        VayraPopularFrontManagerExternalDataHolder externalDataHolder = VayraPopularFrontManagerExternalDataHolder.getInstance();
+        externalDataHolder.getTimer().setInterval(minInterval, maxInterval);
+    }
+}
+
+class VayraPopularFrontManagerExternalDataHolder {
+    private static volatile VayraPopularFrontManagerExternalDataHolder instance = null;
+
+    private final IntervalUtil timer;
+
+    private VayraPopularFrontManagerExternalDataHolder() {
+        // Empty private constructor to prevent instantiation
+
+        timer = new IntervalUtil(
+                VayraPopularFrontManager.TIMER_INTERVAL_MIN,
+                VayraPopularFrontManager.TIMER_INTERVAL_MAX
+        );
+    }
+
+    public static VayraPopularFrontManagerExternalDataHolder getInstance() {
+        // The typical doubly-locked getInstance
+        if (instance == null) {
+            synchronized (VayraPopularFrontManagerExternalDataHolder.class) {
+                if (instance == null) {
+                    instance = new VayraPopularFrontManagerExternalDataHolder();
+                }
+            }
+        }
+
+        return instance;
+    }
+
+    public IntervalUtil getTimer() { return timer; }
 }

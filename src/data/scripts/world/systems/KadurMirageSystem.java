@@ -24,8 +24,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static data.scripts.VayraMergedModPlugin.KADUR_ID;
-import static data.scripts.VayraMergedModPlugin.addMarketplace;
+import static data.scripts.VayraMergedModPlugin.*;
 
 public class KadurMirageSystem implements SectorGeneratorPlugin {
 
@@ -210,6 +209,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 "Mirage Relay", // name - if null, defaultName from custom_entities.json will be used
                 "comm_relay", // type of object, defined in custom_entities.json
                 "hegemony"); // faction
+        relay.addTag(MOD_ID);
         relay.setCircularOrbitPointingDown(star, 120 - 60, OASIS_ORBIT, 365);
 
         // L5 jump point  (initial position in degrees, distance in pixels, orbit speed in days)
@@ -252,6 +252,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
 
         // Pirates hang out in the wreckage over Kadur
         SectorEntityToken vayra_kadur_toxx = system.addCustomEntity("vayra_kadur_toxx", "Fort Toxx", "station_sporeship_derelict", "pirates");
+        vayra_kadur_toxx.addTag(MOD_ID);
         vayra_kadur_toxx.setInteractionImage("illustrations", "vayra_fort_toxx");
         vayra_kadur_toxx.setCircularOrbitPointingDown(mirageIII, 60, 300, 70);
         vayra_kadur_toxx.setCustomDescriptionId("vayra_kadur_toxx");
@@ -376,6 +377,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
                 "Victory Gate", // name - if null, defaultName from custom_entities.json will be used
                 "inactive_gate", // type of object, defined in custom_entities.json
                 null); // faction
+        gate1.addTag(MOD_ID);
         gate1.setCircularOrbit(star, 240 - 60, YAKCHAL_ORBIT, 778);
         DebrisFieldParams params2 = new DebrisFieldParams(
                 420f, // field radius - should not go above 1000 for performance reasons
@@ -423,6 +425,7 @@ public class KadurMirageSystem implements SectorGeneratorPlugin {
         String gestaltName = gestaltNames.pick();
 
         SectorEntityToken vayra_kadur_revenant = system.addCustomEntity("vayra_kadur_revenant", gestaltName, "station_side06", KADUR_ID);
+        vayra_kadur_revenant.addTag(MOD_ID);
         vayra_kadur_revenant.setInteractionImage("illustrations", "vayra_revenant_gestalt_caliph");
         vayra_kadur_revenant.setCircularOrbitPointingDown(star, 240 + 180, YAKCHAL_ORBIT, 778);
         vayra_kadur_revenant.setCustomDescriptionId("vayra_kadur_revenant");

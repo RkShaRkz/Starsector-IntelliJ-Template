@@ -12,6 +12,7 @@ import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.impl.campaign.procgen.themes.BaseThemeGenerator;
 import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.VayraMergedModPlugin;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -70,6 +71,7 @@ public class VayraAbandonedStationAndLeagueSubfactionBonker implements EveryFram
                                 "station_side06", // entity type id from custom_entities.json
                                 "neutral" // faction ID of entity (should proooobably be Neutral)
                         );
+                        entity.addTag(VayraMergedModPlugin.MOD_ID);
                         // more custom setup stuff, in this case specific to this entity
                         entity.setCustomDescriptionId("vayra_procgen_abandonedstation"); // set this up as a CUSTOM type in descriptions.csv
                         entity.setInteractionImage("illustrations", "abandoned_station2"); // illustration ID, just comment line out to use default

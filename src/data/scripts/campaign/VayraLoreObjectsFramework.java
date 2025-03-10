@@ -7,6 +7,7 @@ import com.fs.starfarer.api.campaign.SectorEntityToken;
 import com.fs.starfarer.api.campaign.StarSystemAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Tags;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
+import data.scripts.VayraMergedModPlugin;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -185,6 +186,7 @@ public class VayraLoreObjectsFramework implements EveryFrameScript {
             PlanetAPI planet = planets.pick();
 
             SectorEntityToken entity = system.addCustomEntity(object.uniqueId, null, "vayra_listening_post", object.factionId);
+            entity.addTag(MOD_ID);
             float radius = planet.getRadius();
             float orbitRadius = (float) (radius * (1.5f + Math.random()));
             entity.setCircularOrbitPointingDown(planet, (float) Math.random() * 360f, orbitRadius, radius * 0.2f);

@@ -116,6 +116,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
         // perdition station, a hellhole built for and by death-seeking psychopaths
         // in Angra Mainyu's L3, shielded from it (does that make sense? maybe not lol) by the event horizon
         SectorEntityToken vayra_gehenna_perdition = system.addCustomEntity("vayra_gehenna_perdition", "Perdition Outpost", "station_pirate_type", "pirates");
+        vayra_gehenna_perdition.addTag(MOD_ID);
         vayra_gehenna_perdition.setInteractionImage("illustrations", "facility_explosion");
         vayra_gehenna_perdition.setCircularOrbitPointingDown(star, 180, 1800, 66);
         vayra_gehenna_perdition.setCustomDescriptionId("vayra_gehenna_perdition");
@@ -205,6 +206,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
 
         // tortuga, haven for pirates
         SectorEntityToken vayra_gehenna_tortuga = system.addCustomEntity("vayra_gehenna_tortuga", "Tortuga Station", "station_sporeship_derelict", "pirates");
+        vayra_gehenna_tortuga.addTag(MOD_ID);
         vayra_gehenna_tortuga.setInteractionImage("illustrations", "urban01");
         vayra_gehenna_tortuga.setCustomDescriptionId("vayra_gehenna_tortuga");
         vayra_gehenna_tortuga.setCircularOrbitPointingDown(star, 222, 7666, 365);
@@ -256,6 +258,7 @@ public class KadurGehennaSystem implements SectorGeneratorPlugin {
     private SectorEntityToken generateRequiem(PlanetAPI focus, StarSystemAPI system) {        // the Kadur are reduced to hiding in their heavily-guarded star fortress, towed here through hyperspace following the final battle
         // and plotting their retribution...
         SectorEntityToken vayra_refugestation = system.addCustomEntity("vayra_refugestation", "Star Fortress Requiem", "station_side06", KADUR_ID);
+        vayra_refugestation.addTag(MOD_ID);
         vayra_refugestation.setInteractionImage("illustrations", "vayra_requiem");
         vayra_refugestation.setCustomDescriptionId("vayra_requiem");
         vayra_refugestation.setCircularOrbitPointingDown(focus, 0, 220, 70);

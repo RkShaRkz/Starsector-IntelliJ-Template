@@ -1,3 +1,4 @@
 command,class,tags,syntax,help
 ForceHVB,data.scripts.console.commands.VayraForceHVB,"campaign,vayra",ForceHVB <bounty id>,Force-spawns a High Value Bounty
 ForceInterstellaire,data.scripts.console.commands.VayraForceInterstellaire,"campaign,vayra",ForceInterstellaire,Turns on a few parameters and force-spawns the Interstellaire station
+CheckVayraFactions,data.scripts.console.commands.VayraCheckFactions,"campaign,vayra",CheckVayraFactions,Checks the status of vayra emergent factions, whether they're enabled, if they spawned and where they spawned

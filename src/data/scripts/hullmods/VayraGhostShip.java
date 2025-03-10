@@ -36,7 +36,7 @@ import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
 
 public class VayraGhostShip extends BaseHullMod {
 
-    public static Logger log = Global.getLogger(VayraGhostShip.class);
+    private static final Logger log = Global.getLogger(VayraGhostShip.class);
     private final IntervalUtil reportingTimer = new IntervalUtil(5, 5);
     public VayraEngineeredPlagueListener listener = null;
 

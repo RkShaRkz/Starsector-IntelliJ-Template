@@ -7,7 +7,29 @@ package data.scripts;
 public class LunaConstants {
 
     // general settings
-    public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_enableInterstellaireUpgrades";
+    public final static String ENABLE_RPG_MINIGAME = "vayramerged_enableRpgMinigame";
+    public final static String ENABLE_VAYRA_DEBUG = "vayramerged_enableVayraDebug";
+
+    // popular front settings
+    public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_disableInterstellaireUpgrades";
+    public final static String COMMUNIST_CLOUDS_FP_MULTIPLIER = "vayramerged_popularFrontExpeditionMultiplier";
+    public final static String POPULAR_FRONT_ENABLED = "vayramerged_popularFrontEnabled";
+    public final static String POPULAR_FRONT_START_CYCLE = "vayramerged_popularFrontStartCycle";
+    public final static String POPULAR_FRONT_TIMER_INTERVAL_MIN = "vayramerged_popularFrontTimerIntervalMin";
+    public final static String POPULAR_FRONT_TIMER_INTERVAL_MAX = "vayramerged_popularFrontTimerIntervalMax";
+
+    // colonial factions
+    public final static String COLONIAL_COMPETITORS_ENABLED = "vayramerged_enableColonialCompetitors";
+    public final static String COLONIAL_COMPETITORS_START_CYCLE = "vayramerged_colonialCompetitorsStartCycle";
+    public final static String COLONIAL_COMPETITORS_COLONY_MULT = "vayramerged_colonialCompetitorsColonyMult";
+    public final static String COLONIAL_COMPETITOR_FACTION_COLONY_MAX = "vayramerged_colonialCompetitorFactionColonyMax";
+    public final static String COLONIAL_COMPETITOR_TIMER_INTERVAL_MIN = "vayramerged_colonialCompetitorTimerIntervalMin";
+    public final static String COLONIAL_COMPETITOR_TIMER_INTERVAL_MAX = "vayramerged_colonialCompetitorTimerIntervalMax";
+    public final static String COLONIAL_COMPETITOR_CHANCE = "vayramerged_colonialCompetitorChance";
+    public final static String COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MIN = "vayramerged_colonialCompetitorUpgradeIntervalMin";
+    public final static String COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MAX = "vayramerged_colonialCompetitorUpgradeIntervalMax";
+    public final static String COLONIAL_COMPETITOR_BASE_FLEET_POINTS = "vayramerged_colonialCompetitorBaseFleetPoints";
+    public final static String COLONIAL_COMPETITOR_AI_REBELLION_THRESHOLD = "vayramerged_colonialCompetitorAIRebellionThreshold";
 
     // dmod settings
     public final static String DISABLE_DAMAGED_AMMO_FOR_PLAYER = "vayramerged_disableDamagedAmmo_player";

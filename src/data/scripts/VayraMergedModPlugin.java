@@ -37,6 +37,7 @@ import data.scripts.campaign.intel.bar.events.VayraDungeonMasterBarEventCreator;
 import data.scripts.hullmods.*;
 import data.scripts.world.KadurGen;
 import data.scripts.world.VayraAddPlanets;
+import data.util.StringifyUtils;
 import exerelin.campaign.DiplomacyManager;
 import exerelin.campaign.SectorManager;
 import exerelin.campaign.fleets.InvasionFleetManager;
@@ -75,7 +76,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static int COLONIAL_FACTION_TIMEOUT;
     public static int COLONIAL_FACTION_COLONY_MULT;
     public static boolean POPULAR_FRONT_ENABLED;
+    private static final int DEFAULT_POPULAR_FRONT_TIMEOUT = 210;
     public static int POPULAR_FRONT_TIMEOUT;
+    public static final int DEFAULT_AI_REBELLION_THRESHOLD = 30;
     public static int AI_REBELLION_THRESHOLD;
     public static boolean UNIQUE_BOUNTIES;
     public static int UNIQUE_BOUNTIES_MAX;
@@ -229,6 +232,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         } else {
             logger.warn("VayraDistressCallManager.getInstance() returned null");
         }
+
+        performMigrations();
     }
 
     private static void loadVayraSettings() {
@@ -238,7 +243,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         try {
             setting = Global.getSettings().loadJSON(SETTINGS_FILE);
         } catch (IOException | JSONException e) {
-            logger.error(stringifyException(e), e);
+            logger.error(StringifyUtils.stringifyException(e), e);
             // Lets not halt the mod-loading VM.
             //throw new RuntimeException(e);
         }
@@ -740,18 +745,46 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         return result;
     }
 
-    public static String stringifyException(Exception ex) {
-        StringBuilder sb = new StringBuilder();
-        StackTraceElement[] stackTrace = ex.getStackTrace();
-        int stacktraceDepth = ex.getStackTrace().length - 1;
-        sb.append("Exception ").append(ex).append(" happened!\n");
-        sb.append("STACKTRACE: \n");
-
-        for (int i = stacktraceDepth; i > 0; i--) {
-            sb.append(stackTrace[i]).append("\n");
+    private void performMigrations() {
+        // Check the VayraColonialManager
+        VayraColonialManager colonialManagerInstance = VayraColonialManager.getInstance();
+        if( colonialManagerInstance != null ) {
+            // check version
+            int actualVersion = colonialManagerInstance.getVersion();
+            int currentVersion = VayraColonialManager.SCRIPT_VERSION;
+            if( actualVersion < currentVersion ) {
+                // This should have been done only once but...
+                int removedHowMany = 0;
+                while(Global.getSector().hasScript(VayraColonialManager.class)) {
+                    Global.getSector().removeScript(colonialManagerInstance);
+                    removedHowMany++;
+                }
+                Global.getSector().addScript(new VayraColonialManager());
+                logger.warn(
+                        "Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
+                logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
+            }
         }
 
-        return sb.toString();
+        // Check the VayraPopularManager
+        VayraPopularFrontManager popularFrontManager = VayraPopularFrontManager.getInstance();
+        if( popularFrontManager != null ) {
+            // check version
+            int actualVersion = popularFrontManager.getVersion();
+            int currentVersion = VayraPopularFrontManager.SCRIPT_VERSION;
+            if( actualVersion < currentVersion ) {
+                // This should have been done only once but...
+                int removedHowMany = 0;
+                while(Global.getSector().hasScript(VayraPopularFrontManager.class)) {
+                    Global.getSector().removeScript(colonialManagerInstance);
+                    removedHowMany++;
+                }
+                Global.getSector().addScript(new VayraPopularFrontManager());
+                logger.warn(
+                        "Version mismatch was detected between actual VayraPopularFrontManager's instance and the VayraPopularFrontManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
+                logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
+            }
+        }
     }
 
     private static class MyLunaSettingsListener implements LunaSettingsListener {
@@ -759,11 +792,79 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         @Override
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
-                boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
-                VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
-
+                handleGeneralSettings();
+                handlePopularFrontSettings();
+                handleColonialFactionSettings();
                 handleDmodSettings();
             }
+        }
+
+        private void handleGeneralSettings() {
+            // RPG minigame
+            boolean enableRpgMinigame = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_RPG_MINIGAME));
+            PLAY_TTRPG = enableRpgMinigame;
+
+            // VayraDebug
+            boolean enableVayraDebug = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_VAYRA_DEBUG));
+            VAYRA_DEBUG = enableVayraDebug;
+        }
+
+        private void handlePopularFrontSettings() {
+            // interstellaire upgrades
+            boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
+            VayraColonialManager.UPGRADES_DISABLED = disableInterstellaireUpgrades;
+
+            // communist clouds expedition FP multiplier
+            double communistCloudsFPmultiplier = safeUnboxing(LunaSettings.getDouble(MOD_ID, COMMUNIST_CLOUDS_FP_MULTIPLIER), VayraColonialManager.DEFAULT_COMMUNIST_CLOUDS_FP_MULTIPLIER);
+            VayraColonialManager.COMMUNIST_CLOUDS_FP_MULTIPLIER = (float) communistCloudsFPmultiplier;
+
+            // popular front start cycle
+            int popularFrontStartCycle = safeUnboxing(LunaSettings.getInt(MOD_ID, POPULAR_FRONT_START_CYCLE), DEFAULT_POPULAR_FRONT_TIMEOUT);
+            POPULAR_FRONT_TIMEOUT = popularFrontStartCycle;
+
+            boolean enablePopularFront = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.POPULAR_FRONT_ENABLED));
+            POPULAR_FRONT_ENABLED = enablePopularFront;
+        }
+
+        private void handleColonialFactionSettings() {
+            // colonial factions enabled
+            boolean colonialCompetitorsEnabled = safeUnboxing(LunaSettings.getBoolean(MOD_ID, COLONIAL_COMPETITORS_ENABLED));
+            COLONIAL_FACTIONS_ENABLED = colonialCompetitorsEnabled;
+
+            // colonial competitors start cycle
+            int colonialCompetitorsStartCycle = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITORS_START_CYCLE), COLONIAL_FACTION_TIMEOUT);
+            COLONIAL_FACTION_TIMEOUT = colonialCompetitorsStartCycle;
+
+            // colonial faction multiplier
+            int colonialCompetitorColonyMult = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITORS_COLONY_MULT), COLONIAL_FACTION_COLONY_MULT);
+            COLONIAL_FACTION_COLONY_MULT = colonialCompetitorColonyMult;
+
+            // colonial faction max colonies
+            int colonialCompetitorFactionColoniesMax = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_FACTION_COLONY_MAX), VayraColonialManager.DEFAULT_BASE_PER_FACTION_COLONY_COUNT);
+            VayraColonialManager.BASE_PER_FACTION_COLONY_COUNT = colonialCompetitorFactionColoniesMax;
+
+            // Colony spawn interval min and max - unlike the rest, we're gonna read two settings here and apply the change just once
+            double colonyIntervalMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_TIMER_INTERVAL_MIN), VayraColonialManager.DEFAULT_COLONY_INTERVAL_MIN);
+            double colonyIntervalMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_TIMER_INTERVAL_MAX), VayraColonialManager.DEFAULT_COLONY_INTERVAL_MAX);
+            VayraColonialManager.adjustColonialTimerIntervals((float) colonyIntervalMin, (float) colonyIntervalMax);
+
+            double colonyCompetitorChance = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_CHANCE), VayraColonialManager.DEFAULT_BASE_COLONY_CHANCE);
+            VayraColonialManager.BASE_COLONY_CHANCE = (float) colonyCompetitorChance;
+
+            double colonyUpgradeMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MIN), VayraColonialManager.DEFAULT_UPGRADE_INTERVAL_MIN);
+            double colonyUpgradeMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, COLONIAL_COMPETITOR_UPGRADE_INTERVAL_MAX), VayraColonialManager.DEFAULT_UPGRADE_INTERVAL_MAX);
+            VayraColonialManager.adjustUpgradeTimerIntervals((float) colonyUpgradeMin, (float) colonyUpgradeMax);
+
+            // colonial faction invasion base fleet points
+            int colonialCompetitorFactionBaseFleetPoints = safeUnboxing(
+                    LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_BASE_FLEET_POINTS),
+                    Math.round(VayraColonialManager.DEFAULT_BASE_FLEET_POINTS)
+            );
+            VayraColonialManager.BASE_FLEET_POINTS = colonialCompetitorFactionBaseFleetPoints;
+
+            // AI threshold before science_fuckers become aleph ascendancy
+            int newAIThreshold = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_AI_REBELLION_THRESHOLD), DEFAULT_AI_REBELLION_THRESHOLD);
+            AI_REBELLION_THRESHOLD = newAIThreshold;
         }
 
         private void handleDmodSettings() {
