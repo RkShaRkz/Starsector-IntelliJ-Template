@@ -77,6 +77,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static boolean POPULAR_FRONT_ENABLED;
     private static final int DEFAULT_POPULAR_FRONT_TIMEOUT = 210;
     public static int POPULAR_FRONT_TIMEOUT;
+    public static final int DEFAULT_AI_REBELLION_THRESHOLD = 30;
     public static int AI_REBELLION_THRESHOLD;
     public static boolean UNIQUE_BOUNTIES;
     public static int UNIQUE_BOUNTIES_MAX;
@@ -874,6 +875,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             );
             VayraColonialManager.BASE_FLEET_POINTS = colonialCompetitorFactionBaseFleetPoints;
 
+            // AI threshold before science_fuckers become aleph ascendancy
+            int newAIThreshold = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_AI_REBELLION_THRESHOLD), DEFAULT_AI_REBELLION_THRESHOLD);
+            AI_REBELLION_THRESHOLD = newAIThreshold;
         }
 
         private void handleDmodSettings() {
