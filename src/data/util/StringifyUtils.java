@@ -7,6 +7,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * Utility class for stringifying all sorts of things or collections of things
+ */
 public class StringifyUtils
 {
     public static String shortMarketApiStringFromSet(Set<MarketAPI> marketSet) {
