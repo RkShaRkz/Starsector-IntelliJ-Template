@@ -7,6 +7,8 @@ vayramerged_popularFrontEnabled,Enable Popular Front,Boolean,true,,Should the [P
 vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should [L'Interstellaire] traveling market (from Popular Front) disable upgrading it's buildings periodically or not?,,,Popular Front
 vayramerged_popularFrontExpeditionMultiplier,Popular Front (communist_clouds) expedition FP multiplier,Double,3.0,,The Fleet Points multiplier to use for [Popular Front] communist expeditions? (default value is 3.0),1.0,30.0,Popular Front
 vayramerged_popularFrontStartCycle,Popular Front Start Cycle,Int,210,,When (what cycle) should the [Popular Front] start happening? (default value is 210),205,220,Popular Front
+vayramerged_popularFrontTimerIntervalMin,Popular Front Relations Checker Interval (min),Double,30.0,,Minimum interval (in days) for [Popular Front] relations to be fixed up and adjusted? (default value is 30.0),1.0,1800.0,Popular Front
+vayramerged_popularFrontTimerIntervalMax,Popular Front Relations Checker Interval (max),Double,60.0,,Maxiumum interval (in days) for [Popular Front] relations to be fixed up and adjusted? (default value is 60.0),1.0,1800.0,Popular Front
 ,,,,,,,,
 vayramerged_enableColonialCompetitors,Enable Colonial Competitors,Boolean,true,,Should the [Colonial Competitor] factions be enabled and spawned or not?,,,Colonial Factions
 vayramerged_colonialCompetitorsStartCycle,Colonial Competitors Start Cycle,Int,212,,When (what cycle) should the [Colonial Competitor] factions start considering their spawn unless the Player makes a colony before then? (default value is 212),205,220,Colonial Factions

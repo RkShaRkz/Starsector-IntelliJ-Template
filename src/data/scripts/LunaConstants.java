@@ -15,6 +15,8 @@ public class LunaConstants {
     public final static String COMMUNIST_CLOUDS_FP_MULTIPLIER = "vayramerged_popularFrontExpeditionMultiplier";
     public final static String POPULAR_FRONT_ENABLED = "vayramerged_popularFrontEnabled";
     public final static String POPULAR_FRONT_START_CYCLE = "vayramerged_popularFrontStartCycle";
+    public final static String POPULAR_FRONT_TIMER_INTERVAL_MIN = "vayramerged_popularFrontTimerIntervalMin";
+    public final static String POPULAR_FRONT_TIMER_INTERVAL_MAX = "vayramerged_popularFrontTimerIntervalMax";
 
     // colonial factions
     public final static String COLONIAL_COMPETITORS_ENABLED = "vayramerged_enableColonialCompetitors";

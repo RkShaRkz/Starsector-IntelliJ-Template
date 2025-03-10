@@ -39,6 +39,11 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
 
     private static volatile VayraPopularFrontManager instance;
 
+    public static final float DEFAULT_TIMER_INTERVAL_MIN = 30f;
+    public static float TIMER_INTERVAL_MIN = DEFAULT_TIMER_INTERVAL_MIN;
+    public static final float DEFAULT_TIMER_INTERVAL_MAX = 60f;
+    public static float TIMER_INTERVAL_MAX = DEFAULT_TIMER_INTERVAL_MAX;
+
     public VayraPopularFrontManager() {
         myVersion = SCRIPT_VERSION;
         instance = this;
@@ -86,7 +91,7 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             "pack",
             "air"));
 
-    private final IntervalUtil timer = new IntervalUtil(30f, 60f);  //TODO extract these and expose them
+    private final IntervalUtil timer = VayraPopularFrontManagerExternalDataHolder.getInstance().getTimer();
     public MarketAPI interstellarStation = null;
 
     public static final String STATION_ID = "interstellar_station";
@@ -308,4 +313,48 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
             }
         }
     }
+
+    /**
+     * Very relevant read: {@link VayraColonialManager#adjustColonialTimerIntervals(float, float)}
+     *
+     * @param minInterval the timer's new minInterval
+     * @param maxInterval the timer's new maxInterval
+     */
+    public static void adjustTimerIntervals(float minInterval, float maxInterval) {
+        TIMER_INTERVAL_MIN = minInterval;
+        TIMER_INTERVAL_MAX = maxInterval;
+
+        VayraPopularFrontManagerExternalDataHolder externalDataHolder = VayraPopularFrontManagerExternalDataHolder.getInstance();
+        externalDataHolder.getTimer().setInterval(minInterval, maxInterval);
+    }
+}
+
+class VayraPopularFrontManagerExternalDataHolder {
+    private static volatile VayraPopularFrontManagerExternalDataHolder instance = null;
+
+    private final IntervalUtil timer;
+
+    private VayraPopularFrontManagerExternalDataHolder() {
+        // Empty private constructor to prevent instantiation
+
+        timer = new IntervalUtil(
+                VayraPopularFrontManager.TIMER_INTERVAL_MIN,
+                VayraPopularFrontManager.TIMER_INTERVAL_MAX
+        );
+    }
+
+    public static VayraPopularFrontManagerExternalDataHolder getInstance() {
+        // The typical doubly-locked getInstance
+        if (instance == null) {
+            synchronized (VayraPopularFrontManagerExternalDataHolder.class) {
+                if (instance == null) {
+                    instance = new VayraPopularFrontManagerExternalDataHolder();
+                }
+            }
+        }
+
+        return instance;
+    }
+
+    public IntervalUtil getTimer() { return timer; }
 }
