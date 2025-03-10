@@ -844,8 +844,9 @@ public class VayraColonialManager implements EveryFrameScript {
 
         for (StarSystemAPI system : systems) {
             if (source == null || system == null) {
-                // wEiRd crash
-                return Optional.empty();
+                // Instead of returning an empty optional here, let's just skip the member instead.
+                // return Optional.empty()
+                continue;
             }
 
             if (system.hasTag(Tags.THEME_MISC_SKIP)
@@ -908,6 +909,7 @@ public class VayraColonialManager implements EveryFrameScript {
                 } catch (NullPointerException npe) {
                     log.fatal("why the FUCK am i crashing? COLONIAL_PLANET_AFFINITIES contains: " + colonialPlanetAffinities);
                     log.fatal("and I tried to find id: " + id);
+                    log.fatal("NullPointerException happened and was caught! reason:"+npe.getCause()+"\tSTACKTRACE:\n"+StringifyUtils.stringifyException(npe));
                 }
                 if (score <= 0f) {
                     continue;
