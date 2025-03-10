@@ -1411,12 +1411,18 @@ public class VayraColonialManager implements EveryFrameScript {
         // by the VayraMergedModPlugin::onApplicationLoad() without needing to have the VayraColonialManager even instantiated.
         //
         // The VayraColonialManager will share their instances, and all is going to be well.
+        VayraColonialManager.COLONY_INTERVAL_MIN = minInterval;
+        VayraColonialManager.COLONY_INTERVAL_MAX = maxInterval;
+
         VayraColonialManagerExternalDataHolder externalDataHolder = VayraColonialManagerExternalDataHolder.getInstance();
         externalDataHolder.getColonyTimer().setInterval(minInterval, maxInterval);
     }
 
     public static void adjustUpgradeTimerIntervals(float minInterval, float maxInterval) {
         // NOTE: the comment from adjustColonialTimerIntervals() applies here as well since this is an identical situation
+        VayraColonialManager.UPGRADE_INTERVAL_MIN = minInterval;
+        VayraColonialManager.UPGRADE_INTERVAL_MAX = maxInterval;
+
         VayraColonialManagerExternalDataHolder externalDataHolder = VayraColonialManagerExternalDataHolder.getInstance();
         externalDataHolder.getUpgradeTimer().setInterval(minInterval, maxInterval);
     }
