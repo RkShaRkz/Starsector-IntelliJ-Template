@@ -23,6 +23,7 @@ import com.fs.starfarer.api.util.Misc;
 import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.domain.PersonBountyEventDataRepository;
 import data.scripts.VayraMergedModPlugin;
+import data.scripts.campaign.fleets.VayraPopularFrontManager;
 import data.util.Optional;
 import data.util.StringifyUtils;
 import org.apache.log4j.Logger;
@@ -453,7 +454,7 @@ public class VayraColonialManager implements EveryFrameScript {
 
         // setup stuff
         Float specialChance = COLONIAL_SPECIAL_CHANCE;
-        if (market.getFactionId().equals("communist_clouds")) {
+        if (market.getFactionId().equals(VayraPopularFrontManager.JOINT_FACTION)) {
             specialChance *= 2f;
         }
         if (VAYRA_DEBUG) {
@@ -554,7 +555,7 @@ public class VayraColonialManager implements EveryFrameScript {
                         WeightedRandomPicker<Industry> corePicker = new WeightedRandomPicker<>();
                         for (Industry possibleCoreIndustry : market.getIndustries()) {
                             String possibleCoreIndustryAICoreId = possibleCoreIndustry.getAICoreId();
-                            boolean possibleCoreIndustryAICoreIdEmptyOrNull = possibleCoreIndustry == null || possibleCoreIndustryAICoreId.isEmpty();
+                            boolean possibleCoreIndustryAICoreIdEmptyOrNull = possibleCoreIndustryAICoreId == null || possibleCoreIndustryAICoreId.isEmpty();
                             boolean possibleCoreIndustryAICoreIsNotAlphaCore = !possibleCoreIndustryAICoreIdEmptyOrNull && !possibleCoreIndustryAICoreId.equals(Commodities.ALPHA_CORE);
                             if(possibleCoreIndustryAICoreIdEmptyOrNull || possibleCoreIndustryAICoreIsNotAlphaCore) {
                                 float weight = possibleCoreIndustry.getBaseUpkeep();
@@ -801,7 +802,8 @@ public class VayraColonialManager implements EveryFrameScript {
             if (market.getFaction().equals(faction)) { // we only care about our faction here
                 possibleSources.add(market, market.getSize());
                 MarketAPI interstellar = Global.getSector().getEconomy().getMarket("interstellar_stationmarket");
-                if (faction.getId().equals("communist_clouds") && interstellar != null && possibleSources.getItems().contains(interstellar)) {
+                boolean factionIsCommunistClouds = faction.getId().equals(VayraPopularFrontManager.JOINT_FACTION);
+                if (factionIsCommunistClouds && interstellar != null && possibleSources.getItems().contains(interstellar)) {
                     possibleSources.remove(interstellar);
                 }
             }
