@@ -144,7 +144,7 @@ public class VayraLootedTpc extends BaseHullMod {
             return "prevents attachment to any other ship";
         }
         if (index == 4) {
-            return "significantly reduces extra crew (forced to remain on min. crew) and cargo capacity (-" + CAPACITY_MULT + "%)";
+            return "significantly reduces extra crew (forced to remain on min. crew) and cargo capacity (-" + (CAPACITY_MULT * 100f) + "%)";
         }
         return null;
     }
@@ -159,7 +159,7 @@ public class VayraLootedTpc extends BaseHullMod {
         float oPad = 10f;
         Color good = Misc.getPositiveHighlightColor();
 
-        tooltip.addPara("Replaces every blank LARGE slot with a Looted Thermal Pulse Cannon costing %s OP.", oPad, good, String.valueOf(getWeaponOPCost(ship)));
+        tooltip.addPara("Replaces every blank LARGE HYBRID slot with a Looted Thermal Pulse Cannon costing %s OP.", oPad, good, String.valueOf(getWeaponOPCost(ship)));
     }
 
     @Override
