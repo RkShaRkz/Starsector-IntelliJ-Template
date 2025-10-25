@@ -1078,7 +1078,17 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
         fleet.setCommander(person);
         fleet.getFlagship().setCaptain(person);
-        FleetFactoryV3.addCommanderSkills(person, fleet, null);
+        try {
+            FleetFactoryV3.addCommanderSkills(person, fleet, null);
+        } catch(NullPointerException npe) {
+            FactionAPI fleetsFaction = fleet.getFaction();
+            FactionDoctrineAPI factionDoctrine = fleetsFaction.getDoctrine();
+            List<String> factionCommanderSkills = factionDoctrine.getCommanderSkills();
+            log.error(
+                    "Exception " + npe + " happened while trying to add commander skills to bounty fleet! fleet: " + fleet
+                    + "fleet.getFaction(): " + fleetsFaction + ", commander skills: " + factionCommanderSkills
+            );
+        }
 
         Misc.makeImportant(fleet, "pbe", duration + 20f);
         fleet.getMemoryWithoutUpdate().set(MemFlags.MEMORY_KEY_PIRATE, true);
