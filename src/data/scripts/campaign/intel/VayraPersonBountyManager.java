@@ -326,20 +326,30 @@ public class VayraPersonBountyManager extends BaseEventManager {
         }
 
         if (amount == 6.66f) {
-            for (EveryFrameScript s : PersonBountyManager.getInstance().getActive()) {
-                ((PersonBountyIntel) s).endImmediately();
-                Global.getSector().removeScript(s);
-                log.info("Killing a vanilla bounty, pirates run the show now");
-                EveryFrameScript jerk = createEvent();
-                if (jerk != null) {
-                    addActive(jerk);
+            PersonBountyManager bountyManagerInstance = PersonBountyManager.getInstance();
+            if (bountyManagerInstance != null) {
+                for (EveryFrameScript s : bountyManagerInstance.getActive()) {
+                    ((PersonBountyIntel) s).endImmediately();
+                    Global.getSector().removeScript(s);
+                    log.info("Killing a vanilla bounty, pirates run the show now");
+                    EveryFrameScript jerk = createEvent();
+                    if( jerk != null ) {
+                        addActive(jerk);
+                    }
                 }
+            } else {
+                log.warn("Vanilla bounty manager was null, could not remove it's instances. Doing nothing.");
             }
         }
 
         if ((PIRATE_BOUNTY_MODE.equals(PirateMode.ALWAYS) || PIRATE_BOUNTY_MODE.equals(PirateMode.SOMETIMES)) && Global.getSector().hasScript(PersonBountyManager.class)) {
-            Global.getSector().removeScript(PersonBountyManager.getInstance());
-            log.info("Killing the vanilla bounty manager, RIP losers");
+            PersonBountyManager bountyManagerInstance = PersonBountyManager.getInstance();
+            if (bountyManagerInstance != null) {
+                Global.getSector().removeScript(PersonBountyManager.getInstance());
+                log.info("Killing the vanilla bounty manager, RIP losers");
+            } else {
+                log.warn("Vanilla bounty manager was null, could not kill it. Doing nothing.");
+            }
         }
     }
 
