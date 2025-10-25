@@ -1034,7 +1034,10 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         try {
             fleet = FleetFactoryV3.createFleet(params);
         } catch (NullPointerException npe) {
-            log.error("Exception " + npe + " happened while trying to create fleet! creation params: " + MiscUtils.stringifyFleetParams(params));
+            log.error(
+                    "Exception " + npe + " happened while trying to create fleet! creation params: " + MiscUtils.stringifyFleetParams(params),
+                    npe
+            );
             fleet = null;
         }
         if (fleet == null || fleet.isEmpty()) {
@@ -1086,7 +1089,8 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
             List<String> factionCommanderSkills = factionDoctrine.getCommanderSkills();
             log.error(
                     "Exception " + npe + " happened while trying to add commander skills to bounty fleet! fleet: " + fleet
-                    + "fleet.getFaction(): " + fleetsFaction + ", commander skills: " + factionCommanderSkills
+                    + "fleet.getFaction(): " + fleetsFaction + ", commander skills: " + factionCommanderSkills,
+                    npe
             );
         }
 
