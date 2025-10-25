@@ -337,6 +337,8 @@ public class VayraPersonBountyManager extends BaseEventManager {
                         addActive(jerk);
                     }
                 }
+            } else {
+                log.warn("Vanilla bounty manager was null, could not remove it's instances. Doing nothing.");
             }
         }
 
