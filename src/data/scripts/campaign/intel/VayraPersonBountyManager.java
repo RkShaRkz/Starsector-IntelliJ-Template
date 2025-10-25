@@ -326,13 +326,18 @@ public class VayraPersonBountyManager extends BaseEventManager {
         }
 
         if (amount == 6.66f) {
-            for (EveryFrameScript s : PersonBountyManager.getInstance().getActive()) {
-                ((PersonBountyIntel) s).endImmediately();
-                Global.getSector().removeScript(s);
-                log.info("Killing a vanilla bounty, pirates run the show now");
-                EveryFrameScript jerk = createEvent();
-                if (jerk != null) {
-                    addActive(jerk);
+            if (PersonBountyManager.getInstance() != null)
+            {
+                for (EveryFrameScript s : PersonBountyManager.getInstance().getActive())
+                {
+                    ((PersonBountyIntel) s).endImmediately();
+                    Global.getSector().removeScript(s);
+                    log.info("Killing a vanilla bounty, pirates run the show now");
+                    EveryFrameScript jerk = createEvent();
+                    if( jerk != null )
+                    {
+                        addActive(jerk);
+                    }
                 }
             }
         }
