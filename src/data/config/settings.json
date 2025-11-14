@@ -61,7 +61,74 @@
 	"buttonShortcut":[255,210,0,255],
 	"storyOptionColor":[163,239,128,255],
 
-	# some keys I added
-	"RKZ_useDynamicAutomatedShipsOpThreshold":true, # was false since I made it up
-	"RKZ_automatedShipsOPThreshold":200, # was 120
+	#SKILLS	# some keys I added for skills
+	# these don't really override any starsector-core/data/config/settings.json values
+	# so there's not much point in them being here other than for completeness-sake
+	# none of these changes will take effect unless you set them from the ingame Mod Settings
+
+	#COMBAT
+
+	#LEADERSHIP
+	"RKZ_skill_leadership_TacticalDrills_OPThreshold":240,
+	"RKZ_skill_leadership_TacticalDrills_DamagePercent":5.0,
+	"RKZ_skill_leadership_TacticalDrills_AttackBonus":50,
+	"RKZ_skill_leadership_TacticalDrills_CasualtiesMultiplier":0.75,
+
+	"RKZ_skill_leadership_CrewTraining_PeakSeconds":30.0,
+	"RKZ_skill_leadership_CrewTraining_CRPercent":15.0,
+
+	"RKZ_skill_leadership_FighterUplink_MaxSpeedPercent":20,
+	"RKZ_skill_leadership_FighterUplink_CrewLossPercent":50,
+	"RKZ_skill_leadership_FighterUplink_TargetLeadingBonus":50,
+	"RKZ_skill_leadership_FighterUplink_OfficerMultiplier":1.5,
+	# leadership - shared
+	"RKZ_skill_leadership_CrewTraining_and_FluxRegulation_OPThreshold":240,
+	"RKZ_skill_leadership_FighterUplink_and_CarrierGroup_FighterBays":8,
+
+	#TECHNOLOGY
+	"RKZ_skill_technology_FluxRegulation_VentsBonus":5,
+	"RKZ_skill_technology_FluxRegulation_CapacitorsBonus":5,
+	"RKZ_skill_technology_FluxRegulation_DissipationPercent":10.0,
+	"RKZ_skill_technology_FluxRegulation_CapacityPercent":10.0,
+
+	"RKZ_skill_technology_PhaseCoilTuning_OPThreshold":40,
+	"RKZ_skill_technology_PhaseCoilTuning_SpeedBonus":50,
+	"RKZ_skill_technology_PhaseCoilTuning_PeakTimeBonus":180,
+	"RKZ_skill_technology_PhaseCoilTuning_SensorBonusPercent":100,
+
+	"RKZ_skill_technology_CyberneticAugmentation_MaxEliteSkillsBonus":1,
+	"RKZ_skill_technology_CyberneticAugmentation_ECCMBonus":5,
+	"RKZ_skill_technology_CyberneticAugmentation_BonusPerEliteSkill":1.0,
+
+	"RKZ_skill_technology_AutomatedShips_useDynamicOpThreshold":true, # was false since I made it up
+	"RKZ_skill_technology_AutomatedShips_OPThreshold":200, # was 120
+
+	# INDUSTRY
+	"RKZ_skill_industry_BulkTransport_CargoCapacityMaxPercent":50,
+	"RKZ_skill_industry_BulkTransport_CargoCapacityThreshold":2000,
+	"RKZ_skill_industry_BulkTransport_FuelCapacityMaxPercent":50,
+	"RKZ_skill_industry_BulkTransport_FuelCapacityThreshold":2000,
+	"RKZ_skill_industry_BulkTransport_PersonnelCapacityMaxPercent":50,
+	"RKZ_skill_industry_BulkTransport_PersonnelCapacityThreshold":5000,
+	"RKZ_skill_industry_BulkTransport_BurnBonus":2,
+
+	"RKZ_skill_industry_FieldRepairs_MinHull":30,
+	"RKZ_skill_industry_FieldRepairs_MaxHull":40,
+	"RKZ_skill_industry_FieldRepairs_MinCR":30,
+	"RKZ_skill_industry_FieldRepairs_MaxCR":40,
+	"RKZ_skill_industry_FieldRepairs_RepairRateBonus":50,
+	"RKZ_skill_industry_FieldRepairs_InstaRepairPercent":25,
+
+	"RKZ_skill_industry_ContainmentProcedures_CrewLossReduction":50,
+	"RKZ_skill_industry_ContainmentProcedures_FuelSalvageBonus":25,
+	"RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent":25,
+	"RKZ_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel":25,
+
+	"RKZ_skill_industry_DerelictOperations_DPCostReductionPerDMod":6,
+	"RKZ_skill_industry_DerelictOperations_MaxDMods":5,
+	"RKZ_skill_industry_DerelictOperations_MinusCRPerDMod":0,
+	"RKZ_skill_industry_DerelictOperations_ExtraDMods":4,
+
+	# industry - shared
+	"RKZ_skill_industry_FieldRepairs_and_ContainmentProcedures_OPThreshold":240,
 }

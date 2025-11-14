@@ -10,16 +10,79 @@ constraintchanger_officerMercMaxLevel,Max Level of Mercenary Officers,Int,8,,Max
 constraintchanger_officerMercPayMult,Mercenary Officers' pay multiplier,Int,2,,Merc Officers' hiring bonus and salary (vanilla value is 2),1,10,Officers
 constraintchanger_officerMercContractDur,Mercenary Officers' contract duration,Int,730,,Minimum days before Merc Officers will try to leave (vanilla value is 730),30,1460,Officers
 ,,,,,,,,
-constraintchanger_maxShipsInFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in Fleet (vanilla value is 30),20,90,Combat
-constraintchanger_maxShipsInAIFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in AI's Fleet (vanilla value is 30),20,90,Combat
-constraintchanger_minBattleSize,Minimum Battle Size,Int,100,,Minimum battle size changable in game's Settings (vanilla value is 200),50,400,Combat
-constraintchanger_defaultBattleSize,Default Battle Size,Int,400,,Default battle size changable in game's Settings (vanilla value is 400),50,1200,Combat
-constraintchanger_maxBattleSize,Maximum Battle Size,Int,800,,Maximum battle size changable in game's Settings (vanilla value is 400),400,1200,Combat
+constraintchanger_maxShipsInFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in Fleet (vanilla value is 30),20,150,Combat
+constraintchanger_maxShipsInAIFleet,Max Ships in Fleet,Int,50,,Maximum number of Ships in AI's Fleet (vanilla value is 30),20,150,Combat
+constraintchanger_minBattleSize,Minimum Battle Size,Int,100,,Minimum battle size changable in game's Settings (vanilla value is 200),50,2000,Combat
+constraintchanger_defaultBattleSize,Default Battle Size,Int,400,,Default battle size changable in game's Settings (vanilla value is 400),50,4000,Combat
+constraintchanger_maxBattleSize,Maximum Battle Size,Int,800,,Maximum battle size changable in game's Settings (vanilla value is 400),400,4000,Combat
 ,,,,,,,,
 constraintchanger_campaignSpeedupMult,Campaign speedup multiplier,Int,4,,Campaign speedup multiplier - setting to a larger value may cause framerate drops when time is sped up (vanilla value is 2),2,10,Misc
-constraintchanger_useDynamicAutomatedShipsOpThreshold,Use dynamic Automated ships OP threshold,Boolean,true,,Should the game use a dynamic Automated ships OP threshold. Originally it used [40%%] of the original/default battle size of 300 (changeable in the Game Settings). So 180 for regular ships and [120] for automated ships. If this setting is toggled the setting below is ignored and the effect will be as if you toggled it to [40%% of default battle size]. [Directly dependant on the 'Default Battle Size' option from 'Combat' tab]. (vanilla value is 'false'),,,Misc
-constraintchanger_automatedShipsOpThreshold,Automated ships OP threshold,Int,120,,The 'automated ships' OP threshold for the 'Automated Ships' skill. [If you want to use the value entered here make sure the above option is unchecked] (vanilla value is 120),20,1000,Misc
+constraintchanger_combatzoom_header,Combat Zoom divider,Header,Combat Zoom,,,,,Misc
 constraintchanger_minCombatZoom,Minimum Combat zoom,Double,0.5,,Minimum Combat zoom (zoomed in all the way). The number is a multiplier for the viewport size (vanilla value is 0.5),0.1,1.0,Misc
 constraintchanger_maxCombatZoom,Maximum Combat zoom,Double,3.0,,Maximum Combat zoom (zoomed out all the way). The number is a multiplier for the viewport size (vanilla value is 2.0),1.0,10.0,Misc
+constraintchanger_campaignzoom_header,Campaign Zoom divider,Header,Campaign Zoom,,,,,Misc
 constraintchanger_minCampaignZoom,Minimum Campaign zoom,Double,0.5,,Minimum Campaign zoom (zoomed in all the way). The number is a multiplier for the viewport size (vanilla value is 0.5),0.1,1.0,Misc
 constraintchanger_maxCampaignZoom,Maximum Campaign zoom,Double,3.0,,Maximum Campaign zoom (zoomed out all the way). The number is a multiplier for the viewport size (vanilla value is 3.0),1.0,10.0,Misc
+,,,,,,,,
+constraintchanger_skill_leadership_TacticalDrills_header,Tactical Drills divider,Header,Tactical Drills,,,,,Skills
+constraintchanger_skill_leadership_TacticalDrills_OPThreshold,Tactical Drills - OP Threshold,Int,240,,[Tactical Drills] Leadership Skill [OP Threshold] Parameter Value (vanilla value is 240),0,2400,Skills
+constraintchanger_skill_leadership_TacticalDrills_DamagePercent,Tactical Drills - Damage Percent,Double,5.0,,[Tactical Drills] Leadership Skill [Damage Percent] Parameter Value (vanilla value is 5.0),0.0,200.0,Skills
+constraintchanger_skill_leadership_TacticalDrills_AttackBonus,Tactical Drills - Attack Bonus,Int,50,,[Tactical Drills] Leadership Skill [Attack Bonus] Parameter Value (vanilla value is 50),0,200,Skills
+constraintchanger_skill_leadership_TacticalDrills_CasualtiesMultiplier,Tactical Drills - Casualties Multiplier,Double,0.75,,[Tactical Drills] Leadership Skill [Casualties Multiplier] Parameter Value (vanilla value is 0.75),0.05,1.0,Skills
+constraintchanger_skill_leadership_CrewTraining_header,Crew Training divider,Header,Crew Training,,,,,Skills
+constraintchanger_skill_leadership_CrewTraining_PeakSeconds,Crew Training - Peak Seconds,Double,30,,[Crew Training] Leadership Skill [Peak Seconds] Parameter Value (vanilla value is 30.0),0,300,Skills
+constraintchanger_skill_leadership_CrewTraining_CRPercent,Crew Training - CR Percent,Double,15,,[Crew Training] Leadership Skill [CR Percent] Parameter Value (vanilla value is 15),0,300,Skills
+constraintchanger_skill_leadership_FighterUplink_header,Fighter Uplink divider,Header,Fighter Uplink,,,,,Skills
+constraintchanger_skill_leadership_FighterUplink_MaxSpeedPercent,Fighter Uplink - Max Speed Percent,Int,20,,"[Fighter Uplink] Leadership Skill [Max Speed Percent] Parameter Value (vanilla value is 20)",0,200,Skills
+constraintchanger_skill_leadership_FighterUplink_CrewLossPercent,Fighter Uplink - Crew Loss Percent,Int,50,,"[Fighter Uplink] Leadership Skill [Crew Loss Percent] Parameter Value (vanilla value is 50)",0,100,Skills
+constraintchanger_skill_leadership_FighterUplink_TargetLeadingBonus,Fighter Uplink - Target Leading Bonus,Int,50,,"[Fighter Uplink] Leadership Skill [Target Leading Bonus] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_leadership_FighterUplink_OfficerMultiplier,Fighter Uplink - Officer Multiplier,Double,1.5,,"[Fighter Uplink] Leadership Skill [Officer Multiplier] Parameter Value (vanilla value is 1.5)",0,100,Skills
+,,,,,,,,
+constraintchanger_skill_technology_FluxRegulation_header,Flux Regulation divider,Header,Flux Regulation,,,,,Skills
+constraintchanger_skill_technology_FluxRegulation_BonusVents,Flux Regulation - Bonus Vents,Int,5,,[Flux Regulation] Technology Skill [Bonus Vents] Parameter Value (vanilla value is 5),0,50,Skills
+constraintchanger_skill_technology_FluxRegulation_BonusCapacitors,Flux Regulation - Bonus Capacitors,Int,5,,[Flux Regulation] Technology Skill [Bonus Capacitors] Parameter Value (vanilla value is 5),0,50,Skills
+constraintchanger_skill_technology_FluxRegulation_DissipationPercent,Flux Regulation - Dissipation Percent,Int,10,,[Flux Regulation] Technology Skill [Dissipation Percent] Parameter Value (vanilla value is 10),0,200,Skills
+constraintchanger_skill_technology_FluxRegulation_CapacityPercent,Flux Regulation - Capacity Percent,Int,10,,[Flux Regulation] Technology Skill [Capacity Percent] Parameter Value (vanilla value is 10),0,200,Skills
+constraintchanger_skill_technology_PhaseCoilTuning_header,Phase Coil Tuning divider,Header,Phase Coil Tuning,,,,,Skills
+constraintchanger_skill_technology_PhaseCoilTuning_OPThreshold,Phase Coil Tuning - OP Threshold,Int,40,,[Phase Coil Tuning] Technology Skill [OP Threshold] Parameter Value (vanilla value is 40),0,400,Skills
+constraintchanger_skill_technology_PhaseCoilTuning_SpeedBonus,Phase Coil Tuning - Speed Bonus,Int,50,,[Phase Coil Tuning] Technology Skill [Speed Bonus] Parameter Value (vanilla value is 50),0,500,Skills
+constraintchanger_skill_technology_PhaseCoilTuning_PeakTimeBonus,Phase Coil Tuning - Peak Time Bonus,Int,180,,[Phase Coil Tuning] Technology Skill [Peak Time Bonus] Parameter Value (vanilla value is 180),0,1800,Skills
+constraintchanger_skill_technology_PhaseCoilTuning_SensorBonusPercent,Phase Coil Tuning - Sensor Bonus Percent,Int,100,,[Phase Coil Tuning] Technology Skill [Sensor Bonus Percent] Parameter Value (vanilla value is 100),0,1000,Skills
+constraintchanger_skill_technology_CyberneticAugmentation_header,Cybernetic Augmentation divider,Header,Cybernetic Augmentation,,,,,Skills
+constraintchanger_skill_technology_CyberneticAugmentation_MaxEliteBonusSkills,Cybernetic Augmentation - Max Elite Bonus skills,Int,1,,[Cybernetic Augmentation] Technology Skill [Max Elite Bonus Skills] Parameter Value (vanilla value is 1),0,10,Skills
+constraintchanger_skill_technology_CyberneticAugmentation_ECCMBonus,Cybernetic Augmentation - ECCM Bonus,Int,5,,[Cybernetic Augmentation] Technology Skill [ECCM Bonus] Parameter Value (vanilla value is 5),0,100,Skills
+constraintchanger_skill_technology_CyberneticAugmentation_BonusPerEliteSkill,Cybernetic Augmentation - Bonus per Elite Skill,Double,1.0,,[Cybernetic Augmentation] Technology Skill [Bonus per Elite Skill] Parameter Value. [Note:] The value in the skill's description is rounded e.g. using 1.75 with 10 elite skills will show a 2%% per-skill bonus totalling at 18%% as if something isn't working right but it will correctly apply a 17.5%% bonus. (vanilla value is 1.0),0,100,Skills
+constraintchanger_skill_technology_AutomatedShips_header,Automated Ships divider,Header,Automated Ships,,,,,Skills
+constraintchanger_skill_technology_AutomatedShips_useDynamicOpThreshold,Use dynamic Automated ships OP threshold,Boolean,true,,"Should the game use a dynamic Automated ships OP threshold. Originally it used [40%%] of the original/default battle size of 300 (changeable in the Game Settings). So 180 for regular ships and [120] for automated ships. If this setting is toggled the setting below is ignored and the effect will be as if you toggled it to [40%% of default battle size]. [Directly dependant on the 'Default Battle Size' option from 'Combat' tab]. (vanilla value is 'false')",,,Skills
+constraintchanger_skill_technology_AutomatedShips_OPThreshold,Automated Ships - OP threshold,Int,120,,"The 'automated ships' OP threshold for the 'Automated Ships' skill. [If you want to use the value entered here make sure the above option is unchecked] (vanilla value is 120)",20,1000,Skills
+,,,,,,,,
+constraintchanger_skill_industry_BulkTransport_header,Bulk Transport divider,Header,Bulk Transport,,,,,Skills
+constraintchanger_skill_industry_BulkTransport_CargoCapacityMaxPercent,Bulk Transport - Cargo Capacity Max Percent,Int,50,,"[Bulk Transport] Industry Skill [Cargo Capacity Max Percent] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_industry_BulkTransport_CargoCapacityThreshold,Bulk Transport - Cargo Capacity Threshold,Int,2000,,"[Bulk Transport] Industry Skill [Cargo Capacity Threshold] Parameter Value (vanilla value is 2000)",-5000,200000,Skills
+constraintchanger_skill_industry_BulkTransport_FuelCapacityMaxPercent,Bulk Transport - Fuel Capacity Max Percent,Int,50,,"[Bulk Transport] Industry Skill [Fuel Capacity Max Percent] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_industry_BulkTransport_FuelCapacityThreshold,Bulk Transport - Fuel Capacity Threshold,Int,2000,,"[Bulk Transport] Industry Skill [Fuel Capacity Threshold] Parameter Value (vanilla value is 2000)",-5000,200000,Skills
+constraintchanger_skill_industry_BulkTransport_PersonnelCapacityMaxPercent,Bulk Transport - Cargo Capacity Max Percent,Int,50,,"[Bulk Transport] Industry Skill [Personnel Capacity Max Percent] Parameter Value (vanilla value is 50)",0,500,Skills
+constraintchanger_skill_industry_BulkTransport_PersonnelCapacityThreshold,Bulk Transport - Personnel Capacity Threshold,Int,5000,,"[Bulk Transport] Industry Skill [Personnel Capacity Threshold] Parameter Value (vanilla value is 5000)",-5000,50000,Skills
+constraintchanger_skill_industry_BulkTransport_BurnBonus,Bulk Transport - Burn Bonus,Int,2,,"[Bulk Transport] Industry Skill [Burn Bonus] Parameter Value (vanilla value is 2)",0,20,Skills
+constraintchanger_skill_industry_FieldRepairs_header,Field Repairs divider,Header,Field Repairs - NONE OF THESE WORK AT THE MOMENT,,,,,Skills
+constraintchanger_skill_industry_FieldRepairs_MinHull,Field Repairs - Min Hull,Int,30,,"[Field Repairs] Industry Skill [Min Hull] Parameter Value (vanilla value is 30)",0,100,Skills
+constraintchanger_skill_industry_FieldRepairs_MaxHull,Field Repairs - Max Hull,Int,40,,"[Field Repairs] Industry Skill [Max Hull] Parameter Value (vanilla value is 40)",0,100,Skills
+constraintchanger_skill_industry_FieldRepairs_MinCR,Field Repairs - Min CR,Int,30,,"[Field Repairs] Industry Skill [Min CR] Parameter Value (vanilla value is 30)",0,100,Skills
+constraintchanger_skill_industry_FieldRepairs_MaxCR,Field Repairs - Max CR,Int,40,,"[Field Repairs] Industry Skill [Max CR] Parameter Value (vanilla value is 40)",0,100,Skills
+constraintchanger_skill_industry_FieldRepairs_RepairRateBonus,Field Repairs - Repair Rate Bonus,Int,50,,"[Field Repairs] Industry Skill [Repair Rate Bonus] Parameter Value (vanilla value is 50)",0,100,Skills
+constraintchanger_skill_industry_FieldRepairs_InstaRepairPercent,Field Repairs - Insta Repair Percent,Int,25,,"[Field Repairs] Industry Skill [Insta Repair Percent] Parameter Value (vanilla value is 25)",0,100,Skills
+constraintchanger_skill_industry_ContainmentProcedures_header,Containment Procedures divider,Header,Containment Procedures,,,,,Skills
+constraintchanger_skill_industry_ContainmentProcedures_CrewLossReduction,Containment Procedures - Crew Loss Reduction,Int,50,,"[Containment Procedures] Industry Skill [Crew Loss Reduction] Parameter Value (vanilla value is 50)",0,100,Skills
+constraintchanger_skill_industry_ContainmentProcedures_FuelSalvageBonus,Containment Procedures - Fuel Salvage Bonus,Int,25,,"[Containment Procedures] Industry Skill [Fuel Salvage Bonus] Parameter Value (vanilla value is 25)",0,100,Skills
+constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxPercent,Containment Procedures - Fuel Use Reduction Max Percent,Int,25,,"[Containment Procedures] Industry Skill [Fuel Use Reduction Max Percent] Parameter Value (vanilla value is 25)",0,100,Skills
+constraintchanger_skill_industry_ContainmentProcedures_FuelUseReductionMaxFuel,Containment Procedures - Fuel Use Reduction Max Fuel,Int,25,,"[Containment Procedures] Industry Skill [Fuel Use Reduction Max Fuel] Parameter Value (vanilla value is 25)",0,100,Skills
+constraintchanger_skill_industry_DerelictOperations_header,Derelict Operations divider,Header,Derelict Operations,,,,,Skills
+constraintchanger_skill_industry_DerelictOperations_DPCostReductionPerDMod,[Derelict Operations] - DP Cost reduction per DMod,Int,6,,"[Derelict Operations] Industry Skill [Burn Bonus] Parameter Value (vanilla value is 6)",0,100,Skills
+constraintchanger_skill_industry_DerelictOperations_MaxDMods,[Derelict Operations] - Max D-Mods,Int,6,,"[Derelict Operations] Industry Skill [Max D-Mods] Parameter Value. The number of D-Mods necessary to achieve maximum effect. (vanilla value is 5)",0,50,Skills
+constraintchanger_skill_industry_DerelictOperations_MinusCRPerDMod,[Derelict Operations] - Minus CR per D-Mod,Int,0,,"[Derelict Operations] Industry Skill [Minus CR per D-Mod] Parameter Value (vanilla value is 0)",0,50,Skills
+constraintchanger_skill_industry_DerelictOperations_ExtraDMods,[Derelict Operations] - Extra D-Mods,Int,4,,"[Derelict Operations] Industry Skill [Extra D-Mods] Parameter Value (vanilla value is 4)",0,20,Skills
+,,,,,,,,
+constraintchanger_skill_shared_header,Shared divider,Header,Shared,,,,,Skills
+constraintchanger_skill_shared_FighterBays,Shared - Fighter Bays,Int,8,,"This value is [shared] for both [Leadership / Carrier Group] and [Leadership / Fighter Uplink] skills' [Fighter Bays] Parameter Value (vanilla value is 8)",0,240,Skills
+constraintchanger_skill_shared_OPThreshold,Shared - Crew Training and Flux Regulation OP Threshold,Int,240,,"This value is [shared] for both [Leadership / Crew Training] and [Technology / Flux Regulation] skills' [OP Threshold] Parameter Value (vanilla value is 240)",0,2400,Skills
+constraintchanger_skill_shared_OPThreshold2,Shared - Field Repairs and Containment Procedures OP Threshold,Int,240,,"This value is [shared] for both [Industry / Field Repairs] and [Industry / Containment Procedures] skills' [OP Threshold] Parameter Value (vanilla value is 240)",0,2400,Skills
