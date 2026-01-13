@@ -61,6 +61,10 @@ public class VayraDamagedOptics extends BaseHullMod {
             if (w.isBeam() && w.isFiring()) {
                 float[] moveArray = generateMoveArray(ship, w);
                 int maxOffsetSize = getMaximumWeaponSpecAngleOffsetsSize(w);
+                // Before we start messing with the WeaponSpecAPI (which is shared by all instances of this weapon)
+                // lets first ensure that we have a local clone we can modify, so that we don't end up messing up all
+                // instances of this weapon across all ships (even those that never had this DMod)
+                w.ensureClonedSpec();
                 for (int i = 0; i < maxOffsetSize; i++) {
                     if (i < w.getSpec().getTurretAngleOffsets().size()) {
                         w.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
