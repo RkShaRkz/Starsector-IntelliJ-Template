@@ -4,7 +4,7 @@
   "displayName": "Idealist",
   "goalVariant": true,
   "fluxCapacitors": 0,
-  "fluxVents": 32,
+  "fluxVents": 41,
   "quality": 1,
   "permaMods": [],
   "hullMods": [
@@ -33,8 +33,7 @@
       "weapons": {
         "WS0001": "arbalest",
         "WS0002": "arbalest",
-        "WS0003": "arbalest",
-        "WS0015": "lightdualac"
+        "WS0003": "arbalest"
       }
     },
     {
@@ -43,7 +42,6 @@
       "weapons": {
         "WS0006": "flak",
         "WS0007": "vulcan",
-        "WS0008": "vulcan",
         "WS0009": "vulcan",
         "WS0010": "vulcan",
         "WS0011": "vulcan",
