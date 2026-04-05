@@ -837,7 +837,10 @@ public class VayraColonialManager implements EveryFrameScript {
                 if (!market.hasIndustry(industry) && market.getIndustries().size() < 12) {
                     market.addIndustry(industry);
                     market.getIndustry(industry).startBuilding();
-                    logMessage(String.format("building %s on %s", industry, market.getName()));
+                    logMessage(
+                            LoggerLogLevel.INFO,
+                            String.format("building %s on %s", industry, market.getName())
+                    );
                 }
             } else {
                 // Upgrades disabled by user

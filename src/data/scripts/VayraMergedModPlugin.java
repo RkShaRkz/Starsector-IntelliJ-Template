@@ -807,6 +807,9 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // VayraDebug
             boolean enableVayraDebug = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_VAYRA_DEBUG));
             VAYRA_DEBUG = enableVayraDebug;
+
+            boolean enableColonialManagerLogging = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_COLONIAL_MANAGER_LOGGING));
+            VayraColonialManager.LOGGING_ENABLED = enableColonialManagerLogging;
         }
 
         private void handlePopularFrontSettings() {
