@@ -5,6 +5,7 @@ import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.combat.ShipAPI.HullSize;
 import com.fs.starfarer.api.impl.campaign.ids.Stats;
 import com.fs.starfarer.api.impl.hullmods.CompromisedStructure;
+import com.fs.starfarer.api.loading.WeaponSpecAPI;
 import data.scripts.util.MiscUtils;
 import data.util.LoggerLogLevel;
 
@@ -58,22 +59,65 @@ public class VayraDamagedOptics extends BaseHullMod {
         }
 
         for (WeaponAPI w : ship.getAllWeapons()) {
-            if (w.isBeam() && w.isFiring()) {
-                float[] moveArray = generateMoveArray(ship, w);
-                int maxOffsetSize = getMaximumWeaponSpecAngleOffsetsSize(w);
-                for (int i = 0; i < maxOffsetSize; i++) {
-                    if (i < w.getSpec().getTurretAngleOffsets().size()) {
-                        w.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
+            if (w.isBeam()) {
+                // Beam weapons get special treatment with this DMod
+                if(w.isFiring()) {
+                    // If the weapon is firing, generate a "move array", clone the spec and start messing with it's
+                    // angle offsets
+                    float[] moveArray = generateMoveArray(ship, w);
+                    int maxOffsetSize = getMaximumWeaponSpecAngleOffsetsSize(w);
+                    // Before we start messing with the WeaponSpecAPI (which is shared by all instances of this weapon)
+                    // lets first ensure that we have a local clone we can modify, so that we don't end up messing up all
+                    // instances of this weapon across all ships (even those that never had this DMod)
+                    w.ensureClonedSpec();
+                    for (int i = 0; i < maxOffsetSize; i++) {
+                        if(i < w.getSpec().getTurretAngleOffsets().size()) {
+                            w.getSpec().getTurretAngleOffsets().set(i, moveArray[i]);
+                        }
+
+                        if(i < w.getSpec().getHardpointAngleOffsets().size()) {
+                            w.getSpec().getHardpointAngleOffsets().set(i, moveArray[i]);
+                        }
+
+                        if(i < w.getSpec().getHiddenAngleOffsets().size()) {
+                            w.getSpec().getHiddenAngleOffsets().set(i, moveArray[i]);
+                        }
                     }
-                    if (i < w.getSpec().getHardpointAngleOffsets().size()) {
-                        w.getSpec().getHardpointAngleOffsets().set(i, moveArray[i]);
-                    }
-                    if (i < w.getSpec().getHiddenAngleOffsets().size()) {
-                        w.getSpec().getHiddenAngleOffsets().set(i, moveArray[i]);
-                    }
+                } else {
+                    // If we're not firing, just "reset" the weapon to it's original angles
+                    resetWeaponsAngles(w);
                 }
             }
         }
+    }
+
+    private void resetWeaponsAngles(WeaponAPI weapon) {
+        // First, grab the original spec
+        WeaponSpecAPI originalSpec = getWeaponsOriginalSpec(weapon);
+        // Now, go through each of the original spec's offsets, and set the weapon's offsets to those
+        int maxOffsetSize = getMaximumWeaponSpecAngleOffsetsSize(weapon);
+        for (int i = 0; i < maxOffsetSize; i++) {
+            // turret angles
+            if (i < weapon.getSpec().getTurretAngleOffsets().size()) {
+                float originalValue = originalSpec.getTurretAngleOffsets().get(i);
+                weapon.getSpec().getTurretAngleOffsets().set(i, originalValue);
+            }
+
+            // hardpoint angles
+            if(i < weapon.getSpec().getHardpointAngleOffsets().size()) {
+                float originalValue = originalSpec.getHardpointAngleOffsets().get(i);
+                weapon.getSpec().getHardpointAngleOffsets().set(i, originalValue);
+            }
+
+            if(i < weapon.getSpec().getHiddenAngleOffsets().size()) {
+                float originalValue = originalSpec.getHiddenAngleOffsets().get(i);
+                weapon.getSpec().getHiddenAngleOffsets().set(i, originalValue);
+            }
+        }
+    }
+
+    private WeaponSpecAPI getWeaponsOriginalSpec(WeaponAPI weapon) {
+        return Global.getSettings().getWeaponSpec(weapon.getId());
     }
 
     private float[] generateMoveArray(ShipAPI ship, WeaponAPI weapon) {
