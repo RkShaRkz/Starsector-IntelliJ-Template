@@ -24,6 +24,8 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.domain.PersonBountyEventDataRepository;
 import data.scripts.VayraMergedModPlugin;
 import data.scripts.campaign.fleets.VayraPopularFrontManager;
+import data.scripts.util.MiscUtils;
+import data.util.LoggerLogLevel;
 import data.util.Optional;
 import data.util.StringifyUtils;
 import org.apache.log4j.Logger;
@@ -88,6 +90,9 @@ public class VayraColonialManager implements EveryFrameScript {
      */
     public static final int DEFAULT_BASE_PER_FACTION_COLONY_COUNT = 1;
     public static int BASE_PER_FACTION_COLONY_COUNT = DEFAULT_BASE_PER_FACTION_COLONY_COUNT;
+
+    public static boolean DEFAULT_LOGGING_ENABLED = true;
+    public static boolean LOGGING_ENABLED = DEFAULT_LOGGING_ENABLED;
 
 
     public static final float DEFAULT_PREF_SCORE = 0.5f;
@@ -292,14 +297,18 @@ public class VayraColonialManager implements EveryFrameScript {
 
                 // free upgrade if you don't have a spaceport (which SHOULD be building a spaceport)
                 if (!market.hasIndustry(Industries.SPACEPORT) && !market.hasIndustry(Industries.MEGAPORT)) {
-                    pickNextUpgrade(market);
+                    if (!shouldSkipUpgrades()) {
+                        pickNextUpgrade(market);
+                    }
                 }
                 // for (Industry industry : market.getIndustries()) industry.advance(amount);
             }
         }
 
         if (upgradeTimer.intervalElapsed()) {
-            performColonyUpgrade();
+            if (!shouldSkipUpgrades()) {
+                performColonyUpgrade();
+            }
         }
 
         if (colonyTimer.intervalElapsed()) {
@@ -308,6 +317,11 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     private void performColonyUpgrade() {
+        if (AOTD_ENABLED || UPGRADES_DISABLED) {
+            logMessage(LoggerLogLevel.INFO, "Upgrades are disabled because (AOTD_ENABLED: "+AOTD_ENABLED+" or UPGRADES_DISABLED: "+UPGRADES_DISABLED+"). Skipping colony upgrades.");
+            return;
+        }
+
         if (!coloniesActive.isEmpty()) {
             for (MarketAPI market : coloniesActive) {
                 pickNextUpgrade(market);
@@ -315,7 +329,7 @@ public class VayraColonialManager implements EveryFrameScript {
             List<MarketAPI> remove = new ArrayList<>();
             for (MarketAPI toRemove : coloniesToRemove) {
                 coloniesActive.remove(toRemove);
-                log.info(String.format("removing %s from list of colonies as it now belongs to %s", toRemove.getName(), toRemove.getFactionId()));
+                logMessage(LoggerLogLevel.INFO, String.format("removing %s from list of colonies as it now belongs to %s", toRemove.getName(), toRemove.getFactionId()));
                 purgeCores(toRemove);
                 executeAdmin(toRemove);
                 remove.add(toRemove);
@@ -331,38 +345,45 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     private void performColonySpawn(float spawnChance) {
-        log.info("--> performColonySpawn()\tspawnChance: "+spawnChance);
+        logMessage(LoggerLogLevel.DEBUG, "--> performColonySpawn()\tspawnChance: "+spawnChance);
         if ((VAYRA_DEBUG || checkIfReady()) && Math.random() <= spawnChance) {
             Optional<FactionAPI> colonyFactionOptional = pickFaction();
             if (!colonyFactionOptional.isPresent()) {
-                log.info("Not starting a colonial expedition -- pickFaction() returned NOTHING!");
+                logMessage(LoggerLogLevel.DEBUG, "Not starting a colonial expedition -- pickFaction() returned NOTHING!");
                 return;
             }
             FactionAPI colonyFaction = colonyFactionOptional.get();
-            log.info(String.format("Colony interval elapsed, picked faction (id=%s) for starting a colonization attempt", colonyFaction.getId()));
+            logMessage(LoggerLogLevel.INFO, String.format("Colony interval elapsed, picked faction (id=%s) for starting a colonization attempt", colonyFaction.getId()));
             // and this is where we create the colonial expedition! ohgodsomuchwork
             MarketAPI source = pickSource(colonyFaction);
             if (source == null) {
                 FactionAPI colonialParent = Global.getSector()
                         .getFaction(colonialParents.get(colonyFaction.getId()));
-                log.info(String.format(
-                        "We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving up instead",
-                        colonyFaction.getDisplayNameLongWithArticle(), colonialParent));
+                logMessage(
+                        LoggerLogLevel.DEBUG,
+                        String.format(
+                                "We were gonna start a colonial expedition, but neither %s nor their parent (%s) has any markets so we're giving up instead",
+                                colonyFaction.getDisplayNameLongWithArticle(), colonialParent
+                        )
+                );
                 return;
             }
             Optional<MarketAPI> targetOptional = pickTarget(source, colonyFaction);
             if (!targetOptional.isPresent()) {
-                log.info("We were gonna colonize a planet, but target returned null so we're giving up instead");
+                logMessage(LoggerLogLevel.DEBUG, "We were gonna colonize a planet, but target returned null so we're giving up instead");
                 return;
             }
             MarketAPI target = targetOptional.get();
             if (!target.isPlanetConditionMarketOnly()) {
-                log.info(String.format("We were gonna colonize %s, but it's not a planetary condition only market "
-                        + "(already taken?) so we're giving up instead", target.getName()));
+                logMessage(
+                        LoggerLogLevel.DEBUG,
+                        String.format("We were gonna colonize %s, but it's not a planetary condition only market (already taken?) so we're giving up instead", target.getName())
+                );
             }
             float fleetPoints = pickExpeditionFP(colonyFaction);
-            log.info(String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
-            log.info(
+            logMessage(LoggerLogLevel.INFO, String.format("Assembling %s colonial expedition at %s, target: %s", colonyFaction.getDisplayNameLong(), source.getName(), target.getName()));
+            logMessage(
+                    LoggerLogLevel.DEBUG,
                     String.format(
                             "Notifying the Intel screen about it by calling VayraColonialExpeditionIntel(faction=%s, from=%s, target=%s, fleetPoints=%s)",
                             colonyFaction,
@@ -373,7 +394,8 @@ public class VayraColonialManager implements EveryFrameScript {
             );
             VayraColonialExpeditionIntel expedition = new VayraColonialExpeditionIntel(colonyFaction, source, target, fleetPoints);
             planetsTargetedForColonies.add(target);
-            log.info(
+            logMessage(
+                    LoggerLogLevel.INFO,
                     String.format(
                             "Colonial expedition was started by %s and heading from %s to %s with a fleet worth %s fleet points!\nPlanets targeted for colonies: %s",
                             colonyFaction,
@@ -384,10 +406,23 @@ public class VayraColonialManager implements EveryFrameScript {
                     )
             );
         } else {
-            log.info("performColonySpawn()\tcolonies were not ready to spawn or random-check failed.");
+            logMessage(
+                    LoggerLogLevel.DEBUG,
+                    "performColonySpawn()\tcolonies were not ready to spawn or random-check failed."
+            );
         }
 
-        log.info("<-- performColonySpawn()");
+        logMessage(LoggerLogLevel.DEBUG, "<-- performColonySpawn()");
+    }
+
+    private boolean shouldSkipUpgrades() {
+        return AOTD_ENABLED || UPGRADES_DISABLED;
+    }
+
+    private static void logMessage(LoggerLogLevel level, String message) {
+        if (LOGGING_ENABLED) {
+            MiscUtils.log(level, log, message);
+        }
     }
 
     public static Set<String> loadColonyFactionList() {
@@ -407,7 +442,7 @@ public class VayraColonialManager implements EveryFrameScript {
             log.error("Colony faction list CSV loading failed!!! ;.....;", ex);
         }
 
-        log.info("Loaded possible colony list! loaded colonies: "+set);
+        logMessage(LoggerLogLevel.INFO, "Loaded possible colony list! loaded colonies: "+set);
         return set;
     }
 
@@ -451,6 +486,11 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     public void pickNextUpgrade(MarketAPI market) {
+        // Check if we should skip upgrading again, since this method is directly called from VayraPopularFrontManager
+        if (shouldSkipUpgrades()) {
+            return;
+        }
+        // Otherwise, just continue doing stuff and check again for AOTD and disabled upgrades before actually upgrading
 
         // setup stuff
         Float specialChance = COLONIAL_SPECIAL_CHANCE;
@@ -462,11 +502,14 @@ public class VayraColonialManager implements EveryFrameScript {
         }
         Set<String> moneyBuildings = COLONIAL_MONEY_BUILDINGS.keySet();
         WeightedRandomPicker<String> moneyBuildingPicker = new WeightedRandomPicker<>();
-        log.info(String.format("starting pickNextUpgrade for %s", market.getName()));
+        logMessage(LoggerLogLevel.INFO, String.format("starting pickNextUpgrade for %s", market.getName()));
 
         // remove from colonies list if no longer ours
         if (!possibleColonyFactions.contains(market.getFactionId())) {
-            log.info(String.format("%s belongs to %s now which isn't a colonial faction... adding to removal list", market.getName(), market.getFactionId()));
+            logMessage(
+                    LoggerLogLevel.DEBUG,
+                    String.format("%s belongs to %s now which isn't a colonial faction... adding to removal list", market.getName(), market.getFactionId())
+            );
             coloniesToRemove.add(market);
             return;
         }
@@ -476,7 +519,10 @@ public class VayraColonialManager implements EveryFrameScript {
             int size = market.getSize();
             int newSize = size + 1;
             market.setSize(newSize);
-            log.info(String.format("increasing %s size by 1, from %s to %s", market.getName(), size, market.getSize()));
+            logMessage(
+                    LoggerLogLevel.INFO,
+                    String.format("increasing %s size by 1, from %s to %s", market.getName(), size, market.getSize())
+            );
             // automatically resets getMarketSizeProgress so at least we don't have to worry about that
 
             // but it DOESN'T automatically adjust the market condition UGH
@@ -496,7 +542,10 @@ public class VayraColonialManager implements EveryFrameScript {
         // on a long enough timeline, everybody gets some growth incentives
         if (Math.random() < specialChance) {
             market.setIncentiveCredits(25000f);
-            log.info(String.format("Applying 25,000 credits to growth incentives on %s", market.getName()));
+            logMessage(
+                    LoggerLogLevel.INFO,
+                    String.format("Applying 25,000 credits to growth incentives on %s", market.getName())
+            );
         }
 
         // on a long enough timeline, everybody gets a corrupted nanoforge
@@ -507,7 +556,10 @@ public class VayraColonialManager implements EveryFrameScript {
                 && market.getIndustry(Industries.HEAVYINDUSTRY).getSpecialItem() == null) {
             market.removeIndustry(Industries.HEAVYINDUSTRY, null, false);
             market.addIndustry(Industries.HEAVYINDUSTRY, new ArrayList<>(Collections.singletonList(Items.CORRUPTED_NANOFORGE)));
-            log.info(String.format("Applying corrupted nanoforge to heavy industry on %s", market.getName()));
+            logMessage(
+                    LoggerLogLevel.INFO,
+                    String.format("Applying corrupted nanoforge to heavy industry on %s", market.getName())
+            );
         }
 
         // do special track stuff
@@ -516,14 +568,20 @@ public class VayraColonialManager implements EveryFrameScript {
             switch (special) {
                 case "synchrotron":
                     market.setIncentiveCredits(100000f);
-                    log.info(String.format("Applying 100,000 credits to growth incentives on %s", market.getName()));
+                    logMessage(
+                            LoggerLogLevel.INFO,
+                            String.format("Applying 100,000 credits to growth incentives on %s", market.getName())
+                    );
                     if (market.hasIndustry(Industries.FUELPROD)
                             && !market.getIndustry(Industries.FUELPROD).isBuilding()
                             && !market.getIndustry(Industries.FUELPROD).isUpgrading()
                             && market.getIndustry(Industries.FUELPROD).getSpecialItem() == null) {
                         market.removeIndustry(Industries.FUELPROD, null, false);
                         market.addIndustry(Industries.FUELPROD, new ArrayList<>(Collections.singletonList(Items.SYNCHROTRON)));
-                        log.info(String.format("Applying synchrotron to fuel production on %s", market.getName()));
+                        logMessage(
+                                LoggerLogLevel.INFO,
+                                String.format("Applying synchrotron to fuel production on %s", market.getName())
+                        );
                     }
                     break;
                 case "nanoforge":
@@ -534,14 +592,20 @@ public class VayraColonialManager implements EveryFrameScript {
                             ? Items.PRISTINE_NANOFORGE != null : !market.getIndustry(Industries.ORBITALWORKS).getSpecialItem().getId().equals(Items.PRISTINE_NANOFORGE))) {
                         market.removeIndustry(Industries.ORBITALWORKS, null, false);
                         market.addIndustry(Industries.ORBITALWORKS, new ArrayList<>(Collections.singletonList(Items.PRISTINE_NANOFORGE)));
-                        log.info(String.format("Applying pristine nanoforge to orbital works on %s", market.getName()));
+                        logMessage(
+                                LoggerLogLevel.INFO,
+                                String.format("Applying pristine nanoforge to orbital works on %s", market.getName())
+                        );
                     } else if (market.hasIndustry(Industries.HEAVYINDUSTRY)
                             && !market.getIndustry(Industries.HEAVYINDUSTRY).isBuilding()
                             && !market.getIndustry(Industries.HEAVYINDUSTRY).isUpgrading()
                             && market.getIndustry(Industries.HEAVYINDUSTRY).getSpecialItem() == null) {
                         market.removeIndustry(Industries.HEAVYINDUSTRY, null, false);
                         market.addIndustry(Industries.HEAVYINDUSTRY, new ArrayList<>(Collections.singletonList(Items.CORRUPTED_NANOFORGE)));
-                        log.info(String.format("Applying corrupted nanoforge to heavy industry on %s", market.getName()));
+                        logMessage(
+                                LoggerLogLevel.INFO,
+                                String.format("Applying corrupted nanoforge to heavy industry on %s", market.getName())
+                        );
                     }
                     break;
                 case "alphacore":
@@ -550,7 +614,10 @@ public class VayraColonialManager implements EveryFrameScript {
                         AICoreAdminPlugin plugin = new AICoreAdminPluginImpl();
                         PersonAPI alphaCoreAdmin = plugin.createPerson(Commodities.ALPHA_CORE, market.getFactionId(), 1312);
                         market.setAdmin(alphaCoreAdmin);
-                        log.info(String.format("Applying alpha core admin to %s", market.getName()));
+                        logMessage(
+                                LoggerLogLevel.INFO,
+                                String.format("Applying alpha core admin to %s", market.getName())
+                        );
                     } else {
                         WeightedRandomPicker<Industry> corePicker = new WeightedRandomPicker<>();
                         for (Industry possibleCoreIndustry : market.getIndustries()) {
@@ -590,10 +657,16 @@ public class VayraColonialManager implements EveryFrameScript {
                         if (coreIndustry != null) {
                             if (Math.random() < 0.69f) {
                                 coreIndustry.setAICoreId(Commodities.BETA_CORE);
-                                log.info(String.format("Applying beta core to %s on %s", coreIndustry.getCurrentName(), market.getName()));
+                                logMessage(
+                                        LoggerLogLevel.INFO,
+                                        String.format("Applying beta core to %s on %s", coreIndustry.getCurrentName(), market.getName())
+                                );
                             } else {
                                 coreIndustry.setAICoreId(Commodities.ALPHA_CORE);
-                                log.info(String.format("Applying alpha core to %s on %s", coreIndustry.getCurrentName(), market.getName()));
+                                logMessage(
+                                        LoggerLogLevel.INFO,
+                                        String.format("Applying alpha core to %s on %s", coreIndustry.getCurrentName(), market.getName())
+                                );
                             }
                         }
                     }
@@ -736,31 +809,52 @@ public class VayraColonialManager implements EveryFrameScript {
                     Industry ind = market.getIndustry(upgrade);
                     if (ind != null) {
                         ind.startUpgrading();
-                        log.info(String.format("upgrading %s on %s\t\tbuilding: %s, build progress: %s", upgrade, market.getName(), ind.isBuilding(), ind.getBuildOrUpgradeProgressText()));
+                        logMessage(
+                                LoggerLogLevel.DEBUG,
+                                String.format("upgrading %s on %s\t\tbuilding: %s, build progress: %s", upgrade, market.getName(), ind.isBuilding(), ind.getBuildOrUpgradeProgressText())
+                        );
                     } else {
-                        log.error(String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName()));
+                        logMessage(
+                                LoggerLogLevel.ERROR,
+                                String.format("[ERROR] WANTED TO UPGRADE INDUSTRY %s on %s BUT COULDN'T BECAUSE IT WAS NULL", upgrade, market.getName())
+                        );
                     }
                     return;
                 }
 
                 if (industry == null) {
-                    log.info(String.format("tried to build something new on %s but industry was null", market.getName()));
-                    log.info(String.format("upgrade was supposed to be %s ... if that's not null then you're upgrading TOO FAST", upgrade));
+                    logMessage(
+                            LoggerLogLevel.DEBUG,
+                            String.format("tried to build something new on %s but industry was null", market.getName())
+                    );
+                    logMessage(
+                            LoggerLogLevel.DEBUG,
+                            String.format("upgrade was supposed to be %s ... if that's not null then you're upgrading TOO FAST", upgrade)
+                    );
                     return;
                 }
 
                 if (!market.hasIndustry(industry) && market.getIndustries().size() < 12) {
                     market.addIndustry(industry);
                     market.getIndustry(industry).startBuilding();
-                    log.info(String.format("building %s on %s", industry, market.getName()));
+                    logMessage(
+                            LoggerLogLevel.INFO,
+                            String.format("building %s on %s", industry, market.getName())
+                    );
                 }
             } else {
                 // Upgrades disabled by user
-                log.info("Not performing l'interstellaire upgrades because it's been turned off in luna settings");
+                logMessage(
+                        LoggerLogLevel.INFO,
+                        String.format("Not performing upgrades on %s because it's been turned off in luna settings", market.getName())
+                );
             }
         } else {
             // Upgrades disabled to avoid crashing with AOTD
-            log.info("Not performing l'interstellaire upgrades because AOTD is turned on");
+            logMessage(
+                    LoggerLogLevel.INFO,
+                    String.format("Not performing upgrades on %s because AOTD is turned on", market.getName())
+            );
         }
     }
 
@@ -790,7 +884,10 @@ public class VayraColonialManager implements EveryFrameScript {
     }
 
     public MarketAPI pickSource(FactionAPI faction) {
-        log.info("--> pickSource()\tfaction: "+faction.getId());
+        logMessage(
+                LoggerLogLevel.DEBUG,
+                "--> pickSource()\tfaction: "+faction.getId()
+        );
 
         FactionAPI parentFaction = Global.getSector().getFaction(colonialParents.get(faction.getId()));
         String factionId = faction.getId();
@@ -823,7 +920,10 @@ public class VayraColonialManager implements EveryFrameScript {
             }
         }
 
-        log.info("pickSource()\tpossibleSources: "+possibleSources);
+        logMessage(
+                LoggerLogLevel.DEBUG,
+                "pickSource()\tpossibleSources: "+possibleSources
+        );
 
         if (possibleSources.isEmpty()) {
             source = null;
@@ -831,7 +931,10 @@ public class VayraColonialManager implements EveryFrameScript {
             source = possibleSources.pick();
         }
 
-        log.info("<-- pickSource()\treturning source: "+((source != null) ? StringifyUtils.shortMarketApiString(source) : "null"));
+        logMessage(
+                LoggerLogLevel.DEBUG,
+                "<-- pickSource()\treturning source: "+((source != null) ? StringifyUtils.shortMarketApiString(source) : "null")
+        );
         return source;
     }
 
@@ -941,7 +1044,10 @@ public class VayraColonialManager implements EveryFrameScript {
         }
 
         if (possibleTargets.isEmpty()) {
-            log.info("Tried to pick a target but the list wae empty (jesus, how), returning null");
+            logMessage(
+                    LoggerLogLevel.DEBUG,
+                    "Tried to pick a target but the list wae empty (jesus, how), returning null"
+            );
             return Optional.empty();
         } else if (!preferredTargets.isEmpty()) {
             target = preferredTargets.pick();
@@ -951,7 +1057,10 @@ public class VayraColonialManager implements EveryFrameScript {
 
         if (target.getMarket() == null) {
             Misc.initConditionMarket(target);
-            log.info(String.format("Picked %s as target but it had null market -- initializing condition market now", target.getName()));
+            logMessage(
+                    LoggerLogLevel.DEBUG,
+                    String.format("Picked %s as target but it had null market -- initializing condition market now", target.getName())
+            );
         }
 
         return Optional.of(target.getMarket());
@@ -996,13 +1105,19 @@ public class VayraColonialManager implements EveryFrameScript {
                 log.error(factionId + " not found as faction in sector");
             }
             if (inactiveColonyFactions.contains(factionId) && hasMarkets.contains(factionId) && test instanceof FactionAPI) {
-                log.info(String.format("Adding %s to the intel and bounty lists", test.getDisplayNameLongWithArticle()));
+                logMessage(
+                        LoggerLogLevel.INFO,
+                        String.format("Adding %s to the intel and bounty lists", test.getDisplayNameLongWithArticle())
+                );
                 inactiveColonyFactions.remove(factionId);
                 test.setShowInIntelTab(true);
                 PersonBountyEventDataRepository.getInstance().addParticipatingFaction(factionId);
                 VayraMergedModPlugin.setExerelinActive(factionId, true);
             } else if (!inactiveColonyFactions.contains(factionId) && !hasMarkets.contains(factionId) && test instanceof FactionAPI) {
-                log.info(String.format("Removing %s from the intel and bounty lists... good riddance", test.getDisplayNameLongWithArticle()));
+                logMessage(
+                        LoggerLogLevel.INFO,
+                        String.format("Removing %s from the intel and bounty lists... good riddance", test.getDisplayNameLongWithArticle())
+                );
                 inactiveColonyFactions.add(factionId);
                 test.setShowInIntelTab(false);
                 PersonBountyEventDataRepository.getInstance().removeParticipatingFaction(factionId);
@@ -1038,7 +1153,10 @@ public class VayraColonialManager implements EveryFrameScript {
         for (IntelInfoPlugin check : Global.getSector().getIntelManager().getIntel(VayraColonialExpeditionIntel.class)) {
             VayraColonialExpeditionIntel intel = (VayraColonialExpeditionIntel) check;
             if (intel.getOutcome() == null && !VAYRA_DEBUG) {
-                log.info("there is already an active colony expedition, no more expansion right now");
+                logMessage(
+                        LoggerLogLevel.DEBUG,
+                        "there is already an active colony expedition, no more expansion right now"
+                );
                 return false;
             }
         }
@@ -1047,10 +1165,23 @@ public class VayraColonialManager implements EveryFrameScript {
                 counter++;
             }
         }
-        log.info(String.format("Checking room to expand for %s... %s/%s faction max, %s/%s total all factions max",
-                factionId, counter, getMaxColoniesPerFaction(), coloniesActive.size(), getMaxColoniesTotal()));
-        log.info(String.format("returning %s", ((counter < getMaxColoniesPerFaction()) && (coloniesActive.size() < getMaxColoniesTotal()))));
-        return ((counter < getMaxColoniesPerFaction()) && (coloniesActive.size() < getMaxColoniesTotal()));
+        logMessage(
+                LoggerLogLevel.INFO,
+                String.format(
+                        "Checking room to expand for %s... %s/%s faction max, %s/%s total all factions max",
+                        factionId,
+                        counter,
+                        getMaxColoniesPerFaction(),
+                        coloniesActive.size(),
+                        getMaxColoniesTotal()
+                )
+        );
+        boolean retVal = (counter < getMaxColoniesPerFaction()) && (coloniesActive.size() < getMaxColoniesTotal());
+        logMessage(
+                LoggerLogLevel.DEBUG,
+                String.format("returning %s", retVal)
+        );
+        return retVal;
     }
 
     @Override
@@ -1166,11 +1297,17 @@ public class VayraColonialManager implements EveryFrameScript {
         }
         // So this will be emptied only if none of the factions have room to expand
         if (colonyFactions.isEmpty()) {
-            log.info(String.format("<-- pickFaction()\tno one had room to expand and colonyFactions WeightedRandomPicker was empty! returning nothing"));
+            logMessage(
+                    LoggerLogLevel.DEBUG,
+                    String.format("<-- pickFaction()\tno one had room to expand and colonyFactions WeightedRandomPicker was empty! returning nothing")
+            );
             return Optional.empty();
         }
         FactionAPI faction = Global.getSector().getFaction(colonyFactions.pickAndRemove());
-        log.info(String.format("<-- pickFaction()\tpicking %s", faction.getId()));
+        logMessage(
+                LoggerLogLevel.DEBUG,
+                String.format("<-- pickFaction()\tpicking %s", faction.getId())
+        );
         return Optional.of(faction);
     }
 
@@ -1278,7 +1415,10 @@ public class VayraColonialManager implements EveryFrameScript {
         PersonAPI admin = toRemove.getAdmin();
         if (admin != null) {
             toRemove.removePerson(admin);
-            log.info("unfortunately, the colony administrator was a regime loyalist and had to be executed");
+            logMessage(
+                    LoggerLogLevel.INFO,
+                    String.format("unfortunately, the %s colony's administrator was a regime loyalist and had to be executed", toRemove.getName())
+            );
         }
     }
 
@@ -1326,7 +1466,10 @@ public class VayraColonialManager implements EveryFrameScript {
                     for (CargoStackAPI cs : cargo.getStacksCopy()) {
                         String id = cs.getCommodityId();
                         if (id == null) {
-                            log.warn(cs.getDisplayName() + " has a null commodityId");
+                            logMessage(
+                                    LoggerLogLevel.WARN,
+                                    cs.getDisplayName() + " has a null commodityId"
+                            );
                             continue;
                         }
                         int num;
@@ -1335,17 +1478,26 @@ public class VayraColonialManager implements EveryFrameScript {
                                 num = (int) cs.getSize();
                                 alphas += num;
                                 cs.subtract(num);
-                                log.info("stole " + num + " alpha cores");
+                                logMessage(
+                                        LoggerLogLevel.DEBUG,
+                                        "stole " + num + " alpha cores"
+                                );
                             case Commodities.BETA_CORE:
                                 num = (int) cs.getSize();
                                 betas += num;
                                 cs.subtract(num);
-                                log.info("stole " + num + " beta cores");
+                                logMessage(
+                                        LoggerLogLevel.DEBUG,
+                                        "stole " + num + " beta cores"
+                                );
                             case Commodities.GAMMA_CORE:
                                 num = (int) cs.getSize();
                                 gammas += num;
                                 cs.subtract(num);
-                                log.info("stole " + num + " gamma cores");
+                                logMessage(
+                                        LoggerLogLevel.DEBUG,
+                                        "stole " + num + " gamma cores"
+                                );
                             default:
                                 break;
                         }
@@ -1365,14 +1517,20 @@ public class VayraColonialManager implements EveryFrameScript {
                                 && alphas > 0) {
                             i.setAICoreId(Commodities.ALPHA_CORE);
                             alphas--;
-                            log.info("installed alpha core in " + i.getId());
+                            logMessage(
+                                    LoggerLogLevel.DEBUG,
+                                    "installed alpha core in " + i.getId()
+                            );
                         }
                         if (!Commodities.ALPHA_CORE.equals(i.getAICoreId())
                                 && !i.getAICoreId().equals(Commodities.BETA_CORE)
                                 && betas > 0) {
                             i.setAICoreId(Commodities.BETA_CORE);
                             betas--;
-                            log.info("installed beta core in " + i.getId());
+                            logMessage(
+                                    LoggerLogLevel.DEBUG,
+                                    "installed beta core in " + i.getId()
+                            );
                         }
                         if (!Commodities.ALPHA_CORE.equals(i.getAICoreId())
                                 && !i.getAICoreId().equals(Commodities.BETA_CORE)
@@ -1380,13 +1538,22 @@ public class VayraColonialManager implements EveryFrameScript {
                                 && gammas > 0) {
                             i.setAICoreId(Commodities.GAMMA_CORE);
                             gammas--;
-                            log.info("installed gamma core in " + i.getId());
+                            logMessage(
+                                    LoggerLogLevel.DEBUG,
+                                    "installed gamma core in " + i.getId()
+                            );
                         }
                     }
                     if (alphas + betas + gammas > 0) {
-                        log.info("had " + alphas + "/" + betas + "/" + gammas + " alpha/beta/gamma cores left over, guess i'll just throw them away");
+                        logMessage(
+                                LoggerLogLevel.INFO,
+                                "had " + alphas + "/" + betas + "/" + gammas + " alpha/beta/gamma cores left over, guess i'll just throw them away"
+                        );
                     } else {
-                        log.info("no cores left over, alas");
+                        logMessage(
+                                LoggerLogLevel.INFO,
+                                "no cores left over, alas"
+                        );
                     }
                 }
             }

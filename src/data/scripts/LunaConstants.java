@@ -9,6 +9,7 @@ public class LunaConstants {
     // general settings
     public final static String ENABLE_RPG_MINIGAME = "vayramerged_enableRpgMinigame";
     public final static String ENABLE_VAYRA_DEBUG = "vayramerged_enableVayraDebug";
+    public final static String ENABLE_COLONIAL_MANAGER_LOGGING = "vayramerged_enableColonialManagerLogging";
 
     // popular front settings
     public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_disableInterstellaireUpgrades";
