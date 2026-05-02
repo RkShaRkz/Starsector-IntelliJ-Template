@@ -1081,6 +1081,7 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
         fleet.setCommander(person);
         fleet.getFlagship().setCaptain(person);
+        List<String> skippedCommanderSkills = sanitizeCommanderSkills(fleet);
         try {
             FleetFactoryV3.addCommanderSkills(person, fleet, null);
         } catch(NullPointerException npe) {
@@ -1092,6 +1093,8 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
                     + "fleet.getFaction(): " + fleetsFaction + ", commander skills: " + factionCommanderSkills,
                     npe
             );
+        } finally {
+            restoreCommanderSkills(fleet, skippedCommanderSkills);
         }
 
         Misc.makeImportant(fleet, "pbe", duration + 20f);
@@ -1112,6 +1115,49 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         flagship = fleet.getFlagship();
 
         fleet.forceSync();
+    }
+
+    private List<String> sanitizeCommanderSkills(CampaignFleetAPI fleet) {
+        if (fleet == null || fleet.getFaction() == null || fleet.getFaction().getDoctrine() == null) {
+            return Collections.emptyList();
+        }
+
+        List<String> commanderSkills = fleet.getFaction().getDoctrine().getCommanderSkills();
+        if (commanderSkills == null || commanderSkills.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<String> skipped = new ArrayList<>();
+        for (Iterator<String> iterator = commanderSkills.iterator(); iterator.hasNext(); ) {
+            String skillId = iterator.next();
+            try {
+                if (Global.getSettings().getSkillSpec(skillId) != null) {
+                    continue;
+                }
+            } catch (RuntimeException ignored) {
+                // Treat settings lookup failures the same as missing skills so a
+                // stale faction doctrine can not crash bounty fleet generation.
+            }
+            skipped.add(skillId);
+            iterator.remove();
+        }
+
+        if (!skipped.isEmpty()) {
+            log.warn("Skipping unknown commander skills " + skipped + " while spawning bounty fleet " + fleet);
+        }
+        return skipped;
+    }
+
+    private void restoreCommanderSkills(CampaignFleetAPI fleet, List<String> skippedCommanderSkills) {
+        if (skippedCommanderSkills == null || skippedCommanderSkills.isEmpty()
+                || fleet == null || fleet.getFaction() == null || fleet.getFaction().getDoctrine() == null) {
+            return;
+        }
+
+        List<String> commanderSkills = fleet.getFaction().getDoctrine().getCommanderSkills();
+        if (commanderSkills != null) {
+            commanderSkills.addAll(skippedCommanderSkills);
+        }
     }
 
     @Override
