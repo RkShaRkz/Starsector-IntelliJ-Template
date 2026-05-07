@@ -1012,14 +1012,14 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         for (String skill : doctrine.getCommanderSkills()) {
             if (!validSkills.contains(skill)) {
                 hasBadSkills = true;
-                log.error("Faction: " + faction.getId() + " contains no longer existing skills in it's doctrine! Invalid COMMANDER skill: [" + skill + "], prepare to crash ...");
+                log.error("Faction: " + faction.getId() + " contains no longer existing skills in it's doctrine! Invalid COMMANDER skill: [" + skill + "], prepare to override with skill sanitizer doctrine ...");
             }
         }
 
         for (String skill : doctrine.getOfficerSkills()) {
             if (!validSkills.contains(skill)) {
                 hasBadSkills = true;
-                log.error("Faction: " + faction.getId() + " contains no longer existing skills in it's doctrine! Invalid OFFICER skill: [" + skill + "], prepare to crash ...");
+                log.error("Faction: " + faction.getId() + " contains no longer existing skills in it's doctrine! Invalid OFFICER skill: [" + skill + "], prepare to override with skill sanitizer doctrine ...");
             }
         }
 
