@@ -39,6 +39,7 @@ import com.fs.starfarer.api.util.WeightedRandomPicker;
 import data.domain.PersonBountyEventDataRepository;
 import data.scripts.util.MiscUtils;
 import org.apache.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.util.List;
@@ -117,6 +118,10 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
 
     public synchronized PersonBountyEventData getPersonBountyEventDataFromRepository() {
         return PersonBountyEventDataRepository.getInstance().getPersonBountyEventData();
+    }
+
+    private List<String> getListOfAllExistingSkillIds() {
+        return Global.getSettings().getSkillIds();
     }
 
     public VayraPersonBountyIntel() {
@@ -989,7 +994,50 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
         }
     }
 
+    /**
+     * Method planned to sanitize the faction's doctrine's commander skills but since we cannot quite do that,
+     * it just returns an 'optional' factrine override to be used in FleetParamsV3
+     *
+     * @param faction faction whose doctrine should be sanitized of invalid skills
+     * @return whether we should proceed with the passed 'faction' or not, since the faction's commander
+     * or officer skills contain invalid skills.
+     * <b>null</b> indicates that no problems related to skills should happen.
+     */
+    private @Nullable FactionDoctrineAPI sanitizeFactionDoctrine(FactionAPI faction) {
+        SkillSanitizingDoctrine retVal = null;
+        boolean hasBadSkills = false;
+        List<String> validSkills = getListOfAllExistingSkillIds();
+        FactionDoctrineAPI doctrine = faction.getDoctrine();
+
+        for (String skill : doctrine.getCommanderSkills()) {
+            if (!validSkills.contains(skill)) {
+                hasBadSkills = true;
+                log.error("Faction: " + faction.getId() + " contains no longer existing skills in it's doctrine! Invalid COMMANDER skill: [" + skill + "], prepare to override with skill sanitizer doctrine ...");
+            }
+        }
+
+        for (String skill : doctrine.getOfficerSkills()) {
+            if (!validSkills.contains(skill)) {
+                hasBadSkills = true;
+                log.error("Faction: " + faction.getId() + " contains no longer existing skills in it's doctrine! Invalid OFFICER skill: [" + skill + "], prepare to override with skill sanitizer doctrine ...");
+            }
+        }
+
+        // Update the doctrine with the sanitized skill list
+//        doctrine.setCommanderSkills(sanitizedSkills);
+        if (hasBadSkills) {
+            retVal = new SkillSanitizingDoctrine(doctrine);
+        }
+
+        return retVal;
+    }
+
     private void spawnFleet() {
+        // First thing's first, since some bounty factions might still reference no-longer-existing skills,
+        // lets first sanitize their doctrine before proceeding...
+        FactionDoctrineAPI potentialDoctrineOverride = sanitizeFactionDoctrine(bountyFaction);
+
+        // Now, carry on like we did before ...
         String fleetFactionId = bountyFaction.getId();
         if (bountyType == BountyType.DESERTER) {
             fleetFactionId = faction.getId();
@@ -1025,6 +1073,11 @@ public final class VayraPersonBountyIntel extends BaseIntelPlugin implements Eve
                 0f, // utilityPts
                 0f // qualityMod
         );
+        // If we received a non-null potential skill sanitizing doctrine override, set it!
+        if (potentialDoctrineOverride != null) {
+            log.error("Faction: " + faction.getId() + " contains invalid skills in it's doctrine! Using doctrine override! override: " + potentialDoctrineOverride);
+            params.doctrineOverride = potentialDoctrineOverride;
+        }
 
         if (VAYRA_DEBUG) {
             log.info("generated FleetParams for location: " + hideoutLocation.getLocationInHyperspace() + ", fleetFactionId: " + fleetFactionId + ", combatPoints: " + fp + "\t = " + params);
