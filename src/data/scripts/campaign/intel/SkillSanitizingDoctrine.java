@@ -2,6 +2,7 @@ package data.scripts.campaign.intel;
 
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.FactionDoctrineAPI;
+import org.apache.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
@@ -9,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SkillSanitizingDoctrine implements FactionDoctrineAPI {
+    private static Logger logger = Global.getLogger(SkillSanitizingDoctrine.class);
 
     private @NotNull FactionDoctrineAPI delegate;
     private final @NotNull HashSet<String> validSkillIdSet;
@@ -221,6 +223,7 @@ public class SkillSanitizingDoctrine implements FactionDoctrineAPI {
                 // if we caught a NPE that means the skill surely isn't valid, so remove it
                 exceptionHappened = true;
                 iter.remove();
+                logger.error("NullPointerException happened while testing skill: " + id + ", removing it!", npe);
             } finally {
                 // If no exception happened, do NOT remove skill only if both are true,
                 // if exception did happen - we already removed it, so do nothing
@@ -232,6 +235,7 @@ public class SkillSanitizingDoctrine implements FactionDoctrineAPI {
                     } else {
                         // combinedCheck is failing, remove
                         iter.remove();
+                        logger.warn("Combined check failed while testing skill: " + id + ", removing it!");
                     }
                 } else {
                     // exception happened, something caused a NPE while checking the skill, the catch() block already
