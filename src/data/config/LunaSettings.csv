@@ -5,8 +5,10 @@ vayramerged_enableVayraDebug,Enable Vayra Debug,Boolean,false,,There is zero nee
 vayramerged_enableColonialManagerLogging,Enable Colonial Manager Logging,Boolean,false,,Useful for debugging but since people complained it can slow down their game - it's disabled by default,,,General
 ,,,,,,,,
 vayramerged_defaultBountyDuration,Default bounty duration,Int,90,,Default Vayra Bounty duration in days (default value is 90),9,3650,Bounties
-vayramerged_defaultPlayerBountyDuration,Default Player bounty duration,Int,90,,Default Vayra Bounty duration for bounties against the player in days (default value is 90),9,3650,Bounties
 vayramerged_enablePlayerBounties,Enable Player Bounties,Boolean,true,,Should bounties against the player be enabled or not?,,,Bounties
+vayramerged_defaultPlayerBountyDuration,Default Player bounty duration,Int,90,,Default Vayra Bounty duration for bounties against the player in days (default value is 90),9,3650,Bounties
+vayramerged_playerBountiesTimerIntervalMin,Player Bounty Hunter Interval (min),Double,30.0,,Minimum interval (in days) for bounty hunters against player to be spawned? (default value is 30.0),1.0,1800.0,Bounties
+vayramerged_playerBountiesTimerIntervalMax,Player Bounty Hunter Interval (max),Double,60.0,,Maxiumum interval (in days) for bounty hunters against player to be spawned? (default value is 60.0),1.0,1800.0,Bounties
 vayramerged_enableUniqueBounties,Enable Unique Bounties,Boolean,true,,Should [Unique Bounties] be enabled or not?,,,Bounties
 vayramerged_uniqueBountiesCount,Maximum Unique Bounty count,Int,5,,Maximum number of [Unique Bounties] active at the same time (default value is 5),3,15,Bounties
 ,,,,,,,,

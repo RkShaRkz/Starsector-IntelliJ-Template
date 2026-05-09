@@ -15,6 +15,8 @@ public class LunaConstants {
     public final static String VAYRA_BOUNTY_DURATION = "vayramerged_defaultBountyDuration";
     public final static String VAYRA_PLAYER_BOUNTY_DURATION = "vayramerged_defaultPlayerBountyDuration";
     public final static String ENABLE_PLAYER_BOUNTIES = "vayramerged_enablePlayerBounties";
+    public final static String PLAYER_BOUNTY_HUNTER_TIMER_MIN = "vayramerged_playerBountiesTimerIntervalMin";
+    public final static String PLAYER_BOUNTY_HUNTER_TIMER_MAX = "vayramerged_playerBountiesTimerIntervalMax";
     public final static String ENABLE_UNIQUE_BOUNTIES = "vayramerged_enableUniqueBounties";
     public final static String UNIQUE_BOUNTIES_MAX_COUNT = "vayramerged_uniqueBountiesCount";
 

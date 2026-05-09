@@ -39,7 +39,11 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
     protected List<PlayerBountyData> sorted = new ArrayList<>(); // just used to display them in order
     protected Map<String, PlayerBountyData> bountiesToPost = new HashMap<>(); // factionId, bounty
     protected Map<String, PlayerBountyData> bountiesPosted = new HashMap<>(); // factionId, bounty
-    protected IntervalUtil hunterDays = new IntervalUtil(30, 60);
+    protected IntervalUtil hunterDays = VayraPlayerBountyIntelExternalDataHolder.getInstance().getTimer();
+    public static final float DEFAULT_HUNTER_DAYS_MIN = 30f;
+    public static final float DEFAULT_HUNTER_DAYS_MAX = 60f;
+    public static float HUNTER_DAYS_MIN = DEFAULT_HUNTER_DAYS_MIN;
+    public static float HUNTER_DAYS_MAX = DEFAULT_HUNTER_DAYS_MAX;
     protected IntervalUtil updateDays = new IntervalUtil(7, 7);
     protected float timerMultBecauseOfCrimes = 0f;
     protected float previousCrimeMult = 0f;
@@ -451,4 +455,42 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
         Object test = Global.getSector().getMemoryWithoutUpdate().get(KEY);
         return (VayraPlayerBountyIntel) test;
     }
+
+    public static void adjustTimerIntervals(float minInterval, float maxInterval) {
+        HUNTER_DAYS_MIN = minInterval;
+        HUNTER_DAYS_MAX = maxInterval;
+
+        VayraPlayerBountyIntelExternalDataHolder externalDataHolder = VayraPlayerBountyIntelExternalDataHolder.getInstance();
+        externalDataHolder.getTimer().setInterval(minInterval, maxInterval);
+    }
+}
+
+class VayraPlayerBountyIntelExternalDataHolder {
+    private static volatile VayraPlayerBountyIntelExternalDataHolder instance = null;
+
+    private final IntervalUtil timer;
+
+    private VayraPlayerBountyIntelExternalDataHolder() {
+        // Empty private constructor to prevent instantiation
+
+        timer = new IntervalUtil(
+            VayraPlayerBountyIntel.HUNTER_DAYS_MIN,
+            VayraPlayerBountyIntel.HUNTER_DAYS_MAX
+        );
+    }
+
+    public static VayraPlayerBountyIntelExternalDataHolder getInstance() {
+        // The typical doubly-locked getInstance
+        if (instance == null) {
+            synchronized (VayraPlayerBountyIntelExternalDataHolder.class) {
+                if (instance == null) {
+                    instance = new VayraPlayerBountyIntelExternalDataHolder();
+                }
+            }
+        }
+
+        return instance;
+    }
+
+    public IntervalUtil getTimer() { return timer; }
 }

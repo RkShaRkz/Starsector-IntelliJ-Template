@@ -135,10 +135,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             Global.getSettings().getScriptClassLoader().loadClass("org.lazywizard.lazylib.ModUtils");
         } catch (ClassNotFoundException lazy) {
             String message = System.lineSeparator()
-                    + System.lineSeparator() + "LazyLib is required to run Vayra's Sector."
-                    + System.lineSeparator() + System.lineSeparator()
-                    + "You can download LazyLib at http://fractalsoftworks.com/forum/index.php?topic=5444"
-                    + System.lineSeparator();
+                + System.lineSeparator() + "LazyLib is required to run Vayra's Sector."
+                + System.lineSeparator() + System.lineSeparator()
+                + "You can download LazyLib at http://fractalsoftworks.com/forum/index.php?topic=5444"
+                + System.lineSeparator();
             throw new ClassNotFoundException(message);
         }
 
@@ -146,10 +146,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             Global.getSettings().getScriptClassLoader().loadClass("data.scripts.util.MagicTargeting");
         } catch (ClassNotFoundException magic) {
             String message = System.lineSeparator()
-                    + System.lineSeparator() + "MagicLib is required to run Kadur Remnant."
-                    + System.lineSeparator() + System.lineSeparator()
-                    + "You can download MagicLib at http://fractalsoftworks.com/forum/index.php?topic=13718.0"
-                    + System.lineSeparator();
+                + System.lineSeparator() + "MagicLib is required to run Kadur Remnant."
+                + System.lineSeparator() + System.lineSeparator()
+                + "You can download MagicLib at http://fractalsoftworks.com/forum/index.php?topic=13718.0"
+                + System.lineSeparator();
             throw new ClassNotFoundException(message);
         }
 
@@ -682,11 +682,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static String aOrAn(String input) {
 
         ArrayList<String> vowels = new ArrayList<>(Arrays.asList(
-                "a",
-                "e",
-                "i",
-                "o",
-                "u"));
+            "a",
+            "e",
+            "i",
+            "o",
+            "u"));
 
         String firstLetter = input.substring(0, 1).toLowerCase();
 
@@ -715,7 +715,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             rings.add("rings_ice0");
             String ring = rings.pick();
             RingBandAPI visual = system.addRingBand(star, "misc", ring, 256f, 0, Color.white, bandWidth,
-                    radius + bandWidth / 2f, -orbitDays);
+                radius + bandWidth / 2f, -orbitDays);
             float spiralFactor = 2f + Misc.random.nextFloat() * 5f;
             visual.setSpiral(true);
             visual.setMinSpiralRadius(star.getRadius());
@@ -753,40 +753,40 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     private void performMigrations() {
         // Check the VayraColonialManager
         VayraColonialManager colonialManagerInstance = VayraColonialManager.getInstance();
-        if( colonialManagerInstance != null ) {
+        if (colonialManagerInstance != null) {
             // check version
             int actualVersion = colonialManagerInstance.getVersion();
             int currentVersion = VayraColonialManager.SCRIPT_VERSION;
-            if( actualVersion < currentVersion ) {
+            if (actualVersion < currentVersion) {
                 // This should have been done only once but...
                 int removedHowMany = 0;
-                while(Global.getSector().hasScript(VayraColonialManager.class)) {
+                while (Global.getSector().hasScript(VayraColonialManager.class)) {
                     Global.getSector().removeScript(colonialManagerInstance);
                     removedHowMany++;
                 }
                 Global.getSector().addScript(new VayraColonialManager());
                 logger.warn(
-                        "Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
+                    "Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
                 logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
             }
         }
 
         // Check the VayraPopularManager
         VayraPopularFrontManager popularFrontManager = VayraPopularFrontManager.getInstance();
-        if( popularFrontManager != null ) {
+        if (popularFrontManager != null) {
             // check version
             int actualVersion = popularFrontManager.getVersion();
             int currentVersion = VayraPopularFrontManager.SCRIPT_VERSION;
-            if( actualVersion < currentVersion ) {
+            if (actualVersion < currentVersion) {
                 // This should have been done only once but...
                 int removedHowMany = 0;
-                while(Global.getSector().hasScript(VayraPopularFrontManager.class)) {
+                while (Global.getSector().hasScript(VayraPopularFrontManager.class)) {
                     Global.getSector().removeScript(colonialManagerInstance);
                     removedHowMany++;
                 }
                 Global.getSector().addScript(new VayraPopularFrontManager());
                 logger.warn(
-                        "Version mismatch was detected between actual VayraPopularFrontManager's instance and the VayraPopularFrontManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
+                    "Version mismatch was detected between actual VayraPopularFrontManager's instance and the VayraPopularFrontManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
                 logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
             }
         }
@@ -798,6 +798,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
                 handleGeneralSettings();
+                handleBountySettings();
                 handlePopularFrontSettings();
                 handleColonialFactionSettings();
                 handleDmodSettings();
@@ -815,15 +816,21 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             boolean enableColonialManagerLogging = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_COLONIAL_MANAGER_LOGGING));
             VayraColonialManager.LOGGING_ENABLED = enableColonialManagerLogging;
+        }
 
-            int defaultVayraBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_BOUNTY_DURATION), (int)DEFAULT_BOUNTY_DURATION);
+        private void handleBountySettings() {
+            int defaultVayraBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_BOUNTY_DURATION), (int) DEFAULT_BOUNTY_DURATION);
             BOUNTY_DURATION = defaultVayraBountyDuration;
-
-            int defaultVayraPlayerBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_PLAYER_BOUNTY_DURATION), (int)BOUNTY_DURATION);
-            PLAYER_BOUNTY_DURATION = defaultVayraPlayerBountyDuration;
 
             boolean enablePlayerBounties = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_PLAYER_BOUNTIES));
             PLAYER_BOUNTIES = enablePlayerBounties;
+
+            int defaultVayraPlayerBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_PLAYER_BOUNTY_DURATION), (int) BOUNTY_DURATION);
+            PLAYER_BOUNTY_DURATION = defaultVayraPlayerBountyDuration;
+
+            double playerBountyTimerIntervalMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, PLAYER_BOUNTY_HUNTER_TIMER_MIN), VayraPlayerBountyIntel.DEFAULT_HUNTER_DAYS_MIN);
+            double playerBountyTimerIntervalMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, PLAYER_BOUNTY_HUNTER_TIMER_MAX), VayraPlayerBountyIntel.DEFAULT_HUNTER_DAYS_MAX);
+            VayraPlayerBountyIntel.adjustTimerIntervals((float) playerBountyTimerIntervalMin, (float) playerBountyTimerIntervalMax);
 
             boolean enableUniqueBounties = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_UNIQUE_BOUNTIES));
             UNIQUE_BOUNTIES = enableUniqueBounties;
@@ -850,7 +857,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             double popularFrontTimerIntervalMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, POPULAR_FRONT_TIMER_INTERVAL_MIN), VayraPopularFrontManager.DEFAULT_TIMER_INTERVAL_MIN);
             double popularFrontTimerIntervalMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, POPULAR_FRONT_TIMER_INTERVAL_MAX), VayraPopularFrontManager.DEFAULT_TIMER_INTERVAL_MAX);
-            VayraPopularFrontManager.adjustTimerIntervals((float)popularFrontTimerIntervalMin, (float)popularFrontTimerIntervalMax);
+            VayraPopularFrontManager.adjustTimerIntervals((float) popularFrontTimerIntervalMin, (float) popularFrontTimerIntervalMax);
         }
 
         private void handleColonialFactionSettings() {
@@ -884,8 +891,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             // colonial faction invasion base fleet points
             int colonialCompetitorFactionBaseFleetPoints = safeUnboxing(
-                    LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_BASE_FLEET_POINTS),
-                    Math.round(VayraColonialManager.DEFAULT_BASE_FLEET_POINTS)
+                LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_BASE_FLEET_POINTS),
+                Math.round(VayraColonialManager.DEFAULT_BASE_FLEET_POINTS)
             );
             VayraColonialManager.BASE_FLEET_POINTS = colonialCompetitorFactionBaseFleetPoints;
 
