@@ -10,8 +10,13 @@ public class LunaConstants {
     public final static String ENABLE_RPG_MINIGAME = "vayramerged_enableRpgMinigame";
     public final static String ENABLE_VAYRA_DEBUG = "vayramerged_enableVayraDebug";
     public final static String ENABLE_COLONIAL_MANAGER_LOGGING = "vayramerged_enableColonialManagerLogging";
+
+    // bounty settings
     public final static String VAYRA_BOUNTY_DURATION = "vayramerged_defaultBountyDuration";
     public final static String VAYRA_PLAYER_BOUNTY_DURATION = "vayramerged_defaultPlayerBountyDuration";
+    public final static String ENABLE_PLAYER_BOUNTIES = "vayramerged_enablePlayerBounties";
+    public final static String ENABLE_UNIQUE_BOUNTIES = "vayramerged_enableUniqueBounties";
+    public final static String UNIQUE_BOUNTIES_MAX_COUNT = "vayramerged_uniqueBountiesCount";
 
     // popular front settings
     public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_disableInterstellaireUpgrades";

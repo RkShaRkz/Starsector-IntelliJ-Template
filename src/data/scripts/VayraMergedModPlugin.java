@@ -82,6 +82,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static int AI_REBELLION_THRESHOLD;
     public static boolean UNIQUE_BOUNTIES;
     public static int UNIQUE_BOUNTIES_MAX;
+    public static final int DEFAULT_UNIQUE_BOUNTIES_MAX = 5;
     public static float EXTRA_BOUNTY_LEVEL_MULT;
     public static float BOUNTY_DURATION;
     public static float PLAYER_BOUNTY_DURATION;
@@ -821,6 +822,14 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             int defaultVayraPlayerBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_PLAYER_BOUNTY_DURATION), (int)BOUNTY_DURATION);
             PLAYER_BOUNTY_DURATION = defaultVayraPlayerBountyDuration;
 
+            boolean enablePlayerBounties = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_PLAYER_BOUNTIES));
+            PLAYER_BOUNTIES = enablePlayerBounties;
+
+            boolean enableUniqueBounties = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_UNIQUE_BOUNTIES));
+            UNIQUE_BOUNTIES = enableUniqueBounties;
+
+            int uniqueBountiesMaxCount = safeUnboxing(LunaSettings.getInt(MOD_ID, UNIQUE_BOUNTIES_MAX_COUNT), DEFAULT_UNIQUE_BOUNTIES_MAX);
+            UNIQUE_BOUNTIES_MAX = uniqueBountiesMaxCount;
         }
 
         private void handlePopularFrontSettings() {

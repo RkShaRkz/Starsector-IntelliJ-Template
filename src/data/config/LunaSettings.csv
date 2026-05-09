@@ -3,8 +3,12 @@ fieldID,fieldName,fieldType,defaultValue,secondaryValue,fieldDescription,minValu
 vayramerged_enableRpgMinigame,Enable RPG Minigame,Boolean,true,,Should the [RPG Minigame] be enabled or not?,,,General
 vayramerged_enableVayraDebug,Enable Vayra Debug,Boolean,false,,There is zero need for you to use [Vayra Debug] but if you insist - here you go. Beware of it's mystical and many (side)effects,,,General
 vayramerged_enableColonialManagerLogging,Enable Colonial Manager Logging,Boolean,false,,Useful for debugging but since people complained it can slow down their game - it's disabled by default,,,General
-vayramerged_defaultBountyDuration,Default bounty duration,Int,90,,Default Vayra Bounty duration in days (default value is 90),9,3650,General
-vayramerged_defaultPlayerBountyDuration,Default Player bounty duration,Int,90,,Default Vayra Bounty duration for bounties against the player in days (default value is 90),9,3650,General
+,,,,,,,,
+vayramerged_defaultBountyDuration,Default bounty duration,Int,90,,Default Vayra Bounty duration in days (default value is 90),9,3650,Bounties
+vayramerged_defaultPlayerBountyDuration,Default Player bounty duration,Int,90,,Default Vayra Bounty duration for bounties against the player in days (default value is 90),9,3650,Bounties
+vayramerged_enablePlayerBounties,Enable Player Bounties,Boolean,true,,Should bounties against the player be enabled or not?,,,Bounties
+vayramerged_enableUniqueBounties,Enable Unique Bounties,Boolean,true,,Should [Unique Bounties] be enabled or not?,,,Bounties
+vayramerged_uniqueBountiesCount,Maximum Unique Bounty count,Int,5,,Maximum number of [Unique Bounties] active at the same time (default value is 5),3,15,Bounties
 ,,,,,,,,
 vayramerged_popularFrontEnabled,Enable Popular Front,Boolean,true,,Should the [Popular Front] be enabled and spawned or not?,,,Popular Front
 vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should [L'Interstellaire] traveling market (from Popular Front) disable upgrading it's buildings periodically or not?,,,Popular Front
