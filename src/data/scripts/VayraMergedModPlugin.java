@@ -847,6 +847,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             boolean enablePopularFront = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.POPULAR_FRONT_ENABLED));
             POPULAR_FRONT_ENABLED = enablePopularFront;
+
+            double popularFrontTimerIntervalMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, POPULAR_FRONT_TIMER_INTERVAL_MIN), VayraPopularFrontManager.DEFAULT_TIMER_INTERVAL_MIN);
+            double popularFrontTimerIntervalMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, POPULAR_FRONT_TIMER_INTERVAL_MAX), VayraPopularFrontManager.DEFAULT_TIMER_INTERVAL_MAX);
+            VayraPopularFrontManager.adjustTimerIntervals((float)popularFrontTimerIntervalMin, (float)popularFrontTimerIntervalMax);
         }
 
         private void handleColonialFactionSettings() {
