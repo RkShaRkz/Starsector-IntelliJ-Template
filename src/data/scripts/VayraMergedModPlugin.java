@@ -84,6 +84,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static int UNIQUE_BOUNTIES_MAX;
     public static float EXTRA_BOUNTY_LEVEL_MULT;
     public static float BOUNTY_DURATION;
+    public static float PLAYER_BOUNTY_DURATION;
+    public static final float DEFAULT_BOUNTY_DURATION = 90.0f;
     public static float RARE_BOUNTY_FLAGSHIP_CHANCE;
     public static float CRUMB_CHANCE;
     public static float BOUNTY_SOFT_MAX_DIST;
@@ -258,7 +260,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             VAYRA_DEBUG = setting.optBoolean("vayraDebug", false);
             PIRATE_BOUNTY_MODE = PirateMode.valueOf(setting.optString("usePirateBountyManager", "ALWAYS"));
             EXTRA_BOUNTY_LEVEL_MULT = (float) setting.optDouble("extraBountyLevelMult", 1.5);
-            BOUNTY_DURATION = (float) setting.optDouble("bountyDuration", 90.0f);
+            BOUNTY_DURATION = (float) setting.optDouble("bountyDuration", DEFAULT_BOUNTY_DURATION);
+            PLAYER_BOUNTY_DURATION = (float) setting.optDouble("playerBountyDuration", BOUNTY_DURATION);
             RARE_BOUNTY_FLAGSHIP_CHANCE = (float) setting.optDouble("rareBountyFlagshipChance", 0.075f);
             CRUMB_CHANCE = (float) setting.optDouble("bountyIntelCrumbChance", 0.5f);
             BOUNTY_SOFT_MAX_DIST = setting.optInt("bountySoftMaxDist", 10);
@@ -288,7 +291,8 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         VAYRA_DEBUG = false;
         PIRATE_BOUNTY_MODE = PirateMode.ALWAYS;
         EXTRA_BOUNTY_LEVEL_MULT = 1.5f;
-        BOUNTY_DURATION = 90f;
+        BOUNTY_DURATION = DEFAULT_BOUNTY_DURATION;
+        PLAYER_BOUNTY_DURATION = BOUNTY_DURATION;
         RARE_BOUNTY_FLAGSHIP_CHANCE = 0.075f;
         CRUMB_CHANCE = 0.5f;
         BOUNTY_SOFT_MAX_DIST = 10;
@@ -810,6 +814,13 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             boolean enableColonialManagerLogging = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_COLONIAL_MANAGER_LOGGING));
             VayraColonialManager.LOGGING_ENABLED = enableColonialManagerLogging;
+
+            int defaultVayraBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_BOUNTY_DURATION), (int)DEFAULT_BOUNTY_DURATION);
+            BOUNTY_DURATION = defaultVayraBountyDuration;
+
+            int defaultVayraPlayerBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_PLAYER_BOUNTY_DURATION), (int)BOUNTY_DURATION);
+            PLAYER_BOUNTY_DURATION = defaultVayraPlayerBountyDuration;
+
         }
 
         private void handlePopularFrontSettings() {
