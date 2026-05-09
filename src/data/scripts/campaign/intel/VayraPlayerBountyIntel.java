@@ -457,11 +457,16 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
     }
 
     public static void adjustTimerIntervals(float minInterval, float maxInterval) {
+        log.info("--> adjustTimerIntervals(minInterval="+minInterval+", maxInterval="+maxInterval+")");
         HUNTER_DAYS_MIN = minInterval;
         HUNTER_DAYS_MAX = maxInterval;
 
         VayraPlayerBountyIntelExternalDataHolder externalDataHolder = VayraPlayerBountyIntelExternalDataHolder.getInstance();
         externalDataHolder.getTimer().setInterval(minInterval, maxInterval);
+
+        float updatedMinInterval = externalDataHolder.getTimer().getMinInterval();
+        float updatedMaxInterval = externalDataHolder.getTimer().getMaxInterval();
+        log.info("<-- adjustTimerIntervals()\tHunter interval updated! New min: "+updatedMinInterval+", new max: "+updatedMaxInterval);
     }
 }
 
