@@ -63,7 +63,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
                 int value
         ) {
             this.postedByFaction = Global.getSector().getFaction(factionId);
-            this.duration = BOUNTY_DURATION;
+            this.duration = VayraMergedModPlugin.PLAYER_BOUNTY_DURATION;
             this.value = value;
             this.elapsedDays = 0f;
             this.intel = getInstance();
@@ -83,7 +83,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
         }
 
         public void addBounty(PlayerBountyData newBounty) {
-            this.elapsedDays -= (BOUNTY_DURATION * 0.5f);
+            this.elapsedDays -= (VayraMergedModPlugin.PLAYER_BOUNTY_DURATION * 0.5f);
             if (this.elapsedDays < 0f) {
                 this.elapsedDays = 0f;
             }

@@ -84,6 +84,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static int UNIQUE_BOUNTIES_MAX;
     public static float EXTRA_BOUNTY_LEVEL_MULT;
     public static float BOUNTY_DURATION;
+    public static float PLAYER_BOUNTY_DURATION;
     public static float RARE_BOUNTY_FLAGSHIP_CHANCE;
     public static float CRUMB_CHANCE;
     public static float BOUNTY_SOFT_MAX_DIST;
@@ -259,6 +260,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             PIRATE_BOUNTY_MODE = PirateMode.valueOf(setting.optString("usePirateBountyManager", "ALWAYS"));
             EXTRA_BOUNTY_LEVEL_MULT = (float) setting.optDouble("extraBountyLevelMult", 1.5);
             BOUNTY_DURATION = (float) setting.optDouble("bountyDuration", 90.0f);
+            PLAYER_BOUNTY_DURATION = (float) setting.optDouble("playerBountyDuration", BOUNTY_DURATION);
             RARE_BOUNTY_FLAGSHIP_CHANCE = (float) setting.optDouble("rareBountyFlagshipChance", 0.075f);
             CRUMB_CHANCE = (float) setting.optDouble("bountyIntelCrumbChance", 0.5f);
             BOUNTY_SOFT_MAX_DIST = setting.optInt("bountySoftMaxDist", 10);
@@ -289,6 +291,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         PIRATE_BOUNTY_MODE = PirateMode.ALWAYS;
         EXTRA_BOUNTY_LEVEL_MULT = 1.5f;
         BOUNTY_DURATION = 90f;
+        PLAYER_BOUNTY_DURATION = BOUNTY_DURATION;
         RARE_BOUNTY_FLAGSHIP_CHANCE = 0.075f;
         CRUMB_CHANCE = 0.5f;
         BOUNTY_SOFT_MAX_DIST = 10;
