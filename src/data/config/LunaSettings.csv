@@ -11,6 +11,15 @@ vayramerged_playerBountiesTimerIntervalMin,Player Bounty Hunter Interval (min),D
 vayramerged_playerBountiesTimerIntervalMax,Player Bounty Hunter Interval (max),Double,60.0,,Maxiumum interval (in days) for bounty hunters against player to be spawned? (default value is 60.0),1.0,1800.0,Bounties
 vayramerged_enableUniqueBounties,Enable Unique Bounties,Boolean,true,,Should [Unique Bounties] be enabled or not?,,,Bounties
 vayramerged_uniqueBountiesCount,Maximum Unique Bounty count,Int,5,,Maximum number of [Unique Bounties] active at the same time (default value is 5),3,15,Bounties
+vayramerged_miscBountySettings_header,Miscellaneous Bounty Settings divider,Header,Miscellaneous Bounty Settings,,,,,Bounties
+vayramerged_rareBountyFlagshipChance,Rare Bounty Flagship Chance,Double,0.075,,Likelihood of rare bounty fleet having a flagship (default value is 0.075),0.0,1.0,Bounties
+vayramerged_crumbChance,Bounty Intel 'crumb' Chance,Double,0.5,,Likelihood of generating 'crumbs' (intel hints) for bounties which are added to the Intel screen (default value is 0.5),0.0,1.0,Bounties
+vayramerged_bountySoftMaxDist,Bounty soft max distance,Double,10.0,,Lower values restrict bounties to closer systems while higher values allow bounties to spawn further away thus increasing exploration requirements (default value is 10.0),1.0,30.0,Bounties
+vayramerged_playerBountyFpScaling,Player Bounty FP scaling,Double,1.25,,Generated fleet's fleet point (FP) scaling relative to player's strength (default value is 1.25),0.1,5.0,Bounties
+vayramerged_playerBountySpawnRange,Player Bounty Spawn range,Double,2000.0,,Spawn range of player-targetting fleets (default value is 2000.0),200.0,10000.0,Bounties
+vayramerged_playerBountyMaxRange,Player Bounty Max range,Double,20000.0,,Player bounty maximum range (distance from core worlds) for spawning and pursuing. For a normal [164k * 104k] map a distance of 98k will cover it completely. (default value is 20000.0),2000.0,200000.0,Bounties
+vayramerged_playerBountySystemDays,Player Bounty Min Days in system before pursuing,Double,7.0,,Player bounties pursuit will not trigger if the player has spent fewer than X days in the system (default value is 7.0),1.0,30.0,Bounties
+vayramerged_playerBountyRangeDays,Player Bounty 'out of range' hiding Days,Double,45.0,,How long should player be further than [Player Bounty Max range] before the pursuing fleet gives up and despawns (default value is 45.0),7.0,365.0,Bounties
 ,,,,,,,,
 vayramerged_popularFrontEnabled,Enable Popular Front,Boolean,true,,Should the [Popular Front] be enabled and spawned or not?,,,Popular Front
 vayramerged_disableInterstellaireUpgrades,Disable L'Interstellaire traveling market's upgrades,Boolean,false,,Should [L'Interstellaire] traveling market (from Popular Front) disable upgrading it's buildings periodically or not?,,,Popular Front

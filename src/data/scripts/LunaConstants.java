@@ -19,6 +19,14 @@ public class LunaConstants {
     public final static String PLAYER_BOUNTY_HUNTER_TIMER_MAX = "vayramerged_playerBountiesTimerIntervalMax";
     public final static String ENABLE_UNIQUE_BOUNTIES = "vayramerged_enableUniqueBounties";
     public final static String UNIQUE_BOUNTIES_MAX_COUNT = "vayramerged_uniqueBountiesCount";
+    public final static String RARE_BOUNTY_FLAGSHIP_CHANCE = "vayramerged_rareBountyFlagshipChance";
+    public final static String CRUMB_CHANCE = "vayramerged_crumbChance";
+    public final static String BOUNTY_SOFT_MAX_DIST = "vayramerged_bountySoftMaxDist";
+    public final static String PLAYER_BOUNTY_FP_SCALING = "vayramerged_playerBountyFpScaling";
+    public final static String PLAYER_BOUNTY_SPAWN_RANGE = "vayramerged_playerBountySpawnRange";
+    public final static String PLAYER_BOUNTY_MAX_RANGE = "vayramerged_playerBountyMaxRange";
+    public final static String PLAYER_BOUNTY_SYSTEM_DAYS = "vayramerged_playerBountySystemDays";
+    public final static String PLAYER_BOUNTY_RANGE_DAYS = "vayramerged_playerBountyRangeDays";
 
     // popular front settings
     public final static String DISABLE_INTERSTELLAIRE_UPGRADES = "vayramerged_disableInterstellaireUpgrades";
