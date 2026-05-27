@@ -39,7 +39,11 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
     protected List<PlayerBountyData> sorted = new ArrayList<>(); // just used to display them in order
     protected Map<String, PlayerBountyData> bountiesToPost = new HashMap<>(); // factionId, bounty
     protected Map<String, PlayerBountyData> bountiesPosted = new HashMap<>(); // factionId, bounty
-    protected IntervalUtil hunterDays = new IntervalUtil(30, 60);
+    protected IntervalUtil hunterDays = VayraPlayerBountyIntelExternalDataHolder.getInstance().getTimer();
+    public static final float DEFAULT_HUNTER_DAYS_MIN = 30f;
+    public static final float DEFAULT_HUNTER_DAYS_MAX = 60f;
+    public static float HUNTER_DAYS_MIN = DEFAULT_HUNTER_DAYS_MIN;
+    public static float HUNTER_DAYS_MAX = DEFAULT_HUNTER_DAYS_MAX;
     protected IntervalUtil updateDays = new IntervalUtil(7, 7);
     protected float timerMultBecauseOfCrimes = 0f;
     protected float previousCrimeMult = 0f;
@@ -63,7 +67,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
                 int value
         ) {
             this.postedByFaction = Global.getSector().getFaction(factionId);
-            this.duration = BOUNTY_DURATION;
+            this.duration = PLAYER_BOUNTY_DURATION;
             this.value = value;
             this.elapsedDays = 0f;
             this.intel = getInstance();
@@ -83,7 +87,7 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
         }
 
         public void addBounty(PlayerBountyData newBounty) {
-            this.elapsedDays -= (BOUNTY_DURATION * 0.5f);
+            this.elapsedDays -= (PLAYER_BOUNTY_DURATION * 0.5f);
             if (this.elapsedDays < 0f) {
                 this.elapsedDays = 0f;
             }
@@ -451,4 +455,47 @@ public class VayraPlayerBountyIntel extends BaseIntelPlugin {
         Object test = Global.getSector().getMemoryWithoutUpdate().get(KEY);
         return (VayraPlayerBountyIntel) test;
     }
+
+    public static void adjustTimerIntervals(float minInterval, float maxInterval) {
+        log.info("--> adjustTimerIntervals(minInterval="+minInterval+", maxInterval="+maxInterval+")");
+        HUNTER_DAYS_MIN = minInterval;
+        HUNTER_DAYS_MAX = maxInterval;
+
+        VayraPlayerBountyIntelExternalDataHolder externalDataHolder = VayraPlayerBountyIntelExternalDataHolder.getInstance();
+        externalDataHolder.getTimer().setInterval(minInterval, maxInterval);
+
+        float updatedMinInterval = externalDataHolder.getTimer().getMinInterval();
+        float updatedMaxInterval = externalDataHolder.getTimer().getMaxInterval();
+        log.info("<-- adjustTimerIntervals()\tHunter interval updated! New min: "+updatedMinInterval+", new max: "+updatedMaxInterval);
+    }
+}
+
+class VayraPlayerBountyIntelExternalDataHolder {
+    private static volatile VayraPlayerBountyIntelExternalDataHolder instance = null;
+
+    private final IntervalUtil timer;
+
+    private VayraPlayerBountyIntelExternalDataHolder() {
+        // Empty private constructor to prevent instantiation
+
+        timer = new IntervalUtil(
+            VayraPlayerBountyIntel.HUNTER_DAYS_MIN,
+            VayraPlayerBountyIntel.HUNTER_DAYS_MAX
+        );
+    }
+
+    public static VayraPlayerBountyIntelExternalDataHolder getInstance() {
+        // The typical doubly-locked getInstance
+        if (instance == null) {
+            synchronized (VayraPlayerBountyIntelExternalDataHolder.class) {
+                if (instance == null) {
+                    instance = new VayraPlayerBountyIntelExternalDataHolder();
+                }
+            }
+        }
+
+        return instance;
+    }
+
+    public IntervalUtil getTimer() { return timer; }
 }

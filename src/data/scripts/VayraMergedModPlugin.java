@@ -76,14 +76,13 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static int COLONIAL_FACTION_TIMEOUT;
     public static int COLONIAL_FACTION_COLONY_MULT;
     public static boolean POPULAR_FRONT_ENABLED;
-    private static final int DEFAULT_POPULAR_FRONT_TIMEOUT = 210;
     public static int POPULAR_FRONT_TIMEOUT;
-    public static final int DEFAULT_AI_REBELLION_THRESHOLD = 30;
     public static int AI_REBELLION_THRESHOLD;
     public static boolean UNIQUE_BOUNTIES;
     public static int UNIQUE_BOUNTIES_MAX;
     public static float EXTRA_BOUNTY_LEVEL_MULT;
     public static float BOUNTY_DURATION;
+    public static float PLAYER_BOUNTY_DURATION;
     public static float RARE_BOUNTY_FLAGSHIP_CHANCE;
     public static float CRUMB_CHANCE;
     public static float BOUNTY_SOFT_MAX_DIST;
@@ -132,10 +131,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             Global.getSettings().getScriptClassLoader().loadClass("org.lazywizard.lazylib.ModUtils");
         } catch (ClassNotFoundException lazy) {
             String message = System.lineSeparator()
-                    + System.lineSeparator() + "LazyLib is required to run Vayra's Sector."
-                    + System.lineSeparator() + System.lineSeparator()
-                    + "You can download LazyLib at http://fractalsoftworks.com/forum/index.php?topic=5444"
-                    + System.lineSeparator();
+                + System.lineSeparator() + "LazyLib is required to run Vayra's Sector."
+                + System.lineSeparator() + System.lineSeparator()
+                + "You can download LazyLib at http://fractalsoftworks.com/forum/index.php?topic=5444"
+                + System.lineSeparator();
             throw new ClassNotFoundException(message);
         }
 
@@ -143,10 +142,10 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             Global.getSettings().getScriptClassLoader().loadClass("data.scripts.util.MagicTargeting");
         } catch (ClassNotFoundException magic) {
             String message = System.lineSeparator()
-                    + System.lineSeparator() + "MagicLib is required to run Kadur Remnant."
-                    + System.lineSeparator() + System.lineSeparator()
-                    + "You can download MagicLib at http://fractalsoftworks.com/forum/index.php?topic=13718.0"
-                    + System.lineSeparator();
+                + System.lineSeparator() + "MagicLib is required to run Kadur Remnant."
+                + System.lineSeparator() + System.lineSeparator()
+                + "You can download MagicLib at http://fractalsoftworks.com/forum/index.php?topic=13718.0"
+                + System.lineSeparator();
             throw new ClassNotFoundException(message);
         }
 
@@ -255,62 +254,64 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             // If settings were loaded, lets try loading each individual parameter, but presume they're not there.
             // In that case, lets make them optional and fallback to their default value to avoid throwing JSONException
 
-            VAYRA_DEBUG = setting.optBoolean("vayraDebug", false);
+            VAYRA_DEBUG = setting.optBoolean("vayraDebug", VayraDefaults.VAYRA_DEBUG);
             PIRATE_BOUNTY_MODE = PirateMode.valueOf(setting.optString("usePirateBountyManager", "ALWAYS"));
-            EXTRA_BOUNTY_LEVEL_MULT = (float) setting.optDouble("extraBountyLevelMult", 1.5);
-            BOUNTY_DURATION = (float) setting.optDouble("bountyDuration", 90.0f);
-            RARE_BOUNTY_FLAGSHIP_CHANCE = (float) setting.optDouble("rareBountyFlagshipChance", 0.075f);
-            CRUMB_CHANCE = (float) setting.optDouble("bountyIntelCrumbChance", 0.5f);
-            BOUNTY_SOFT_MAX_DIST = setting.optInt("bountySoftMaxDist", 10);
-            UNIQUE_BOUNTIES = setting.optBoolean("spawnUniqueBounties", true);
-            UNIQUE_BOUNTIES_MAX = setting.optInt("maxActiveUniqueBounties", 5);
-            PLAYER_BOUNTIES = setting.optBoolean("bountiesOnPlayer", true);
-            PLAYER_BOUNTY_FP_SCALING = (float) setting.optDouble("playerBountyBaseFPScaling", 1.25f);
-            PLAYER_BOUNTY_SPAWN_RANGE = (float) setting.optDouble("playerBountySpawnRange", 2000.0f);
-            PLAYER_BOUNTY_MAX_RANGE = (float) setting.optDouble("playerBountySpawnRangeFromCore", 20000.0f);
-            PLAYER_BOUNTY_SYSTEM_DAYS = (float) setting.optDouble("playerBountyDaysInSystem", 7f);
-            PLAYER_BOUNTY_RANGE_DAYS = (float) setting.optDouble("playerBountyDaysOutOfRange", 45f);
-            RAIDER_BASE_REAPER_ENABLED = setting.optBoolean("stopSpawningRaiderBasesWhenFactionDelet", true);
-            COLONIAL_FACTIONS_ENABLED = setting.optBoolean("spawnColonialCompetitors", true);
-            COLONIAL_FACTION_TIMEOUT = setting.optInt("colonialCompetitorsStartCycle", 300);
-            COLONIAL_FACTION_COLONY_MULT = setting.optInt("colonialCompetitorsColonyCountMult", 4);
-            AI_REBELLION_THRESHOLD = setting.optInt("coreCriticalMass", 30);
-            POPULAR_FRONT_ENABLED = setting.optBoolean("spawnPopularFront", true);
-            POPULAR_FRONT_TIMEOUT = setting.optInt("popularFrontStartCycle", 350);
-            PROCGEN_ENTITIES = setting.optBoolean("spawnEntities", true);
-            LEAGUE_SUBFACTIONS = setting.optBoolean("leagueSubfactions", true);
-            PLAY_TTRPG = setting.optBoolean("playTabletopRoleplayingGame", true);
-            ADD_BARREN_PLANETS = setting.optBoolean("addBarrenPlanets", true);
+            EXTRA_BOUNTY_LEVEL_MULT = (float) setting.optDouble("extraBountyLevelMult", VayraDefaults.EXTRA_BOUNTY_LEVEL_MULT);
+            BOUNTY_DURATION = (float) setting.optDouble("bountyDuration", VayraDefaults.BOUNTY_DURATION);
+            PLAYER_BOUNTY_DURATION = (float) setting.optDouble("playerBountyDuration", VayraDefaults.PLAYER_BOUNTY_DURATION);
+            RARE_BOUNTY_FLAGSHIP_CHANCE = (float) setting.optDouble("rareBountyFlagshipChance", VayraDefaults.RARE_BOUNTY_FLAGSHIP_CHANCE);
+            CRUMB_CHANCE = (float) setting.optDouble("bountyIntelCrumbChance", VayraDefaults.CRUMB_CHANCE);
+            BOUNTY_SOFT_MAX_DIST = setting.optInt("bountySoftMaxDist", (int)VayraDefaults.BOUNTY_SOFT_MAX_DIST);
+            UNIQUE_BOUNTIES = setting.optBoolean("spawnUniqueBounties", VayraDefaults.UNIQUE_BOUNTIES);
+            UNIQUE_BOUNTIES_MAX = setting.optInt("maxActiveUniqueBounties", VayraDefaults.UNIQUE_BOUNTIES_MAX);
+            PLAYER_BOUNTIES = setting.optBoolean("bountiesOnPlayer", VayraDefaults.PLAYER_BOUNTIES);
+            PLAYER_BOUNTY_FP_SCALING = (float) setting.optDouble("playerBountyBaseFPScaling", VayraDefaults.PLAYER_BOUNTY_FP_SCALING);
+            PLAYER_BOUNTY_SPAWN_RANGE = (float) setting.optDouble("playerBountySpawnRange", VayraDefaults.PLAYER_BOUNTY_SPAWN_RANGE);
+            PLAYER_BOUNTY_MAX_RANGE = (float) setting.optDouble("playerBountySpawnRangeFromCore", VayraDefaults.PLAYER_BOUNTY_MAX_RANGE);
+            PLAYER_BOUNTY_SYSTEM_DAYS = (float) setting.optDouble("playerBountyDaysInSystem", VayraDefaults.PLAYER_BOUNTY_SYSTEM_DAYS);
+            PLAYER_BOUNTY_RANGE_DAYS = (float) setting.optDouble("playerBountyDaysOutOfRange", VayraDefaults.PLAYER_BOUNTY_RANGE_DAYS);
+            RAIDER_BASE_REAPER_ENABLED = setting.optBoolean("stopSpawningRaiderBasesWhenFactionDelet", VayraDefaults.RAIDER_BASE_REAPER_ENABLED);
+            COLONIAL_FACTIONS_ENABLED = setting.optBoolean("spawnColonialCompetitors", VayraDefaults.COLONIAL_FACTIONS_ENABLED);
+            COLONIAL_FACTION_TIMEOUT = setting.optInt("colonialCompetitorsStartCycle", VayraDefaults.COLONIAL_FACTION_TIMEOUT);
+            COLONIAL_FACTION_COLONY_MULT = setting.optInt("colonialCompetitorsColonyCountMult", VayraDefaults.COLONIAL_FACTION_COLONY_MULT);
+            AI_REBELLION_THRESHOLD = setting.optInt("coreCriticalMass", VayraDefaults.AI_REBELLION_THRESHOLD);
+            POPULAR_FRONT_ENABLED = setting.optBoolean("spawnPopularFront", VayraDefaults.POPULAR_FRONT_ENABLED);
+            POPULAR_FRONT_TIMEOUT = setting.optInt("popularFrontStartCycle", VayraDefaults.POPULAR_FRONT_TIMEOUT);
+            PROCGEN_ENTITIES = setting.optBoolean("spawnEntities", VayraDefaults.PROCGEN_ENTITIES);
+            LEAGUE_SUBFACTIONS = setting.optBoolean("leagueSubfactions", VayraDefaults.LEAGUE_SUBFACTIONS);
+            PLAY_TTRPG = setting.optBoolean("playTabletopRoleplayingGame", VayraDefaults.PLAY_TTRPG);
+            ADD_BARREN_PLANETS = setting.optBoolean("addBarrenPlanets", VayraDefaults.ADD_BARREN_PLANETS);
         }
     }
 
     private static void loadDefaultVayraSettings() {
-        VAYRA_DEBUG = false;
-        PIRATE_BOUNTY_MODE = PirateMode.ALWAYS;
-        EXTRA_BOUNTY_LEVEL_MULT = 1.5f;
-        BOUNTY_DURATION = 90f;
-        RARE_BOUNTY_FLAGSHIP_CHANCE = 0.075f;
-        CRUMB_CHANCE = 0.5f;
-        BOUNTY_SOFT_MAX_DIST = 10;
-        UNIQUE_BOUNTIES = true;
-        UNIQUE_BOUNTIES_MAX = 5;
-        PLAYER_BOUNTIES = true;
-        PLAYER_BOUNTY_FP_SCALING = 1.25f;
-        PLAYER_BOUNTY_SPAWN_RANGE = 2000f;
-        PLAYER_BOUNTY_MAX_RANGE = 20000f;
-        PLAYER_BOUNTY_SYSTEM_DAYS = 7f;
-        PLAYER_BOUNTY_RANGE_DAYS = 45f;
-        RAIDER_BASE_REAPER_ENABLED = true;
-        COLONIAL_FACTIONS_ENABLED = true;
-        COLONIAL_FACTION_TIMEOUT = 212;
-        COLONIAL_FACTION_COLONY_MULT = 4;
-        AI_REBELLION_THRESHOLD = 30;
-        POPULAR_FRONT_ENABLED = true;
-        POPULAR_FRONT_TIMEOUT = 210;
-        PROCGEN_ENTITIES = true;
-        LEAGUE_SUBFACTIONS = true;
-        PLAY_TTRPG = true;
-        ADD_BARREN_PLANETS = true;
+        VAYRA_DEBUG = VayraDefaults.VAYRA_DEBUG;
+        PIRATE_BOUNTY_MODE = VayraDefaults.PIRATE_BOUNTY_MODE;
+        EXTRA_BOUNTY_LEVEL_MULT = VayraDefaults.EXTRA_BOUNTY_LEVEL_MULT;
+        BOUNTY_DURATION = VayraDefaults.BOUNTY_DURATION;
+        PLAYER_BOUNTY_DURATION = VayraDefaults.PLAYER_BOUNTY_DURATION;
+        RARE_BOUNTY_FLAGSHIP_CHANCE = VayraDefaults.RARE_BOUNTY_FLAGSHIP_CHANCE;
+        CRUMB_CHANCE = VayraDefaults.CRUMB_CHANCE;
+        BOUNTY_SOFT_MAX_DIST = VayraDefaults.BOUNTY_SOFT_MAX_DIST;
+        UNIQUE_BOUNTIES = VayraDefaults.UNIQUE_BOUNTIES;
+        UNIQUE_BOUNTIES_MAX = VayraDefaults.UNIQUE_BOUNTIES_MAX;
+        PLAYER_BOUNTIES = VayraDefaults.PLAYER_BOUNTIES;
+        PLAYER_BOUNTY_FP_SCALING = VayraDefaults.PLAYER_BOUNTY_FP_SCALING;
+        PLAYER_BOUNTY_SPAWN_RANGE = VayraDefaults.PLAYER_BOUNTY_SPAWN_RANGE;
+        PLAYER_BOUNTY_MAX_RANGE = VayraDefaults.PLAYER_BOUNTY_MAX_RANGE;
+        PLAYER_BOUNTY_SYSTEM_DAYS = VayraDefaults.PLAYER_BOUNTY_SYSTEM_DAYS;
+        PLAYER_BOUNTY_RANGE_DAYS = VayraDefaults.PLAYER_BOUNTY_RANGE_DAYS;
+        RAIDER_BASE_REAPER_ENABLED = VayraDefaults.RAIDER_BASE_REAPER_ENABLED;
+        COLONIAL_FACTIONS_ENABLED = VayraDefaults.COLONIAL_FACTIONS_ENABLED;
+        COLONIAL_FACTION_TIMEOUT = VayraDefaults.COLONIAL_FACTION_TIMEOUT;
+        COLONIAL_FACTION_COLONY_MULT = VayraDefaults.COLONIAL_FACTION_COLONY_MULT;
+        AI_REBELLION_THRESHOLD = VayraDefaults.AI_REBELLION_THRESHOLD;
+        POPULAR_FRONT_ENABLED = VayraDefaults.POPULAR_FRONT_ENABLED;
+        POPULAR_FRONT_TIMEOUT = VayraDefaults.POPULAR_FRONT_TIMEOUT;
+        PROCGEN_ENTITIES = VayraDefaults.PROCGEN_ENTITIES;
+        LEAGUE_SUBFACTIONS = VayraDefaults.LEAGUE_SUBFACTIONS;
+        PLAY_TTRPG = VayraDefaults.PLAY_TTRPG;
+        ADD_BARREN_PLANETS = VayraDefaults.ADD_BARREN_PLANETS;
     }
 
     @Override
@@ -677,11 +678,11 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     public static String aOrAn(String input) {
 
         ArrayList<String> vowels = new ArrayList<>(Arrays.asList(
-                "a",
-                "e",
-                "i",
-                "o",
-                "u"));
+            "a",
+            "e",
+            "i",
+            "o",
+            "u"));
 
         String firstLetter = input.substring(0, 1).toLowerCase();
 
@@ -710,7 +711,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             rings.add("rings_ice0");
             String ring = rings.pick();
             RingBandAPI visual = system.addRingBand(star, "misc", ring, 256f, 0, Color.white, bandWidth,
-                    radius + bandWidth / 2f, -orbitDays);
+                radius + bandWidth / 2f, -orbitDays);
             float spiralFactor = 2f + Misc.random.nextFloat() * 5f;
             visual.setSpiral(true);
             visual.setMinSpiralRadius(star.getRadius());
@@ -748,40 +749,40 @@ public class VayraMergedModPlugin extends BaseModPlugin {
     private void performMigrations() {
         // Check the VayraColonialManager
         VayraColonialManager colonialManagerInstance = VayraColonialManager.getInstance();
-        if( colonialManagerInstance != null ) {
+        if (colonialManagerInstance != null) {
             // check version
             int actualVersion = colonialManagerInstance.getVersion();
             int currentVersion = VayraColonialManager.SCRIPT_VERSION;
-            if( actualVersion < currentVersion ) {
+            if (actualVersion < currentVersion) {
                 // This should have been done only once but...
                 int removedHowMany = 0;
-                while(Global.getSector().hasScript(VayraColonialManager.class)) {
+                while (Global.getSector().hasScript(VayraColonialManager.class)) {
                     Global.getSector().removeScript(colonialManagerInstance);
                     removedHowMany++;
                 }
                 Global.getSector().addScript(new VayraColonialManager());
                 logger.warn(
-                        "Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
+                    "Version mismatch was detected between actual VayraColonialManager's instance and the VayraColonialManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
                 logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
             }
         }
 
         // Check the VayraPopularManager
         VayraPopularFrontManager popularFrontManager = VayraPopularFrontManager.getInstance();
-        if( popularFrontManager != null ) {
+        if (popularFrontManager != null) {
             // check version
             int actualVersion = popularFrontManager.getVersion();
             int currentVersion = VayraPopularFrontManager.SCRIPT_VERSION;
-            if( actualVersion < currentVersion ) {
+            if (actualVersion < currentVersion) {
                 // This should have been done only once but...
                 int removedHowMany = 0;
-                while(Global.getSector().hasScript(VayraPopularFrontManager.class)) {
+                while (Global.getSector().hasScript(VayraPopularFrontManager.class)) {
                     Global.getSector().removeScript(colonialManagerInstance);
                     removedHowMany++;
                 }
                 Global.getSector().addScript(new VayraPopularFrontManager());
                 logger.warn(
-                        "Version mismatch was detected between actual VayraPopularFrontManager's instance and the VayraPopularFrontManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
+                    "Version mismatch was detected between actual VayraPopularFrontManager's instance and the VayraPopularFrontManager.SCRIPT_VERSION - reinitialized it\tremoved " + removedHowMany + " of them");
                 logger.warn("detected version: " + actualVersion + ", current version: " + currentVersion);
             }
         }
@@ -793,6 +794,7 @@ public class VayraMergedModPlugin extends BaseModPlugin {
         public void settingsChanged(@NotNull String modId) {
             if (modId.equalsIgnoreCase(MOD_ID)) {
                 handleGeneralSettings();
+                handleBountySettings();
                 handlePopularFrontSettings();
                 handleColonialFactionSettings();
                 handleDmodSettings();
@@ -812,6 +814,51 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             VayraColonialManager.LOGGING_ENABLED = enableColonialManagerLogging;
         }
 
+        private void handleBountySettings() {
+            int defaultVayraBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_BOUNTY_DURATION), (int) VayraDefaults.BOUNTY_DURATION);
+            BOUNTY_DURATION = defaultVayraBountyDuration;
+
+            boolean enablePlayerBounties = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_PLAYER_BOUNTIES));
+            PLAYER_BOUNTIES = enablePlayerBounties;
+
+            int defaultVayraPlayerBountyDuration = safeUnboxing(LunaSettings.getInt(MOD_ID, VAYRA_PLAYER_BOUNTY_DURATION), (int) VayraDefaults.PLAYER_BOUNTY_DURATION);
+            PLAYER_BOUNTY_DURATION = defaultVayraPlayerBountyDuration;
+
+            double playerBountyTimerIntervalMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, PLAYER_BOUNTY_HUNTER_TIMER_MIN), VayraPlayerBountyIntel.DEFAULT_HUNTER_DAYS_MIN);
+            double playerBountyTimerIntervalMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, PLAYER_BOUNTY_HUNTER_TIMER_MAX), VayraPlayerBountyIntel.DEFAULT_HUNTER_DAYS_MAX);
+            VayraPlayerBountyIntel.adjustTimerIntervals((float) playerBountyTimerIntervalMin, (float) playerBountyTimerIntervalMax);
+
+            boolean enableUniqueBounties = safeUnboxing(LunaSettings.getBoolean(MOD_ID, ENABLE_UNIQUE_BOUNTIES));
+            UNIQUE_BOUNTIES = enableUniqueBounties;
+
+            int uniqueBountiesMaxCount = safeUnboxing(LunaSettings.getInt(MOD_ID, UNIQUE_BOUNTIES_MAX_COUNT), VayraDefaults.UNIQUE_BOUNTIES_MAX);
+            UNIQUE_BOUNTIES_MAX = uniqueBountiesMaxCount;
+
+            double rareBountyFlagshipChance = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.RARE_BOUNTY_FLAGSHIP_CHANCE), VayraDefaults.RARE_BOUNTY_FLAGSHIP_CHANCE);
+            RARE_BOUNTY_FLAGSHIP_CHANCE = (float)rareBountyFlagshipChance;
+
+            double crumbChance = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.CRUMB_CHANCE), VayraDefaults.CRUMB_CHANCE);
+            CRUMB_CHANCE = (float)crumbChance;
+
+            double bountySoftMaxDist = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.BOUNTY_SOFT_MAX_DIST), VayraDefaults.BOUNTY_SOFT_MAX_DIST);
+            BOUNTY_SOFT_MAX_DIST = (float)bountySoftMaxDist;
+
+            double playerBountyFpScaling = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.PLAYER_BOUNTY_FP_SCALING), VayraDefaults.PLAYER_BOUNTY_FP_SCALING);
+            PLAYER_BOUNTY_FP_SCALING = (float)playerBountyFpScaling;
+
+            double playerBountySpawnRange = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.PLAYER_BOUNTY_SPAWN_RANGE), VayraDefaults.PLAYER_BOUNTY_SPAWN_RANGE);
+            PLAYER_BOUNTY_SPAWN_RANGE = (float)playerBountySpawnRange;
+
+            double playerBountyMaxRange = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.PLAYER_BOUNTY_MAX_RANGE), VayraDefaults.PLAYER_BOUNTY_MAX_RANGE);
+            PLAYER_BOUNTY_MAX_RANGE = (float)playerBountyMaxRange;
+
+            double playerBountySystemDays = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.PLAYER_BOUNTY_SYSTEM_DAYS), VayraDefaults.PLAYER_BOUNTY_SYSTEM_DAYS);
+            PLAYER_BOUNTY_SYSTEM_DAYS = (float)playerBountySystemDays;
+
+            double playerBountyRangeDays = safeUnboxing(LunaSettings.getDouble(MOD_ID, LunaConstants.PLAYER_BOUNTY_RANGE_DAYS), VayraDefaults.PLAYER_BOUNTY_RANGE_DAYS);
+            PLAYER_BOUNTY_RANGE_DAYS = (float)playerBountyRangeDays;
+        }
+
         private void handlePopularFrontSettings() {
             // interstellaire upgrades
             boolean disableInterstellaireUpgrades = safeUnboxing(LunaSettings.getBoolean(MOD_ID, DISABLE_INTERSTELLAIRE_UPGRADES));
@@ -822,11 +869,15 @@ public class VayraMergedModPlugin extends BaseModPlugin {
             VayraColonialManager.COMMUNIST_CLOUDS_FP_MULTIPLIER = (float) communistCloudsFPmultiplier;
 
             // popular front start cycle
-            int popularFrontStartCycle = safeUnboxing(LunaSettings.getInt(MOD_ID, POPULAR_FRONT_START_CYCLE), DEFAULT_POPULAR_FRONT_TIMEOUT);
+            int popularFrontStartCycle = safeUnboxing(LunaSettings.getInt(MOD_ID, POPULAR_FRONT_START_CYCLE), VayraDefaults.POPULAR_FRONT_TIMEOUT);
             POPULAR_FRONT_TIMEOUT = popularFrontStartCycle;
 
             boolean enablePopularFront = safeUnboxing(LunaSettings.getBoolean(MOD_ID, LunaConstants.POPULAR_FRONT_ENABLED));
             POPULAR_FRONT_ENABLED = enablePopularFront;
+
+            double popularFrontTimerIntervalMin = safeUnboxing(LunaSettings.getDouble(MOD_ID, POPULAR_FRONT_TIMER_INTERVAL_MIN), VayraPopularFrontManager.DEFAULT_TIMER_INTERVAL_MIN);
+            double popularFrontTimerIntervalMax = safeUnboxing(LunaSettings.getDouble(MOD_ID, POPULAR_FRONT_TIMER_INTERVAL_MAX), VayraPopularFrontManager.DEFAULT_TIMER_INTERVAL_MAX);
+            VayraPopularFrontManager.adjustTimerIntervals((float) popularFrontTimerIntervalMin, (float) popularFrontTimerIntervalMax);
         }
 
         private void handleColonialFactionSettings() {
@@ -860,13 +911,13 @@ public class VayraMergedModPlugin extends BaseModPlugin {
 
             // colonial faction invasion base fleet points
             int colonialCompetitorFactionBaseFleetPoints = safeUnboxing(
-                    LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_BASE_FLEET_POINTS),
-                    Math.round(VayraColonialManager.DEFAULT_BASE_FLEET_POINTS)
+                LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_BASE_FLEET_POINTS),
+                Math.round(VayraColonialManager.DEFAULT_BASE_FLEET_POINTS)
             );
             VayraColonialManager.BASE_FLEET_POINTS = colonialCompetitorFactionBaseFleetPoints;
 
             // AI threshold before science_fuckers become aleph ascendancy
-            int newAIThreshold = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_AI_REBELLION_THRESHOLD), DEFAULT_AI_REBELLION_THRESHOLD);
+            int newAIThreshold = safeUnboxing(LunaSettings.getInt(MOD_ID, COLONIAL_COMPETITOR_AI_REBELLION_THRESHOLD), VayraDefaults.AI_REBELLION_THRESHOLD);
             AI_REBELLION_THRESHOLD = newAIThreshold;
         }
 

@@ -321,11 +321,16 @@ public class VayraPopularFrontManager implements EveryFrameScript, ColonyPlayerH
      * @param maxInterval the timer's new maxInterval
      */
     public static void adjustTimerIntervals(float minInterval, float maxInterval) {
+        log.info("--> adjustTimerIntervals(minInterval="+minInterval+", maxInterval="+maxInterval+")");
         TIMER_INTERVAL_MIN = minInterval;
         TIMER_INTERVAL_MAX = maxInterval;
 
         VayraPopularFrontManagerExternalDataHolder externalDataHolder = VayraPopularFrontManagerExternalDataHolder.getInstance();
         externalDataHolder.getTimer().setInterval(minInterval, maxInterval);
+
+        float updatedMinInterval = externalDataHolder.getTimer().getMinInterval();
+        float updatedMaxInterval = externalDataHolder.getTimer().getMaxInterval();
+        log.info("<-- adjustTimerIntervals()\tPopularFront interval updated! New min: "+updatedMinInterval+", new max: "+updatedMaxInterval);
     }
 }
 
