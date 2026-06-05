@@ -350,6 +350,7 @@ public class FindWeapons implements BaseCommand {
     }
 
     private ParameterCriterion.CriteriaQuantity.Quantity remapQuantitySymbol(String symbol) {
+        //TODO extract to some "common util"
         /**
          * <, =, >
          */

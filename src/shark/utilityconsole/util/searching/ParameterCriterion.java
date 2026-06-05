@@ -43,7 +43,7 @@ public class ParameterCriterion {
         }
 
         public enum ShipParameter {
-            CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS
+            CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS, DEPLOYMENT_POINTS
         }
 
         public enum WeaponParameter {
@@ -156,6 +156,7 @@ public class ParameterCriterion {
 
     public static class CriteriaQuantity {
         public enum Quantity {
+            //TODO refactor to LESS_THAN, LESS_OR_EQUAL, EXACTLY, MORE_THAN, MORE_OR_EQUAL
             AT_LEAST, EXACTLY, AT_MOST
         }
 
@@ -233,6 +234,9 @@ public class ParameterCriterion {
                         break;
                     case ORDNANCE_POINTS:
                         retVal = matchesCriteriaQuantity(ship.getOrdnancePoints(null));
+                        break;
+                    case DEPLOYMENT_POINTS:
+                        retVal = matchesCriteriaQuantity(Math.round(ship.getSuppliesToRecover()));
                         break;
                     default:
                         Console.showMessage("Unsupported ShipParameter received in ParameterCriterion::matches()! Received: "+actualData.getParameter());
@@ -380,6 +384,9 @@ public class ParameterCriterion {
                     case ORDNANCE_POINTS:
                         retVal = ship.getOrdnancePoints(null);
                         break;
+                    case DEPLOYMENT_POINTS:
+                        retVal = Math.round(ship.getSuppliesToRecover());
+                        break;
                     default:
                         Console.showMessage("Unsupported ShipParameter received in ParameterCriterion::countMatches()! Received: "+actualData.getParameter());
                         break;
@@ -460,6 +467,7 @@ public class ParameterCriterion {
     private boolean matchesCriteriaQuantity(int value) {
         boolean retVal = false;
         switch (this.criteriaQuantity.criteria) {
+            //TODO add support for STRICTLY_LESS (<), STRICTLY_GREATER (>)
             case AT_LEAST:
                 retVal = value >= this.criteriaQuantity.quantity;
                 break;

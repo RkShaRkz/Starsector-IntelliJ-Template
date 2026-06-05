@@ -236,7 +236,7 @@ public class FindShips implements BaseCommand {
 
     private boolean isShipParameterSymbol(String symbol) {
         /**
-         * CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS
+         * CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS, DEPLOYMENT_POINTS
          */
         boolean retVal = false;
         retVal = symbol.equalsIgnoreCase("CARGO")
@@ -247,7 +247,9 @@ public class FindShips implements BaseCommand {
                 || symbol.equalsIgnoreCase("FLUX_CAPACITY") || symbol.equalsIgnoreCase("FLUX-CAPACITY") || symbol.equalsIgnoreCase("FLUXCAPACITY")
                 || symbol.equalsIgnoreCase("FLUX_DISSIPATION") || symbol.equalsIgnoreCase("FLUX-DISSIPATION") || symbol.equalsIgnoreCase("FLUXDISSIPATION")
                 || symbol.equalsIgnoreCase("ORDNANCE_POINTS") || symbol.equalsIgnoreCase("ORDNANCE-POINTS") || symbol.equalsIgnoreCase("ORDNANCEPOINTS") || symbol.equalsIgnoreCase("OP")
-                || symbol.equalsIgnoreCase("SIZE");
+                || symbol.equalsIgnoreCase("SIZE")
+                || symbol.equalsIgnoreCase("DEPLOYMENT_POINTS") || symbol.equalsIgnoreCase("DEPLOYMENT-POINTS") || symbol.equalsIgnoreCase("DEPLOYMENTPOINTS") || symbol.equalsIgnoreCase("DP")
+        ;
 
 
         return retVal;
@@ -280,6 +282,8 @@ public class FindShips implements BaseCommand {
             retVal = ORDNANCE_POINTS;
         } else if (symbol.equalsIgnoreCase("SIZE")) {
             retVal = SIZE;
+        } else if (symbol.equalsIgnoreCase("DEPLOYMENT_POINTS") || symbol.equalsIgnoreCase("DEPLOYMENT-POINTS") || symbol.equalsIgnoreCase("DEPLOYMENTPOINTS") || symbol.equalsIgnoreCase("DP")) {
+            retVal = DEPLOYMENT_POINTS;
         } else {
             Console.showMessage("Invalid symbol to remap to ShipParameter! Received " + symbol);
         }
@@ -298,6 +302,7 @@ public class FindShips implements BaseCommand {
     }
 
     private ParameterCriterion.CriteriaQuantity.Quantity remapQuantitySymbol(String symbol) {
+        //TODO extract to some "common util"
         /**
          * <, =, >
          */
