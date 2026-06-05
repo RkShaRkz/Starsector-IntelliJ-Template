@@ -3,7 +3,7 @@
 	"name":"Utility Console Commands", # Displayed to the player
 	"author":"Shark",
     "utility":"false",
-	"version":"1.0.0",
+	"version":"1.0.1",
 	"description":"New console commands to add/remove dmods, adjust CR and so on.",
     "gameVersion": "0.97a-RC6",
   	"jars":["jars/UtilityConsole.jar"],
