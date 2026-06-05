@@ -200,12 +200,13 @@ public class FindWeapons implements BaseCommand {
         return isWeaponSymbol(symbol) || isWeaponSizeSymbol(symbol) || isWeaponParameterSymbol(symbol);
     }
 
-    //constructSearchCriteria(criteria, weaponSize, weaponType, shipParameter, criteriaQuantity, quantityType, quantity);
-    private ParameterCriterion constructParameterCriteria(ParameterCriterion.CriteriaParameter.Criteria criteria,
-                                                          WeaponAPI.WeaponSize weaponSize,
-                                                          WeaponAPI.WeaponType weaponType,
-                                                          ParameterCriterion.CriteriaParameter.WeaponParameter weaponParameter,
-                                                          ParameterCriterion.CriteriaQuantity criteriaQuantity) {
+    private ParameterCriterion constructParameterCriteria(
+        ParameterCriterion.CriteriaParameter.Criteria criteria,
+        WeaponAPI.WeaponSize weaponSize,
+        WeaponAPI.WeaponType weaponType,
+        ParameterCriterion.CriteriaParameter.WeaponParameter weaponParameter,
+        ParameterCriterion.CriteriaQuantity criteriaQuantity
+    ) {
         ParameterCriterion retVal = null;
 
         // now make a context-sensitive ParameterCriterion based on the data we have parsed from the input data.console command
@@ -578,7 +579,7 @@ public class FindWeapons implements BaseCommand {
                         quantity
                 );
             } else {
-                Console.showMessage("Wrong input for quantity check! Expected an operation (< or = or >) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
+                Console.showMessage("Wrong input for quantity check! Expected an operation (< or <= or = or > or >=) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
                 return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
             }
         }

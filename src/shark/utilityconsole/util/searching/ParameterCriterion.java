@@ -156,7 +156,7 @@ public class ParameterCriterion {
 
     public static class CriteriaQuantity {
         public enum Quantity {
-            LESS_THAN, LESS_OR_EQUAL, EXACTLY, MORE_THAN, MORE_OR_EQUAL
+            LESS_THAN, LESS_OR_EQUAL, EXACTLY, MORE_OR_EQUAL, MORE_THAN
         }
 
         final Quantity criteria;

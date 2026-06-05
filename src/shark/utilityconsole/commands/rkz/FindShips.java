@@ -143,20 +143,17 @@ public class FindShips implements BaseCommand {
         return CommandResult.SUCCESS;
     }
 
-
     private boolean isValidSymbol(String symbol) {
         return isWeaponSymbol(symbol) || isWeaponSizeSymbol(symbol) || isShipParameterSymbol(symbol);
     }
 
-
-
-
-    //constructSearchCriteria(criteria, weaponSize, weaponType, shipParameter, criteriaQuantity, quantityType, quantity);
-    private ParameterCriterion constructParameterCriteria(ParameterCriterion.CriteriaParameter.Criteria criteria,
-                                                          WeaponAPI.WeaponSize weaponSize,
-                                                          WeaponAPI.WeaponType weaponType,
-                                                          ParameterCriterion.CriteriaParameter.ShipParameter shipParameter,
-                                                          ParameterCriterion.CriteriaQuantity criteriaQuantity) {
+    private ParameterCriterion constructParameterCriteria(
+        ParameterCriterion.CriteriaParameter.Criteria criteria,
+        WeaponAPI.WeaponSize weaponSize,
+        WeaponAPI.WeaponType weaponType,
+        ParameterCriterion.CriteriaParameter.ShipParameter shipParameter,
+        ParameterCriterion.CriteriaQuantity criteriaQuantity
+    ) {
         ParameterCriterion retVal = null;
 
         // now make a context-sensitive ParameterCriterion based on the data we have parsed from the input data.console command
@@ -325,7 +322,7 @@ public class FindShips implements BaseCommand {
                         quantity
                 );
             } else {
-                Console.showMessage("Wrong input for quantity check! Expected an operation (< or = or >) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
+                Console.showMessage("Wrong input for quantity check! Expected an operation (< or <= or = or > or >=) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
                 return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
             }
         }

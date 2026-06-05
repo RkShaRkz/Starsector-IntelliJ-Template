@@ -30,10 +30,10 @@ public class ParsingSynthaxUtil {
             retVal = ParameterCriterion.CriteriaQuantity.Quantity.LESS_OR_EQUAL;
         } else if (symbol.equalsIgnoreCase("=")) {
             retVal = ParameterCriterion.CriteriaQuantity.Quantity.EXACTLY;
-        } else if (symbol.equalsIgnoreCase(">")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.MORE_THAN;
         } else if (symbol.equalsIgnoreCase(">=")) {
             retVal = ParameterCriterion.CriteriaQuantity.Quantity.MORE_OR_EQUAL;
+        } else if (symbol.equalsIgnoreCase(">")) {
+            retVal = ParameterCriterion.CriteriaQuantity.Quantity.MORE_THAN;
         } else {
             Console.showMessage("Invalid symbol to remap to QuantitySymbol! Received " + symbol);
         }
@@ -64,7 +64,6 @@ public class ParsingSynthaxUtil {
     }
 
     public static boolean isWeaponSymbol(String symbol) {
-
         /**
          * 		BALLISTIC("Ballistic"),
          * 		ENERGY("Energy"),
@@ -79,7 +78,6 @@ public class ParsingSynthaxUtil {
          * 		SYSTEM("System"),
          * 		STATION_MODULE("Station Module");
          */
-
 
         boolean retVal = false;
         retVal = symbol.equalsIgnoreCase("Ballistic")
