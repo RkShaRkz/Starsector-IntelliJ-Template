@@ -11,9 +11,8 @@ import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
 
-import static shark.utilityconsole.util.ParsingSynthaxUtil.*;
+import static shark.utilityconsole.util.ParsingSyntaxUtil.*;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.Criteria.*;
-import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.WeaponParameter.*;
 
 public class FindWeapons implements BaseCommand {
     @Override

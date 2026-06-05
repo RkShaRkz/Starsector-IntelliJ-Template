@@ -7,7 +7,7 @@ import shark.utilityconsole.util.searching.ParameterCriterion;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.ShipParameter.*;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.WeaponParameter.*;
 
-public class ParsingSynthaxUtil {
+public class ParsingSyntaxUtil {
 
     public static boolean isQuantitySymbol(String symbol) {
         /**

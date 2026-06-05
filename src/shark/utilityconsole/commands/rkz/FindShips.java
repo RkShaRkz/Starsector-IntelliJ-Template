@@ -12,7 +12,7 @@ import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
 
-import static shark.utilityconsole.util.ParsingSynthaxUtil.*;
+import static shark.utilityconsole.util.ParsingSyntaxUtil.*;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.Criteria.*;
 
 public class FindShips implements BaseCommand {
