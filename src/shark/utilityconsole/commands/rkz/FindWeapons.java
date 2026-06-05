@@ -11,7 +11,7 @@ import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
 
-import static shark.utilityconsole.util.ParsingUtil.remapQuantitySymbol;
+import static shark.utilityconsole.util.ParsingSynthaxUtil.*;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.Criteria.*;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.WeaponParameter.*;
 
@@ -196,27 +196,6 @@ public class FindWeapons implements BaseCommand {
         return CommandResult.SUCCESS;
     }
 
-    private boolean isSizeSymbol(String symbol) {
-        boolean retVal = false;
-        retVal = symbol.equalsIgnoreCase("large") || symbol.equalsIgnoreCase("medium") || symbol.equalsIgnoreCase("small");
-
-        return retVal;
-    }
-
-    private WeaponAPI.WeaponSize remapSizeSymbol(String symbol) {
-        WeaponAPI.WeaponSize retVal = null;
-        if (symbol.equalsIgnoreCase("small")) {
-            retVal = WeaponAPI.WeaponSize.SMALL;
-        } else if (symbol.equalsIgnoreCase("medium")) {
-            retVal = WeaponAPI.WeaponSize.MEDIUM;
-        } else if (symbol.equalsIgnoreCase("large")) {
-            retVal = WeaponAPI.WeaponSize.LARGE;
-        } else {
-            Console.showMessage("Invalid symbol to remap to WeaponSize! Received " + symbol);
-        }
-
-        return retVal;
-    }
 
     private boolean isWeaponSymbol(String symbol) {
 
@@ -306,7 +285,7 @@ public class FindWeapons implements BaseCommand {
     }
 
     private boolean isValidSymbol(String symbol) {
-        return isWeaponSymbol(symbol) || isSizeSymbol(symbol) || isWeaponParameterSymbol(symbol);
+        return isWeaponSymbol(symbol) || isWeaponSizeSymbol(symbol) || isWeaponParameterSymbol(symbol);
     }
 
     private ParameterCriterion.CriteriaParameter.WeaponParameter remapWeaponParameterSymbol(String symbol) {
@@ -655,12 +634,12 @@ public class FindWeapons implements BaseCommand {
         }
 
         // check first symbol for size
-        if (isSizeSymbol(symbolList.get(0).trim())) {
+        if (isWeaponSizeSymbol(symbolList.get(0).trim())) {
             // since it is a size, we can now determine two things:
             // 1. we are going to be dealing with a WEAPON_WITH_SIZE query
             // 2. the actual size as well
             criteria = WEAPON_WITH_SIZE;
-            weaponSize = remapSizeSymbol(symbolList.get(0).trim());
+            weaponSize = remapWeaponSizeSymbol(symbolList.get(0).trim());
 
             // remove this element so the rest of the code can be much more straightforward
             symbolList.remove(0);
