@@ -12,6 +12,7 @@ import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
 
+import static shark.utilityconsole.util.ParsingUtil.remapQuantitySymbol;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.Criteria.*;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.ShipParameter.*;
 
@@ -301,24 +302,6 @@ public class FindShips implements BaseCommand {
         return retVal;
     }
 
-    private ParameterCriterion.CriteriaQuantity.Quantity remapQuantitySymbol(String symbol) {
-        //TODO extract to some "common util"
-        /**
-         * <, =, >
-         */
-        ParameterCriterion.CriteriaQuantity.Quantity retVal = null;
-        if (symbol.equalsIgnoreCase("<")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.AT_MOST;
-        } else if (symbol.equalsIgnoreCase("=")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.EXACTLY;
-        } else if (symbol.equalsIgnoreCase(">")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST;
-        } else {
-            Console.showMessage("Invalid symbol to remap to QuantitySymbol! Received " + symbol);
-        }
-
-        return retVal;
-    }
 
     //constructSearchCriteria(criteria, weaponSize, weaponType, shipParameter, criteriaQuantity, quantityType, quantity);
     private ParameterCriterion constructParameterCriteria(ParameterCriterion.CriteriaParameter.Criteria criteria,
@@ -468,7 +451,7 @@ public class FindShips implements BaseCommand {
         // 3. the query is not over, so we should parse the CriteriaQuantity
         if (symbolList.isEmpty()) {
             criteriaQuantity = new ParameterCriterion.CriteriaQuantity(
-                    ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST,
+                    ParameterCriterion.CriteriaQuantity.Quantity.MORE_OR_EQUAL,
                     0
             );
         } else {

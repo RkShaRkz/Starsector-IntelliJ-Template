@@ -156,8 +156,7 @@ public class ParameterCriterion {
 
     public static class CriteriaQuantity {
         public enum Quantity {
-            //TODO refactor to LESS_THAN, LESS_OR_EQUAL, EXACTLY, MORE_THAN, MORE_OR_EQUAL
-            AT_LEAST, EXACTLY, AT_MOST
+            LESS_THAN, LESS_OR_EQUAL, EXACTLY, MORE_THAN, MORE_OR_EQUAL
         }
 
         final Quantity criteria;
@@ -467,15 +466,20 @@ public class ParameterCriterion {
     private boolean matchesCriteriaQuantity(int value) {
         boolean retVal = false;
         switch (this.criteriaQuantity.criteria) {
-            //TODO add support for STRICTLY_LESS (<), STRICTLY_GREATER (>)
-            case AT_LEAST:
-                retVal = value >= this.criteriaQuantity.quantity;
+            case LESS_THAN:
+                retVal = value < this.criteriaQuantity.quantity;
+                break;
+            case LESS_OR_EQUAL:
+                retVal = value <= this.criteriaQuantity.quantity;
                 break;
             case EXACTLY:
                 retVal = value == this.criteriaQuantity.quantity;
                 break;
-            case AT_MOST:
-                retVal = value <= this.criteriaQuantity.quantity;
+            case MORE_THAN:
+                retVal = value > this.criteriaQuantity.quantity;
+                break;
+            case MORE_OR_EQUAL:
+                retVal = value >= this.criteriaQuantity.quantity;
                 break;
         }
 
