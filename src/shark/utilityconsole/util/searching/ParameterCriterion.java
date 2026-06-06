@@ -156,7 +156,7 @@ public class ParameterCriterion {
 
     public static class CriteriaQuantity {
         public enum Quantity {
-            LESS_THAN, LESS_OR_EQUAL, EXACTLY, MORE_OR_EQUAL, MORE_THAN
+            LESS_THAN, LESS_OR_EQUAL, EQUAL, MORE_OR_EQUAL, MORE_THAN
         }
 
         final Quantity criteria;
@@ -472,7 +472,7 @@ public class ParameterCriterion {
             case LESS_OR_EQUAL:
                 retVal = value <= this.criteriaQuantity.quantity;
                 break;
-            case EXACTLY:
+            case EQUAL:
                 retVal = value == this.criteriaQuantity.quantity;
                 break;
             case MORE_THAN:

@@ -11,17 +11,21 @@ public class ParsingSyntaxUtil {
 
     public static boolean isQuantitySymbol(String symbol) {
         /**
-         * <, <=, =, >, >=
+         * <, <=, =, >=, >
          */
         boolean retVal = false;
-        retVal = symbol.equalsIgnoreCase("<") || symbol.equalsIgnoreCase("<=") || symbol.equalsIgnoreCase("=") || symbol.equalsIgnoreCase(">") || symbol.equalsIgnoreCase(">=");
+        retVal = symbol.equalsIgnoreCase("<")
+            || symbol.equalsIgnoreCase("<=")
+            || symbol.equalsIgnoreCase("=")
+            || symbol.equalsIgnoreCase(">=")
+            || symbol.equalsIgnoreCase(">");
 
         return retVal;
     }
 
     public static ParameterCriterion.CriteriaQuantity.Quantity remapQuantitySymbol(String symbol) {
         /**
-         * <, <=, =, >, >=
+         * <, <=, =, >=, >
          */
         ParameterCriterion.CriteriaQuantity.Quantity retVal = null;
         if (symbol.equalsIgnoreCase("<")) {
@@ -29,7 +33,7 @@ public class ParsingSyntaxUtil {
         } else if (symbol.equalsIgnoreCase("<=")) {
             retVal = ParameterCriterion.CriteriaQuantity.Quantity.LESS_OR_EQUAL;
         } else if (symbol.equalsIgnoreCase("=")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.EXACTLY;
+            retVal = ParameterCriterion.CriteriaQuantity.Quantity.EQUAL;
         } else if (symbol.equalsIgnoreCase(">=")) {
             retVal = ParameterCriterion.CriteriaQuantity.Quantity.MORE_OR_EQUAL;
         } else if (symbol.equalsIgnoreCase(">")) {
@@ -43,7 +47,9 @@ public class ParsingSyntaxUtil {
 
     public static boolean isWeaponSizeSymbol(String symbol) {
         boolean retVal = false;
-        retVal = symbol.equalsIgnoreCase("large") || symbol.equalsIgnoreCase("medium") || symbol.equalsIgnoreCase("small");
+        retVal = symbol.equalsIgnoreCase("large")
+            || symbol.equalsIgnoreCase("medium")
+            || symbol.equalsIgnoreCase("small");
 
         return retVal;
     }
