@@ -32,7 +32,7 @@ public class FindShips implements BaseCommand {
          *
          * findships capital
          *
-         * Now, regarding the grammar. It is obvious that if we,re looking for more than one parameter, that it will start
+         * Now, regarding the grammar. It is obvious that if we're looking for more than one parameter, that it will start
          * with a { - so that should be checked first.
          *
          * Afterwards, we should look for size, as it is optional.
@@ -49,7 +49,7 @@ public class FindShips implements BaseCommand {
         // so the code that follows will fail for more complex queries such as
         // findships {size > frigate,ballistic > 3}
         // so it's best if we just look for ship-size related words in the input
-        // and immediatelly just map them to numbers to make everything easier.
+        // and immediately just map them to numbers to make everything easier.
         if (containsShipSizes(args)) {
             // an even more special case
             // consider the fact that the queries could be

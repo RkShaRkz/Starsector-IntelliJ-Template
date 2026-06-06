@@ -204,7 +204,7 @@ public class ParameterCriterion {
 
             case SHIP_PARAMETER: {
                 CriteriaParameter.ShipParameterCriteriaData actualData = (CriteriaParameter.ShipParameterCriteriaData) criteriaParameter.criteriaData;
-                // Somehow I think it's better to use rounding rather than direct casting, but I dont know if there's a real difference
+                // Somehow I think it's better to use rounding rather than direct casting, but I don't know if there's a real difference
                 switch (actualData.getParameter()) {
                     case CARGO:
                         retVal = matchesCriteriaQuantity(Math.round(ship.getCargo()));
@@ -353,7 +353,7 @@ public class ParameterCriterion {
             //TODO check and see how fighter bays behave, and maybe move them to be a parameter rather than a weapon
             case SHIP_PARAMETER: {
                 CriteriaParameter.ShipParameterCriteriaData actualData = (CriteriaParameter.ShipParameterCriteriaData) criteriaParameter.criteriaData;
-                // Somehow I think it's better to use rounding rather than direct casting, but I dont know if there's a real difference
+                // Somehow I think it's better to use rounding rather than direct casting, but I don't know if there's a real difference
                 switch (actualData.getParameter()) {
                     case CARGO:
                         retVal = Math.round(ship.getCargo());
@@ -377,7 +377,7 @@ public class ParameterCriterion {
                         retVal = Math.round(ship.getFluxDissipation());
                         break;
                     case SIZE:
-                        // Ugh, not great, but lets also establish sorting order from biggest to smallest
+                        // Ugh, not great, but let's also establish sorting order from biggest to smallest
                         retVal = ship.getHullSize().ordinal();
                         break;
                     case ORDNANCE_POINTS:
