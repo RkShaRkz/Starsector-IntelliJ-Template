@@ -43,7 +43,7 @@ public class ParameterCriterion {
         }
 
         public enum ShipParameter {
-            CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS
+            CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS, DEPLOYMENT_POINTS
         }
 
         public enum WeaponParameter {
@@ -156,7 +156,7 @@ public class ParameterCriterion {
 
     public static class CriteriaQuantity {
         public enum Quantity {
-            AT_LEAST, EXACTLY, AT_MOST
+            LESS_THAN, LESS_OR_EQUAL, EQUAL, MORE_OR_EQUAL, MORE_THAN
         }
 
         final Quantity criteria;
@@ -204,7 +204,7 @@ public class ParameterCriterion {
 
             case SHIP_PARAMETER: {
                 CriteriaParameter.ShipParameterCriteriaData actualData = (CriteriaParameter.ShipParameterCriteriaData) criteriaParameter.criteriaData;
-                // Somehow I think it's better to use rounding rather than direct casting, but I dont know if there's a real difference
+                // Somehow I think it's better to use rounding rather than direct casting, but I don't know if there's a real difference
                 switch (actualData.getParameter()) {
                     case CARGO:
                         retVal = matchesCriteriaQuantity(Math.round(ship.getCargo()));
@@ -233,6 +233,9 @@ public class ParameterCriterion {
                         break;
                     case ORDNANCE_POINTS:
                         retVal = matchesCriteriaQuantity(ship.getOrdnancePoints(null));
+                        break;
+                    case DEPLOYMENT_POINTS:
+                        retVal = matchesCriteriaQuantity(Math.round(ship.getSuppliesToRecover()));
                         break;
                     default:
                         Console.showMessage("Unsupported ShipParameter received in ParameterCriterion::matches()! Received: "+actualData.getParameter());
@@ -350,7 +353,7 @@ public class ParameterCriterion {
             //TODO check and see how fighter bays behave, and maybe move them to be a parameter rather than a weapon
             case SHIP_PARAMETER: {
                 CriteriaParameter.ShipParameterCriteriaData actualData = (CriteriaParameter.ShipParameterCriteriaData) criteriaParameter.criteriaData;
-                // Somehow I think it's better to use rounding rather than direct casting, but I dont know if there's a real difference
+                // Somehow I think it's better to use rounding rather than direct casting, but I don't know if there's a real difference
                 switch (actualData.getParameter()) {
                     case CARGO:
                         retVal = Math.round(ship.getCargo());
@@ -374,11 +377,14 @@ public class ParameterCriterion {
                         retVal = Math.round(ship.getFluxDissipation());
                         break;
                     case SIZE:
-                        // Ugh, not great, but lets also establish sorting order from biggest to smallest
+                        // Ugh, not great, but let's also establish sorting order from biggest to smallest
                         retVal = ship.getHullSize().ordinal();
                         break;
                     case ORDNANCE_POINTS:
                         retVal = ship.getOrdnancePoints(null);
+                        break;
+                    case DEPLOYMENT_POINTS:
+                        retVal = Math.round(ship.getSuppliesToRecover());
                         break;
                     default:
                         Console.showMessage("Unsupported ShipParameter received in ParameterCriterion::countMatches()! Received: "+actualData.getParameter());
@@ -460,14 +466,20 @@ public class ParameterCriterion {
     private boolean matchesCriteriaQuantity(int value) {
         boolean retVal = false;
         switch (this.criteriaQuantity.criteria) {
-            case AT_LEAST:
-                retVal = value >= this.criteriaQuantity.quantity;
+            case LESS_THAN:
+                retVal = value < this.criteriaQuantity.quantity;
                 break;
-            case EXACTLY:
+            case LESS_OR_EQUAL:
+                retVal = value <= this.criteriaQuantity.quantity;
+                break;
+            case EQUAL:
                 retVal = value == this.criteriaQuantity.quantity;
                 break;
-            case AT_MOST:
-                retVal = value <= this.criteriaQuantity.quantity;
+            case MORE_THAN:
+                retVal = value > this.criteriaQuantity.quantity;
+                break;
+            case MORE_OR_EQUAL:
+                retVal = value >= this.criteriaQuantity.quantity;
                 break;
         }
 

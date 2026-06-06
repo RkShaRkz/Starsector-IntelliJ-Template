@@ -12,8 +12,8 @@ import shark.utilityconsole.util.searching.*;
 
 import java.util.*;
 
+import static shark.utilityconsole.util.ParsingSyntaxUtil.*;
 import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.Criteria.*;
-import static shark.utilityconsole.util.searching.ParameterCriterion.CriteriaParameter.ShipParameter.*;
 
 public class FindShips implements BaseCommand {
     @Override
@@ -32,7 +32,7 @@ public class FindShips implements BaseCommand {
          *
          * findships capital
          *
-         * Now, regarding the grammar. It is obvious that if we,re looking for more than one parameter, that it will start
+         * Now, regarding the grammar. It is obvious that if we're looking for more than one parameter, that it will start
          * with a { - so that should be checked first.
          *
          * Afterwards, we should look for size, as it is optional.
@@ -49,7 +49,7 @@ public class FindShips implements BaseCommand {
         // so the code that follows will fail for more complex queries such as
         // findships {size > frigate,ballistic > 3}
         // so it's best if we just look for ship-size related words in the input
-        // and immediatelly just map them to numbers to make everything easier.
+        // and immediately just map them to numbers to make everything easier.
         if (containsShipSizes(args)) {
             // an even more special case
             // consider the fact that the queries could be
@@ -143,184 +143,17 @@ public class FindShips implements BaseCommand {
         return CommandResult.SUCCESS;
     }
 
-    private boolean isSizeSymbol(String symbol) {
-        boolean retVal = false;
-        retVal = symbol.equalsIgnoreCase("large") || symbol.equalsIgnoreCase("medium") || symbol.equalsIgnoreCase("small");
-
-        return retVal;
-    }
-
-    private WeaponAPI.WeaponSize remapSizeSymbol(String symbol) {
-        WeaponAPI.WeaponSize retVal = null;
-        if (symbol.equalsIgnoreCase("small")) {
-            retVal = WeaponAPI.WeaponSize.SMALL;
-        } else if (symbol.equalsIgnoreCase("medium")) {
-            retVal = WeaponAPI.WeaponSize.MEDIUM;
-        } else if (symbol.equalsIgnoreCase("large")) {
-            retVal = WeaponAPI.WeaponSize.LARGE;
-        } else {
-            Console.showMessage("Invalid symbol to remap to WeaponSize! Received " + symbol);
-        }
-
-        return retVal;
-    }
-
-    private boolean isWeaponSymbol(String symbol) {
-
-        /**
-         * 		BALLISTIC("Ballistic"),
-         * 		ENERGY("Energy"),
-         * 		MISSILE("Missile"),
-         * 		LAUNCH_BAY("Launch Bay"),
-         * 		UNIVERSAL("Universal"),
-         * 		HYBRID("Hybrid"),
-         * 		SYNERGY("Synergy"),
-         * 		COMPOSITE("Composite"),
-         * 		BUILT_IN("Built in"),
-         * 		DECORATIVE("Decorative"),
-         * 		SYSTEM("System"),
-         * 		STATION_MODULE("Station Module");
-         */
-
-
-        boolean retVal = false;
-        retVal = symbol.equalsIgnoreCase("Ballistic")
-                || symbol.equalsIgnoreCase("Energy")
-                || symbol.equalsIgnoreCase("Missile")
-                || symbol.equalsIgnoreCase("LaunchBay") || symbol.equalsIgnoreCase("Launch-Bay") || symbol.equalsIgnoreCase("Launch_Bay") || symbol.equalsIgnoreCase("LaunchBays")
-                || symbol.equalsIgnoreCase("Universal")
-                || symbol.equalsIgnoreCase("Hybrid")
-                || symbol.equalsIgnoreCase("Synergy")
-                || symbol.equalsIgnoreCase("Composite")
-                || symbol.equalsIgnoreCase("Builtin")
-                || symbol.equalsIgnoreCase("Decorative")
-                || symbol.equalsIgnoreCase("System")
-                || symbol.equalsIgnoreCase("StationModule");
-
-        return retVal;
-    }
-
-    private WeaponAPI.WeaponType remapWeaponSymbol(String symbol) {
-        WeaponAPI.WeaponType retVal = null;
-
-        if (symbol.equalsIgnoreCase("Ballistic")) {
-            retVal = WeaponAPI.WeaponType.BALLISTIC;
-        } else if (symbol.equalsIgnoreCase("Energy")) {
-            retVal = WeaponAPI.WeaponType.ENERGY;
-        } else if (symbol.equalsIgnoreCase("Missile")) {
-            retVal = WeaponAPI.WeaponType.MISSILE;
-        } else if (symbol.equalsIgnoreCase("LaunchBay") || symbol.equalsIgnoreCase("Launch-Bay") || symbol.equalsIgnoreCase("Launch_Bay") || symbol.equalsIgnoreCase("LaunchBays")) {
-            retVal = WeaponAPI.WeaponType.LAUNCH_BAY;
-        } else if (symbol.equalsIgnoreCase("Universal")) {
-            retVal = WeaponAPI.WeaponType.UNIVERSAL;
-        } else if (symbol.equalsIgnoreCase("Hybrid")) {
-            retVal = WeaponAPI.WeaponType.HYBRID;
-        } else if (symbol.equalsIgnoreCase("Synergy")) {
-            retVal = WeaponAPI.WeaponType.SYNERGY;
-        } else if (symbol.equalsIgnoreCase("Composite")) {
-            retVal = WeaponAPI.WeaponType.COMPOSITE;
-        } else if (symbol.equalsIgnoreCase("Builtin")) {
-            retVal = WeaponAPI.WeaponType.BUILT_IN;
-        } else if (symbol.equalsIgnoreCase("Decorative")) {
-            retVal = WeaponAPI.WeaponType.DECORATIVE;
-        } else if (symbol.equalsIgnoreCase("System")) {
-            retVal = WeaponAPI.WeaponType.SYSTEM;
-        } else if (symbol.equalsIgnoreCase("StationModule")) {
-            retVal = WeaponAPI.WeaponType.STATION_MODULE;
-        } else {
-            Console.showMessage("Invalid symbol to remap to WeaponType! Received " + symbol);
-        }
-
-        return retVal;
-    }
-
-    private boolean isShipParameterSymbol(String symbol) {
-        /**
-         * CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE, ORDNANCE_POINTS
-         */
-        boolean retVal = false;
-        retVal = symbol.equalsIgnoreCase("CARGO")
-                || symbol.equalsIgnoreCase("FUEL")
-                || symbol.equalsIgnoreCase("CREW")
-                || symbol.equalsIgnoreCase("HITPOINTS")
-                || symbol.equalsIgnoreCase("ARMOR")
-                || symbol.equalsIgnoreCase("FLUX_CAPACITY") || symbol.equalsIgnoreCase("FLUX-CAPACITY") || symbol.equalsIgnoreCase("FLUXCAPACITY")
-                || symbol.equalsIgnoreCase("FLUX_DISSIPATION") || symbol.equalsIgnoreCase("FLUX-DISSIPATION") || symbol.equalsIgnoreCase("FLUXDISSIPATION")
-                || symbol.equalsIgnoreCase("ORDNANCE_POINTS") || symbol.equalsIgnoreCase("ORDNANCE-POINTS") || symbol.equalsIgnoreCase("ORDNANCEPOINTS") || symbol.equalsIgnoreCase("OP")
-                || symbol.equalsIgnoreCase("SIZE");
-
-
-        return retVal;
-    }
-
     private boolean isValidSymbol(String symbol) {
-        return isWeaponSymbol(symbol) || isSizeSymbol(symbol) || isShipParameterSymbol(symbol);
+        return isWeaponSymbol(symbol) || isWeaponSizeSymbol(symbol) || isShipParameterSymbol(symbol);
     }
 
-    private ParameterCriterion.CriteriaParameter.ShipParameter remapShipParameterSymbol(String symbol) {
-        /**
-         * CARGO, FUEL, CREW, HITPOINTS, ARMOR, FLUX_CAPACITY, FLUX_DISSIPATION, SIZE
-         */
-        ParameterCriterion.CriteriaParameter.ShipParameter retVal = null;
-        if (symbol.equalsIgnoreCase("CARGO")) {
-            retVal = CARGO;
-        } else if (symbol.equalsIgnoreCase("FUEL")) {
-            retVal = FUEL;
-        } else if (symbol.equalsIgnoreCase("CREW")) {
-            retVal = CREW;
-        } else if (symbol.equalsIgnoreCase("HITPOINTS")) {
-            retVal = HITPOINTS;
-        } else if (symbol.equalsIgnoreCase("ARMOR")) {
-            retVal = ARMOR;
-        } else if (symbol.equalsIgnoreCase("FLUX_CAPACITY") || symbol.equalsIgnoreCase("FLUX-CAPACITY") || symbol.equalsIgnoreCase("FLUXCAPACITY")) {
-            retVal = FLUX_CAPACITY;
-        } else if (symbol.equalsIgnoreCase("FLUX_DISSIPATION") || symbol.equalsIgnoreCase("FLUX-DISSIPATION") || symbol.equalsIgnoreCase("FLUXDISSIPATION")) {
-            retVal = FLUX_DISSIPATION;
-        } else if (symbol.equalsIgnoreCase("ORDNANCE_POINTS") || symbol.equalsIgnoreCase("ORDNANCE-POINTS") || symbol.equalsIgnoreCase("ORDNANCEPOINTS") || symbol.equalsIgnoreCase("OP")) {
-            retVal = ORDNANCE_POINTS;
-        } else if (symbol.equalsIgnoreCase("SIZE")) {
-            retVal = SIZE;
-        } else {
-            Console.showMessage("Invalid symbol to remap to ShipParameter! Received " + symbol);
-        }
-
-        return retVal;
-    }
-
-    private boolean isQuantitySymbol(String symbol) {
-        /**
-         * <, =, >
-         */
-        boolean retVal = false;
-        retVal = symbol.equalsIgnoreCase("<") || symbol.equalsIgnoreCase("=") || symbol.equalsIgnoreCase(">");
-
-        return retVal;
-    }
-
-    private ParameterCriterion.CriteriaQuantity.Quantity remapQuantitySymbol(String symbol) {
-        /**
-         * <, =, >
-         */
-        ParameterCriterion.CriteriaQuantity.Quantity retVal = null;
-        if (symbol.equalsIgnoreCase("<")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.AT_MOST;
-        } else if (symbol.equalsIgnoreCase("=")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.EXACTLY;
-        } else if (symbol.equalsIgnoreCase(">")) {
-            retVal = ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST;
-        } else {
-            Console.showMessage("Invalid symbol to remap to QuantitySymbol! Received " + symbol);
-        }
-
-        return retVal;
-    }
-
-    //constructSearchCriteria(criteria, weaponSize, weaponType, shipParameter, criteriaQuantity, quantityType, quantity);
-    private ParameterCriterion constructParameterCriteria(ParameterCriterion.CriteriaParameter.Criteria criteria,
-                                                          WeaponAPI.WeaponSize weaponSize,
-                                                          WeaponAPI.WeaponType weaponType,
-                                                          ParameterCriterion.CriteriaParameter.ShipParameter shipParameter,
-                                                          ParameterCriterion.CriteriaQuantity criteriaQuantity) {
+    private ParameterCriterion constructParameterCriteria(
+        ParameterCriterion.CriteriaParameter.Criteria criteria,
+        WeaponAPI.WeaponSize weaponSize,
+        WeaponAPI.WeaponType weaponType,
+        ParameterCriterion.CriteriaParameter.ShipParameter shipParameter,
+        ParameterCriterion.CriteriaQuantity criteriaQuantity
+    ) {
         ParameterCriterion retVal = null;
 
         // now make a context-sensitive ParameterCriterion based on the data we have parsed from the input data.console command
@@ -416,12 +249,12 @@ public class FindShips implements BaseCommand {
         }
 
         // check first symbol for size
-        if (isSizeSymbol(symbolList.get(0).trim())) {
+        if (isWeaponSizeSymbol(symbolList.get(0).trim())) {
             // since it is a size, we can now determine two things:
             // 1. we are going to be dealing with a WEAPON_WITH_SIZE query
             // 2. the actual size as well
             criteria = WEAPON_WITH_SIZE;
-            weaponSize = remapSizeSymbol(symbolList.get(0).trim());
+            weaponSize = remapWeaponSizeSymbol(symbolList.get(0).trim());
 
             // remove this element so the rest of the code can be much more straightforward
             symbolList.remove(0);
@@ -463,7 +296,7 @@ public class FindShips implements BaseCommand {
         // 3. the query is not over, so we should parse the CriteriaQuantity
         if (symbolList.isEmpty()) {
             criteriaQuantity = new ParameterCriterion.CriteriaQuantity(
-                    ParameterCriterion.CriteriaQuantity.Quantity.AT_LEAST,
+                    ParameterCriterion.CriteriaQuantity.Quantity.MORE_OR_EQUAL,
                     0
             );
         } else {
@@ -489,7 +322,7 @@ public class FindShips implements BaseCommand {
                         quantity
                 );
             } else {
-                Console.showMessage("Wrong input for quantity check! Expected an operation (< or = or >) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
+                Console.showMessage("Wrong input for quantity check! Expected an operation (< or <= or = or > or >=) followed by a number, received " + Arrays.deepToString(symbolList.toArray()));
                 return new FailedExpressionProcessingResult(CommandResult.BAD_SYNTAX);
             }
         }
