@@ -970,6 +970,11 @@ public class VayraColonialManager implements EveryFrameScript {
 
             Vector2f sourceLoc = source.getLocationInHyperspace();
             SectorEntityToken dest = system.getHyperspaceAnchor();
+            // In case 'dest' somehow ended up being null, continue searching ...
+            if (dest == null) {
+                // Fix for issue 104 - the weird crash in hyperspace from CombatMain due to 'dest' being null
+                continue;
+            }
             Vector2f destLoc = dest.getLocationInHyperspace();
             float dist = Misc.getDistanceLY(sourceLoc, destLoc);
 
