@@ -1,9 +1,9 @@
 {
-  "hullName": "Manifesto",
-  "hullId": "vayra_manifesto",
+  "hullName": "Manifesto (S)",
+  "hullId": "vayra_manifesto_standard",
   "hullSize": "CAPITAL_SHIP",
-  "spriteName": "graphics/ships/vayra_manifesto.png",
-  "style": "LOW_TECH",
+  "spriteName": "graphics/ships/vayra_manifesto_standard.png",
+  "style": "MIDLINE",
   "height": 484,
   "width": 246,
   "center": [123, 242],

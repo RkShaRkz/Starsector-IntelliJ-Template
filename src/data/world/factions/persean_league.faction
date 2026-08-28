@@ -1,4 +1,9 @@
 {
+	"hullFrequency":{
+		"hulls":{
+			"vayra_manifesto_standard":1.5,
+		},
+	},
 	id:"persean",
 	"shipNameSources":{
 		"RUSSIAN_NAVY":2,

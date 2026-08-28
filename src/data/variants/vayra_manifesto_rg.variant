@@ -3,7 +3,7 @@
   "hullId": "vayra_manifesto",
   "displayName": "Liberation",
   "goalVariant": true,
-  "fluxCapacitors": 6,
+  "fluxCapacitors": 15,
   "fluxVents": 50,
   "quality": 1,
   "permaMods": [],
@@ -32,8 +32,7 @@
       "weapons": {
         "WS0002": "hveldriver",
         "WS0003": "hveldriver",
-        "WS0014": "lightdualmg",
-        "WS0015": "railgun"
+        "WS0014": "lightdualmg"
       }
     },
     {
@@ -48,7 +47,6 @@
       "mode": "LINKED",
       "weapons": {
         "WS0007": "vayra_kashtan",
-        "WS0008": "vayra_kashtan",
         "WS0009": "vayra_kashtan",
         "WS0010": "vayra_kashtan",
         "WS0011": "vayra_kashtan",
